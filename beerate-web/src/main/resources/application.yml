@@ -1,0 +1,22 @@
+
+
+
+
+
+spring:
+  datasource: #数据源配置
+    url: jdbc:mysql://localhost:3306/beerate_web?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa: #jpa配置
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    open-in-view: true
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+
+
