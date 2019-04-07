@@ -10,9 +10,21 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>beerate-captcha</artifactId>
     <version>${beerate.varsion}</version>
-
     <description>验证模块(含图形验证码，手机验证码，邮箱验证等)</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.beerate</groupId>
+            <artifactId>beerate-common</artifactId>
+            <version>${beerate.varsion}</version>
+        </dependency>
 
+        <!-- 验证码-->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+    </dependencies>
 
 </project>

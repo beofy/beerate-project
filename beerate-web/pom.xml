@@ -26,6 +26,14 @@
             <artifactId>beerate-user</artifactId>
             <version>${beerate.varsion}</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.beerate</groupId>
+            <artifactId>beerate-captcha</artifactId>
+            <version>${beerate.varsion}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

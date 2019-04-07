@@ -17,10 +17,10 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Table(appliesTo = "t_right",comment="权限表")
 public class t_right extends Model {
 
-    @Column(columnDefinition = "varchar(255) not null default comment '权限地址'")
+    @Column(columnDefinition = "varchar(255) not null default '' comment '权限地址'")
     private String control;
 
-    @Column(columnDefinition = "varchar(255) not null default comment '权限描述'")
+    @Column(columnDefinition = "varchar(255) not null default '' comment '权限描述'")
     private String description;
 
 

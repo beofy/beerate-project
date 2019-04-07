@@ -1,6 +1,7 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,5 +19,10 @@ public class AdminController {
     public Message<String> regist(){
 
         return null;
+    }
+
+    @GetMapping("/login")
+    public Message<String> login(){
+        return Message.ok("登录成功");
     }
 }
