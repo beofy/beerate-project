@@ -8,9 +8,9 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>beerate-captcha</artifactId>
+    <artifactId>beerate-security</artifactId>
     <version>${beerate.varsion}</version>
-    <description>验证模块(含图形验证码，手机验证码，邮箱验证等)</description>
+    <description>安全模块：验证码功能(图形，手机，邮箱等)，防止表单重复提交</description>
 
     <dependencies>
         <dependency>
@@ -25,6 +25,14 @@
             <artifactId>kaptcha</artifactId>
             <version>2.3.2</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>cn.beerate</groupId>
+            <artifactId>beerate-cache</artifactId>
+            <version>${beerate.varsion}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

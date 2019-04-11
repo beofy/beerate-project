@@ -29,10 +29,9 @@
 
         <dependency>
             <groupId>cn.beerate</groupId>
-            <artifactId>beerate-captcha</artifactId>
+            <artifactId>beerate-security</artifactId>
             <version>${beerate.varsion}</version>
         </dependency>
-
 
     </dependencies>
 
