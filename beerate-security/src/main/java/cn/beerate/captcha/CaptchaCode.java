@@ -1,12 +1,14 @@
 package cn.beerate.captcha;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class CaptchaCode implements CaptchaGenerator{
+public class CaptchaCode implements CaptchaGenerator, Serializable {
 
-    public CaptchaCode(String captchaCode, int expireIn) {
+    CaptchaCode(String captchaCode, int expireIn) {
         this.captchaCode = captchaCode;
         this.expireIn = expireIn;
+        this.expireTime=LocalDateTime.now().plusSeconds(this.expireIn);
     }
 
     /**
@@ -57,7 +59,7 @@ public class CaptchaCode implements CaptchaGenerator{
 
     public void setExpireIn(int expireIn) {
         this.expireIn = expireIn;
-        this.expireTime=LocalDateTime.now().plusSeconds(expireIn);
+
     }
 
     public LocalDateTime getExpireTime() {
