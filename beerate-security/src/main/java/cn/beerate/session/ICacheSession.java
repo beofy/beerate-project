@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 缓存session接口
  */
-interface CacheSession extends HttpSession {
+interface ICacheSession extends HttpSession {
 
     /**
      * 获取渠道类型
