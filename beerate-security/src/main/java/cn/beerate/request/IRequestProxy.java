@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 请求适配器
  */
-interface RequestAdpter extends HttpServletRequest {
+interface IRequestProxy extends HttpServletRequest {
     /**
      * 访问渠道
      */

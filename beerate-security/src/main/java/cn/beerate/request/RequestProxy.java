@@ -1,7 +1,8 @@
 package cn.beerate.request;
 
 
-import cn.beerate.session.CacheSeesionProvidor;
+import cn.beerate.session.CacheSeesion;
+import org.apache.catalina.session.StandardSessionFacade;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;
@@ -9,6 +10,7 @@ import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -19,11 +21,11 @@ import java.util.Map;
 /**
  * 请求代理适配器
  */
-public class RequestProvidor implements RequestAdpter {
+public class RequestProxy implements IRequestProxy {
 
     private HttpServletRequest request;
 
-    public RequestProvidor(HttpServletRequest request) {
+    public RequestProxy(HttpServletRequest request) {
         this.request=request;
     }
 
@@ -132,13 +134,17 @@ public class RequestProvidor implements RequestAdpter {
         String channel = getHeader(CHANNEL);
         String channelId = getHeader(CHANNELID);
 
-        if(StringUtils.isBlank(channel)||StringUtils.isBlank(channelId)){
-            return this.request.getSession(create);
+        HttpSession session = this.request.getSession(create);
+        if(StringUtils.isBlank(channel)){
+            channel="web";
+        }
+
+        if(StringUtils.isBlank(channelId)){
+            channelId=session.getId();
         }
 
         //返回CacheSession
-        return new CacheSeesionProvidor(channel,channelId);
-
+        return new CacheSeesion(session,channel,channelId);
     }
 
     @Override
