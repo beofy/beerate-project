@@ -29,8 +29,7 @@ public class CaptchaController {
     private CaptchaProcessorHolder captchaProcessorHolder;
 
     @Autowired
-    private HttpServletRequest requestProvidor;
-
+    private HttpServletRequest request;
 
     @GetMapping("/{captcha}/{scene}")
     public Message<String> create(@PathVariable String captcha, @PathVariable String scene, HttpServletResponse response) throws IOException {
@@ -46,11 +45,11 @@ public class CaptchaController {
         Assert.notNull(captchaProcessor, "验证码处理器未找到！");
 
         //创建验证码
-        return captchaProcessor.create(requestProvidor, response,sceneEum ,captchaEum);
+        return captchaProcessor.create(request, response,sceneEum ,captchaEum);
     }
 
     @PostMapping("/{captcha}/{scene}")
-    public Message check(@PathVariable String captcha, @PathVariable String scene, @Param("captchaCode") String captchaCode ){
+    public Message check(@PathVariable String captcha, @PathVariable String scene, @Param("captchaCode") String captchaCode){
 
         Captcha captchaEum = EnumUtils.getEnum(Captcha.class,captcha.toUpperCase());
         Assert.notNull(captchaEum, "验证码类型错误");
@@ -64,7 +63,7 @@ public class CaptchaController {
         CaptchaProcessor captchaProcessor = captchaProcessorHolder.getCaptchaProcessor(captchaEum);
         Assert.notNull(captchaProcessor, "验证码处理器未找到！");
 
-        return captchaProcessor.check(requestProvidor,captchaEum,captchaScene,captchaCode);
+        return captchaProcessor.check(request,captchaEum,captchaScene,captchaCode);
     }
 
 }

@@ -35,12 +35,12 @@ public abstract class AbstractCaptchaProcessor implements CaptchaProcessor{
 
     @Override
     public Message<String> check(HttpServletRequest request , Captcha captcha , CaptchaScene scene, String captchaCode) {
-        final String SESSION_KEY = PREFIX+captcha.name()+"_"+scene.name();
+        final String CAPTCHA_SESSION_KEY = PREFIX+captcha.name()+"_"+scene.name();
 
         HttpSession session = request.getSession();
 
         //获取session储存的验证码
-        Object object = session.getAttribute(SESSION_KEY);
+        Object object = session.getAttribute(CAPTCHA_SESSION_KEY);
 
         if(object==null){
            return Message.error("验证码错误或已超时");
@@ -53,7 +53,7 @@ public abstract class AbstractCaptchaProcessor implements CaptchaProcessor{
         }
 
         //移除验证码
-        session.removeAttribute(SESSION_KEY);
+        session.removeAttribute(CAPTCHA_SESSION_KEY);
 
         return Message.ok("验证码校验成功");
     }
