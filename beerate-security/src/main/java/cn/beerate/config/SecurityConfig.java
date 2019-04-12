@@ -1,7 +1,7 @@
 package cn.beerate.config;
 
 
-import cn.beerate.request.RequestProvidor;
+import cn.beerate.request.RequestProxy;
 import cn.beerate.captcha.email.EmailSender;
 import cn.beerate.captcha.email.IEmail;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
-    public HttpServletRequest requestProvidor(HttpServletRequest httpServletRequest){
-        return new RequestProvidor(httpServletRequest);
+    public HttpServletRequest request(HttpServletRequest httpServletRequest){
+        return new RequestProxy(httpServletRequest);
     }
 
     @Bean
