@@ -18,11 +18,9 @@
 	<description>beerate-project</description>
 
     <modules>
-        <module>beerate-web</module>
         <module>beerate-admin</module>
         <module>beerate-user</module>
         <module>beerate-service</module>
-        <module>beerate-common</module>
         <module>beerate-dao</module>
         <module>beerate-security</module>
         <module>beerate-cache</module>
@@ -56,6 +54,23 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>

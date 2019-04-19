@@ -13,12 +13,5 @@
 
     <version>${beerate.varsion}</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.beerate</groupId>
-            <artifactId>beerate-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
 
 </project>

@@ -19,5 +19,11 @@
             <artifactId>beerate-service</artifactId>
             <version>${beerate.varsion}</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.beerate</groupId>
+            <artifactId>beerate-security</artifactId>
+            <version>${beerate.varsion}</version>
+        </dependency>
     </dependencies>
 </project>

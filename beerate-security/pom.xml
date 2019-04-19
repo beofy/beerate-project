@@ -13,11 +13,6 @@
     <description>安全模块：验证码功能(图形，手机，邮箱等)，防止表单重复提交</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.beerate</groupId>
-            <artifactId>beerate-common</artifactId>
-            <version>${beerate.varsion}</version>
-        </dependency>
 
         <!-- 验证码-->
         <dependency>
