@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 @RestController
@@ -25,5 +26,14 @@ public class ExceptionHandle {
         return Message.error(ex.getMessage());
     }
 
+    /**
+     * 后台未登录异常(跳转登录页面)
+     */
+    @ExceptionHandler(AdminNoLoginException.class)
+    public ModelAndView adminNoLogin(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/admin/login.html");
+        return modelAndView;
+    }
 
 }
