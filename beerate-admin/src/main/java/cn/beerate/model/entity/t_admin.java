@@ -19,6 +19,9 @@ import java.util.Date;
 @org.hibernate.annotations.Table(appliesTo = "t_admin",comment="后台管理员表")
 public class t_admin extends UserAndAdminModel {
 
+    @Column(columnDefinition = "varchar(255) not null default '' comment '真实姓名'")
+    private String photo;
+
     @Column(columnDefinition = "varchar(20) not null default '' comment '真实姓名'")
     private String realityName;
 
@@ -34,11 +37,14 @@ public class t_admin extends UserAndAdminModel {
     @Column(columnDefinition = "bigint not null default 0 comment '登录次数'")
     private Long loginCount;
 
-    @Column(columnDefinition = "date comment '最后一次登录时间'")
+    @Column(columnDefinition = "datetime comment '最后一次登录时间'")
     private Date lastLoginTime;
 
     @Column(columnDefinition = "varchar(25) not null default '' comment '最后一次登录IP'")
     private String lastLoginIp;
+
+    @Column(columnDefinition = "varchar(255) not null default '' comment '简介'")
+    private String remark;
 
     @Column(columnDefinition = "bigint not null default 0 comment '创建者ID'")
     private Long createrId;
