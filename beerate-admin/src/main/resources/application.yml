@@ -3,6 +3,8 @@
 
 
 
+
+
 spring:
   datasource: #数据源配置
     url: jdbc:mysql://localhost:3306/beerate_web?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
@@ -18,5 +20,26 @@ spring:
     show-sql: true
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL57Dialect
+  mvc: #表示所有的访问都经过静态资源路径
+    static-path-pattern: /**
+#  resources:
+#    static-locations:
+
+  #thymelea模板配置
+  thymeleaf:
+    prefix: "classpath:/templates/"
+    suffix: ".html"
+    mode: "HTML5"
+    encoding: "UTF-8"
+    cache: false
+
+#系统参数
+cn:
+  beerate:
+    security-properties:
+      password_md5_salt: wGyUtsswIYAMxHdW
+
+
+
 
 
