@@ -1,8 +1,13 @@
 package cn.beerate;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * 安全配置
  */
+@Configuration
+@ConfigurationProperties(prefix = "cn.beerate.security")
 public class SecurityProperties {
     /**
      * 密码加密参数
