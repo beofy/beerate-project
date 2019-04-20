@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
 spring:
   datasource: #数据源配置
     url: jdbc:mysql://localhost:3306/beerate_web?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
@@ -32,14 +27,22 @@ spring:
     mode: "HTML5"
     encoding: "UTF-8"
     cache: false
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 209715200 #限制上传的多个文件的总大小
+      max-file-size: 104857600 #限制单个文件的最大值
+      location: #上传文件的临时目录
+
+
 
 #系统参数
 cn:
   beerate:
-    security-properties:
-      password_md5_salt: wGyUtsswIYAMxHdW
-
-
-
-
+    file:
+      admin-file: /admin
+      temp-file:  /temp
+      user-file:  /user
+    security:
+      password-md5-salt: wGyUtsswIYAMxHdW
 
