@@ -17,7 +17,7 @@ public class Model {
     private Long id;
 
     @Column(columnDefinition = "timestamp NULL DEFAULT CURRENT_TIMESTAMP")
-    private Date createTime=new Date();
+    private Date createTime;
 
     private Date updateTime;
 
