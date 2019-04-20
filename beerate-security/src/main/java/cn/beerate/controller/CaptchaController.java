@@ -20,16 +20,15 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/captcha")
-public class CaptchaController {
+public class CaptchaController extends BaseController{
 
     /**
      * 验证码处理容器
      */
-    @Autowired
     private CaptchaProcessorHolder captchaProcessorHolder;
-
-    @Autowired
-    private HttpServletRequest request;
+    public CaptchaController(CaptchaProcessorHolder captchaProcessorHolder) {
+        this.captchaProcessorHolder = captchaProcessorHolder;
+    }
 
     @GetMapping("/{captcha}/{scene}")
     public Message<String> create(@PathVariable String captcha, @PathVariable String scene, HttpServletResponse response) throws IOException {
@@ -45,7 +44,7 @@ public class CaptchaController {
         Assert.notNull(captchaProcessor, "验证码处理器未找到！");
 
         //创建验证码
-        return captchaProcessor.create(request, response,sceneEum ,captchaEum);
+        return captchaProcessor.create(super.getRequest(), response,sceneEum ,captchaEum);
     }
 
     @PostMapping("/{captcha}/{scene}")
@@ -63,7 +62,7 @@ public class CaptchaController {
         CaptchaProcessor captchaProcessor = captchaProcessorHolder.getCaptchaProcessor(captchaEum);
         Assert.notNull(captchaProcessor, "验证码处理器未找到！");
 
-        return captchaProcessor.check(request,captchaEum,captchaScene,captchaCode);
+        return captchaProcessor.check(super.getRequest(),captchaEum,captchaScene,captchaCode);
     }
 
 }
