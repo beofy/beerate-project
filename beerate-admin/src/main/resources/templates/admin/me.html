@@ -11,54 +11,82 @@
         <!--页面主要内容-->
         <main class="lyear-layout-content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
 
-                                <div class="edit-avatar">
-                                    <img th:src="@{/images/users/avatar.jpg}" src="" th:alt="${admin.getUsername()}" class="img-avatar">
-                                    <div class="avatar-divider"></div>
-                                    <div class="edit-avatar-content">
-                                        <button class="btn btn-default">修改头像</button>
-                                        <p class="m-0">选择一张你喜欢的图片，裁剪后会自动生成264x264大小，上传图片大小不能超过2M。</p>
-                                    </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-1 col-sm-6">
+                                <img th:src="@{/images/users/avatar.jpg}" src="" th:alt="${admin.getUsername()}" class="img-avatar">
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="avatar-divider"></div>
+                                <div class="edit-avatar-content">
+                                    <button class="btn ">注册时间</button>
+                                    <p class="m-0" th:text="${#dates.format(admin.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
                                 </div>
-                                <hr>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="avatar-divider"></div>
+                                <div class="edit-avatar-content">
+                                    <button class="btn ">上次登录时间</button>
+                                    <p class="m-0" th:text="${#dates.format(admin.getLastLoginTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="avatar-divider"></div>
+                                <div class=" edit-avatar-content">
+                                    <button class="btn ">上次登录ip</button>
+                                    <p class="m-0" th:text="${admin.getLastLoginIp()}"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="avatar-divider"></div>
+                                <div class=" edit-avatar-content">
+                                    <button class="btn ">登录次数</button>
+                                    <p class="center-block" th:text="${admin.getLoginCount()}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <form method="post" action="" class="site-form">
-                                    <div class="form-group">
-                                        <label for="username">用户名</label>
-                                        <input type="text" class="form-control" name="username" id="username" value="lightyear" disabled="disabled" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="realityName">真实姓名</label>
-                                        <input type="text" class="form-control" name="realityName" id="realityName" placeholder="输入您的真实姓名" th:value="${admin.getRealityName()}" disabled="disabled">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">邮箱</label>
-                                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="请输入正确的邮箱地址" th:value="${admin.getEmail()}" disabled="disabled">
-                                        <!--<small id="emailHelp" class="form-text text-muted">请保证您填写的邮箱地址是正确的。</small>-->
-                                    </div>
+                            <div class="form-group">
+                                <label for="username">用户名</label>
+                                <input type="text" class="form-control" name="username" id="username" value="lightyear" disabled="disabled" />
+                            </div>
+                            <div class="form-group">
+                                <label for="realityName">真实姓名</label>
+                                <input type="text" class="form-control" name="realityName" id="realityName" placeholder="输入您的真实姓名" th:value="${admin.getRealityName()}" disabled="disabled">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">邮箱</label>
+                                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="请输入正确的邮箱地址" th:value="${admin.getEmail()}" disabled="disabled">
+                                <!--<small id="emailHelp" class="form-text text-muted">请保证您填写的邮箱地址是正确的。</small>-->
+                            </div>
 
-                                    <div class="form-group">
-                                        <label for="mobile">手机号</label>
-                                        <input type="number" class="form-control" name="mobile" id="mobile" aria-describedby="mobileHelp" placeholder="请输入正确的手机号" th:value="${admin.getMobile()}" disabled="disabled">
-                                        <!--<small id="mobileHelp" class="form-text text-muted">请保证您填写的手机号是正确的。</small>-->
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="department">部门</label>
-                                        <input type="text" class="form-control" name="department" id="department" placeholder="输入您的部门" th:value="${admin.getDepartment()}" disabled="disabled">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="position">职位</label>
-                                        <input type="text" class="form-control" name="position" id="position" placeholder="输入您的职位" th:value="${admin.getPosition()}" disabled="disabled">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="remark">简介</label>
-                                        <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！" disabled="disabled"></textarea>
-                                    </div>
-                                </form>
-
+                            <div class="form-group">
+                                <label for="mobile">手机号</label>
+                                <input type="number" class="form-control" name="mobile" id="mobile" aria-describedby="mobileHelp" placeholder="请输入正确的手机号" th:value="${admin.getMobile()}" disabled="disabled">
+                                <!--<small id="mobileHelp" class="form-text text-muted">请保证您填写的手机号是正确的。</small>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="department">部门</label>
+                                <input type="text" class="form-control" name="department" id="department" placeholder="输入您的部门" th:value="${admin.getDepartment()}" disabled="disabled">
+                            </div>
+                            <div class="form-group">
+                                <label for="position">职位</label>
+                                <input type="text" class="form-control" name="position" id="position" placeholder="输入您的职位" th:value="${admin.getPosition()}" disabled="disabled">
+                            </div>
+                            <div class="form-group">
+                                <label for="remark">简介</label>
+                                <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！" disabled="disabled"></textarea>
+                            </div>
+                        </form>
                             </div>
                         </div>
                     </div>
