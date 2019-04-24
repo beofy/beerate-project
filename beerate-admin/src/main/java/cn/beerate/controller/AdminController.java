@@ -11,11 +11,22 @@ import cn.beerate.model.entity.t_admin;
 import cn.beerate.security.Encrypt;
 import cn.beerate.service.AdminService;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.DateUtil;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理员控制器
@@ -32,6 +43,7 @@ public class AdminController extends AdminBaseController{
         this.imageCaptchaProcessor = imageCaptchaProcessor;
     }
 
+
     /**
      * 登录页面
      */
@@ -40,6 +52,7 @@ public class AdminController extends AdminBaseController{
         return "admin/login";
     }
 
+
     /**
      * 主页
      */
@@ -47,6 +60,7 @@ public class AdminController extends AdminBaseController{
     public String mainPage(){
         return "admin/main";
     }
+
 
     /**
      * 查询管理员信息
@@ -57,13 +71,57 @@ public class AdminController extends AdminBaseController{
         return "admin/me";
     }
 
+
     /**
      * 管理员列表
      */
     @GetMapping("/list.html")
-    public String listPage(){
+    public String listPage(int page, int size, String colum, String order, String beginDate, String endDate, t_admin admin , Model model){
+
+        Page<t_admin> pageBean = adminService.page(page, size, colum, order, new Specification<t_admin>() {
+            @Override
+            public Predicate toPredicate(Root<t_admin> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(beginDate!=null&&endDate!=null){
+                    predicates.add(criteriaBuilder.between(root.get("createTime") , DateUtil.parse(beginDate), DateUtil.parse(endDate)));
+                }
+
+                if(StringUtils.isNotBlank(admin.getUsername())){
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("username"),"%"+admin.getUsername()+"%")));
+                }
+
+
+                Predicate[] predicate = new Predicate[predicates.size()];
+                return criteriaBuilder.and(predicates.toArray(predicate));
+            }
+        });
+
+        model.addAttribute("page",pageBean);
+
         return "admin/list";
     }
+
+//    public String listPage(int page,int size,String colum,String order,t_admin admin ,Model model){
+//        //匹配条件
+//        ExampleMatcher matcher  =ExampleMatcher.matching()
+//                .withIgnoreNullValues()//忽略空值
+//                //采用模糊匹配
+//                .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.contains())
+//                .withMatcher("email", ExampleMatcher.GenericPropertyMatchers.contains())
+//                .withMatcher("realityName", ExampleMatcher.GenericPropertyMatchers.contains())
+//                .withMatcher("mobile", ExampleMatcher.GenericPropertyMatchers.contains())
+//                .withMatcher("department", ExampleMatcher.GenericPropertyMatchers.contains())
+//                .withMatcher("position", ExampleMatcher.GenericPropertyMatchers.contains());
+//
+//        Example<t_admin> example =  Example.of(admin,matcher);
+//
+//        Page<t_admin> pageBean = adminService.page(page,size,colum,order,example);
+//
+//        model.addAttribute("page",pageBean);
+//
+//        return "admin/list";
+//    }
+
 
     /**
      * 密码修改页面
@@ -73,8 +131,9 @@ public class AdminController extends AdminBaseController{
         return "admin/updatePassWord";
     }
 
+
     /**
-     * 密码修改页面
+     * 密码修改
      */
     @PostMapping("/updatePassWord")
     @ResponseBody
@@ -102,43 +161,16 @@ public class AdminController extends AdminBaseController{
         return "admin/add";
     }
 
+
     /**
      * 添加管理员
      */
     @PostMapping("/add")
     @ResponseBody
-    public Message<String> add(t_admin admin){
+    public Message<String> add(@Valid t_admin admin, BindingResult result){
 
-        if(admin==null){
-            return Message.error("系统异常");
-        }
-
-        if(StringUtils.isBlank(admin.getUsername())){
-            return Message.error("账号不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getPassword())){
-            return Message.error("密码不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getMobile())){
-            return Message.error("手机不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getEmail())){
-            return Message.error("邮箱不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getRealityName())){
-            return Message.error("真实姓名不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getDepartment())){
-            return Message.error("部门不能为空");
-        }
-
-        if(StringUtils.isBlank(admin.getPosition())){
-            return  Message.error("职位不能为空");
+        if(result.hasErrors()){
+            return Message.error(result.getAllErrors().get(0).getDefaultMessage());
         }
 
         return adminService.addAdmin(admin,getAdminId());
@@ -182,6 +214,7 @@ public class AdminController extends AdminBaseController{
 
         return new Message<>(StatusCode.SUCCESS,"登录成功",messageLogin.getData().getId().toString());
     }
+
 
     /**
      * 登出
