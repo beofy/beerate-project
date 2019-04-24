@@ -15,6 +15,10 @@ spring:
     show-sql: true
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL57Dialect
+    properties:
+      hibernate:
+        format_sql: true
+
   mvc: #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
 #  resources:
@@ -33,6 +37,15 @@ spring:
       max-request-size: 209715200 #限制上传的多个文件的总大小
       max-file-size: 104857600 #限制单个文件的最大值
       location: #上传文件的临时目录
+#热部署配置
+  devtools:
+    restart:
+      enabled: true
+  gson:
+    date-format: yyyy-MM-dd HH:mm:ss #时间戳统一转换
+  jackson:
+    time-zone: GMT+8 #默认为格林尼治时间，即少8小时
+
 
 
 
