@@ -37,7 +37,7 @@ public class CaptchaController extends BaseController{
         Assert.notNull(captchaEum, "验证码类型错误！");
 
         CaptchaScene sceneEum = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
-        Assert.notNull(captchaEum, "验证码场景类型错误！");
+        Assert.notNull(sceneEum, "验证码场景类型错误！");
 
         //获取验证码处理器
         CaptchaProcessor captchaProcessor = captchaProcessorHolder.getCaptchaProcessor(captchaEum);
@@ -54,7 +54,7 @@ public class CaptchaController extends BaseController{
         Assert.notNull(captchaEum, "验证码类型错误");
 
         CaptchaScene captchaScene = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
-        Assert.notNull(captchaEum, "验证码场景类型错误");
+        Assert.notNull(captchaScene, "验证码场景类型错误");
 
         Assert.notNull(captchaCode, "验证码错误");
 
