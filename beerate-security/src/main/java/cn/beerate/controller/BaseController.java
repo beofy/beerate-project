@@ -1,5 +1,8 @@
 package cn.beerate.controller;
 
+import cn.beerate.request.ChannelType;
+import cn.beerate.session.CacheSeesion;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,5 +52,13 @@ class BaseController {
     <T> T getSessionAttr(String name, Class<T> tClass) {
         Object o = getSession().getAttribute(name);
         return (T) o;
+    }
+
+    /**
+     * 获取访问的渠道
+     */
+    public ChannelType getChannel(){
+        CacheSeesion cacheSeesion = (CacheSeesion)getSession();
+        return EnumUtils.getEnumIgnoreCase(ChannelType.class,cacheSeesion.getChannel());
     }
 }
