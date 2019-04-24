@@ -7,19 +7,21 @@ import org.apache.commons.mail.HtmlEmail;
 
 public class EmailSender implements IEmail{
 
-    private static final Log logger = LogFactory.getLog(EmailSender.class);
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     private String emailWebsite;
     private String mailAccount;
     private String mailPassword;
+    private String smtpPort;
 
-    public EmailSender(String emailWebsite, String mailAccount, String mailPassword) {
-        this.emailWebsite = emailWebsite;
-        this.mailAccount = mailAccount;
-        this.mailPassword = mailPassword;
-    }
+	public EmailSender(String emailWebsite, String mailAccount, String mailPassword, String smtpPort) {
+		this.emailWebsite = emailWebsite;
+		this.mailAccount = mailAccount;
+		this.mailPassword = mailPassword;
+		this.smtpPort = smtpPort;
+	}
 
-    /**
+	/**
 	 * 发送HMTL格式的邮件
 	 *
 	 * @param emailWebsite 邮件服务器地址
@@ -38,7 +40,7 @@ public class EmailSender implements IEmail{
             logger.info("from email "+mailAccount);
 			sendEmail.setFrom(mailAccount);
 			sendEmail.setSSLOnConnect(true);
-			sendEmail.setSslSmtpPort("465");
+			sendEmail.setSslSmtpPort(this.smtpPort);
 			sendEmail.addTo(toEmail);
 			
 			sendEmail.setSubject(title);
