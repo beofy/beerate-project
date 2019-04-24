@@ -7,11 +7,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface UserAndAdminDao<T extends UserAndAdminModel> extends IBaseDao<T>{
 
     /**
-     * 根据用户名和密码查找用户
-     */
-    T findByUsernameAndPassword(String username,String password);
-
-    /**
      * 根据手机号查找用户
      */
     T findByMobile(String mobile);
