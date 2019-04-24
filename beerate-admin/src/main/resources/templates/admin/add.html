@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common::head"></head>
+<head th:replace="common::head('添加管理员')"></head>
 
 <body>
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
-        <header th:replace="common::aside"></header>
-        <header th:replace="common::header"></header>
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('添加管理员')"></header>
 
         <!--页面主要内容-->
         <main class="lyear-layout-content">
@@ -42,12 +42,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">邮箱</label>
-                                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="请输入正确的邮箱地址" >
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="请输入正确的邮箱地址" >
                                     </div>
 
                                     <div class="form-group">
                                         <label for="mobile">手机号</label>
-                                        <input type="tel" class="form-control" name="mobile" id="mobile" aria-describedby="mobileHelp" placeholder="请输入正确的手机号">
+                                        <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="请输入正确的手机号">
                                     </div>
                                     <div class="form-group">
                                         <label for="department">部门</label>
@@ -148,7 +148,7 @@
                 url: "/admin/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/list.html?success="+data.msg
+                        location.href="/admin/list.html?page=1&size=10&colum=id&order=desc&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');
