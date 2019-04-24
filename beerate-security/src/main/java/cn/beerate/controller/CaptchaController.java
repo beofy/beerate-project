@@ -33,10 +33,10 @@ public class CaptchaController extends BaseController{
     @GetMapping("/{captcha}/{scene}")
     public Message<String> create(@PathVariable String captcha, @PathVariable String scene, HttpServletResponse response) throws IOException {
 
-        Captcha captchaEum = EnumUtils.getEnum(Captcha.class,captcha.toUpperCase());
+        Captcha captchaEum = EnumUtils.getEnumIgnoreCase(Captcha.class,captcha);
         Assert.notNull(captchaEum, "验证码类型错误！");
 
-        CaptchaScene sceneEum = EnumUtils.getEnum(CaptchaScene.class,scene.toUpperCase());
+        CaptchaScene sceneEum = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
         Assert.notNull(captchaEum, "验证码场景类型错误！");
 
         //获取验证码处理器
@@ -50,10 +50,10 @@ public class CaptchaController extends BaseController{
     @PostMapping("/{captcha}/{scene}")
     public Message check(@PathVariable String captcha, @PathVariable String scene, @Param("captchaCode") String captchaCode){
 
-        Captcha captchaEum = EnumUtils.getEnum(Captcha.class,captcha.toUpperCase());
+        Captcha captchaEum = EnumUtils.getEnumIgnoreCase(Captcha.class,captcha);
         Assert.notNull(captchaEum, "验证码类型错误");
 
-        CaptchaScene captchaScene = EnumUtils.getEnum(CaptchaScene.class,scene.toUpperCase());
+        CaptchaScene captchaScene = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
         Assert.notNull(captchaEum, "验证码场景类型错误");
 
         Assert.notNull(captchaCode, "验证码错误");
