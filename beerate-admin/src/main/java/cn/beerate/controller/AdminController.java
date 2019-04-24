@@ -23,7 +23,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -209,8 +208,7 @@ public class AdminController extends AdminBaseController{
         }
 
         //保存登录状态
-        HttpSession session = getSession();
-        session.setAttribute(SessionKey.ADMIN_SESSION_KEY,messageLogin.getData());
+        getSession().setAttribute(SessionKey.ADMIN_SESSION_KEY,messageLogin.getData());
 
         return new Message<>(StatusCode.SUCCESS,"登录成功",messageLogin.getData().getId().toString());
     }
