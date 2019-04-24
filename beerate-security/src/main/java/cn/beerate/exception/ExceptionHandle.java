@@ -1,8 +1,11 @@
 package cn.beerate.exception;
 
 import cn.beerate.common.Message;
+import cn.beerate.request.ChannelType;
+import cn.beerate.session.CacheSeesion;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,20 +13,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+
 @ControllerAdvice
 @RestController
 public class ExceptionHandle {
 
     private static final Log logger = LogFactory.getLog(ExceptionHandle.class);
 
+    private HttpServletRequest request;
+    public ExceptionHandle(HttpServletRequest request) {
+        this.request = request;
+    }
+
     /**
      * 异常处理
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
-    public Message handleException(Exception ex) {
+    public Object handleException(Exception ex) {
         logger.error("系统异常",ex);
-        return Message.error(ex.getMessage());
+        CacheSeesion cacheSeesion = (CacheSeesion)request.getSession();
+        if(cacheSeesion.getChannel().equalsIgnoreCase(ChannelType.WEB.name())){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }else {
+            return Message.error(ex.getMessage());
+        }
     }
 
     /**
