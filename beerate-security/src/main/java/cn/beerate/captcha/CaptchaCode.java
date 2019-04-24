@@ -44,22 +44,12 @@ public class CaptchaCode implements CaptchaGenerator, Serializable {
         return expireTime.isBefore(LocalDateTime.now());
     }
 
-
     public String getCaptchaCode() {
         return captchaCode;
     }
 
-    public void setCaptchaCode(String captchaCode) {
-        this.captchaCode = captchaCode;
-    }
-
     public int getExpireIn() {
         return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-
     }
 
     public LocalDateTime getExpireTime() {
