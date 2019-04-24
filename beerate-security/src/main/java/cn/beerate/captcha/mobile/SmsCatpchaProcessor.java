@@ -3,6 +3,9 @@ package cn.beerate.captcha.mobile;
 import cn.beerate.Utils.StringUtil;
 import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
+import cn.beerate.exception.ExceptionHandle;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +17,7 @@ import java.io.IOException;
  */
 @Component
 public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
-
+    private static final Log logger = LogFactory.getLog(ExceptionHandle.class);
     private ISms chuangLanSms;
     public SmsCatpchaProcessor(ISms chuangLanSms) {
         this.chuangLanSms = chuangLanSms;
@@ -43,6 +46,7 @@ public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements Cap
             return Message.error("请输入正确的手机号码");
         }
 
+        logger.info(String.format("手机号：%s,验证码：[%s]",mobile,captchaGenerator.getCaptchaCode()));
         chuangLanSms.sendSMS(mobile,"验证码：["+captchaGenerator.getCaptchaCode()+"]");
         return Message.ok("发送成功");
     }
