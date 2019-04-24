@@ -1,9 +1,7 @@
 package cn.beerate.captcha.mobile;
 
-import cn.beerate.captcha.AbstractCaptchaProcessor;
-import cn.beerate.captcha.Captcha;
-import cn.beerate.captcha.CaptchaGenerator;
-import cn.beerate.captcha.CaptchaProcessor;
+import cn.beerate.Utils.StringUtil;
+import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +15,35 @@ import java.io.IOException;
 @Component
 public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
 
-    @Override
-    public Message<String> send(HttpServletRequest request, HttpServletResponse response, CaptchaGenerator captchaGenerator) throws IOException {
+    private ISms chuangLanSms;
+    public SmsCatpchaProcessor(ISms chuangLanSms) {
+        this.chuangLanSms = chuangLanSms;
+    }
 
+
+    @Override
+    public Message<String> create(HttpServletRequest request, HttpServletResponse response, CaptchaScene captchaScene, Captcha captcha) throws IOException {
+        final String CAPTCHA_SESSION_KEY = PREFIX+captcha.name()+"_"+captchaScene.name();
+        //获取session储存的验证码
+        CaptchaGenerator captchaGenerator = (CaptchaGenerator)request.getSession().getAttribute(CAPTCHA_SESSION_KEY);
+        /*
+         * 这里针对短信，做增强，判断验证码是否过期，没过期则不发送新的短信验证码
+         */
+        if(captchaGenerator!=null&&captchaGenerator.checkExpireIn()){
+            return Message.error("短信已发送，请稍候再试");
+        }
+
+        return super.create(request, response, captchaScene, captcha);
+    }
+
+    @Override
+    public Message<String> send(HttpServletRequest request, HttpServletResponse response, CaptchaGenerator captchaGenerator) {
+        String mobile =  request.getParameter("mobile");
+        if(!StringUtil.isMobile(mobile)){
+            return Message.error("请输入正确的手机号码");
+        }
+
+        chuangLanSms.sendSMS(mobile,"验证码：["+captchaGenerator.getCaptchaCode()+"]");
         return Message.ok("发送成功");
     }
 

@@ -1,5 +1,6 @@
 package cn.beerate.captcha.email;
 
+import cn.beerate.Utils.StringUtil;
 import cn.beerate.captcha.AbstractCaptchaProcessor;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaGenerator;
@@ -24,6 +25,11 @@ public class EmailCatpchaProcessor extends AbstractCaptchaProcessor implements C
     @Override
     public Message<String> send(HttpServletRequest request, HttpServletResponse response, CaptchaGenerator captchaGenerator){
         String toEmail = request.getParameter("toemail");
+
+        if(!StringUtil.isEmail(toEmail)){
+           return Message.error("请输入正确的电子邮箱");
+        }
+
         emailSender.sendEmail(toEmail,"巴雷特","验证码：["+captchaGenerator.getCaptchaCode()+"]");
         return Message.ok("发送成功");
     }
