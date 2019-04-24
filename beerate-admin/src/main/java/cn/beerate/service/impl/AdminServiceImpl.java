@@ -31,9 +31,14 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
      * 后台用户登陆
      */
     public Message<t_admin> login(String username,String password,String ipAddr){
-        t_admin admin = adminDao.findByUsernameAndPassword(username,Encrypt.MD5(password+ PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt()));
+        t_admin admin = adminDao.findByUsername(username);
         if(admin==null){
            return Message.error("用户不存在或者密码错误");
+        }
+        String  md5Password=Encrypt.MD5(password+PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt());
+        
+        if(!admin.getPassword().equals(md5Password)){
+            return Message.error("用户不存在或者密码错误");
         }
 
         //判断账号时候锁定
@@ -59,6 +64,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
             return Message.error("管理账号已存在");
         }
 
+        admin.setCreateTime(new Date());
         //添加创建者id
         admin.setCreaterId(createid);
         admin.setPassword(Encrypt.MD5(admin.getPassword()+ PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt()));
