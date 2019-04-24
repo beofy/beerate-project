@@ -10,6 +10,7 @@ import cn.beerate.service.AdminService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Service
+@Transactional(readOnly = true)
 public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminService {
     private final Log logger = LogFactory.getLog(this.getClass());
     private AdminDao adminDao;
@@ -30,6 +32,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
     /**
      * 后台用户登陆
      */
+    @Transactional
     public Message<t_admin> login(String username,String password,String ipAddr){
         t_admin admin = adminDao.findByUsername(username);
         if(admin==null){
@@ -56,7 +59,9 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         return Message.success(adminDao.save(admin));
     }
 
+
     @Override
+    @Transactional
     public Message<String> addAdmin(t_admin admin,long createid){
 
         //判断用户名是否存在
