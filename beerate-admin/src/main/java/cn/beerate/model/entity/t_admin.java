@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 
@@ -19,16 +20,19 @@ import java.util.Date;
 @org.hibernate.annotations.Table(appliesTo = "t_admin",comment="后台管理员表")
 public class t_admin extends UserAndAdminModel {
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '真实姓名'")
+    @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
     private String photo;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '真实姓名'")
+    @NotBlank(message = "真实姓名不能为空")
     private String realityName;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '部门名称'")
+    @NotBlank(message = "部门不能为空")
     private String department;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '职位'")
+    @NotBlank(message = "职位不能空")
     private String position;
 
     @Column(columnDefinition = "bit not null default 0 comment '锁定状态'")
@@ -48,5 +52,6 @@ public class t_admin extends UserAndAdminModel {
 
     @Column(columnDefinition = "bigint not null default 0 comment '创建者ID'")
     private Long createrId;
+
 
 }
