@@ -5,7 +5,6 @@ import cn.beerate.request.ChannelType;
 import cn.beerate.session.CacheSeesion;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @ControllerAdvice
 @RestController
@@ -29,7 +26,7 @@ public class ExceptionHandle {
     }
 
     /**
-     * 异常处理
+     * 全局异常处理
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
@@ -48,7 +45,7 @@ public class ExceptionHandle {
     /**
      * 后台未登录异常(跳转登录页面)
      */
-    @ExceptionHandler(AdminNoLoginException.class)
+    @ExceptionHandler(AdminLoginException.class)
     public ModelAndView adminNoLogin(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin/login.html");

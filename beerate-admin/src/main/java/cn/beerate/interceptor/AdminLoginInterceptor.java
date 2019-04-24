@@ -1,7 +1,7 @@
 package cn.beerate.interceptor;
 
 import cn.beerate.constant.SessionKey;
-import cn.beerate.exception.AdminNoLoginException;
+import cn.beerate.exception.AdminLoginException;
 import cn.beerate.request.RequestProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,7 +30,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
         HttpServletRequest requestProxy = new RequestProxy(request);
         HttpSession session = requestProxy.getSession();
         if(session.getAttribute(SessionKey.ADMIN_SESSION_KEY)==null){
-           throw new AdminNoLoginException("管理员未登录");
+           throw new AdminLoginException("管理员未登录");
         }
 
         return true;
