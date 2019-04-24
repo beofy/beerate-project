@@ -136,7 +136,7 @@ public class RequestProxy implements IRequestProxy {
 
         HttpSession session = this.request.getSession(create);
         if(StringUtils.isBlank(channel)){
-            channel="web";
+            channel=ChannelType.WEB.name();
         }
 
         if(StringUtils.isBlank(channelId)){
