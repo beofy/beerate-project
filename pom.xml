@@ -20,8 +20,7 @@
     <modules>
         <module>beerate-admin</module>
         <module>beerate-user</module>
-        <module>beerate-service</module>
-        <module>beerate-dao</module>
+        <module>beerate-core</module>
         <module>beerate-security</module>
         <module>beerate-cache</module>
     </modules>

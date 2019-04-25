@@ -9,9 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>beerate-dao</artifactId>
-
-    <version>${beerate.varsion}</version>
-
+    <artifactId>beerate-core</artifactId>
 
 </project>
