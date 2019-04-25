@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class CaptchaCode implements CaptchaGenerator, Serializable {
 
-    CaptchaCode(String captchaCode, int expireIn) {
+    public CaptchaCode(String captchaCode, int expireIn) {
         this.captchaCode = captchaCode;
         this.expireIn = expireIn;
         this.expireTime=LocalDateTime.now().plusSeconds(this.expireIn);
