@@ -41,7 +41,7 @@ public class CaptchaCode implements CaptchaGenerator, Serializable {
      */
     @Override
     public boolean checkExpireIn() {
-        return expireTime.isBefore(LocalDateTime.now());
+        return LocalDateTime.now().isBefore(expireTime);
     }
 
     public String getCaptchaCode() {

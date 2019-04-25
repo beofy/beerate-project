@@ -6,12 +6,10 @@ import cn.beerate.captcha.CaptchaProcessorHolder;
 import cn.beerate.common.Message;
 import cn.beerate.captcha.CaptchaScene;
 import org.apache.commons.lang3.EnumUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 

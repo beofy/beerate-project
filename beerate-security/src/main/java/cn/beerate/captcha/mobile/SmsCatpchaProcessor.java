@@ -31,7 +31,7 @@ public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements Cap
         }
 
         SmsCaptchaCode smsCaptchaCode = (SmsCaptchaCode)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
-        if(smsCaptchaCode!=null&&smsCaptchaCode.getMobile().equals(message.getData())&&!smsCaptchaCode.checkExpireIn()){
+        if(smsCaptchaCode!=null&&smsCaptchaCode.getMobile().equals(message.getData())&&smsCaptchaCode.checkExpireIn()){
             return Message.error("短信已发送，请稍候再试");
         }
 
