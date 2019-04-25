@@ -1,13 +1,11 @@
 package cn.beerate.captcha.image;
 
 
-import cn.beerate.captcha.AbstractCaptchaProcessor;
-import cn.beerate.captcha.Captcha;
-import cn.beerate.captcha.CaptchaGenerator;
-import cn.beerate.captcha.CaptchaProcessor;
+import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -21,21 +19,24 @@ import java.util.Properties;
 public class ImageCaptchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
 
     @Override
+    public Message<String> create(HttpServletRequest request, HttpServletResponse response, CaptchaScene captchaScene, Captcha captcha) throws IOException {
+        //生成验证码
+        CaptchaGenerator captchaGenerator = new CaptchaCode(RandomStringUtils.randomNumeric(6),300);
+        //保存验证码
+        save(request,captcha,captchaScene,captchaGenerator);
+
+        return send(request,response,captchaGenerator);
+    }
+
+    @Override
     public Message<String> send(HttpServletRequest request, HttpServletResponse response, CaptchaGenerator imageCaptchaProcessor) throws IOException {
         response.addHeader("Content-Type", "image/jpeg");
-
         //生成图形验证码
         BufferedImage captchaImage = kaptcha().createImage(imageCaptchaProcessor.getCaptchaCode());
-
         //输出验证码
         ImageIO.write(captchaImage, "JPEG", response.getOutputStream());
 
         return null;
-    }
-
-    @Override
-    public boolean support(Captcha captcha) {
-        return Captcha.IMAGE==captcha;
     }
 
     private DefaultKaptcha kaptcha() {
@@ -53,4 +54,21 @@ public class ImageCaptchaProcessor extends AbstractCaptchaProcessor implements C
         kaptcha.setConfig(conf);
         return kaptcha;
     }
+
+    @Override
+    public Message<String> check(HttpServletRequest request, Captcha captcha, CaptchaScene captchaScene, String captchaCode) {
+
+        CaptchaGenerator captchaGenerator = (CaptchaGenerator)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
+        if(captchaGenerator==null||!captchaGenerator.getCaptchaCode().equalsIgnoreCase(captchaCode)){
+            return Message.error("验证码错误或已超时");
+        }
+
+        return Message.ok("验证码校验成功");
+    }
+
+    @Override
+    public boolean support(Captcha captcha) {
+        return Captcha.IMAGE==captcha;
+    }
+
 }

@@ -1,6 +1,5 @@
 package cn.beerate.captcha;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -8,8 +7,10 @@ import java.util.Map;
 @Component
 public class CaptchaProcessorHolder {
 
-    @Autowired
     private Map<String,CaptchaProcessor> captchaProcessorMap;
+    public CaptchaProcessorHolder(Map<String, CaptchaProcessor> captchaProcessorMap) {
+        this.captchaProcessorMap = captchaProcessorMap;
+    }
 
     /**
      * 查找一个验证处理器
