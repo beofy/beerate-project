@@ -197,6 +197,7 @@ public class AdminController extends AdminBaseController{
 
         //处理验证码
         Message<String> messageCaptchaCheck = imageCaptchaProcessor.check(getRequest(), Captcha.IMAGE, CaptchaScene.ADMIN_LOGIN,captchaCode);
+        imageCaptchaProcessor.remove(getSession(),Captcha.IMAGE,CaptchaScene.ADMIN_LOGIN);
         if(messageCaptchaCheck.fail()){
             return messageCaptchaCheck;
         }
