@@ -21,11 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController extends UserBaseController{
 
     private UserService userService;
-    private CaptchaProcessor imageCaptchaProcessor;
-
-    public UserController(UserService userService, CaptchaProcessor imageCaptchaProcessor) {
+    private CaptchaProcessor smsCatpchaProcessor;
+    public UserController(UserService userService, CaptchaProcessor smsCatpchaProcessor) {
         this.userService = userService;
-        this.imageCaptchaProcessor = imageCaptchaProcessor;
+        this.smsCatpchaProcessor = smsCatpchaProcessor;
     }
 
     /**
@@ -54,10 +53,12 @@ public class UserController extends UserBaseController{
         }
 
         //短信验证码校验
-        Message<String> messageCaptchaCheck = imageCaptchaProcessor.check(getRequest(), Captcha.SMS, CaptchaScene.USER_REGIST,smsCaptchaCode);
+        Message<String> messageCaptchaCheck = smsCatpchaProcessor.check(getRequest(), Captcha.SMS, CaptchaScene.USER_REGIST,smsCaptchaCode);
         if(messageCaptchaCheck.fail()){
             return messageCaptchaCheck;
         }
+        //清空验证码
+        smsCatpchaProcessor.remove(getSession(),Captcha.SMS, CaptchaScene.USER_REGIST);
 
         //注册
         Message<t_user> message = userService.registe(mobile,password,getIp(),getChannel().name());

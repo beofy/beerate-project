@@ -10,6 +10,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserService {
     private UserDao userDao;
@@ -34,6 +36,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
 
         t_user user = new t_user();
         //随机生成用户名
+        user.setCreateTime(new Date());
         user.setMobile(mobile);
         user.setUsername(RandomStringUtils.randomAlphanumeric(13));
         user.setPassword(Encrypt.MD5(password+ PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt()));
