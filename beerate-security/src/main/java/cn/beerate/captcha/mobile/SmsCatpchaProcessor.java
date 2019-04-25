@@ -25,21 +25,20 @@ public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements Cap
 
     @Override
     public Message<String> create(HttpServletRequest request, HttpServletResponse response, CaptchaScene captchaScene, Captcha captcha){
-
-        CaptchaGenerator captchaGenerator = (CaptchaGenerator)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
-        if(captchaGenerator!=null&&captchaGenerator.checkExpireIn()){
-            return Message.error("短信已发送，请稍候再试");
-        }
-
         Message<String> message = getMobile(request);
         if (message.fail()){
             return message;
         }
 
-        SmsCaptchaCode smsCaptchaCode = new SmsCaptchaCode(RandomStringUtils.randomNumeric(6),300,message.getData());
-        save(request,captcha,captchaScene,smsCaptchaCode);
+        SmsCaptchaCode smsCaptchaCode = (SmsCaptchaCode)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
+        if(smsCaptchaCode!=null&&smsCaptchaCode.getMobile().equals(message.getData())&&!smsCaptchaCode.checkExpireIn()){
+            return Message.error("短信已发送，请稍候再试");
+        }
 
-        return send(request,response,smsCaptchaCode);
+        SmsCaptchaCode smsCaptchaCode1 = new SmsCaptchaCode(RandomStringUtils.randomNumeric(6),300,message.getData());
+        save(request,captcha,captchaScene,smsCaptchaCode1);
+
+        return send(request,response,smsCaptchaCode1);
     }
 
     @Override
