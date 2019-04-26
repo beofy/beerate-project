@@ -1,10 +1,10 @@
 package cn.beerate.controller;
 
-import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.Captcha;
+import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaProcessorHolder;
-import cn.beerate.common.Message;
 import cn.beerate.captcha.CaptchaScene;
+import cn.beerate.common.Message;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.repository.query.Param;
 import org.springframework.util.Assert;

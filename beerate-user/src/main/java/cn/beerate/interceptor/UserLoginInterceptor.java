@@ -1,7 +1,6 @@
 package cn.beerate.interceptor;
 
 import cn.beerate.constant.SessionKey;
-import cn.beerate.exception.AdminLoginException;
 import cn.beerate.exception.UserLoginException;
 import cn.beerate.request.RequestProxy;
 import org.springframework.stereotype.Component;

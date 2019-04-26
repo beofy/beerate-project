@@ -3,11 +3,11 @@ package cn.beerate.config;
 
 import cn.beerate.Properties;
 import cn.beerate.PropertiesHodler;
+import cn.beerate.captcha.email.EmailSender;
+import cn.beerate.captcha.email.IEmail;
 import cn.beerate.captcha.mobile.ISms;
 import cn.beerate.captcha.mobile.chuanglan.ChuangLanSms;
 import cn.beerate.request.RequestProxy;
-import cn.beerate.captcha.email.EmailSender;
-import cn.beerate.captcha.email.IEmail;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
