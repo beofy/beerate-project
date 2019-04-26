@@ -16,13 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.beerate</groupId>
-            <artifactId>beerate-service</artifactId>
-            <version>${beerate.varsion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.beerate</groupId>
-            <artifactId>beerate-security</artifactId>
+            <artifactId>beerate-core</artifactId>
             <version>${beerate.varsion}</version>
         </dependency>
     </dependencies>

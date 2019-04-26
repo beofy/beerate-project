@@ -12,39 +12,12 @@
     <version>${beerate.varsion}</version>
 
     <dependencies>
-
-
         <dependency>
             <groupId>cn.beerate</groupId>
             <artifactId>beerate-core</artifactId>
             <version>${beerate.varsion}</version>
         </dependency>
-
-        <dependency>
-            <groupId>cn.beerate</groupId>
-            <artifactId>beerate-security</artifactId>
-            <version>${beerate.varsion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.beerate</groupId>
-            <artifactId>beerate-user</artifactId>
-            <version>${beerate.varsion}</version>
-        </dependency>
-
     </dependencies>
-    <build>
-        <plugins>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
 
 </project>

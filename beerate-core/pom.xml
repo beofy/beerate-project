@@ -11,4 +11,11 @@
 
     <artifactId>beerate-core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.beerate</groupId>
+            <artifactId>beerate-security</artifactId>
+            <version>${beerate.varsion}</version>
+        </dependency>
+    </dependencies>
 </project>
