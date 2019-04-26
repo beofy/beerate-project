@@ -1,4 +1,4 @@
-package cn.beerate.model.entity;
+package cn.beerate.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

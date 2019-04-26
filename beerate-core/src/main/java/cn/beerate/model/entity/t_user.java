@@ -1,12 +1,13 @@
 package cn.beerate.model.entity;
 
+import cn.beerate.model.UserAndAdminModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Date;
 @Setter
 @Getter
 @org.hibernate.annotations.Table(appliesTo = "t_user",comment="前台用户表")
-public class t_user extends UserAndAdminModel{
+public class t_user extends UserAndAdminModel {
 
     @Column(columnDefinition = "int not null default 0 comment '密码连续错误次数'")
     private Integer password_continue_fails;
@@ -45,5 +46,40 @@ public class t_user extends UserAndAdminModel{
 
     @Column(columnDefinition = "varchar(20) default '' comment '注册渠道'")
     private String registe_channel;
+
+
+    //======================基本信息======================
+    @OneToOne(mappedBy = "user")
+    private t_user_info user_info;
+
+    @OneToOne(mappedBy = "user")
+    private t_user_business user_business;
+
+
+    //======================项目关联======================
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_loan> item_loan;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_block_trade> block_trade;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_pre_ipo> pre_ipo;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_stock_pledge> stock_pledge;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_stock_transfer> stock_transfer;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_overseas_listing> overseas_listing;
+
 
 }
