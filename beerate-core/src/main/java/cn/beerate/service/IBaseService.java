@@ -1,6 +1,6 @@
 package cn.beerate.service;
 
-import cn.beerate.model.entity.Model;
+import cn.beerate.model.Model;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;

@@ -1,7 +1,7 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.dao.IBaseDao;
-import cn.beerate.model.entity.Model;
+import cn.beerate.model.Model;
 import cn.beerate.service.IBaseService;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;

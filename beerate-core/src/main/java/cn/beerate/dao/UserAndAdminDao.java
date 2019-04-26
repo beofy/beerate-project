@@ -1,6 +1,6 @@
 package cn.beerate.dao;
 
-import cn.beerate.model.entity.UserAndAdminModel;
+import cn.beerate.model.UserAndAdminModel;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
