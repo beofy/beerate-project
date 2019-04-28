@@ -3,17 +3,21 @@ package cn.beerate.constant;
 /**
  * session常量
  */
-public class SessionKey {
+public interface SessionKey {
 
     /**
      * 管理员登录会话:(SESSION键值)
      */
-    public static final String ADMIN_SESSION_KEY="admin_approve_session";
+    String ADMIN_SESSION_KEY="admin_approve_session";
 
     /**
      * 用户登录会话:(SESSION键值)
      */
-    public static final String USER_SESSION_KEY="user_approve_session";
+    String USER_SESSION_KEY="user_approve_session";
 
+    /**
+     * 用户登录验证码错误key
+     */
+    String USER_LOGIN_FAIL_COUNT="user_login_password_fail_key";
 
 }
