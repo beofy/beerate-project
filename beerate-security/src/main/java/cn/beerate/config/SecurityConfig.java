@@ -2,7 +2,7 @@ package cn.beerate.config;
 
 
 import cn.beerate.Properties;
-import cn.beerate.PropertiesHodler;
+import cn.beerate.PropertiesHolder;
 import cn.beerate.captcha.email.EmailSender;
 import cn.beerate.captcha.email.IEmail;
 import cn.beerate.captcha.mobile.ISms;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
 
-    private static final Log logger = LogFactory.getLog(SecurityConfig.class);
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     private Properties properties;
 
@@ -45,7 +45,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     void initPropertiesHodler(){
         logger.info("初始化系统参数");
-        PropertiesHodler.properties=properties;
+        PropertiesHolder.properties=properties;
     }
 
 
