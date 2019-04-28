@@ -1,6 +1,6 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHodler;
+import cn.beerate.PropertiesHolder;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
@@ -141,13 +141,13 @@ public class AdminController extends AdminBaseController{
     @ResponseBody
     public Message<String> updatePassWord(String oldPassWod,String newPassWord){
         t_admin admin = adminService.getOne(getAdminId());
-        String encOldPassWod = Encrypt.MD5(oldPassWod+PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt());
+        String encOldPassWod = Encrypt.MD5(oldPassWod+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
         if(!admin.getPassword().equals(encOldPassWod)){
             return Message.error("密码错误");
         }
 
         //更新密码
-        String encNwePassWord = Encrypt.MD5(newPassWord+PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt());
+        String encNwePassWord = Encrypt.MD5(newPassWord+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
         admin.setPassword(encNwePassWord);
         adminService.save(admin);
 

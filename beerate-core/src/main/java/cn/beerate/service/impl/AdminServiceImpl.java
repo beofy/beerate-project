@@ -1,6 +1,6 @@
 package cn.beerate.service.impl;
 
-import cn.beerate.PropertiesHodler;
+import cn.beerate.PropertiesHolder;
 import cn.beerate.Utils.PathUtil;
 import cn.beerate.common.Message;
 import cn.beerate.dao.AdminDao;
@@ -38,7 +38,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         if(admin==null){
            return Message.error("用户不存在或者密码错误");
         }
-        String  md5Password=Encrypt.MD5(password+PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt());
+        String  md5Password=Encrypt.MD5(password+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
         
         if(!admin.getPassword().equals(md5Password)){
             return Message.error("用户不存在或者密码错误");
@@ -72,7 +72,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         admin.setCreateTime(new Date());
         //添加创建者id
         admin.setCreaterId(createid);
-        admin.setPassword(Encrypt.MD5(admin.getPassword()+ PropertiesHodler.properties.getSecurityProperties().getPassword_md5_salt()));
+        admin.setPassword(Encrypt.MD5(admin.getPassword()+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()));
         admin.setLastLoginIp("");
         admin.setLockStatus(false);
         admin.setLoginCount(0L);
@@ -94,7 +94,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
                 logger.error(e);
                 return Message.error("系统异常");
             }
-            admin.setPhoto(PropertiesHodler.properties.getFileProperties().getAdminFile()+File.separator+out.getName());
+            admin.setPhoto(PropertiesHolder.properties.getFileProperties().getAdminFile()+File.separator+out.getName());
         }
 
         if(super.save(admin)==null){
