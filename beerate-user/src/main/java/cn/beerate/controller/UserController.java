@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 用户控制器
  */
@@ -22,17 +25,65 @@ public class UserController extends UserBaseController{
 
     private UserService userService;
     private CaptchaProcessor smsCatpchaProcessor;
-    public UserController(UserService userService, CaptchaProcessor smsCatpchaProcessor) {
+    private CaptchaProcessor imageCaptchaProcessor;
+
+    public UserController(UserService userService, CaptchaProcessor smsCatpchaProcessor, CaptchaProcessor imageCaptchaProcessor) {
         this.userService = userService;
         this.smsCatpchaProcessor = smsCatpchaProcessor;
+        this.imageCaptchaProcessor = imageCaptchaProcessor;
     }
 
     /**
      * 登录
      */
     @PostMapping("/login")
-    public Message<String> login(){
-        return null;
+    public Message<String> login(String mobile ,String password,String imageCaptchaCode){
+        if(StringUtils.isBlank(mobile)){
+            return Message.error("请输入手机号");
+        }
+
+        if(StringUtils.isBlank(password)){
+            return Message.error("请输入密码");
+        }
+
+        //处理验证码
+        @SuppressWarnings("unchecked")
+        Map<String,Integer> failCount = (Map<String,Integer>)getSession().getAttribute(SessionKey.USER_LOGIN_FAIL_COUNT);
+
+        if(failCount!=null&&failCount.get(mobile)!=null&&failCount.get(mobile)>3){
+            if(StringUtils.isBlank(imageCaptchaCode)){
+                return Message.error("请输入验证码");
+            }
+
+            Message<String> messageCaptcha = imageCaptchaProcessor.check(getRequest(),Captcha.IMAGE,CaptchaScene.USER_LOGIN,imageCaptchaCode);
+            if (messageCaptcha.fail()){
+                return messageCaptcha;
+            }
+        }
+
+        //执行登录
+        Message<t_user> message = userService.login(mobile,password,getIp(),getChannel().name());
+        if(message.fail()){
+            //增加错误登录次数
+            if(failCount==null){
+                failCount= new HashMap<>();
+                failCount.put(mobile,1);
+            }else {
+                if(failCount.get(mobile)==null){
+                    failCount.put(mobile,1);
+                }else {
+                    failCount.put(mobile,failCount.get(mobile)+1);
+                }
+            }
+
+            getSession().setAttribute(SessionKey.USER_LOGIN_FAIL_COUNT,failCount);
+            return Message.error(message.getMsg());
+        }
+
+        //保存登录状态
+        super.getSession().setAttribute(SessionKey.USER_SESSION_KEY,message.getData());
+
+        return Message.ok("登录成功");
     }
 
     /**
@@ -77,7 +128,27 @@ public class UserController extends UserBaseController{
      */
     @GetMapping("/loginout")
     public Message<String> loginout(){
-        return null;
+        getSession().removeAttribute(SessionKey.USER_SESSION_KEY);
+        return Message.ok("登出成功");
+    }
+
+    /**
+     * 更新用户信息
+     */
+    @PostMapping("/updateUserInfo")
+    public Message<String> updateUserInfo(){
+
+        return Message.ok("更新用户信息成功");
+    }
+
+    /**
+     * 更新名片
+     */
+    @PostMapping("/updateUserBusiness")
+    public Message<String> updateUserBusiness(String businessFilePath){
+
+
+        return Message.ok("");
     }
 
 }
