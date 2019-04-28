@@ -1,6 +1,6 @@
 package cn.beerate.Utils;
 
-import cn.beerate.PropertiesHodler;
+import cn.beerate.PropertiesHolder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.ResourceUtils;
@@ -36,7 +36,7 @@ public class PathUtil {
      * 获取临时资源路劲
      */
     public static String getTempPath(){
-        return getStaticPath()+ File.separator+ PropertiesHodler.properties.getFileProperties().getTempFile();
+        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getTempFile();
     }
 
 
@@ -44,13 +44,13 @@ public class PathUtil {
      * 获取管理资源路劲
      */
     public static String getAdminPath(){
-        return getStaticPath()+ File.separator+ PropertiesHodler.properties.getFileProperties().getAdminFile();
+        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getAdminFile();
     }
 
     /**
      * 获取用户资源路劲
      */
     public static String getUserPath(){
-        return getStaticPath()+ File.separator+ PropertiesHodler.properties.getFileProperties().getUserFile();
+        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getUserFile();
     }
 }

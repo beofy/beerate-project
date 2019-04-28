@@ -1,6 +1,6 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHodler;
+import cn.beerate.PropertiesHolder;
 import cn.beerate.Utils.PathUtil;
 import cn.beerate.common.Message;
 import org.apache.commons.logging.Log;
@@ -16,7 +16,7 @@ import java.util.UUID;
  * 文件控制器
  */
 @Controller
-@RequestMapping("/admin/file/")
+@RequestMapping(value = {"/admin/file/","/user/file/"})
 public class FileUploadController extends BaseController{
     private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -27,7 +27,7 @@ public class FileUploadController extends BaseController{
     @ResponseBody
     public Message<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         //临时文件夹
-        String tempFile = PropertiesHodler.properties.getFileProperties().getTempFile();
+        String tempFile = PropertiesHolder.properties.getFileProperties().getTempFile();
         //临时文件名
         String tempFileName = UUID.randomUUID().toString();
         //临时静态资源相对路劲
