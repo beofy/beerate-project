@@ -108,7 +108,7 @@ public class UserController extends UserBaseController{
     /**
      * 注册
      */
-    @PostMapping("/registe")
+    @PostMapping("/reg")
     public Message<String> registe(String mobile ,String password,String smsCaptchaCode){
         if(StringUtils.isBlank(mobile)){
             return Message.error("请输入手机号码");
@@ -186,7 +186,7 @@ public class UserController extends UserBaseController{
         //保存用户资源
         String userFilePath = PathUtil.getUserPath()+businessFilePath;
 
-        return userBusinessService.uploadUserBusiness(tempFilePath,userFilePath);
+        return userBusinessService.uploadUserBusiness(tempFilePath,userFilePath,getUserId());
     }
 
     /**
