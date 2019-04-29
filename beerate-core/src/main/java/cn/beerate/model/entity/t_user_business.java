@@ -22,6 +22,24 @@ import java.util.Date;
 @org.hibernate.annotations.Table(appliesTo = "t_user_business",comment="用户名片表")
 public class t_user_business extends Model {
 
+    public static t_user_business getInstance(){
+       t_user_business userBusiness = new t_user_business();
+        userBusiness.setName("");
+        userBusiness.setCompany("");
+        userBusiness.setDepartment("");
+        userBusiness.setTitle("");
+        userBusiness.setTelCell("");
+        userBusiness.setTelWork("");
+        userBusiness.setEmail("");
+        userBusiness.setBusinessCardUrl("");
+        userBusiness.setInvestPrefer(ItemType.NONE);
+        userBusiness.setAboutText("");
+        userBusiness.setWorkText("");
+        userBusiness.setAuditStatus(AuditStatus.NO_AUDIT);
+
+        return userBusiness;
+    }
+
     @Column(columnDefinition = "varchar(20) not null default '' comment '姓名'")
     private String name;
 
