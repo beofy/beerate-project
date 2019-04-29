@@ -1,7 +1,7 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.PropertiesHolder;
-import cn.beerate.Utils.PathUtil;
+import cn.beerate.utils.PathUtil;
 import cn.beerate.common.Message;
 import cn.beerate.dao.AdminDao;
 import cn.beerate.model.entity.t_admin;
