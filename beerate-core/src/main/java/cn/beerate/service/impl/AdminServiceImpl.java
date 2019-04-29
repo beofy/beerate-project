@@ -79,7 +79,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
 
         //保存头像
         if(!StringUtils.isEmpty(admin.getPhoto())){
-            String file = PathUtil.getStaticPath()+admin.getPhoto();
+            String file = PathUtil.getTempPath()+admin.getPhoto();
             File in = new File(file);
             File out= new File(PathUtil.getAdminPath(),in.getName());
             try {
