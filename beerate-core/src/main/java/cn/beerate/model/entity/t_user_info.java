@@ -18,8 +18,6 @@ import javax.validation.constraints.NotBlank;
 @org.hibernate.annotations.Table(appliesTo = "t_user_info",comment="前台用户信息表")
 public class t_user_info extends Model {
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
-    private String photo;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '真实姓名'")
     @NotBlank(message = "真实姓名不能为空")
@@ -43,7 +41,10 @@ public class t_user_info extends Model {
     @NotBlank(message = "反面身份证不能为空")
     private String reverseIdCard;
 
+    private Integer status;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private t_user user;
+
 }
