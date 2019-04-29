@@ -70,7 +70,7 @@ public class t_user_business extends Model {
         this.investPrefer=itemType.name();
     }
 
-    public void setStatus(AuditStatus auditStatus) {
+    public void setAuditStatus(AuditStatus auditStatus) {
         this.auditStatus = auditStatus.name();
     }
 
