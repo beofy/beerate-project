@@ -4,8 +4,10 @@ import cn.beerate.PropertiesHolder;
 import cn.beerate.common.Message;
 import cn.beerate.dao.UserDao;
 import cn.beerate.model.entity.t_user;
+import cn.beerate.request.ChannelType;
 import cn.beerate.security.Encrypt;
 import cn.beerate.service.UserService;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,11 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
     /**
      * @param mobile 手机号
      * @param password 密码
-     * @param registeIp 注册ip
-     * @param registeChannel 注册渠道
+     * @param regIp 注册ip
+     * @param regChannel 注册渠道
      */
     @Transactional
-    public Message<t_user> registe(String mobile ,String password,String registeIp ,String registeChannel){
+    public Message<t_user> registe(String mobile ,String password,String regIp ,String regChannel){
         //判断手机号是否存在
         if(userDao.findByMobile(mobile)!=null){
             return Message.error("手机号已经存在");
@@ -48,8 +50,9 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
         user.setLast_login_ip("");
         user.setLogin_count(0);
         user.setPassword_continue_fails(0);
-        user.setRegiste_channel(registeChannel);
-        user.setRegiste_ip(registeIp);
+        ChannelType channelType = EnumUtils.getEnumIgnoreCase(ChannelType.class,regChannel);
+        user.setReg_channel(channelType!=null?channelType:ChannelType.UNKNOWN);
+        user.setReg_ip(regIp);
 
         t_user user1 = userDao.save(user);
         if(user1==null){
