@@ -1,6 +1,6 @@
 package cn.beerate.captcha.mobile;
 
-import cn.beerate.Utils.StringUtil;
+import cn.beerate.utils.StringUtil;
 import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
 import cn.beerate.exception.ExceptionHandle;

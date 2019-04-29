@@ -1,7 +1,6 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHolder;
-import cn.beerate.Utils.PathUtil;
+import cn.beerate.utils.PathUtil;
 import cn.beerate.common.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,12 +25,8 @@ public class FileUploadController extends BaseController{
     @PostMapping("/uploadFile")
     @ResponseBody
     public Message<String> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
-        //临时文件夹
-        String tempFile = PropertiesHolder.properties.getFileProperties().getTempFile();
         //临时文件名
         String tempFileName = UUID.randomUUID().toString();
-        //临时静态资源相对路劲
-        String urlStaticPath = tempFile+PathUtil.SPRIT+tempFileName;
 
         File localFile = new File(PathUtil.getTempPath(), tempFileName);
         if(!localFile.exists()){
@@ -41,7 +36,7 @@ public class FileUploadController extends BaseController{
         }
         file.transferTo(localFile);
 
-        return Message.success(urlStaticPath);
+        return Message.success(tempFileName);
     }
 
     /**
