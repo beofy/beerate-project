@@ -24,20 +24,19 @@ public class t_user_business extends Model {
 
     public static t_user_business getInstance(){
         t_user_business userBusiness = new t_user_business();
-
         userBusiness.setCreateTime(new Date());
-        userBusiness.setName("");
-        userBusiness.setCompany("");
-        userBusiness.setDepartment("");
-        userBusiness.setTitle("");
-        userBusiness.setTelCell("");
-        userBusiness.setTelWork("");
-        userBusiness.setEmail("");
-        userBusiness.setBusinessCardUrl("");
-        userBusiness.setInvestPrefer(ItemType.NONE);
-        userBusiness.setAboutText("");
-        userBusiness.setWorkText("");
-        userBusiness.setAuditStatus(AuditStatus.NO_AUDIT);
+        userBusiness.name="";
+        userBusiness.company="";
+        userBusiness.department="";
+        userBusiness.title="";
+        userBusiness.telCell="";
+        userBusiness.telWork="";
+        userBusiness.email="";
+        userBusiness.businessCardUrl="";
+        userBusiness.investPrefer="";
+        userBusiness.aboutText="";
+        userBusiness.workText="";
+        userBusiness.auditStatus="";
 
         return userBusiness;
     }

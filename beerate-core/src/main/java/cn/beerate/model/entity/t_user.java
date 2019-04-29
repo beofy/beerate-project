@@ -1,6 +1,7 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.UserAndAdminModel;
+import cn.beerate.request.ChannelType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,25 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_user",comment="前台用户表")
 public class t_user extends UserAndAdminModel {
 
+    public static t_user getInstance(){
+        t_user user =new t_user();
+        user.setCreateTime(new Date());
+        user.setCreateTime(new Date());
+        user.setUsername("");
+        user.setMobile("");
+        user.setEmail("");
+        user.photo="";
+        user.password_continue_fails=0;
+        user.is_allow_login=true;
+        user.login_count=0;
+        user.last_login_ip="";
+        user.last_login_client="";
+        user.reg_ip="";
+        user.reg_channel="";
+
+        return user;
+    }
+
     @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
     private String photo;
 
@@ -32,7 +52,7 @@ public class t_user extends UserAndAdminModel {
     @Column(columnDefinition = "datetime comment '锁定时间'")
     private Date lock_time;
 
-    @Column(columnDefinition = "int comment '登录次数'")
+    @Column(columnDefinition = "int  not null default 0 comment '登录次数'")
     private Integer login_count;
 
     @Column(columnDefinition = "datetime comment '最后一次登录时间'")
@@ -45,11 +65,14 @@ public class t_user extends UserAndAdminModel {
     private String last_login_client;
 
     @Column(columnDefinition = "varchar(20) default '' comment '注册ip'")
-    private String registe_ip;
+    private String reg_ip;
 
     @Column(columnDefinition = "varchar(20) default '' comment '注册渠道'")
-    private String registe_channel;
+    private String reg_channel;
 
+    public void setReg_channel(ChannelType channel) {
+        this.reg_channel = channel.name();
+    }
 
     //======================基本信息======================
     @OneToOne(mappedBy = "user")

@@ -24,6 +24,24 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_admin",comment="后台管理员表")
 public class t_admin extends UserAndAdminModel {
 
+    public static t_admin getInstance(){
+        t_admin admin = new t_admin();
+        admin.setCreateTime(new Date());
+        admin.setUsername("");
+        admin.setMobile("");
+        admin.setEmail("");
+        admin.setPassword("");
+        admin.photo="";
+        admin.realityName="";
+        admin.department="";
+        admin.position="";
+        admin.lockStatus=false;
+        admin.loginCount=0L;
+        admin.lastLoginIp="";
+        admin.remark="";
+        return admin;
+    }
+
     @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
     private String photo;
 
@@ -55,7 +73,7 @@ public class t_admin extends UserAndAdminModel {
     private String remark;
 
     @Column(columnDefinition = "bigint not null default 0 comment '创建者ID'")
-    private Long createrId;
+    private Long creatorId;
 
     //======================项目关联======================
     @OneToMany
