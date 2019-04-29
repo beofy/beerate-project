@@ -5,7 +5,11 @@ package cn.beerate.model;
  */
 public enum ItemType {
 
-
+    /**
+     * 无
+     */
+    NONE,
+    
     /**
      * 老股转让
      */
