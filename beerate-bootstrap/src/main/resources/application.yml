@@ -52,10 +52,14 @@ spring:
 #系统参数
 cn:
   beerate:
-    file: #文件必须斜杠结尾，保存路劲为类路劲下/resources/static/
-      admin-file: /admin/
-      temp-file:  /temp/
-      user-file:  /user/
+    file: #文件必须斜杠结尾，该路劲相对于类路劲
+      admin-file: oss/admin/
+      temp-file:  oss/temp/
+      user-file:  oss/user/
+      file-store-impl: cn.beerate.oss.LocalOSSImpl
     security:
       password-md5-salt: wGyUtsswIYAMxHdW
+      des-encrypt-key: nx76caxsh8mYa9Oi
+
+
 
