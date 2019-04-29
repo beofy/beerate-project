@@ -1,6 +1,6 @@
 package cn.beerate.config;
 
-import cn.beerate.interceptor.CallCardInterceptor;
+import cn.beerate.interceptor.BusinessInterceptor;
 import cn.beerate.interceptor.RealNameInterceptor;
 import cn.beerate.interceptor.UserLoginInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class UserConfig implements WebMvcConfigurer {
 
     private UserLoginInterceptor userLoginInterceptor;
-    private CallCardInterceptor callCardInterceptor;
-    private RealNameInterceptor realNameInterceptor;
+    private BusinessInterceptor businessInterceptor;
 
-    public UserConfig(UserLoginInterceptor userLoginInterceptor, CallCardInterceptor callCardInterceptor, RealNameInterceptor realNameInterceptor) {
+    public UserConfig(UserLoginInterceptor userLoginInterceptor, BusinessInterceptor businessInterceptor) {
         this.userLoginInterceptor = userLoginInterceptor;
-        this.callCardInterceptor = callCardInterceptor;
-        this.realNameInterceptor = realNameInterceptor;
+        this.businessInterceptor = businessInterceptor;
     }
 
     @Override
@@ -29,6 +27,8 @@ public class UserConfig implements WebMvcConfigurer {
         registry.addInterceptor(userLoginInterceptor)
                 .addPathPatterns("/user/**")
                 .excludePathPatterns("/user/login","/user/registe");
+
+        //名片认证拦截
 
     }
 }
