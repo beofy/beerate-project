@@ -10,6 +10,6 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
     /**
      *上传用户名片
      */
-    Message<String> uploadUserBusiness(String tempFilePath,String userFilePath);
+    Message<String> uploadUserBusiness(String tempFilePath,String userFilePath,long userId);
 
 }
