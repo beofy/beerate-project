@@ -4,6 +4,12 @@ package cn.beerate.model;
  * 审核状态枚举类
  */
 public enum  AuditStatus {
+
+        /**
+         * 无
+         */
+        NONE,
+
         /**
          * 审核失败
          */
