@@ -14,6 +14,19 @@ public class SecurityProperties {
      */
     private String password_md5_salt;
 
+    /**
+     * 对称加密参数
+     */
+    private String des_encrypt_key;
+
+    public String getDes_encrypt_key() {
+        return des_encrypt_key;
+    }
+
+    public void setDes_encrypt_key(String des_encrypt_key) {
+        this.des_encrypt_key = des_encrypt_key;
+    }
+
     public String getPassword_md5_salt() {
         return password_md5_salt;
     }
