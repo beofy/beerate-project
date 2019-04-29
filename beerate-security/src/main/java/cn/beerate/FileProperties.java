@@ -25,6 +25,15 @@ public class FileProperties {
      */
     private String userFile;
 
+    private String fileStoreImpl;
+
+    public String getFileStoreImpl() {
+        return fileStoreImpl;
+    }
+
+    public void setFileStoreImpl(String fileStoreImpl) {
+        this.fileStoreImpl = fileStoreImpl;
+    }
 
     public String getTempFile() {
         return tempFile;
