@@ -23,7 +23,9 @@ import java.util.Date;
 public class t_user_business extends Model {
 
     public static t_user_business getInstance(){
-       t_user_business userBusiness = new t_user_business();
+        t_user_business userBusiness = new t_user_business();
+
+        userBusiness.setCreateTime(new Date());
         userBusiness.setName("");
         userBusiness.setCompany("");
         userBusiness.setDepartment("");
