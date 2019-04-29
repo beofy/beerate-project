@@ -52,10 +52,10 @@ spring:
 #系统参数
 cn:
   beerate:
-    file:
-      admin-file: /admin
-      temp-file:  /temp
-      user-file:  /user
+    file: #文件必须斜杠结尾，保存路劲为类路劲下/resources/static/
+      admin-file: /admin/
+      temp-file:  /temp/
+      user-file:  /user/
     security:
       password-md5-salt: wGyUtsswIYAMxHdW
 
