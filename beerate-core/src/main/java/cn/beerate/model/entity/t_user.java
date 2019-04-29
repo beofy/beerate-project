@@ -17,6 +17,9 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_user",comment="前台用户表")
 public class t_user extends UserAndAdminModel {
 
+    @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
+    private String photo;
+
     @Column(columnDefinition = "int not null default 0 comment '密码连续错误次数'")
     private Integer password_continue_fails;
 
