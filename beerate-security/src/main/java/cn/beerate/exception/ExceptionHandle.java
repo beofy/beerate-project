@@ -30,7 +30,7 @@ public class ExceptionHandle {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public Object handleException(Exception ex) {
-        logger.error(String.format("系统异常：[%s],原因：[%s]",ex.getMessage(),ex.getCause()));
+        logger.error(String.format("系统异常：[%s],原因：[%s]",ex.getMessage(),ex.getCause()),ex);
         /* AntPathMatcher
          * 匹配大小写敏感，可用通配符为:?,*,**
          * ?表示单个字符
