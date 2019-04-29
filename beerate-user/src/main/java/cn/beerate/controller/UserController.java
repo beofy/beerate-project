@@ -1,12 +1,18 @@
 package cn.beerate.controller;
 
+import cn.beerate.utils.PathUtil;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
 import cn.beerate.common.Message;
 import cn.beerate.constant.SessionKey;
+import cn.beerate.model.AuditStatus;
+import cn.beerate.model.bean.User;
 import cn.beerate.model.entity.t_user;
+import cn.beerate.service.UserBusinessService;
+import cn.beerate.service.UserInfoService;
 import cn.beerate.service.UserService;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +30,15 @@ import java.util.Map;
 public class UserController extends UserBaseController{
 
     private UserService userService;
+    private UserInfoService userInfoService;
+    private UserBusinessService userBusinessService;
     private CaptchaProcessor smsCatpchaProcessor;
     private CaptchaProcessor imageCaptchaProcessor;
 
-    public UserController(UserService userService, CaptchaProcessor smsCatpchaProcessor, CaptchaProcessor imageCaptchaProcessor) {
+    public UserController(UserService userService, UserInfoService userInfoService, UserBusinessService userBusinessService, CaptchaProcessor smsCatpchaProcessor, CaptchaProcessor imageCaptchaProcessor) {
         this.userService = userService;
+        this.userInfoService = userInfoService;
+        this.userBusinessService = userBusinessService;
         this.smsCatpchaProcessor = smsCatpchaProcessor;
         this.imageCaptchaProcessor = imageCaptchaProcessor;
     }
@@ -49,7 +59,6 @@ public class UserController extends UserBaseController{
         //处理验证码
         @SuppressWarnings("unchecked")
         Map<String,Integer> failCount = (Map<String,Integer>)getSession().getAttribute(SessionKey.USER_LOGIN_FAIL_COUNT);
-
         if(failCount!=null&&failCount.get(mobile)!=null&&failCount.get(mobile)>3){
             if(StringUtils.isBlank(imageCaptchaCode)){
                 return Message.error("请输入验证码");
@@ -80,8 +89,18 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
+
+        t_user user = message.getData();
+
+        //检查认证状态
+        boolean isApprove=false;
+        if(user.getUser_business()!=null&&EnumUtils.getEnumIgnoreCase(AuditStatus.class,user.getUser_business().getAuditStatus())==AuditStatus.PASS_AUDIT){
+            isApprove=true;
+        }
+        User currUser = new User(user.getId(),user.getUsername(),user.getPhoto(),isApprove);
+
         //保存登录状态
-        super.getSession().setAttribute(SessionKey.USER_SESSION_KEY,message.getData());
+        super.getSession().setAttribute(SessionKey.USER_SESSION_KEY,currUser);
 
         return Message.ok("登录成功");
     }
@@ -126,8 +145,8 @@ public class UserController extends UserBaseController{
     /**
      * 退出登录
      */
-    @GetMapping("/loginout")
-    public Message<String> loginout(){
+    @GetMapping("/loginOut")
+    public Message<String> loginOut(){
         getSession().removeAttribute(SessionKey.USER_SESSION_KEY);
         return Message.ok("登出成功");
     }
@@ -142,13 +161,41 @@ public class UserController extends UserBaseController{
     }
 
     /**
-     * 更新名片
+     * 查询当前用户信息
+     */
+
+    @PostMapping("/me")
+    public Message me(){
+        t_user user =userService.getOne(getUserId());
+
+        return Message.success(user.getUser_business());
+    }
+
+
+    /**
+     * 上传用户名片
+     */
+    @PostMapping("/uploadUserBusiness")
+    public Message<String> uploadUserBusiness(String businessFilePath){
+        if(StringUtils.isBlank(businessFilePath)){
+            return Message.success("请上传名片");
+        }
+
+        //临时文件资源
+        String tempFilePath = PathUtil.getTempPath()+businessFilePath;
+        //保存用户资源
+        String userFilePath = PathUtil.getUserPath()+businessFilePath;
+
+        return userBusinessService.uploadUserBusiness(tempFilePath,userFilePath);
+    }
+
+    /**
+     * 更新名片信息
      */
     @PostMapping("/updateUserBusiness")
-    public Message<String> updateUserBusiness(String businessFilePath){
+    public Message<String> updateUserBusiness(){
 
 
         return Message.ok("");
     }
-
 }
