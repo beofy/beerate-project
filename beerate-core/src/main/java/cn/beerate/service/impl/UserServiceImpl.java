@@ -42,6 +42,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
         user.setUsername(RandomStringUtils.randomAlphanumeric(13));
         user.setPassword(Encrypt.MD5(password+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()));
         user.setEmail("");
+        user.setPhoto("");
         user.setIs_allow_login(true);
         user.setLast_login_client("");
         user.setLast_login_ip("");
