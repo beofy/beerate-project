@@ -19,7 +19,7 @@ import java.net.URI;
 /**
  * 名片自动识别
  */
-public class BusinessParseUtil {
+public class BcrUtil {
 
 	private static String parseImage(String imageBase64){
         CloseableHttpClient httpclient = HttpClients.createDefault();
