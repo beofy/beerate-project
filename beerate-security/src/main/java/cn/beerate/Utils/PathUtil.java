@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
  */
 public class PathUtil {
     private static final Log logger = LogFactory.getLog(PathUtil.class);
+
+    public static final String SPRIT="/";
+
     /**
      * 获取类根路径
      */
@@ -29,14 +32,14 @@ public class PathUtil {
      * 获取静态资源路径
      */
     public static String getStaticPath() {
-        return getClassPath()+File.separator+"static";
+        return getClassPath()+SPRIT+"static";
     }
 
     /**
      * 获取临时资源路劲
      */
     public static String getTempPath(){
-        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getTempFile();
+        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getTempFile();
     }
 
 
@@ -44,13 +47,13 @@ public class PathUtil {
      * 获取管理资源路劲
      */
     public static String getAdminPath(){
-        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getAdminFile();
+        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getAdminFile();
     }
 
     /**
      * 获取用户资源路劲
      */
     public static String getUserPath(){
-        return getStaticPath()+ File.separator+ PropertiesHolder.properties.getFileProperties().getUserFile();
+        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getUserFile();
     }
 }

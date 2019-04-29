@@ -31,7 +31,7 @@ public class FileUploadController extends BaseController{
         //临时文件名
         String tempFileName = UUID.randomUUID().toString();
         //临时静态资源相对路劲
-        String urlStaticPath = tempFile+File.separator+tempFileName;
+        String urlStaticPath = tempFile+PathUtil.SPRIT+tempFileName;
 
         File localFile = new File(PathUtil.getTempPath(), tempFileName);
         if(!localFile.exists()){
