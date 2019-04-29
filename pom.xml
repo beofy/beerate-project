@@ -118,6 +118,12 @@
             <version>2.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.54</version>
+        </dependency>
+
         <!-- api文档工具 -->
         <dependency>
             <groupId>io.springfox</groupId>
