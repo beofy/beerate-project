@@ -71,7 +71,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
 
         admin.setCreateTime(new Date());
         //添加创建者id
-        admin.setCreaterId(createid);
+        admin.setCreatorId(createid);
         admin.setPassword(Encrypt.MD5(admin.getPassword()+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()));
         admin.setLastLoginIp("");
         admin.setLockStatus(false);
