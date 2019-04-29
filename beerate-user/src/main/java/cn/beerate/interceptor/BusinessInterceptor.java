@@ -7,5 +7,5 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * 名片认证拦截
  */
 @Component
-public class CallCardInterceptor implements HandlerInterceptor {
+public class BusinessInterceptor implements HandlerInterceptor {
 }

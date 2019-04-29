@@ -1,11 +1,10 @@
-package cn.beerate.Utils;
+package cn.beerate.utils;
 
 import cn.beerate.PropertiesHolder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -13,8 +12,6 @@ import java.io.FileNotFoundException;
  */
 public class PathUtil {
     private static final Log logger = LogFactory.getLog(PathUtil.class);
-
-    public static final String SPRIT="/";
 
     /**
      * 获取类根路径
@@ -32,14 +29,14 @@ public class PathUtil {
      * 获取静态资源路径
      */
     public static String getStaticPath() {
-        return getClassPath()+SPRIT+"static";
+        return getClassPath()+"static";
     }
 
     /**
      * 获取临时资源路劲
      */
     public static String getTempPath(){
-        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getTempFile();
+        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getTempFile();
     }
 
 
@@ -47,13 +44,13 @@ public class PathUtil {
      * 获取管理资源路劲
      */
     public static String getAdminPath(){
-        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getAdminFile();
+        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getAdminFile();
     }
 
     /**
      * 获取用户资源路劲
      */
     public static String getUserPath(){
-        return getStaticPath()+ SPRIT+ PropertiesHolder.properties.getFileProperties().getUserFile();
+        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getUserFile();
     }
 }

@@ -1,4 +1,4 @@
-package cn.beerate.Utils;
+package cn.beerate.utils;
 
 /**
  * 字符工具类

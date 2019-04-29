@@ -1,4 +1,4 @@
-package cn.beerate.Utils;
+package cn.beerate.utils;
 
 
 import org.apache.commons.io.IOUtils;
