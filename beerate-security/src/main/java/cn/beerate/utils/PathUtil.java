@@ -36,7 +36,7 @@ public class PathUtil {
      * 获取临时资源路劲
      */
     public static String getTempPath(){
-        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getTempFile();
+        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getTempFile();
     }
 
 
@@ -44,13 +44,13 @@ public class PathUtil {
      * 获取管理资源路劲
      */
     public static String getAdminPath(){
-        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getAdminFile();
+        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getAdminFile();
     }
 
     /**
      * 获取用户资源路劲
      */
     public static String getUserPath(){
-        return getStaticPath()+ PropertiesHolder.properties.getFileProperties().getUserFile();
+        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getUserFile();
     }
 }
