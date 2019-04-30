@@ -1,6 +1,5 @@
 package cn.beerate.controller;
 
-import cn.beerate.utils.PathUtil;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
@@ -181,12 +180,9 @@ public class UserController extends UserBaseController{
             return Message.success("请上传名片");
         }
 
-        //临时文件资源
-        String tempFilePath = PathUtil.getTempPath()+businessFilePath;
-        //保存用户资源
-        String userFilePath = PathUtil.getUserPath()+businessFilePath;
 
-        return userBusinessService.uploadUserBusiness(tempFilePath,userFilePath,getUserId());
+
+        return userBusinessService.uploadUserBusiness(null,null,getUserId());
     }
 
     /**

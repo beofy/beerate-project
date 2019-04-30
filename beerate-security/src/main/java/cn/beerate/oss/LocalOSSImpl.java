@@ -1,50 +1,47 @@
 package cn.beerate.oss;
 
-import cn.beerate.common.Message;
 import cn.beerate.utils.PathUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
-import java.util.UUID;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * 本地文件存储实现
  */
 public class LocalOSSImpl implements OSS {
 
+    private final Log logger = LogFactory.getLog(this.getClass());
 
-    private FileInfo getFileInfo(){
-        //文件名
-        String fileName = UUID.randomUUID().toString();
-        return new FileInfo(null, fileName,PathUtil.getTempPath()+fileName,3600,null);
+    public void init(){
+        File tempDir = new File(PathUtil.getTempPath());
+        if(tempDir.mkdirs()){
+            logger.info(String.format("创建临时文件目录:%s",PathUtil.getTempPath()));
+        }
+
+        File userDir = new File(PathUtil.getUserPath());
+        if(userDir.mkdirs()){
+            logger.info(String.format("创建用户文件目录:%s",PathUtil.getUserPath()));
+        }
+
+        File adminDir = new File(PathUtil.getAdminPath());
+        if(adminDir.mkdirs()){
+            logger.info(String.format("创建管理员文件目录:%s",PathUtil.getAdminPath()));
+        }
     }
 
     @Override
-    public Message<FileInfo> uploadFile(File file) throws IOException{
-        FileInfo fileInfo = getFileInfo();
-        FileCopyUtils.copy(file, new File(getFileInfo().getUri()));
-
-        return Message.success(fileInfo);
+    public void uploadFile(InputStream in,String out) throws IOException{
+        FileCopyUtils.copy(in,new FileOutputStream(new File(out)));
     }
 
     @Override
-    public Message<FileInfo> uploadFile(InputStream in) throws IOException {
-        FileInfo fileInfo = getFileInfo();
-        FileCopyUtils.copy(in, new FileOutputStream(new File(fileInfo.getUri())));
-
-        return Message.success(fileInfo);
-    }
-
-    @Override
-    public Message<FileInfo> uploadFile(byte[] bytes) throws IOException{
-        FileInfo fileInfo = getFileInfo();
-        FileCopyUtils.copy(bytes,new File(fileInfo.getUri()));
-
-        return Message.success(fileInfo);
-    }
-
-    @Override
-    public Message<FileInfo> downLoadFile(String uri) {
-        return null;
+    public URL downLoadFile(String uri) throws MalformedURLException,URISyntaxException{
+       return new URI("file:///"+uri).toURL();
     }
 }

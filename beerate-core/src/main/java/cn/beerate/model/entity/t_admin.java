@@ -46,15 +46,12 @@ public class t_admin extends UserAndAdminModel {
     private String photo;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '真实姓名'")
-    @NotBlank(message = "真实姓名不能为空")
     private String realityName;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '部门名称'")
-    @NotBlank(message = "部门不能为空")
     private String department;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '职位'")
-    @NotBlank(message = "职位不能空")
     private String position;
 
     @Column(columnDefinition = "bit not null default 0 comment '锁定状态'")

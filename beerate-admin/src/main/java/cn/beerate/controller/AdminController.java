@@ -169,10 +169,38 @@ public class AdminController extends AdminBaseController{
      */
     @PostMapping("/add")
     @ResponseBody
-    public Message<String> add(@Valid t_admin admin, BindingResult result){
+    public Message<String> add(t_admin admin){
 
-        if(result.hasErrors()){
-            return Message.error(result.getAllErrors().get(0).getDefaultMessage());
+        if(admin==null){
+            return Message.error("系统异常");
+        }
+
+        if(StringUtils.isBlank(admin.getUsername())){
+            return Message.error("账号不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getPassword())){
+            return Message.error("密码不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getMobile())){
+            return Message.error("手机不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getEmail())){
+            return Message.error("邮箱不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getRealityName())){
+            return Message.error("真实姓名不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getDepartment())){
+            return Message.error("部门不能为空");
+        }
+
+        if(StringUtils.isBlank(admin.getPosition())){
+            return  Message.error("职位不能为空");
         }
 
         return adminService.addAdmin(admin,getAdminId());

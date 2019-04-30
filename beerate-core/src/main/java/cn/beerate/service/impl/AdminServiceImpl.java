@@ -1,21 +1,18 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.PropertiesHolder;
-import cn.beerate.utils.PathUtil;
 import cn.beerate.common.Message;
 import cn.beerate.dao.AdminDao;
 import cn.beerate.model.entity.t_admin;
+import cn.beerate.oss.OSS;
 import cn.beerate.security.Encrypt;
 import cn.beerate.service.AdminService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -23,10 +20,12 @@ import java.util.Date;
 public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminService {
     private final Log logger = LogFactory.getLog(this.getClass());
     private AdminDao adminDao;
+    private OSS oss;
 
-    public AdminServiceImpl(AdminDao adminDao) {
+    public AdminServiceImpl(AdminDao adminDao,OSS oss) {
         super(adminDao);
         this.adminDao = adminDao;
+        this.oss = oss;
     }
 
     /**
@@ -79,22 +78,8 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
 
         //保存头像
         if(!StringUtils.isEmpty(admin.getPhoto())){
-            String file = PathUtil.getTempPath()+admin.getPhoto();
-            File in = new File(file);
-            File out= new File(PathUtil.getAdminPath(),in.getName());
-            try {
-                if (!out.getParentFile().exists()){
-                    if(out.getParentFile().mkdirs()){
-                        logger.info("创建管理员资源文件夹");
-                    }
-                }
-
-                FileCopyUtils.copy(in,out);
-            } catch (IOException e) {
-                logger.error(e);
-                return Message.error("系统异常");
-            }
-            admin.setPhoto(PropertiesHolder.properties.getFileProperties().getAdminFile()+File.separator+out.getName());
+            //oss.uploadFile()
+            admin.setPhoto("");
         }
 
         if(super.save(admin)==null){

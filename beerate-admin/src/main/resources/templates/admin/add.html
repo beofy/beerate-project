@@ -91,7 +91,7 @@
             fileElementId: 'imgPhoto',
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data){
-                $("#adminPhoto").attr("src",data.data);
+                $("#adminPhoto").attr("src","/admin/file/previewImage/"+data.data);
                 $("input[name=photo]").val(data.data);
                 $("#adminPhotoTip").text("上传成功");
                 if (data.code>0){

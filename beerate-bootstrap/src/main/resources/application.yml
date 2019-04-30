@@ -52,7 +52,7 @@ spring:
 #系统参数
 cn:
   beerate:
-    file: #文件必须斜杠结尾，该路劲相对于类路劲
+    file: #不以分隔符开头，必须跟个服结尾，该路劲相对于类路劲
       admin-file: oss/admin/
       temp-file:  oss/temp/
       user-file:  oss/user/

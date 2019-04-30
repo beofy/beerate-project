@@ -11,46 +11,33 @@ import java.io.FileNotFoundException;
  * 路径工具
  */
 public class PathUtil {
-    private static final Log logger = LogFactory.getLog(PathUtil.class);
 
-    /**
-     * 获取类根路径
-     */
-    public static String getClassPath()  {
+    public static String getPath(String url)  {
         try {
-            return ResourceUtils.getURL("classpath:").getPath();
+            return ResourceUtils.getURL(url).getPath();
         } catch (FileNotFoundException e) {
-            logger.info("获取类路劲异常");
             return null;
         }
-    }
-
-    /**
-     * 获取静态资源路径
-     */
-    public static String getStaticPath() {
-        return getClassPath()+"static";
     }
 
     /**
      * 获取临时资源路劲
      */
     public static String getTempPath(){
-        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getTempFile();
+        return getPath(PropertiesHolder.properties.getFileProperties().getTempFile());
     }
-
 
     /**
      * 获取管理资源路劲
      */
     public static String getAdminPath(){
-        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getAdminFile();
+        return getPath(PropertiesHolder.properties.getFileProperties().getAdminFile());
     }
 
     /**
      * 获取用户资源路劲
      */
     public static String getUserPath(){
-        return getClassPath()+ PropertiesHolder.properties.getFileProperties().getUserFile();
+        return getPath(PropertiesHolder.properties.getFileProperties().getUserFile());
     }
 }
