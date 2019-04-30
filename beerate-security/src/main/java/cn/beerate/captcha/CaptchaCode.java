@@ -37,7 +37,7 @@ public class CaptchaCode implements CaptchaGenerator, Serializable {
     }
 
     /**
-     * 验证码是否过期
+     * 验证码是否有效
      */
     @Override
     public boolean checkExpireIn() {
