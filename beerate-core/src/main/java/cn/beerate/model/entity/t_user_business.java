@@ -11,8 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -54,7 +52,6 @@ public class t_user_business extends Model {
     private String title;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '手机号码'")
-    @Pattern(regexp="^(((13[0-9]{1})|(15[0-35-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\\d{8})$",message="请输入正确的手机号码")
     private String telCell;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '公司号码'")
@@ -64,7 +61,6 @@ public class t_user_business extends Model {
     private String address;
 
     @Column(columnDefinition = "varchar(50) not null default '' comment '联系邮箱'")
-    @Email(message = "请输入正确的邮箱")
     private String email;
 
     @Column(columnDefinition = "varchar(50) not null default '' comment '名片保存地址'")
