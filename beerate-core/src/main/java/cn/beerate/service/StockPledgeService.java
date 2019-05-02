@@ -1,4 +1,6 @@
 package cn.beerate.service;
 
-public interface StockPledgeService {
+import cn.beerate.model.entity.t_item_stock_pledge;
+
+public interface StockPledgeService extends IBaseService<t_item_stock_pledge>{
 }
