@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @Setter
 @Getter
-@org.hibernate.annotations.Table(appliesTo = "t_admin_colum",comment="后台栏目表")
-public class t_admin_colum extends Model {
+@org.hibernate.annotations.Table(appliesTo = "t_admin_column",comment="后台栏目表")
+public class t_admin_column extends Model {
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '栏目名'")
     private String columName;

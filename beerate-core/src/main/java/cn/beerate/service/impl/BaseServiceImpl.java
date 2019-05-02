@@ -50,9 +50,9 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
      * <br> 支持模糊查询
      * <br> 返回查询
      */
-    public Page<T> page(int page,int size,String colum,String order,@Nullable Specification<T> spec){
+    public Page<T> page(int page,int size,String column,String order,@Nullable Specification<T> spec){
         //排序条件
-        Sort sort =Sort.by(Sort.Direction.fromString(order),colum);
+        Sort sort =Sort.by(Sort.Direction.fromString(order),column);
         //分页排序
         Pageable pageable = PageRequest.of(page-1,size,sort);
         return iBaseDao.findAll(spec,pageable);
