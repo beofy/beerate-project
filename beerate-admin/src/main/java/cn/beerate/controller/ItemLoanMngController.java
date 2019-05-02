@@ -1,9 +1,11 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
+import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_loan;
 import cn.beerate.service.ItemLoanService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -19,10 +21,24 @@ public class ItemLoanMngController extends AdminBaseController {
         this.itemLoanService = itemLoanService;
     }
 
-    public String addPage(){
-        return "";
+    /**
+     * 列表页
+     */
+    public String listPage(){
+
+        return "itemloan/list";
     }
 
+    /**
+     * 添加页面
+     */
+    public String addPage(){
+        return "itemloan/add";
+    }
+
+    /**
+     * 项目添加
+     */
     public Message<String> add(t_item_loan itemLoan){
 
 
