@@ -8,6 +8,9 @@ import cn.beerate.common.Message;
 import cn.beerate.common.StatusCode;
 import cn.beerate.constant.SessionKey;
 import cn.beerate.model.entity.t_admin;
+import cn.beerate.oss.OSS;
+import cn.beerate.oss.OssObject;
+import cn.beerate.oss.OssObjectUtil;
 import cn.beerate.security.Encrypt;
 import cn.beerate.service.AdminService;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +41,16 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController extends AdminBaseController{
 
+
     private AdminService adminService;
     private CaptchaProcessor imageCaptchaProcessor;
+    private OSS oss;
 
-    public AdminController(AdminService adminService, CaptchaProcessor imageCaptchaProcessor) {
+    public AdminController(AdminService adminService, CaptchaProcessor imageCaptchaProcessor, OSS oss) {
         this.adminService = adminService;
         this.imageCaptchaProcessor = imageCaptchaProcessor;
+        this.oss = oss;
     }
-
 
     /**
      * 登录页面
@@ -202,6 +208,22 @@ public class AdminController extends AdminBaseController{
         if(StringUtils.isBlank(admin.getPosition())){
             return  Message.error("职位不能为空");
         }
+
+        //处理头像
+        if(StringUtils.isNotBlank(admin.getPhoto())){
+            OssObject ossObject = OssObjectUtil.validate(admin.getPhoto(),getSession().getId());
+            String adminPhoto = PropertiesHolder.properties.getFileProperties().getAdminFile()+ossObject.getFileName();
+            try {
+                oss.uploadFile(new FileInputStream(new File(ossObject.getUrl())),oss.getRoot()+adminPhoto);
+            } catch (IOException e) {
+                return  Message.error("系统异常");
+            }
+
+            //设置头像路径
+            admin.setPhoto("/"+adminPhoto);
+        }
+
+
 
         return adminService.addAdmin(admin,getAdminId());
     }

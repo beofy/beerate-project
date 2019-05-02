@@ -17,7 +17,7 @@
                             <div class="card-body">
 
                                 <div class="edit-avatar">
-                                    <img th:src="@{/images/users/avatar.jpg}" id="adminPhoto" src="" class="img-avatar">
+                                    <img th:src="@{/images/users/avatar.jpg}" id="adminPhoto" alt="" src="" class="img-avatar">
                                     <div class="avatar-divider"></div>
                                     <div class="edit-avatar-content">
                                         <button class="btn btn-default" onclick="$('input[type=file]').click()">修改头像</button>
@@ -86,13 +86,13 @@
     function uploadPhoto(){
         lightyear.loading('show');
         $.ajaxFileUpload({
-            url: "/admin/file/uploadFile",
+            url: "/admin/upload",
             secureuri: false,
             fileElementId: 'imgPhoto',
             dataType: 'json', //返回值类型 一般设置为json
             success: function (data){
-                $("#adminPhoto").attr("src","/admin/file/previewImage/"+data.data);
-                $("input[name=photo]").val(data.data);
+                $("#adminPhoto").attr("src",data.data.previewUri);
+                $("input[name=photo]").val(data.data.ossInfo);
                 $("#adminPhotoTip").text("上传成功");
                 if (data.code>0){
                     setTimeout(function() {

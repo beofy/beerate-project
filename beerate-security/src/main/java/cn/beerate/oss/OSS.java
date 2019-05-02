@@ -13,6 +13,11 @@ import java.net.URL;
 public interface OSS {
 
     /**
+     * 获取根目录
+     */
+    String getRoot();
+
+    /**
      * 上传文件
      */
     void  uploadFile(InputStream in ,String url) throws IOException;
