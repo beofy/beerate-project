@@ -1,11 +1,10 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_loan;
 import cn.beerate.service.ItemLoanService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -24,6 +23,7 @@ public class ItemLoanMngController extends AdminBaseController {
     /**
      * 列表页
      */
+    @GetMapping("/list.html")
     public String listPage(){
 
         return "itemloan/list";
@@ -32,6 +32,7 @@ public class ItemLoanMngController extends AdminBaseController {
     /**
      * 添加页面
      */
+    @GetMapping("/add.html")
     public String addPage(){
         return "itemloan/add";
     }
