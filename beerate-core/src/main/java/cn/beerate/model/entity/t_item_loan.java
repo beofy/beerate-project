@@ -21,46 +21,46 @@ import java.util.List;
 public class t_item_loan extends Model {
 
 	/** 项目编号 */
-	private String item_no;
+	private String itemNo;
 
 	/** 项目名称 */
-	private String item_name;
+	private String itemName;
 	
 	/** 公司名称 */
-	private String company_name;
+	private String companyName;
 	
 	/** 公司logo */
-	private Long logo_img_id;
+	private Long logoUri;
 	
 	/** 经营模式 */
-	private Integer company_model;
+	private Integer companyModel;
 	
 	/** 所属领域 */
-	private Integer company_realm;
+	private Integer companyRealm;
 	
 	/** 项目类型 */
-	private Integer company_type;
+	private Integer companyType;
 
 	/** 公司官网 */
-	private String company_website;
+	private String companyWebsite;
 	
 	/** IOS应用地址 */
-	private String company_ios_url;
+	private String companyIosUrl;
 	
 	/** andriod应用地址 */
-	private String company_andriod_url;
+	private String companyAndroidUrl;
 	
 	/** 是否上市  */
-	private boolean is_quoted;
+	private boolean isQuoted;
 	
 	/** 股票代码  */
-	private String stockcode;
+	private String stockCode;
 	
 	/**  融资金额 */
-	private Integer amount;
+	private Double amount;
 	
-	private Integer amount_unit;
-	
+	private String amountUnit;
+
 	/** 资金用途  */
 	private String purpose;
 	
@@ -68,32 +68,29 @@ public class t_item_loan extends Model {
 	private Integer period;
 	
 	/** 期限单位 */
-	private Integer period_unit;
+	private String periodUnit;
 	
 	/**  还款来源 */
 	private String repayment;
 	
-	/**  BP计划上传 */
-	private Long bp_book_id;
-	
-	/**  BP计划上传 */
-	private String watermark_file_url;
-	
+	/**  BP计划书 */
+	private Long businessProposalUri;
+
 	/* ~~补充资料~~ */
 	/** 营业执照彩色扫描件（三证合一） */
-	private Long business_license_id;
+	private Long businessLicenseUri;
 	
 	/**  前三年+本年度资产负债表、损益表、现金流量表 */
-	private Long financial_report_id;
+	private Long financialReportUri;
 	
 	/** 最近一年审计报告  */
-	private Long audit_report_id;
+	private Long auditReportUri;
 	
 	/**  有息负债明细：含起止时间、金额、担保或保证方 */
-	private Long indebtedness_id;
+	private Long indebtednessUri;
 	
 	/** 近6个月银行流水（主要银行）  */
-	private Long capital_flow_id;
+	private Long capitalFlowUri;
 
 	/** 是否展示 */
 	private Boolean isShow;

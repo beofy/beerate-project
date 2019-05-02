@@ -110,7 +110,7 @@ public class t_item_pre_ipo extends Model {
     private String purpose;
 
      /**  投资亮点 */
-    private String investLightspot;
+    private String investLightSpot;
     /*  ---未挂牌--- */
 
 

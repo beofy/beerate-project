@@ -67,7 +67,7 @@ public class t_item_block_trade extends Model {
     private Boolean isPlatformAuthentication;
 
     /** 是否一手 */
-    private Boolean isFristHandle;
+    private Boolean isFirstHandle;
 
     /** 是否前台展示 */
     private Boolean isShow;

@@ -17,11 +17,11 @@ import java.util.List;
 public class t_item_stock_transfer extends Model {
 
     /** 标的名称 */
-    private String bid_name;
+    private String bidName;
 
     /** 标的所属阶段 */
     @Column(columnDefinition = " bit(1) COMMENT '标的所属阶段 1 - 已上市 2-未上市'")
-    private Boolean is_quoted;
+    private Boolean isQuoted;
 
     /** 企业名称是否公开 */
     @Column(columnDefinition = " bit(1) COMMENT '企业名称是否公开 1 - 公开 2-未公开'")
@@ -47,7 +47,7 @@ public class t_item_stock_transfer extends Model {
     private Double transferAmount;
 
     /** 转让股权比例是否保密 */
-    private boolean isPrivaryEquityRatio;
+    private boolean isPrivacyEquityRatio;
 
     /** 转让股权比例 */
     private Double equityRatio;
