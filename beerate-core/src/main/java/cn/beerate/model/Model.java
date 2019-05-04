@@ -16,7 +16,7 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "timestamp NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "timestamp not NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
 
     private Date updateTime;
