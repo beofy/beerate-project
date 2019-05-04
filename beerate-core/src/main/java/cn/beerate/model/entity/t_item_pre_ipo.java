@@ -1,14 +1,13 @@
 package cn.beerate.model.entity;
 
-import cn.beerate.model.Model;
+import cn.beerate.model.Currency;
+import cn.beerate.model.IndustryRealm;
+import cn.beerate.model.ItemModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -17,128 +16,117 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@org.hibernate.annotations.Table(appliesTo = "t_item_pre_ipo",comment="PRE_IPO表")
-public class t_item_pre_ipo extends Model {
+@org.hibernate.annotations.Table(appliesTo = "t_item_pre_ipo", comment = "PRE_IPO表")
+public class t_item_pre_ipo extends ItemModel {
 
-    /** 是否新三板挂牌 */
+    @Column(columnDefinition = "bit not null default 0 comment '是否新三板挂牌'")
     private Boolean isNewThirdBoardListing;
 
-    /** 项目名称 */
-    private String preipoName;
+    @Column(columnDefinition = "varchar(128) not null default '' comment '项目名称'")
+    private String preIpoName;
 
     /*  ---已挂牌--- */
-
-    /** 股票代码 */
+    @Column(columnDefinition = "varchar(6) not null default '' comment '股票代码'")
     private String stockCode;
 
-    /** 是否主承销券商 */
+    @Column(columnDefinition = "bit not null default 0 comment '是否主承销券商'")
     private Boolean isPrincipalUnderwriter;
 
-    /** 辅导券商是否已进场 */
+    @Column(columnDefinition = "bit not null default 0 comment '辅导券商是否已进场'")
     private Boolean isTutoringBrokerage;
 
-    /** 辅导券商名称 */
+    @Column(columnDefinition = "varchar(128) not null default '' comment '辅导券商名称'")
     private String TutoringBrokerageName;
-
     /*  ---已挂牌--- */
 
     /*  ---未挂牌--- */
-    /**  标的名称 */
+    @Column(columnDefinition = "varchar(128) not null default '' comment '标的名称'")
     private String bidName;
 
-    /**  标的企业名称是否公开 */
-    private Boolean companyNameIspublic;
+    @Column(columnDefinition = "bit not null default 0 comment '标的企业名称是否公开'")
+    private Boolean companyNameIsPublic;
 
-    /**  标的企业名称 */
+    @Column(columnDefinition = "varchar(128) not null default '' comment '标的企业名称'")
     private String companyName;
 
-    /**  所在省市 */
+    @Column(columnDefinition = "varchar(12) not null default '' comment '所在省市'")
     private String city;
     /*  ---未挂牌--- */
 
-    /**  标的所处行业 */
-    private Integer realm;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '标的所处行业领域'")
+    private String industryRealm;
 
-    /** 拟IPO基准日 */
+    public void setIndustryRealm(IndustryRealm industryRealm) {
+        this.industryRealm = industryRealm.name();
+    }
+
+    @Column(columnDefinition = "datetime  default null comment '拟IPO基准日'")
     private Date iPOBaseDate;
 
-    /** 对赌条件
-     * 1、无对赌
-     2、回购对赌
-     3、业绩对赌
-     */
-    private Integer ratchetTerms;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '对赌条件'")
+    private String ratchetTerms;
 
-    /** 对赌描述 */
+    @Column(columnDefinition = "varchar(255) not null default '' comment '对赌描述'")
     private String ratchetTermsDescription;
 
     /*  ---已挂牌--- */
-    /** 价格是否面议 */
+    @Column(columnDefinition = "bit(1) not null default 0 comment '价格是否面议'")
     private Boolean isPriceNegotiable;
 
-    /** 意向价格 */
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '意向价格'")
     private Double intentionalPrice;
 
-    /** 交易股数 */
-    private Integer exchangeShares;
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '交易股数'")
+    private Double exchangeShares;
 
-    /**  份额规模 */
+    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '份额规模'")
     private Double sharesAmount;
 
-    /** 参与门槛 */
+    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '参与门槛'")
     private Double thresholdAmount;
     /* ---已挂牌--- */
 
     /* ---未挂牌--- */
 
-    /**  选择币种  */
-    private Integer currency;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '币种'")
+    private String currency;
 
-     /**  融资金额 */
+    public void setCurrency(Currency currency) {
+        this.currency = currency.name();
+    }
+
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '融资金额'")
     private Double loanAmount;
 
-     /**  意向估值 */
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '意向估值'")
     private Double IntentionValuation;
 
-     /**  去年净利润 */
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '去年净利润'")
     private Double lastYearProfits;
 
-     /**  融资期限 */
-    private Integer loanPeriod;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '融资期限'")
+    private String loanPeriod;
 
-     /**  融资用途 */
+    @Column(columnDefinition = "varchar(255) not null default '' comment '融资用途'")
     private String purpose;
 
-     /**  投资亮点 */
+    @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")
     private String investLightSpot;
     /*  ---未挂牌--- */
 
+    @Column(columnDefinition = "varchar(255) not null default '' comment 'BP计划书'")
+    private String businessProposalUri;
 
-    /** BP\商业计划书 */
-    private String businessProposal;
-
-    /** 项目截至日期 */
+    @Column(columnDefinition = "datetime default null comment '项目截至日期'")
     private Date endTime;
 
-    /** 是否加急 */
-    private Boolean isUrgent;
-
-    /** 查看是否需要平台认证 */
-    private Boolean isPlatformAuthentication;
-
-    /** 是否一手 */
-    private Boolean isFirstHandle;
-
-    /** 是否前台展示 */
-    private Boolean isShow;
-
-    /** 联系人 */
+    @Column(columnDefinition = "varchar(12) not null default '' comment '联系人'")
     private String contact;
 
-    /** 联系人电话 */
+    @Column(columnDefinition = "varchar(20) not null default '' comment '联系人电话'")
     private String contactMobile;
 
-    /** 内容描述 */
+    @Column(columnDefinition = "varchar(255) not null default '' comment '内容描述'")
     private String contentDescription;
 
 
@@ -159,7 +147,6 @@ public class t_item_pre_ipo extends Model {
     @OneToMany
     @JoinColumn(name = "pre_ipo_id")
     private List<t_item_message_board> message_boards;
-
 
 
 }

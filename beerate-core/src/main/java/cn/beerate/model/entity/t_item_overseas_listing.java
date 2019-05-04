@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,26 +15,28 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_item_overseas_listing",comment="海外上市表")
 public class t_item_overseas_listing extends Model {
 
-	/** 真实姓名 */
+	@Column(columnDefinition = "varchar(12) not null default '' comment '真实姓名'")
 	private String realName;
 	
-	/** 手机号 */
+	@Column(columnDefinition = "varchar(15) not null default '' comment '手机号'")
 	private String mobile;
 	
-	/** 职位 */
+	@Column(columnDefinition = "varchar(20) not null default '' comment '职位'")
 	private String job;
 	
-	/** 企业名称 */
-	private String company_name;
+	@Column(columnDefinition = "varchar(64) not null default '' comment '企业名称'")
+	private String companyName;
 	
-	/** 企业主营业务 */
-	private String company_business;
+	@Column(columnDefinition = "varchar(32) not null default '' comment '企业主营业务'")
+	private String companyBusiness;
 	
-	/** 企业全年净利润情况（单位：人民币） */
-	private int netprofit;
+	@Column(columnDefinition = "varchar(12) not null default '' comment '企业全年净利润情况（单位：人民币）'")
+	private String netProfit;
 
+	@Column(columnDefinition = "varchar(255) not null default '' comment '备注'")
 	private String mark;
 
+	@Column(columnDefinition = "bit(1) not null default 0 comment '前台是否展示'")
 	private Boolean isShow;
 
     //==========================================

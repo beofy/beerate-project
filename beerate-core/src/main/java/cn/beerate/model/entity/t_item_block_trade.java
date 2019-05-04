@@ -1,14 +1,13 @@
 package cn.beerate.model.entity;
 
-import cn.beerate.model.Model;
+import cn.beerate.model.CreditIdentification;
+import cn.beerate.model.ItemModel;
+import cn.beerate.model.UnderWeightIdentification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -17,60 +16,64 @@ import java.util.List;
 @Setter
 @Getter
 @org.hibernate.annotations.Table(appliesTo = "t_item_block_trade",comment="大宗交易表")
-public class t_item_block_trade extends Model {
-    /** 项目名称 */
+public class t_item_block_trade extends ItemModel {
+
+    @Column(columnDefinition = "varchar(128) not null default '' comment '项目名称'")
     private String blockTradeName;
 
-    /** 股票代码 */
+    @Column(columnDefinition = "varchar(6) not null default '' comment '股票代码'")
     private String stockCode;
 
-    /** 交易折价 */
-    private Double exchangeAgioRate;
+    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '交易折价'")
+    private Double exchangeRate;
 
-    /** 减持股数 */
+    @Column(columnDefinition = "int(12) not null default '0' comment '减持股数'")
     private Integer underweightShares;
 
-    /** 减持总金额 */
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '减持总金额'")
     private Double underweightAmount;
 
-    /** 减持方身份 */
-    private  Integer underweightIdentification;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '减持方身份'")
+    private  String underweightIdentification;
 
-    /** 是否增信 */
+    public void setUnderweightIdentification(UnderWeightIdentification underweightIdentification) {
+        this.underweightIdentification = underweightIdentification.name();
+    }
+
+    @Column(columnDefinition = "bit(1) not null default 0 comment '是否增信'")
     private Boolean isConfidence;
 
-    /** 预期收益率（增信） */
+    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '预期收益率（增信）'")
     private Double expectedReturn;
 
-    /** 增信期限（增信） */
+    @Column(columnDefinition = "datetime  default null comment '增信期限（增信）'")
     private Date confidencePeriod;
 
-    /** 增信身份（增信） */
-    private Integer confidenceIdentification;
+    @Column(columnDefinition = "varchar(12) not null default '' comment '增信身份（增信）'")
+    private String creditIdentification;
 
-    /** 增信方超额收益分成（增信） */
+    public void setCreditIdentification(CreditIdentification creditIdentification) {
+        this.creditIdentification = creditIdentification.name();
+    }
+
+    @Column(columnDefinition = "int(12) not null default '0' comment '增信方超额收益分成（增信）'")
     private  Integer confidenceShare;
 
-    /** 增信是否公开（增信） */
+    @Column(columnDefinition = "bit(1) not null default '0' comment '增信是否公开（增信）'")
     private Boolean confidenceIsPublic;
 
-    /** 持仓低价 */
+    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '持仓低价'")
     private Double positionLowPrice;
 
-    /** 项目结束时间 */
+    @Column(columnDefinition = "datetime default null comment '项目结束时间'")
     private Date endTime;
 
-    /** 是否加急 */
+    @Column(columnDefinition = "bit(1) default null default '0' comment '是否加急'")
     private Boolean isUrgent;
 
-    /** 查看是否需要平台认证 */
+    @Column(columnDefinition = "bit(1) default null default '0' comment '查看是否需要平台认证'")
     private Boolean isPlatformAuthentication;
 
-    /** 是否一手 */
-    private Boolean isFirstHandle;
-
-    /** 是否前台展示 */
-    private Boolean isShow;
 
     //==========================================
 

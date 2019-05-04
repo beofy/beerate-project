@@ -1,6 +1,8 @@
 package cn.beerate.model.entity;
 
-import cn.beerate.model.Model;
+import cn.beerate.model.Currency;
+import cn.beerate.model.IndustryRealm;
+import cn.beerate.model.ItemModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,72 +16,63 @@ import java.util.List;
 @Setter
 @Getter
 @org.hibernate.annotations.Table(appliesTo = "t_item_stock_transfer",comment="老股转让表")
-public class t_item_stock_transfer extends Model {
+public class t_item_stock_transfer extends ItemModel {
 
-    /** 标的名称 */
+    @Column(columnDefinition = "varchar(128) not null default '' comment '标的名称'")
     private String bidName;
 
-    /** 标的所属阶段 */
-    @Column(columnDefinition = " bit(1) COMMENT '标的所属阶段 1 - 已上市 2-未上市'")
+    @Column(columnDefinition = " bit(1) not null default 0 COMMENT '标的所属阶段'")
     private Boolean isQuoted;
 
-    /** 企业名称是否公开 */
-    @Column(columnDefinition = " bit(1) COMMENT '企业名称是否公开 1 - 公开 2-未公开'")
+    @Column(columnDefinition = " bit(1) not null default 0 COMMENT '企业名称是否公开'")
     private Boolean companyNameIsPublic;
 
-    /** 企业名称 */
+    @Column(columnDefinition = "varchar(128) not null default '' comment '企业名称'")
     private String companyName;
 
-    /** 所属领域： */
-    private Integer realm;
+    @Column(columnDefinition = "varchar(255) not null default '' comment '行业领域'")
+    private String industryRealm;
 
-    /** 选择币种 0- 未选择 1-人名币 2-美元 */
-    @Column(columnDefinition = " int(1) COMMENT '选择币种 1 - 人名币 2 - 美元'")
-    private Integer currency;
+    public void setIndustryRealm(IndustryRealm industryRealm) {
+        this.industryRealm = industryRealm.name();
+    }
 
-    /** 去年净利润 */
+    @Column(columnDefinition = "varchar(12) not null default '' comment '币种'")
+    private String currency;
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency.name();
+    }
+
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '去年净利润'")
     private Double lastYearProfits;
 
-    /** 本轮估值 */
-    private Double currentAppraisement;
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '本轮估值'")
+    private Double currentValuation;
 
-    /** 转让金额 */
+    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '转让金额'")
     private Double transferAmount;
 
-    /** 转让股权比例是否保密 */
+    @Column(columnDefinition = " bit(1) not null default 1 COMMENT '转让股权比例是否保密'")
     private boolean isPrivacyEquityRatio;
 
-    /** 转让股权比例 */
+    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '转让股权比例'")
     private Double equityRatio;
 
-    /** 投资亮点 */
+    @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")
     private String investLightspot;
 
-    /** 联系人 */
+    @Column(columnDefinition = "varchar(15) not null default '' comment '联系人'")
     private String contact;
 
-    /** 联系人电话 */
+    @Column(columnDefinition = "varchar(15) not null default '' comment '联系人电话'")
     private String contactMobile;
 
-    /** 内容描述 */
+    @Column(columnDefinition = "varchar(15) not null default '' comment '内容描述'")
     private String contentDescription;
 
-    /** 项目结束时间 */
+    @Column(columnDefinition = "datetime default null comment '项目结束时间'")
     private Date endTime;
-
-    /** 是否加急 */
-    private Boolean isUrgent;
-
-    /** 查看是否需要平台认证 */
-    private Boolean isPlatformAuthentication;
-
-    /** 是否一手 */
-    private Boolean isFirstHandle;
-
-    /** 是否前台展示 */
-    private Boolean isShow;
-
-    private Boolean isAudit;
 
     //==========================================
 
