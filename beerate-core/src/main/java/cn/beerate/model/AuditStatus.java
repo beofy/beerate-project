@@ -21,6 +21,11 @@ public enum  AuditStatus {
         WAIT_AUDIT,
 
         /**
+         * 补充资料
+         */
+        SUPPLEMENT,
+
+        /**
          * 通过审核
          */
         PASS_AUDIT,
