@@ -40,10 +40,9 @@ public class BlockTradeMngController  extends AdminBaseController {
      * 项目添加
      */
     public Message<String> add(t_item_block_trade blockTrade){
+        // TODO: 2019/5/4    需要添加参数校验
 
-
-
-        return Message.ok("添加成功");
+        return blockTradeService.addBlockTrade(blockTrade,getAdminId());
     }
 
 }
