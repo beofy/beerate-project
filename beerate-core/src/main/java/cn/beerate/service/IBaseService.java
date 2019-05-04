@@ -27,8 +27,8 @@ public interface IBaseService<T extends Model> {
      */
     T save(T t);
 
-    Page<T> page(int page,int size,String colum,String order, Example<T> example);
+    Page<T> page(int page,int size,String column,String order, Example<T> example);
 
-    Page<T> page(int page,int size,String colum,String order,@Nullable Specification<T> spec);
+    Page<T> page(int page,int size,String column,String order,@Nullable Specification<T> spec);
 
 }
