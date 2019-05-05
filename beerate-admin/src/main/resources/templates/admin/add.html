@@ -97,12 +97,12 @@
                 if (data.code>0){
                     setTimeout(function() {
                         lightyear.loading('hide');
-                        lightyear.notify(data.msg, 'success', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                        lightyear.notify(data.msg, 'success', 3000);
                     }, 1e3);
                 } else {
                     setTimeout(function() {
                         lightyear.loading('hide');
-                        lightyear.notify(data.msg, 'danger', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                        lightyear.notify(data.msg, 'danger', 3000);
                     }, 1e3);
                 }
             }
@@ -152,7 +152,7 @@
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');
-                            lightyear.notify(data.msg, 'danger', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                            lightyear.notify(data.msg, 'danger');
                         }, 1e3);
                     }
                 }
