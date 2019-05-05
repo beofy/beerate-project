@@ -77,11 +77,11 @@
                         <span th:inline="text">[[${@adminController.getAdminName()}]] <span class="caret"></span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li> <a href="/admin/me.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
-                        <li> <a href="/admin/updatePassWord.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                        <li> <a th:href="@{/admin/me.html}"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                        <li> <a th:href="@{/admin/updatePassWord.html}"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
                         <!--<li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>-->
                         <li class="divider"></li>
-                        <li> <a href="/admin/loginout"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                        <li> <a th:href="@{/admin/loginout}"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
                     </ul>
                 </li>
                 <!--切换主题配色-->
@@ -222,12 +222,12 @@
 <aside class="lyear-layout-sidebar" th:fragment="aside">
     <!-- logo -->
     <div id="logo" class="sidebar-header">
-        <a href="/admin/main.html"><img th:src="@{/images/logo-sidebar.png}"  src="" title="LightYear" alt="LightYear" /></a>
+        <a th:href="@{/admin/main.html}"><img th:src="@{/images/logo-sidebar.png}"  src="" title="LightYear" alt="LightYear" /></a>
     </div>
     <div class="lyear-layout-sidebar-scroll">
         <nav class="sidebar-main">
             <ul class="nav nav-drawer">
-                <li class="nav-item active"> <a href="/admin/main.html"><i class="mdi mdi-home"></i> 首页</a> </li>
+                <li class="nav-item active"> <a th:href="@{/admin/main.html}"><i class="mdi mdi-home"></i> 首页</a> </li>
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="mdi mdi-view-headline"></i>运维</a>
                     <ul class="nav nav-subnav">
@@ -246,13 +246,13 @@
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="mdi mdi-folder-plus"></i>项目</a>
                     <ul class="nav nav-subnav">
-                        <li> <a href="/admin/itemloan/list.html">项目融资</a> </li>
+                        <li> <a th:href="@{/admin/itemloan/list.html}">项目融资</a> </li>
                         <li> <a href="/admin/overseaslisting/list.html">海外上市重组</a> </li>
-                        <li> <a href="javascript:void(0)">不良资产处置</a> </li>
-                        <li> <a href="/admin/stocktransfer/list.html">老股转让</a> </li>
-                        <li> <a href="/admin/preipo/list.html">PRE-IPO</a> </li>
-                        <li> <a href="/admin/blocktrade/list.html">大宗交易</a> </li>
-                        <li> <a href="/admin/stockpledge/list.html">股票质押</a> </li>
+                        <!--<li> <a href="javascript:void(0)">不良资产处置</a> </li>-->
+                        <li> <a th:href="@{/admin/stocktransfer/list.html}">老股转让</a> </li>
+                        <li> <a th:href="@{/admin/preipo/list.html}">PRE-IPO</a> </li>
+                        <li> <a th:href="@{/admin/blocktrade/list.html}">大宗交易</a> </li>
+                        <li> <a th:href="@{/admin/stockpledge/list.html}">股票质押</a> </li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-subnav">
