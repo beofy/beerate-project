@@ -6,12 +6,16 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.util.Date;
 
 @MappedSuperclass
 @NoArgsConstructor
 @Setter
 @Getter
 public class ItemModel extends Model {
+
+    @Column(columnDefinition = "datetime default null comment '项目结束时间'")
+    private Date endTime;
 
     @Column(columnDefinition = "bit not null default 0 comment '是否加急'")
     private Boolean isUrgent;
