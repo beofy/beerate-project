@@ -41,14 +41,14 @@
         $(function () {
             var success = Url.queryString("success");
             if(success!==""){
-                lightyear.notify(success, 'success');
+                lightyear.notify(success, 'success', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
                 Url.updateSearchParam("success")
                 return;
             }
 
             var error = Url.queryString("error");
             if(error!==""){
-                lightyear.notify(error, 'danger');
+                lightyear.notify(error, 'danger', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
                 Url.updateSearchParam("error")
             }
 

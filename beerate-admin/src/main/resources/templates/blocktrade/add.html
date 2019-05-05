@@ -16,40 +16,144 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
+
                                         <div class="form-group">
-                                            <label for="username">用户名</label>
-                                            <input type="text" class="form-control" name="username" id="username" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">密码</label>
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="输入密码"  >
-                                        </div>
-                                        <input type="hidden" name="photo"/>
-                                        <div class="form-group">
-                                            <label for="realityName">真实姓名</label>
-                                            <input type="text" class="form-control" name="realityName" id="realityName" placeholder="输入您的真实姓名"  >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">邮箱</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="请输入正确的邮箱地址" >
+                                            <label for="blockTradeName">项目名称</label>
+                                            <input type="text" class="form-control" name="blockTradeName" id="blockTradeName" placeholder="请输入项目名称" />
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="mobile">手机号</label>
-                                            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="请输入正确的手机号">
+                                            <label for="stockCode">股票代码</label>
+                                            <input type="number" class="form-control" name="stockCode" id="stockCode" placeholder="请输入股票代码"  >
                                         </div>
+
+                                        <label for="exchangeRate">交易折价</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="exchangeRate" id="exchangeRate" placeholder="请输入交易折价"  >
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+
+                                        <label for="underweightShares">减持股数</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="underweightShares" id="underweightShares" placeholder="请输入减持股数" >
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+
+                                        <label for="underweightAmount">减持总金额</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="underweightAmount" id="underweightAmount" placeholder="请输入减持总金额">
+                                            <span class="input-group-addon">万元</span>
+                                        </div>
+
                                         <div class="form-group">
-                                            <label for="department">部门</label>
-                                            <input type="text" class="form-control" name="department" id="department" placeholder="输入您的部门">
+                                            <label for="underweightIdentification">减持方身份</label>
+                                            <select class="form-control" name="underweightIdentification" id="underweightIdentification">
+                                                <option value="NONE">请选择</option>
+                                                <option value="STRONGER_STOCK_HOLDER">大股东/实控人</option>
+                                                <option value="OTHER_STOCK_HOLDER">其他股东</option>
+                                                <option value="ASSET_MANAGEMENT">资管</option>
+                                                <option value="TRUST">信托</option>
+                                                <option value="PRIVATE_EQUITY">私募</option>
+                                                <option value="OTHER">其他</option>
+                                            </select>
+
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="position">职位</label>
-                                            <input type="text" class="form-control" name="position" id="position" placeholder="输入您的职位">
+                                            <label>是否增信</label>
+                                            <div class="clearfix">
+                                                <label class="lyear-radio radio-inline radio-primary">
+                                                    <input type="radio" name="isConfidence"  value="0" checked="checked"><span>否</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline radio-primary">
+                                                    <input type="radio" name="isConfidence"  value="1" ><span>是</span>
+                                                </label>
+                                            </div>
                                         </div>
+                                        <label for="expectedReturn">预期收益率（增信）</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="expectedReturn" id="expectedReturn" placeholder="请输入预期收益率">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+
                                         <div class="form-group">
-                                            <label for="remark">简介</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="confidencePeriod">增信期限（增信）</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text" id="confidencePeriod" name="confidencePeriod" placeholder="请选择增信期限" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="creditIdentification">增信身份（增信）</label>
+                                            <select class="form-control" id="creditIdentification" name="creditIdentification">
+                                                <option value="NONE">请选择</option>
+                                                <option value="STRONGER_STOCK_HOLDER">大股东/实控人</option>
+                                                <option value="OTHER_STOCK_HOLDER">其他股东</option>
+                                                <option value="GUARANTEE">第三方担保</option>
+                                                <option value="OTHER">其他</option>
+                                            </select>
+                                        </div>
+
+                                        <label for="confidenceShare">增信方超额收益分成（增信）</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="text" class="form-control" name="confidenceShare" id="confidenceShare" placeholder="">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confidenceIsPublic">增信是否公开（增信）</label>
+                                            <select class="form-control" name="confidenceIsPublic" id="confidenceIsPublic">
+                                                <option>请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <label for="positionLowPrice">持仓低价</label>
+                                        <div class="input-group m-b-10">
+                                            <input type="text" class="form-control" name="positionLowPrice" id="positionLowPrice" >
+                                            <span class="input-group-addon">元/股</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>项目结束时间</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text"  name="endTime" placeholder="请选择项目结束时间" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isUrgent">是否加急</label>
+                                            <select id="isUrgent" name="isUrgent" class="form-control">
+                                                <option>请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isPlatformAuthentication">查看是否需要平台认证</label>
+                                            <select id="isPlatformAuthentication" name="isPlatformAuthentication" class="form-control">
+                                                <option>请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isFirstHandle">是否一手</label>
+                                            <select id="isFirstHandle" name="isFirstHandle" class="form-control">
+                                                <option>请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isShow">是否前台展示</label>
+                                            <select id="isShow" name="isShow" class="form-control">
+                                                <option>请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
                                         <button type="submit" class="btn btn-primary">保存</button>
                                     </form>
 
@@ -63,3 +167,68 @@
         </div>
     </div>
 </body>
+<!-- ajax文件上传 -->
+<script th:src="@{/js/ajaxfileupload.js}"></script>
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script>
+    //提交
+    $(".site-form").validate({
+        rules:{
+            username:{
+                required:true,
+                minlength:4,
+                maxlength:16
+            },
+            password:{
+                required:true
+            },
+            realityName:{
+                required:true
+            },
+            email:{
+                required:true,
+                email:true
+            },
+            mobile:{
+                required:true,
+                isMobile:true
+            },
+            department:{
+                required:true
+            },
+            position:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/add" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/blocktrade/list.html?page=1&size=10&colum=id&order=desc&success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+
+
+</html>
