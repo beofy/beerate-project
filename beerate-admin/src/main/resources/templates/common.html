@@ -12,6 +12,7 @@
     <!-- 共用样式 -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
     <link th:href="@{/css/style.min.css}" rel="stylesheet">
     <!--时间选择插件-->
     <link rel="stylesheet" th:href="@{/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css}">
@@ -41,14 +42,14 @@
         $(function () {
             var success = Url.queryString("success");
             if(success!==""){
-                lightyear.notify(success, 'success', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                lightyear.notify(success, 'success', 3000);
                 Url.updateSearchParam("success")
                 return;
             }
 
             var error = Url.queryString("error");
             if(error!==""){
-                lightyear.notify(error, 'danger', 3000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                lightyear.notify(error, 'danger', 3000);
                 Url.updateSearchParam("error")
             }
 
