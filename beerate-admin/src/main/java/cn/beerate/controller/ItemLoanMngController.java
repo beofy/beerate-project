@@ -41,8 +41,10 @@ public class ItemLoanMngController extends AdminBaseController {
      * 项目添加
      */
     public Message<String> add(t_item_loan itemLoan){
-
-
+        Message<t_item_loan> message = itemLoanService.addItemLoanByAdmin(itemLoan,getAdminId());
+        if(message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("添加成功");
     }
