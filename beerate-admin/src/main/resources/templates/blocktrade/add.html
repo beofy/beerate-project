@@ -101,7 +101,7 @@
                                         <div class="form-group">
                                             <label for="confidenceIsPublic">增信是否公开（增信）</label>
                                             <select class="form-control" name="confidenceIsPublic" id="confidenceIsPublic">
-                                                <option>请选择</option>
+                                                <option value="">请选择</option>
                                                 <option value="0">否</option>
                                                 <option value="1">是</option>
                                             </select>
@@ -121,7 +121,7 @@
                                         <div class="form-group">
                                             <label for="isUrgent">是否加急</label>
                                             <select id="isUrgent" name="isUrgent" class="form-control">
-                                                <option>请选择</option>
+                                                <option value="">请选择</option>
                                                 <option value="0">否</option>
                                                 <option value="1">是</option>
                                             </select>
@@ -130,7 +130,7 @@
                                         <div class="form-group">
                                             <label for="isPlatformAuthentication">查看是否需要平台认证</label>
                                             <select id="isPlatformAuthentication" name="isPlatformAuthentication" class="form-control">
-                                                <option>请选择</option>
+                                                <option value="">请选择</option>
                                                 <option value="0">否</option>
                                                 <option value="1">是</option>
                                             </select>
@@ -139,7 +139,7 @@
                                         <div class="form-group">
                                             <label for="isFirstHandle">是否一手</label>
                                             <select id="isFirstHandle" name="isFirstHandle" class="form-control">
-                                                <option>请选择</option>
+                                                <option value="">请选择</option>
                                                 <option value="0">否</option>
                                                 <option value="1">是</option>
                                             </select>
@@ -148,7 +148,7 @@
                                         <div class="form-group">
                                             <label for="isShow">是否前台展示</label>
                                             <select id="isShow" name="isShow" class="form-control">
-                                                <option>请选择</option>
+                                                <option value="">请选择</option>
                                                 <option value="0">否</option>
                                                 <option value="1">是</option>
                                             </select>
@@ -178,31 +178,7 @@
     //提交
     $(".site-form").validate({
         rules:{
-            username:{
-                required:true,
-                minlength:4,
-                maxlength:16
-            },
-            password:{
-                required:true
-            },
-            realityName:{
-                required:true
-            },
-            email:{
-                required:true,
-                email:true
-            },
-            mobile:{
-                required:true,
-                isMobile:true
-            },
-            department:{
-                required:true
-            },
-            position:{
-                required:true
-            }
+            // todo 待添加校验
         },
         onkeyup:false,
         focusCleanup:true,
@@ -211,7 +187,7 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/add" ,
+                url: "/admin/blocktrade/add" ,
                 success: function(data){
                     if (data.code>0){
                         location.href="/blocktrade/list.html?page=1&size=10&colum=id&order=desc&success="+data.msg
