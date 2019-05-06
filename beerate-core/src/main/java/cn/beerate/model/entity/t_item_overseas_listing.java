@@ -1,6 +1,7 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.Model;
+import cn.beerate.model.NetProfit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,9 @@ public class t_item_overseas_listing extends Model {
 	
 	@Column(columnDefinition = "varchar(12) not null default '' comment '企业全年净利润情况（单位：人民币）'")
 	private String netProfit;
+	public void setNetProfit(NetProfit netProfit){
+		this.netProfit=netProfit.name();
+	}
 
 	@Column(columnDefinition = "varchar(255) not null default '' comment '备注'")
 	private String mark;
