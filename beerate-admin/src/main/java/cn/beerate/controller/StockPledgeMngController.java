@@ -41,7 +41,10 @@ public class StockPledgeMngController  extends AdminBaseController {
      */
     public Message<String> add(t_item_stock_pledge stockPledge){
 
-
+        Message<t_item_stock_pledge> message = stockPledgeService.addStockPledgeByAdmin(stockPledge,getAdminId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("添加成功");
     }
