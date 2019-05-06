@@ -59,21 +59,11 @@ public class t_item_block_trade extends ItemModel {
     @Column(columnDefinition = "int(12) not null default '0' comment '增信方超额收益分成（增信）'")
     private  Integer confidenceShare;
 
-    @Column(columnDefinition = "bit(1) not null default '0' comment '增信是否公开（增信）'")
+    @Column(columnDefinition = "bit(1) not null default 0 comment '增信是否公开（增信）'")
     private Boolean confidenceIsPublic;
 
     @Column(columnDefinition = "double(12,2) not null default '0.00' comment '持仓低价'")
     private Double positionLowPrice;
-
-    @Column(columnDefinition = "datetime default null comment '项目结束时间'")
-    private Date endTime;
-
-    @Column(columnDefinition = "bit(1) default null default '0' comment '是否加急'")
-    private Boolean isUrgent;
-
-    @Column(columnDefinition = "bit(1) default null default '0' comment '查看是否需要平台认证'")
-    private Boolean isPlatformAuthentication;
-
 
     //==========================================
 

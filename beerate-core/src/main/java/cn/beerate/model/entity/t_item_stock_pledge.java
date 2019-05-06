@@ -42,7 +42,7 @@ public class t_item_stock_pledge extends ItemModel {
         this.stockBlock = stockBlock.name();
     }
 
-    @Column(columnDefinition = "bit(1) default null default '0' comment '融资人是否为上市公司控股股东或实际控制人'")
+    @Column(columnDefinition = "bit(1) default null default 0 comment '融资人是否为上市公司控股股东或实际控制人'")
     private Boolean isQuoteOrActualController;
 
     @Column(columnDefinition = "int(12) not null default '0' comment '总持有股票数'")
