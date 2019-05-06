@@ -1,20 +1,12 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.CreditIdentification;
-import cn.beerate.model.ModelValidate;
-import cn.beerate.model.UnderWeightIdentification;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.service.BlockTradeService;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.EnumUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Date;
 
 /**
  * 后台大宗交易管理-控制器
@@ -51,7 +43,7 @@ public class BlockTradeMngController  extends AdminBaseController {
     @PostMapping("/add")
     public Message<String> add(t_item_block_trade blockTrade){
 
-        Message message = blockTradeService.addBlockTradeByAdmin(blockTrade,getAdminId());
+        Message<t_item_block_trade> message = blockTradeService.addBlockTradeByAdmin(blockTrade,getAdminId());
         if(message.fail()){
             return Message.error(message.getMsg());
         }
