@@ -5,148 +5,71 @@ package cn.beerate.model;
  */
 public enum IndustryRealm {
 
-    /**
-     * 无
-     */
-    NONE,
+    NONE("无"),
 
-    /**
-     * 人工智能
-     */
-    AI,
+    AI("人工智能"),
 
-    /**
-     * TMT
-     */
-    YMT,
+    TMT("TMT"),
 
-    /**
-     * 大数据
-     */
-    BIG_DATA,
+    BIG_DATA("大数据"),
 
-    /**
-     * 区块链
-     */
-    BLOCK_CHAIN,
+    BLOCK_CHAIN("区块链"),
 
-    /**
-     * 云计算
-     */
-    CLOUD_COMPUTING,
+    CLOUD_COMPUTING("云计算"),
 
-    /**
-     * 新能源
-     */
-    NWE_ENERGY,
+    NWE_ENERGY("新能源"),
 
-    /**
-     * 物联网
-     */
-    INTERNET_OF_THINGS,
+    INTERNET_OF_THINGS("物联网"),
 
-    /**
-     * 文体娱乐
-     */
-    SPORTS_RECREATION,
+    SPORTS_RECREATION("文体娱乐"),
 
-    /**
-     * 足疗健康
-     */
-    PEDICURE,
+    PEDICURE("足疗健康"),
 
-    /**
-     * 高端制造
-     */
-    HIGH_MANUFACTURING,
+    HIGH_MANUFACTURING("高端制造"),
 
-    /**
-     * AR/VR
-     */
-    AR_VR,
+    AR_VR("AR/VR"),
 
-    /**
-     * 金融支付
-     */
-    FINANCIAL_PAYMENT,
+    FINANCIAL_PAYMENT("金融支付"),
 
-    /**
-     * 信息安全
-     */
-    INFORMATION_SECURITY,
+    INFORMATION_SECURITY("信息安全"),
 
-    /**
-     * 银行
-     */
-    BANK,
+    BANK("银行"),
 
-    /**
-     * 交通出行
-     */
-    TRANSPORTATION,
+    TRANSPORTATION("交通出行"),
 
-    /**
-     * 知识产权
-     */
-    INTELLECTUAL_PROPERTY,
+    INTELLECTUAL_PROPERTY("知识产权"),
 
-    /**
-     * 绿色产业
-     */
-    GREEN_INDUSTRY,
+    GREEN_INDUSTRY("绿色产业"),
 
-    /**
-     * 共享经济
-     */
-    SHARING_ECONOMY,
+    SHARING_ECONOMY("共享经济"),
 
-    /**
-     * 电子商务
-     */
-    EBUSINESS,
+    E_BUSINESS("电子商务"),
 
-    /**
-     * 互联网金融
-     */
-    ONLINE_FINANCE,
+    ONLINE_FINANCE("互联网金融"),
 
-    /**
-     * O2O
-     */
-    O2O,
+    O2O("O2O"),
 
-    /**
-     * 环保
-     */
-    ENVIRONMENTAL_PROTECTION,
+    ENVIRONMENTAL_PROTECTION("环保"),
 
-    /**
-     * 新材料
-     */
-    NEW_MATERIAL,
+    NEW_MATERIAL("新材料"),
 
-    /**
-     * 养老产业
-     */
-    PENSION_INDUSTRY,
+    PENSION_INDUSTRY("养老产业"),
 
-    /**
-     * 新零售
-     */
-    NEW_RETAIL,
+    NEW_RETAIL("新零售"),
 
-    /**
-     * 母婴
-     */
-    MOTHER_AND_INFANTS,
+    MOTHER_AND_INFANTS("母婴"),
 
-    /**
-     * 新闻媒体
-     */
-    NEWS_MEDIA,
+    NEWS_MEDIA("新闻媒体"),
 
-    /**
-     * 投资银行
-     */
-    INVESTMENT_BANK
+    INVESTMENT_BANK("投资银行");
+
+    private String value;
+
+    IndustryRealm(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

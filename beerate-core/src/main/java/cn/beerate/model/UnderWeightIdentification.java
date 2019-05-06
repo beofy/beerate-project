@@ -4,39 +4,28 @@ package cn.beerate.model;
  * 减持方身份
  */
 public enum UnderWeightIdentification {
-    /**
-     * 无
-     */
-    NONE,
 
-    /**
-     * 大股东/实控人
-     */
-    STRONGER_STOCK_HOLDER,
+    NONE("无"),
 
-    /**
-     * 其他股东
-     */
-    OTHER_STOCK_HOLDER,
+    STRONGER_STOCK_HOLDER("大股东/实控人"),
 
-    /**
-     * 资管
-     */
-    ASSET_MANAGEMENT,
+    OTHER_STOCK_HOLDER("其他股东"),
 
-    /**
-     * 信托
-     */
-    TRUST,
+    ASSET_MANAGEMENT("资管"),
 
-    /**
-     * 私募
-     */
-    PRIVATE_EQUITY,
+    TRUST("信托"),
 
-    /**
-     * 其他
-     */
-    OTHER
+    PRIVATE_EQUITY("私募"),
 
+    OTHER("其他");
+
+    private String value;
+
+    UnderWeightIdentification(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

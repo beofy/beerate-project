@@ -4,19 +4,20 @@ package cn.beerate.model;
  * 周期单位
  */
 public enum PeriodUnit {
-    /**
-     * 天
-     */
-    DAY,
 
-    /**
-     * 月
-     */
-    MONTH,
+    DAY("天"),
 
-    /**
-     * 年
-     */
-    YEAR
+    MONTH("月"),
 
+    YEAR("年");
+
+    private String value;
+
+    PeriodUnit(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

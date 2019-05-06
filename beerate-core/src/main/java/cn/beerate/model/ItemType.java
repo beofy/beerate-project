@@ -5,29 +5,24 @@ package cn.beerate.model;
  */
 public enum ItemType {
 
-    /**
-     * 无
-     */
-    NONE,
+    NONE("无"),
 
-    /**
-     * 老股转让
-     */
-    STOCK_TRANSFER,
+    STOCK_TRANSFER("老股转让"),
 
-    /**
-     * 老股转让
-     */
-    PRE_IPO,
+    PRE_IPO("老股转让"),
 
-    /**
-     * 老股转让
-     */
-    BLOCK_TRADE,
+    BLOCK_TRADE("老股转让"),
 
-    /**
-     * 老股转让
-     */
-    STOCK_PLEDGE
+    STOCK_PLEDGE("老股转让");
+
+    private String value;
+
+    ItemType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 
 }

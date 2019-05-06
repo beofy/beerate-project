@@ -3,36 +3,27 @@ package cn.beerate.model;
 /**
  * 审核状态枚举类
  */
-public enum  AuditStatus {
+public enum AuditStatus {
 
-        /**
-         * 无
-         */
-        NONE,
+    NONE("无"),
 
-        /**
-         * 审核失败
-         */
-        NO_AUDIT,
+    NO_AUDIT("审核失败"),
 
-        /**
-         * 等待审核
-         */
-        WAIT_AUDIT,
+    WAIT_AUDIT("等待审核"),
 
-        /**
-         * 补充资料
-         */
-        SUPPLEMENT,
+    SUPPLEMENT("补充资料"),
 
-        /**
-         * 通过审核
-         */
-        PASS_AUDIT,
+    PASS_AUDIT("通过审核"),
 
-        /**
-         * 未通过审核
-         */
-        FAIL_AUDIT
+    FAIL_AUDIT("未通过审核");
 
+    private String value;
+
+    AuditStatus(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

@@ -3,19 +3,21 @@ package cn.beerate.model;
 /**
  * 金额单位
  */
-public enum AmountUnit {
-    /**
-     * 元
-     */
-    Y,
+public enum AmountUnit{
 
-    /**
-     * 万元
-     */
-    WY,
+    Y("元"),
 
-    /**
-     * 亿元
-     */
-    YY,
+    WY("万元"),
+
+    YY("亿元");
+
+    private String value;
+
+    AmountUnit(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

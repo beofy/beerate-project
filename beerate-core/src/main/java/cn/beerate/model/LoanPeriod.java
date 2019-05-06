@@ -5,24 +5,21 @@ package cn.beerate.model;
  */
 public enum  LoanPeriod {
 
-    /**
-     * 1年
-     */
-    ONE_YEAR,
+    ONE_YEAR("1年"),
 
-    /**
-     * 1-3年
-     */
-    ONE_TO_THREE_YEAR,
+    ONE_TO_THREE_YEAR("1-3年"),
 
-    /**
-     * 3-5年
-     */
-    THREE_TO_FIVE_YEAR,
+    THREE_TO_FIVE_YEAR("3-5年"),
 
-    /**
-     * 5年以上
-     */
-    OVER_FIVE_YEAR
+    OVER_FIVE_YEAR("5年以上");
 
+    private String value;
+
+    LoanPeriod(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

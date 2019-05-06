@@ -5,24 +5,21 @@ package cn.beerate.model;
  */
 public enum StockBlock {
 
-    /**
-     * 沪深300成分股
-     */
-    HS300,
+    HS300("沪深300成分股"),
 
-     /**
-     * 主板其他
-     */
-     OTHER_MAIN_STOCK_BOARD,
+    OTHER_MAIN_STOCK_BOARD("主板其他"),
 
-     /**
-     * 中小板
-     */
-     MIDDLE_SMALL_STOCK_BOARD,
+    MIDDLE_SMALL_STOCK_BOARD("中小板"),
 
-     /**
-     * 创业板
-     */
-     ENTERPRISE_BOARD,
+    ENTERPRISE_BOARD("创业板");
 
+    private String value;
+
+    StockBlock(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

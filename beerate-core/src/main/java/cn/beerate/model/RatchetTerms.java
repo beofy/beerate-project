@@ -5,18 +5,19 @@ package cn.beerate.model;
  */
 public enum RatchetTerms {
 
-    /**
-     * 无对赌
-     */
-    NONE,
+    NONE("无对赌"),
 
-    /**
-     * 回购对赌
-     */
-    REPURCHASE,
+    REPURCHASE("回购对赌"),
 
-    /**
-     * 业绩对赌
-     */
-    PERFORMANCE
+    PERFORMANCE("业绩对赌");
+
+    private String value;
+
+    RatchetTerms(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

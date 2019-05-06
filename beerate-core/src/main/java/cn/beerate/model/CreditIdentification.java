@@ -5,29 +5,24 @@ package cn.beerate.model;
  */
 public enum CreditIdentification {
 
-    /**
-     * 无
-     */
-    NONE,
+    NONE("无"),
 
-    /**
-     * 大股东/实控人
-     */
-    STRONGER_STOCK_HOLDER,
+    STRONGER_STOCK_HOLDER("大股东/实控人"),
 
-    /**
-     * 其他股东
-     */
-    OTHER_STOCK_HOLDER,
+    OTHER_STOCK_HOLDER("其他股东"),
 
-    /**
-     *  第三方担保
-     */
-    GUARANTEE,
+    GUARANTEE("第三方担保"),
 
-    /**
-     * 其他
-     */
-    OTHER
+    OTHER("其他");
+
+    private String value;
+
+    CreditIdentification(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 
 }

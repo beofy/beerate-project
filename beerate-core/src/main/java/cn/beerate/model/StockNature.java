@@ -5,18 +5,19 @@ package cn.beerate.model;
  */
 public enum StockNature {
 
-    /**
-     * 流通
-     */
-    CIRCULATE,
+    CIRCULATE("流通"),
 
-    /**
-     * 限售
-     */
-    RESTRICTED,
+    RESTRICTED("限售"),
 
-    /**
-     * 禁售
-     */
-    PROHIBITION,
+    PROHIBITION("禁售");
+
+    private String value;
+
+    StockNature(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
