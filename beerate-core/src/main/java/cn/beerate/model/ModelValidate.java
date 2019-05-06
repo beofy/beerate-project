@@ -19,16 +19,20 @@ public class ModelValidate {
             return Message.error("请选择是否加急");
         }
 
-        if(itemModel.getIsPlatformAuthentication()){
+        if(itemModel.getIsPlatformAuthentication()==null){
             return Message.error("请选择是否需要平台认证");
         }
 
-        if(itemModel.getIsFirstHandle()){
+        if(itemModel.getIsFirstHandle()==null){
             return Message.error("请选择是否一手");
         }
 
-        if(itemModel.getIsShow()){
+        if(itemModel.getIsShow()==null){
             return Message.error("请选择是否前台展示");
+        }
+
+        if(itemModel.getAuditStatus()==null){
+            return Message.error("项目审核状态不正确");
         }
 
         return Message.ok("校验成功");
@@ -48,15 +52,15 @@ public class ModelValidate {
             return Message.error("请输入正确股票代码");
         }
 
-        if(blockTrade.getExchangeRate()<0||blockTrade.getExchangeRate()>100){
+        if(blockTrade.getExchangeRate()==null||blockTrade.getExchangeRate()<0||blockTrade.getExchangeRate()>100){
             return Message.error("请输入正确的交易折价");
         }
 
-        if(blockTrade.getUnderweightShares()<0){
+        if(blockTrade.getUnderweightShares()==null||blockTrade.getUnderweightShares()<0){
             return Message.error("请输入正确的减持股数");
         }
 
-        if(blockTrade.getUnderweightAmount()<0){
+        if(blockTrade.getUnderweightAmount()==null||blockTrade.getUnderweightAmount()<0){
             return Message.error("请输入正确的减持金额");
         }
 
@@ -72,7 +76,7 @@ public class ModelValidate {
 
         if(BooleanUtils.isTrue(blockTrade.getIsConfidence())){//增信
 
-            if(blockTrade.getExpectedReturn()<0){
+            if(blockTrade.getExpectedReturn()==null||blockTrade.getExpectedReturn()<0){
                 return Message.error("请输入正确的预期收益率");
             }
 
@@ -85,16 +89,16 @@ public class ModelValidate {
                 return Message.error("请选择正确的增信身份");
             }
 
-            if(blockTrade.getConfidenceShare()<0){
+            if(blockTrade.getConfidenceShare()==null||blockTrade.getConfidenceShare()<0){
                 return Message.error("请输入正确的增信方超额收益分成");
             }
 
-            if(blockTrade.getConfidenceIsPublic()){
+            if(blockTrade.getConfidenceIsPublic()==null){
                 return Message.error("请选择增信是否公开");
             }
         }
 
-        if(blockTrade.getPositionLowPrice()<0){
+        if(blockTrade.getPositionLowPrice()==null||blockTrade.getPositionLowPrice()<0){
             return Message.error("请输入正确的低价持仓");
         }
 
