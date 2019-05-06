@@ -42,7 +42,10 @@ public class OverseasListingMngController extends AdminBaseController {
      */
     public Message<String> add(t_item_overseas_listing overseasListing){
 
-
+        Message<t_item_overseas_listing> message = overseasListingService.addOverseasListing(overseasListing);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("添加成功");
     }
