@@ -39,7 +39,10 @@ public class StockTransferMngController extends AdminBaseController  {
      * 项目添加
      */
     public Message<String> add(t_item_stock_transfer stockTransfer){
-
+        Message<t_item_stock_transfer> message = stockTransferSerivce.addStockTransferByAdmin(stockTransfer,getAdminId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("添加成功");
     }
