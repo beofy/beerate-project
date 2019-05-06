@@ -1,8 +1,10 @@
 package cn.beerate.model.entity;
 
 
+import cn.beerate.model.AmountUnit;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.ItemModel;
+import cn.beerate.model.PeriodUnit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +27,7 @@ public class t_item_loan extends ItemModel {
 	private String companyName;
 	
 	@Column(columnDefinition = "varchar(255) not null default '' comment '公司logo'")
-	private Long logoUri;
+	private String logoUri;
 	
 	@Column(columnDefinition = "varchar(255) not null default '' comment '行业领域'")
 	private String industryRealm;
@@ -55,6 +57,10 @@ public class t_item_loan extends ItemModel {
 	@Column(columnDefinition = "varchar(5) not null default '' comment '金额单位'")
 	private String amountUnit;
 
+	public void setAmountUnit(AmountUnit amountUnit){
+		this.amountUnit=amountUnit.name();
+	}
+
 	@Column(columnDefinition = "varchar(255) not null default '' comment '资金用途'")
 	private String purpose;
 	
@@ -63,12 +69,16 @@ public class t_item_loan extends ItemModel {
 	
 	@Column(columnDefinition = "varchar(5) not null default '' comment '期限单位'")
 	private String periodUnit;
+
+	private void setPeriodUnit(PeriodUnit periodUnit){
+		this.periodUnit=periodUnit.name();
+	}
 	
 	@Column(columnDefinition = "varchar(5) not null default '' comment '还款来源'")
 	private String repayment;
 	
 	@Column(columnDefinition = "varchar(255) not null default '' comment 'BP计划书'")
-	private Long businessProposalUri;
+	private String businessProposalUri;
 
 	/* ======================补充资料====================== */
 	@Column(columnDefinition = "varchar(255) not null default '' comment '营业执照彩色扫描件（三证合一）'")
