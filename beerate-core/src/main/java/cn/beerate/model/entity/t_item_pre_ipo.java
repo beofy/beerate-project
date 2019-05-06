@@ -1,8 +1,6 @@
 package cn.beerate.model.entity;
 
-import cn.beerate.model.Currency;
-import cn.beerate.model.IndustryRealm;
-import cn.beerate.model.ItemModel;
+import cn.beerate.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +17,13 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_item_pre_ipo", comment = "PRE_IPO表")
 public class t_item_pre_ipo extends ItemModel {
 
-    @Column(columnDefinition = "bit not null default 0 comment '是否新三板挂牌'")
-    private Boolean isNewThirdBoardListing;
-
     @Column(columnDefinition = "varchar(128) not null default '' comment '项目名称'")
     private String preIpoName;
 
-    /*  ---已挂牌--- */
+    @Column(columnDefinition = "bit not null default 0 comment '是否新三板挂牌'")
+    private Boolean isNewThirdBoardListing;
+
+    /*  ====================已挂牌==================== */
     @Column(columnDefinition = "varchar(6) not null default '' comment '股票代码'")
     private String stockCode;
 
@@ -37,9 +35,9 @@ public class t_item_pre_ipo extends ItemModel {
 
     @Column(columnDefinition = "varchar(128) not null default '' comment '辅导券商名称'")
     private String TutoringBrokerageName;
-    /*  ---已挂牌--- */
+    /*  ====================已挂牌====================*/
 
-    /*  ---未挂牌--- */
+    /*  ====================未挂牌==================== */
     @Column(columnDefinition = "varchar(128) not null default '' comment '标的名称'")
     private String bidName;
 
@@ -51,7 +49,7 @@ public class t_item_pre_ipo extends ItemModel {
 
     @Column(columnDefinition = "varchar(12) not null default '' comment '所在省市'")
     private String city;
-    /*  ---未挂牌--- */
+    /*  ====================未挂牌==================== */
 
     @Column(columnDefinition = "varchar(12) not null default '' comment '标的所处行业领域'")
     private String industryRealm;
@@ -66,27 +64,31 @@ public class t_item_pre_ipo extends ItemModel {
     @Column(columnDefinition = "varchar(12) not null default '' comment '对赌条件'")
     private String ratchetTerms;
 
+    public void setRatchetTerms(RatchetTerms ratchetTerms){
+        this.ratchetTerms=ratchetTerms.name();
+    }
+
     @Column(columnDefinition = "varchar(255) not null default '' comment '对赌描述'")
     private String ratchetTermsDescription;
 
-    /*  ---已挂牌--- */
+    /*  ====================已挂牌==================== */
     @Column(columnDefinition = "bit(1) not null default 0 comment '价格是否面议'")
     private Boolean isPriceNegotiable;
 
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '意向价格'")
     private Double intentionalPrice;
 
-    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '交易股数'")
-    private Double exchangeShares;
+    @Column(columnDefinition = "bigint(12) not null default '0' comment '交易股数'")
+    private Integer exchangeShares;
 
     @Column(columnDefinition = "double(12,2) not null default '0.00' comment '份额规模'")
     private Double sharesAmount;
 
     @Column(columnDefinition = "double(12,2) not null default '0.00' comment '参与门槛'")
     private Double thresholdAmount;
-    /* ---已挂牌--- */
+    /* ====================已挂牌==================== */
 
-    /* ---未挂牌--- */
+    /* ====================未挂牌==================== */
 
     @Column(columnDefinition = "varchar(12) not null default '' comment '币种'")
     private String currency;
@@ -107,18 +109,19 @@ public class t_item_pre_ipo extends ItemModel {
     @Column(columnDefinition = "varchar(12) not null default '' comment '融资期限'")
     private String loanPeriod;
 
+    public void setLoanPeriod(LoanPeriod loanPeriod){
+        this.loanPeriod=loanPeriod.name();
+    }
+
     @Column(columnDefinition = "varchar(255) not null default '' comment '融资用途'")
     private String purpose;
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")
     private String investLightSpot;
-    /*  ---未挂牌--- */
+    /*  ====================未挂牌==================== */
 
     @Column(columnDefinition = "varchar(255) not null default '' comment 'BP计划书'")
     private String businessProposalUri;
-
-    @Column(columnDefinition = "datetime default null comment '项目截至日期'")
-    private Date endTime;
 
     @Column(columnDefinition = "varchar(12) not null default '' comment '联系人'")
     private String contact;
