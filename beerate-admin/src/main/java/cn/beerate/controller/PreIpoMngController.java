@@ -41,7 +41,10 @@ public class PreIpoMngController  extends AdminBaseController  {
      */
     public Message<String> add(t_item_pre_ipo preIpo){
 
-
+        Message<t_item_pre_ipo> message  = preIpoService.addPreIpoByAdmin(preIpo,getAdminId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("添加成功");
     }
