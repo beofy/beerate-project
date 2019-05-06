@@ -54,13 +54,13 @@ public class t_item_stock_transfer extends ItemModel {
     private Double transferAmount;
 
     @Column(columnDefinition = " bit(1) not null default 1 COMMENT '转让股权比例是否保密'")
-    private boolean isPrivacyEquityRatio;
+    private Boolean isPrivacyEquityRatio;
 
     @Column(columnDefinition = "double(3,2) not null default '0.00' comment '转让股权比例'")
     private Double equityRatio;
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")
-    private String investLightspot;
+    private String investLightSpot;
 
     @Column(columnDefinition = "varchar(15) not null default '' comment '联系人'")
     private String contact;
@@ -70,9 +70,6 @@ public class t_item_stock_transfer extends ItemModel {
 
     @Column(columnDefinition = "varchar(15) not null default '' comment '内容描述'")
     private String contentDescription;
-
-    @Column(columnDefinition = "datetime default null comment '项目结束时间'")
-    private Date endTime;
 
     //==========================================
 
