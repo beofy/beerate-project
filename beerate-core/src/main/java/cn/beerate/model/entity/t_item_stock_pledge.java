@@ -82,9 +82,6 @@ public class t_item_stock_pledge extends ItemModel {
     @Column(columnDefinition = "varchar(255) not null default '' comment '其他增信措施'")
     private String enhancementConfidenceMeasures;
 
-    @Column(columnDefinition = "datetime  comment '项目结束时间'")
-    private Date endTime;
-
     //==========================================
 
     @ManyToOne
