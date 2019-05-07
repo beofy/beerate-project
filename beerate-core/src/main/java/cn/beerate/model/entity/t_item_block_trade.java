@@ -25,7 +25,7 @@ public class t_item_block_trade extends ItemModel {
     @Column(columnDefinition = "varchar(6) not null default '' comment '股票代码'")
     private String stockCode;
 
-    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '交易折价'")
+    @Column(columnDefinition = "double(5,2) not null default '0.00' comment '交易折价'")
     private Double exchangeRate;
 
     @Column(columnDefinition = "int(12) not null default '0' comment '减持股数'")
@@ -34,7 +34,7 @@ public class t_item_block_trade extends ItemModel {
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '减持总金额'")
     private Double underweightAmount;
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '减持方身份'")
+    @Column(columnDefinition = "varchar(30) not null default '' comment '减持方身份'")
     private  String underweightIdentification;
 
     public void setUnderweightIdentification(UnderWeightIdentification underweightIdentification) {
@@ -48,13 +48,13 @@ public class t_item_block_trade extends ItemModel {
     @Column(columnDefinition = "bit(1) not null default 0 comment '是否增信'")
     private Boolean isConfidence;
 
-    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '预期收益率（增信）'")
+    @Column(columnDefinition = "double(5,2) not null default '0.00' comment '预期收益率（增信）'")
     private Double expectedReturn;
 
     @Column(columnDefinition = "datetime  default null comment '增信期限（增信）'")
     private Date confidencePeriod;
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '增信身份（增信）'")
+    @Column(columnDefinition = "varchar(30) not null default '' comment '增信身份（增信）'")
     private String creditIdentification;
 
     public void setCreditIdentification(CreditIdentification creditIdentification) {
@@ -70,9 +70,6 @@ public class t_item_block_trade extends ItemModel {
 
     @Column(columnDefinition = "bit(1) not null default 0 comment '增信是否公开（增信）'")
     private Boolean confidenceIsPublic;
-
-    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '持仓低价'")
-    private Double positionLowPrice;
 
     //==========================================
 

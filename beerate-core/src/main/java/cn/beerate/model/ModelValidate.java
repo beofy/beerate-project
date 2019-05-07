@@ -91,10 +91,6 @@ public class ModelValidate {
             }
         }
 
-        if (blockTrade.getPositionLowPrice() == null || blockTrade.getPositionLowPrice() < 0) {
-            return Message.error("请输入正确的低价持仓");
-        }
-
         return itemModelValid(blockTrade);
     }
 
