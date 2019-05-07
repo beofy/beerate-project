@@ -73,7 +73,7 @@ public class t_item_pre_ipo extends ItemModel {
         this.ratchetTerms=ratchetTerms.name();
     }
 
-    public RatchetTerms geRatchetTerms(){
+    public RatchetTerms getRatchetTerms(){
         return EnumUtils.getEnumIgnoreCase(RatchetTerms.class,ratchetTerms);
     }
 

@@ -9,7 +9,6 @@ import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
