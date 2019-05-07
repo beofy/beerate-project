@@ -3,13 +3,17 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.BlockTradeDao;
 import cn.beerate.model.AuditStatus;
+import cn.beerate.model.CreditIdentification;
 import cn.beerate.model.ModelValidate;
 import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.service.BlockTradeService;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,6 +35,15 @@ public class BlockTradeServiceImpl extends BaseServiceImpl<t_item_block_trade> i
         if(messageValid.fail()){
             return Message.error(messageValid.getMsg());
         }
+
+        if (!BooleanUtils.isTrue(blockTrade.getIsConfidence())) {
+            blockTrade.setExpectedReturn(0.00);
+            blockTrade.setConfidencePeriod(null);
+            blockTrade.setCreditIdentification(CreditIdentification.NONE);
+            blockTrade.setConfidenceShare(0);
+            blockTrade.setConfidenceIsPublic(false);
+        }
+
 
        return Message.success(blockTradeDao.save(blockTrade));
 
