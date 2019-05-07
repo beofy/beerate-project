@@ -16,40 +16,161 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
+
                                         <div class="form-group">
-                                            <label for="username">用户名</label>
-                                            <input type="text" class="form-control" name="username" id="username" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">密码</label>
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="输入密码"  >
-                                        </div>
-                                        <input type="hidden" name="photo"/>
-                                        <div class="form-group">
-                                            <label for="realityName">真实姓名</label>
-                                            <input type="text" class="form-control" name="realityName" id="realityName" placeholder="输入您的真实姓名"  >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">邮箱</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="请输入正确的邮箱地址" >
+                                            <label for="financingBody">融资主体</label>
+                                            <input type="text" class="form-control" name="financingBody" id="financingBody" />
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="mobile">手机号</label>
-                                            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="请输入正确的手机号">
+                                            <label for="stockCode">股票代码</label>
+                                            <input type="number" class="form-control" name="stockCode" id="stockCode" placeholder=""  >
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="department">部门</label>
-                                            <input type="text" class="form-control" name="department" id="department" placeholder="输入您的部门">
+                                            <label for="stockNature">质押股票流通性质</label>
+                                            <select class="form-control" name="stockNature" id="stockNature" >
+                                                <option value="">请选择</option>
+                                                <option value="CIRCULATE">流通</option>
+                                                <option value="RESTRICTED">限售</option>
+                                                <option value="PROHIBITION">禁售</option>
+                                            </select>
                                         </div>
+
+
                                         <div class="form-group">
-                                            <label for="position">职位</label>
-                                            <input type="text" class="form-control" name="position" id="position" placeholder="输入您的职位">
+                                            <label>限售到期日</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text"  name="salesDeadline" placeholder="" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="remark">简介</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="stockBlock">质押股票流通性质</label>
+                                            <select class="form-control" name="stockBlock" id="stockBlock" >
+                                                <option value="">请选择</option>
+                                                <option value="HS300">沪深300成分股</option>
+                                                <option value="OTHER_MAIN_STOCK_BOARD">主板其他</option>
+                                                <option value="MIDDLE_SMALL_STOCK_BOARD">中小板</option>
+                                                <option value="ENTERPRISE_BOARD">创业板</option>
+                                            </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="isQuoteOrActualController">融资人是否为上市公司控股股东或实际控制人</label>
+                                            <select class="form-control" name="isQuoteOrActualController" id="isQuoteOrActualController" >
+                                                <option value="">请选择</option>
+                                                <option value="1">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+
+                                        <label for="holdStockShares">总持有股票数</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="holdStockShares" id="holdStockShares" placeholder="">
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+
+                                        <label for="pledgeStockShares">质押股票数</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="pledgeStockShares" id="pledgeStockShares" placeholder="">
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+
+                                        <label for="surplusPledgeStockShares">剩余可质押股票数</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="surplusPledgeStockShares" id="surplusPledgeStockShares" placeholder="">
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+
+                                        <label for="loanAmount">融资金额</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="loanAmount" id="loanAmount" placeholder="">
+                                            <span class="input-group-addon">万元</span>
+                                        </div>
+
+                                        <label for="pledgeRates">质押率</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="pledgeRates" id="pledgeRates" placeholder="">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="loanPeriod">融资期限</label>
+                                            <select class="form-control" name="loanPeriod" id="loanPeriod" >
+                                                <option value="">请选择</option>
+                                                <option value="ONE_YEAR">1年</option>
+                                                <option value="ONE_TO_THREE_YEAR">1-3年</option>
+                                                <option value="THREE_TO_FIVE_YEAR">3-5年</option>
+                                                <option value="OVER_FIVE_YEAR">5年以上</option>
+                                            </select>
+                                        </div>
+
+                                        <label for="financingPartyPaysCostRates">融资方愿意支付的融资成本</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="financingPartyPaysCostRates" id="financingPartyPaysCostRates" placeholder="">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="recentOneYearProfitsDescription">最近一个年度盈利情况</label>
+                                            <textarea class="form-control" name="recentOneYearProfitsDescription" id="recentOneYearProfitsDescription" rows="3"  placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="recentOneYearProfitsDescription">借款用途说明</label>
+                                            <textarea class="form-control" name="purpose" id="purpose" rows="3"  placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="repaymentDescription">还款来源说明</label>
+                                            <textarea class="form-control" name="repaymentDescription" id="repaymentDescription" rows="3"  placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="enhancementConfidenceMeasures">其他增信措施</label>
+                                            <textarea class="form-control" name="enhancementConfidenceMeasures" id="enhancementConfidenceMeasures" rows="3"  placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>项目结束时间</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text"  name="endTime" placeholder="请选择项目结束时间" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isUrgent">是否加急</label>
+                                            <select id="isUrgent" name="isUrgent" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isPlatformAuthentication">查看是否需要平台认证</label>
+                                            <select id="isPlatformAuthentication" name="isPlatformAuthentication" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isFirstHandle">是否一手</label>
+                                            <select id="isFirstHandle" name="isFirstHandle" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isShow">是否前台展示</label>
+                                            <select id="isShow" name="isShow" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
                                         <button type="submit" class="btn btn-primary">保存</button>
                                     </form>
 
