@@ -228,7 +228,7 @@ public class ModelValidate {
             return Message.error("请选择拟IPO基准日");
         }
 
-        if(preIpo.getRatchetTerms()==null||preIpo.getRatchetTerms()==RatchetTerms.NONE){
+        if(preIpo.getRatchetTerms()==null){
             return Message.error("请选择对赌条件");
         }
 

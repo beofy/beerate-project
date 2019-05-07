@@ -251,7 +251,13 @@
                         <li> <a href="/admin/overseaslisting/list.html">海外上市重组</a> </li>
                         <!--<li> <a href="javascript:void(0)">不良资产处置</a> </li>-->
                         <li> <a th:href="@{/admin/stocktransfer/list.html}">老股转让</a> </li>
-                        <li> <a th:href="@{/admin/preipo/list.html}">PRE-IPO</a> </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)">PRE-IPO</a>
+                            <ul class="nav nav-subnav">
+                                <li> <a th:href="@{/admin/preipo/list.html}">已挂牌</a> </li>
+                                <li> <a th:href="@{/admin/preipo/list.html}">未挂牌</a> </li>
+                            </ul>
+                        </li>
                         <li> <a th:href="@{/admin/blocktrade/list.html(page=1,size=10,column='id',order='desc')}">大宗交易</a> </li>
                         <li> <a th:href="@{/admin/stockpledge/list.html}">股票质押</a> </li>
                     </ul>
