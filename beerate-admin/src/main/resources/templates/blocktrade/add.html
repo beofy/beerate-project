@@ -184,7 +184,9 @@
                 url: "/admin/blocktrade/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/blocktrade/list.html?page=1&size=10&colum=id&order=desc&success="+data.msg
+                        location.href="/admin/blocktrade/list.html?page=1&size=10&column=id&order=desc&success="+data.msg
+
+
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

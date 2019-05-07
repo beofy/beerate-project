@@ -80,30 +80,30 @@
                                             </th>
                                             <th onclick="order('id',this)"> 编号</th>
                                             <th onclick="order('createTime',this)"> 时间</th>
-                                            <th>账号</th>
-                                            <th>邮箱</th>
-                                            <th>姓名</th>
-                                            <th>手机</th>
-                                            <th>部门</th>
-                                            <th>职位</th>
+                                            <th>项目名称</th>
+                                            <th>股票代码</th>
+                                            <th>交易折价</th>
+                                            <th>减持股数</th>
+                                            <th>减持总金额</th>
+                                            <th>减持方身份</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr >
+                                        <tr th:each="blocktrade:${page.getContent()}">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                    <input type="checkbox" name="ids[]" th:value="${blocktrade.id}"><span></span>
                                                 </label>
                                             </td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ><font class="text-success">正常</font></td>
+                                            <td th:text="${blocktrade.id}"></td>
+                                            <td th:text="${#dates.format(blocktrade.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${blocktrade.blockTradeName}"></td>
+                                            <td th:text="${blocktrade.stockCode}"></td>
+                                            <td th:text="${blocktrade.exchangeRate}"></td>
+                                            <td th:text="${blocktrade.underweightShares}"></td>
+                                            <td th:text="${blocktrade.underweightAmount}"></td>
+                                            <td th:text="${blocktrade.getUnderWeightIdentification().value}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
