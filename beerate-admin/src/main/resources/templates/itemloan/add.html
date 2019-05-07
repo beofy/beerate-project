@@ -16,95 +16,150 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
+
                                         <div class="form-group">
-                                            <label for="username">公司名称</label>
-                                            <input type="text" class="form-control" name="username" id="username" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">项目名称</label>
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="输入密码"  >
-                                        </div>
-                                        <input type="hidden" name="photo"/>
-                                        <div class="form-group">
-                                            <label for="realityName">公司LOGO</label>
-                                            <input type="text" class="form-control" name="realityName" id="realityName" placeholder="输入您的真实姓名"  >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">所属领域</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="请输入正确的邮箱地址" >
+                                            <label for="itemName">项目名称</label>
+                                            <input type="text" class="form-control" name="itemName" id="itemName" placeholder="请填写项目名称"/>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="mobile">公司官网</label>
-                                            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="请输入正确的手机号">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="department">ios下载地址</label>
-                                            <input type="text" class="form-control" name="department" id="department" placeholder="输入您的部门">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="position">Android下载地址</label>
-                                            <input type="text" class="form-control" name="position" id="position" placeholder="输入您的职位">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">是否上市</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">股票代码</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">融资金额</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">资金用途</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">借款期限</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">还款来源</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="companyName">公司名称</label>
+                                            <input type="password" class="form-control" name="companyName" id="companyName" placeholder="请填写公司名称"  >
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="remark">BP计划书</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="logo">公司LOGO</label>
+                                            <input type="file" class="form-control" name="logo" id="logo" >
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="remark">营业执照彩色扫描件（三证合一）</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">前三年+本年度资产负债表、损益表、现金流量表</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">最近一年审计报告</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">有息负债明细：含起止时间、金额、担保或保证方</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="remark">近6个月银行流水（主要银行）</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="industryRealm">行业领域</label>
+                                            <select id="industryRealm" name="industryRealm" class="form-control" >
+                                                <option th:each="industryRealm:${industryRealms}" th:value="${industryRealm.name()}" th:text="${industryRealm.value}"></option>
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="remark">是否前台展示</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="companyWebsite">公司官网</label>
+                                            <input type="url" class="form-control" name="companyWebsite" id="companyWebsite" placeholder="">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="remark">审核状态</label>
-                                            <textarea class="form-control" name="remark" id="remark" rows="3" placeholder="这家伙很懒，什么也没留下！"></textarea>
+                                            <label for="companyIosUrl">ios下载地址</label>
+                                            <input type="text" class="form-control" name="companyIosUrl" id="companyIosUrl" placeholder="请填写IOS应用地址">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="companyAndroidUrl">Android下载地址</label>
+                                            <input type="text" class="form-control" name="companyAndroidUrl" id="companyAndroidUrl" placeholder="请填写Android下载地址">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isQuoted">是否上市</label>
+                                            <select  name="isQuoted" id="isQuoted" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="1">已上市</option>
+                                                <option value="0">未上市</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="stockCode">股票代码</label>
+                                            <input class="form-control" name="stockCode" id="stockCode" placeholder="">
+                                        </div>
+
+                                        <label for="amount">融资金额</label>
+                                        <div class="input-group">
+                                            <input class="form-control" name="amount" id="amount" placeholder="">
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="purpose">资金用途</label>
+                                            <input class="form-control" name="purpose" id="purpose"  placeholder="">
+                                        </div>
+
+                                        <label for="period">借款期限</label>
+                                        <div class="input-group">
+                                            <input class="form-control" name="period" id="period"  placeholder="">
+                                            <span class="input-group-addon">月</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="repayment">还款来源</label>
+                                            <textarea class="form-control" name="repayment" id="repayment" rows="3"  placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="businessProposal">BP计划书</label>
+                                            <input type="file" class="form-control" name="businessProposal" id="businessProposal">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="businessLicense">营业执照彩色扫描件（三证合一）</label>
+                                            <input type="file" class="form-control" name="businessLicense" id="businessLicense"  >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="financialReport">前三年+本年度资产负债表、损益表、现金流量表</label>
+                                            <input type="file" class="form-control" name="financialReport" id="financialReport"  >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="auditReport">最近一年审计报告</label>
+                                            <input type="file" class="form-control" name="auditReport" id="auditReport"  >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="indebtedness">有息负债明细：含起止时间、金额、担保或保证方</label>
+                                            <input type="file" class="form-control" name="indebtedness" id="indebtedness"  >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="capitalFlow">近6个月银行流水（主要银行）</label>
+                                            <input type="file" class="form-control" name="capitalFlow" id="capitalFlow" >
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label>项目结束时间</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text"  name="endTime" placeholder="请选择项目结束时间" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isUrgent">是否加急</label>
+                                            <select id="isUrgent" name="isUrgent" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isPlatformAuthentication">查看是否需要平台认证</label>
+                                            <select id="isPlatformAuthentication" name="isPlatformAuthentication" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isFirstHandle">是否一手</label>
+                                            <select id="isFirstHandle" name="isFirstHandle" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isShow">是否前台展示</label>
+                                            <select id="isShow" name="isShow" class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
                                         </div>
 
 
