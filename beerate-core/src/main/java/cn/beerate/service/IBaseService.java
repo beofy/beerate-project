@@ -4,7 +4,6 @@ import cn.beerate.model.Model;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.lang.Nullable;
 
 /**
  * 基础业务接口
@@ -29,6 +28,6 @@ public interface IBaseService<T extends Model> {
 
     Page<T> page(int page,int size,String column,String order, Example<T> example);
 
-    Page<T> page(int page,int size,String column,String order,@Nullable Specification<T> spec);
+    Page<T> page(int page,int size,String column,String order,Specification<T> spec);
 
 }
