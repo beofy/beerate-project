@@ -7,6 +7,7 @@ import cn.beerate.model.StockNature;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,8 +29,12 @@ public class t_item_stock_pledge extends ItemModel {
     @Column(columnDefinition = "varchar(12) not null default '' comment '质押股票流通性质'")
     private String stockNature;
 
-    public void setCirculationStockNature(StockNature stockNature) {
+    public void setStockNature(StockNature stockNature) {
         this.stockNature = stockNature.name();
+    }
+
+    public StockNature getStockNature(){
+        return EnumUtils.getEnumIgnoreCase(StockNature.class,stockNature);
     }
 
     @Column(columnDefinition = "datetime default null comment '限售到期日'")
@@ -40,6 +45,10 @@ public class t_item_stock_pledge extends ItemModel {
 
     public void setStockBlock(StockBlock stockBlock) {
         this.stockBlock = stockBlock.name();
+    }
+
+    public StockBlock getStockBlock(){
+        return EnumUtils.getEnumIgnoreCase(StockBlock.class,stockBlock);
     }
 
     @Column(columnDefinition = "bit(1) default null default 0 comment '融资人是否为上市公司控股股东或实际控制人'")
@@ -65,6 +74,10 @@ public class t_item_stock_pledge extends ItemModel {
 
     public void setLoanPeriod(LoanPeriod loanPeriod) {
         this.loanPeriod = loanPeriod.name();
+    }
+
+    public LoanPeriod getLoanPeriod(){
+        return EnumUtils.getEnumIgnoreCase(LoanPeriod.class,loanPeriod);
     }
 
     @Column(columnDefinition = "double(3,2) not null default '0.00' comment '融资方愿意支付的融资成本'")

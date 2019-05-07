@@ -6,6 +6,7 @@ import cn.beerate.model.ItemModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -37,11 +38,19 @@ public class t_item_stock_transfer extends ItemModel {
         this.industryRealm = industryRealm.name();
     }
 
+    public IndustryRealm getIndustryRealm(){
+        return EnumUtils.getEnumIgnoreCase(IndustryRealm.class,this.industryRealm);
+    }
+
     @Column(columnDefinition = "varchar(12) not null default '' comment '币种'")
     private String currency;
 
     public void setCurrency(Currency currency) {
         this.currency = currency.name();
+    }
+
+    public Currency getCurrency(){
+        return EnumUtils.getEnumIgnoreCase(Currency.class,currency);
     }
 
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '去年净利润'")

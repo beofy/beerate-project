@@ -8,6 +8,7 @@ import cn.beerate.model.PeriodUnit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.List;
@@ -36,6 +37,10 @@ public class t_item_loan extends ItemModel {
 		this.industryRealm = industryRealm.name();
 	}
 
+	public IndustryRealm getIndustryRealm(){
+		return EnumUtils.getEnumIgnoreCase(IndustryRealm.class,this.industryRealm);
+	}
+
 	@Column(columnDefinition = "varchar(255) not null default '' comment '公司官网'")
 	private String companyWebsite;
 	
@@ -61,7 +66,11 @@ public class t_item_loan extends ItemModel {
 		this.amountUnit=amountUnit.name();
 	}
 
-	@Column(columnDefinition = "varchar(255) not null default '' comment '资金用途'")
+    public AmountUnit getAmountUnit() {
+        return EnumUtils.getEnumIgnoreCase(AmountUnit.class,amountUnit);
+    }
+
+    @Column(columnDefinition = "varchar(255) not null default '' comment '资金用途'")
 	private String purpose;
 	
 	@Column(columnDefinition = "int(3) not null default 0 comment '借款期限'")
@@ -70,10 +79,14 @@ public class t_item_loan extends ItemModel {
 	@Column(columnDefinition = "varchar(5) not null default '' comment '期限单位'")
 	private String periodUnit;
 
-	private void setPeriodUnit(PeriodUnit periodUnit){
+	public void setPeriodUnit(PeriodUnit periodUnit){
 		this.periodUnit=periodUnit.name();
 	}
-	
+
+	public PeriodUnit getPeriodUnit(){
+		return EnumUtils.getEnumIgnoreCase(PeriodUnit.class,this.periodUnit);
+	}
+
 	@Column(columnDefinition = "varchar(5) not null default '' comment '还款来源'")
 	private String repayment;
 	

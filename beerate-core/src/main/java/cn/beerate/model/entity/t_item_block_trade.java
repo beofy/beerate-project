@@ -6,6 +6,7 @@ import cn.beerate.model.UnderWeightIdentification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,6 +41,10 @@ public class t_item_block_trade extends ItemModel {
         this.underweightIdentification = underweightIdentification.name();
     }
 
+    public UnderWeightIdentification getUnderWeightIdentification(){
+        return EnumUtils.getEnumIgnoreCase(UnderWeightIdentification.class,this.underweightIdentification);
+    }
+
     @Column(columnDefinition = "bit(1) not null default 0 comment '是否增信'")
     private Boolean isConfidence;
 
@@ -54,6 +59,10 @@ public class t_item_block_trade extends ItemModel {
 
     public void setCreditIdentification(CreditIdentification creditIdentification) {
         this.creditIdentification = creditIdentification.name();
+    }
+
+    public CreditIdentification getCreditIdentification(){
+        return EnumUtils.getEnumIgnoreCase(CreditIdentification.class,creditIdentification);
     }
 
     @Column(columnDefinition = "int(12) not null default '0' comment '增信方超额收益分成（增信）'")

@@ -5,6 +5,7 @@ import cn.beerate.model.NetProfit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,9 @@ public class t_item_overseas_listing extends Model {
 	private String netProfit;
 	public void setNetProfit(NetProfit netProfit){
 		this.netProfit=netProfit.name();
+	}
+	public NetProfit getNetProfit(){
+		return EnumUtils.getEnumIgnoreCase(NetProfit.class,netProfit);
 	}
 
 	@Column(columnDefinition = "varchar(255) not null default '' comment '备注'")

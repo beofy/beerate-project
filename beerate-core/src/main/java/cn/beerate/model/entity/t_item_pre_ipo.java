@@ -4,6 +4,7 @@ import cn.beerate.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -58,6 +59,10 @@ public class t_item_pre_ipo extends ItemModel {
         this.industryRealm = industryRealm.name();
     }
 
+    public IndustryRealm getIndustryRealm(){
+       return EnumUtils.getEnumIgnoreCase(IndustryRealm.class,industryRealm);
+    }
+
     @Column(columnDefinition = "datetime  default null comment '拟IPO基准日'")
     private Date iPOBaseDate;
 
@@ -66,6 +71,10 @@ public class t_item_pre_ipo extends ItemModel {
 
     public void setRatchetTerms(RatchetTerms ratchetTerms){
         this.ratchetTerms=ratchetTerms.name();
+    }
+
+    public RatchetTerms geRatchetTerms(){
+        return EnumUtils.getEnumIgnoreCase(RatchetTerms.class,ratchetTerms);
     }
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '对赌描述'")
@@ -97,6 +106,10 @@ public class t_item_pre_ipo extends ItemModel {
         this.currency = currency.name();
     }
 
+    public Currency getCurrency(){
+        return EnumUtils.getEnumIgnoreCase(Currency.class,currency);
+    }
+
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '融资金额'")
     private Double loanAmount;
 
@@ -111,6 +124,10 @@ public class t_item_pre_ipo extends ItemModel {
 
     public void setLoanPeriod(LoanPeriod loanPeriod){
         this.loanPeriod=loanPeriod.name();
+    }
+
+    public LoanPeriod getLoanPeriod(){
+        return EnumUtils.getEnumIgnoreCase(LoanPeriod.class,loanPeriod);
     }
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '融资用途'")
