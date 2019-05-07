@@ -38,7 +38,7 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
      */
     public Page<T> page(int page,int size,String column,String order,Example<T> example){
         //排序条件
-        Sort sort =Sort.by(Sort.Direction.fromString(order),colum);
+        Sort sort =Sort.by(Sort.Direction.fromString(order),column);
         //分页排序
         Pageable pageable = PageRequest.of(page-1,size,sort);
 
