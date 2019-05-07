@@ -43,7 +43,7 @@ public class BlockTradeMngController  extends AdminBaseController {
                 List<Predicate> predicates = new ArrayList<>();
 
                 Join<t_item_block_trade,t_admin> adminJoin = root.join("admin", JoinType.LEFT);
-                criteriaBuilder.equal(adminJoin.get("id"),getAdminId());
+                predicates.add(criteriaBuilder.equal(adminJoin.get("id"),getAdminId()));
 
                 if(beginDate!=null&&endDate!=null&&beginDate.before(endDate)){
                     predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
