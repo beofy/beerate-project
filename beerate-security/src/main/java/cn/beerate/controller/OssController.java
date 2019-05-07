@@ -62,7 +62,7 @@ public class OssController extends BaseController{
      * 图片预览
      */
     @GetMapping(value={"${cn.beerate.file.temp-file}/*"
-            ,"${cn.beerate.file.temp-file}/*"
+            ,"${cn.beerate.file.admin-file}/*"
             ,"${cn.beerate.file.user-file}/*"
     })
     @ResponseBody
