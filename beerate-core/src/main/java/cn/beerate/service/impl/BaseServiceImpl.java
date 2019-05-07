@@ -36,7 +36,7 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
      * <br>非字符类型只能精准查询
      * <br>不支持范围查询
      */
-    public Page<T> page(int page,int size,String colum,String order,Example<T> example){
+    public Page<T> page(int page,int size,String column,String order,Example<T> example){
         //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),colum);
         //分页排序
