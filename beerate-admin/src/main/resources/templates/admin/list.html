@@ -93,7 +93,7 @@
                                             <tr th:each="admin:${page.getContent()}">
                                                 <td>
                                                     <label class="lyear-checkbox checkbox-primary">
-                                                        <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                        <input type="checkbox" name="ids[]" th:value="${admin.id}" ><span></span>
                                                     </label>
                                                 </td>
                                                 <td th:text="${admin.id}"></td>

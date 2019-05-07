@@ -252,7 +252,7 @@
                         <!--<li> <a href="javascript:void(0)">不良资产处置</a> </li>-->
                         <li> <a th:href="@{/admin/stocktransfer/list.html}">老股转让</a> </li>
                         <li> <a th:href="@{/admin/preipo/list.html}">PRE-IPO</a> </li>
-                        <li> <a th:href="@{/admin/blocktrade/list.html}">大宗交易</a> </li>
+                        <li> <a th:href="@{/admin/blocktrade/list.html(page=1,size=10,column='id',order='desc')}">大宗交易</a> </li>
                         <li> <a th:href="@{/admin/stockpledge/list.html}">股票质押</a> </li>
                     </ul>
                 </li>
