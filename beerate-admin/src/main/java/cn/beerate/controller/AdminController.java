@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -84,14 +85,14 @@ public class AdminController extends AdminBaseController{
      * 管理员列表
      */
     @GetMapping("/list.html")
-    public String listPage(int page, int size, String column, String order, String beginDate, String endDate, t_admin admin , Model model){
+    public String listPage(int page, int size, String column, String order, Date beginDate, Date endDate, t_admin admin , Model model){
 
         Page<t_admin> pageBean = adminService.page(page, size, column, order, new Specification<t_admin>() {
             @Override
             public Predicate toPredicate(Root<t_admin> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
                 if(beginDate!=null&&endDate!=null){
-                    predicates.add(criteriaBuilder.between(root.get("createTime") , DateUtil.parse(beginDate), DateUtil.parse(endDate)));
+                    predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
                 }
 
                 if(StringUtils.isNotBlank(admin.getUsername())){
