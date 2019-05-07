@@ -91,14 +91,13 @@ public class AdminController extends AdminBaseController{
             @Override
             public Predicate toPredicate(Root<t_admin> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-                if(beginDate!=null&&endDate!=null){
+                if(beginDate!=null&&endDate!=null&&beginDate.before(endDate)){
                     predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
                 }
 
                 if(StringUtils.isNotBlank(admin.getUsername())){
                     predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("username"),"%"+admin.getUsername()+"%")));
                 }
-
 
                 Predicate[] predicate = new Predicate[predicates.size()];
                 return criteriaBuilder.and(predicates.toArray(predicate));
