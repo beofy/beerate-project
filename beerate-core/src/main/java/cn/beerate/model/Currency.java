@@ -7,7 +7,7 @@ public enum Currency {
 
     NONE("请选择"),
 
-    RMB("人名币"),
+    RMB("人民币"),
 
 
     MY("美元");
