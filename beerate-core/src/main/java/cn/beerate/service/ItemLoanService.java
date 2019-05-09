@@ -3,7 +3,7 @@ package cn.beerate.service;
 import cn.beerate.common.Message;
 import cn.beerate.model.entity.t_item_loan;
 
-public interface ItemLoanService {
+public interface ItemLoanService extends IBaseService<t_item_loan>{
 
     Message<t_item_loan> addItemLoan(t_item_loan itemLoan);
 

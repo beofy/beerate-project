@@ -87,7 +87,7 @@ public class t_item_loan extends ItemModel {
 		return EnumUtils.getEnumIgnoreCase(PeriodUnit.class,this.periodUnit);
 	}
 
-	@Column(columnDefinition = "varchar(5) not null default '' comment '还款来源'")
+	@Column(columnDefinition = "varchar(255) not null default '' comment '还款来源'")
 	private String repayment;
 	
 	@Column(columnDefinition = "varchar(255) not null default '' comment 'BP计划书'")

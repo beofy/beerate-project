@@ -21,6 +21,7 @@ public class ItemLoanServiceImpl extends BaseServiceImpl<t_item_loan> implements
         this.itemLoanDao = itemLoanDao;
     }
 
+    @Transactional
     public Message<t_item_loan> addItemLoan(t_item_loan itemLoan){
         Message message = ModelValidate.itemLoanValid(itemLoan);
         if (message.fail()){
@@ -30,6 +31,7 @@ public class ItemLoanServiceImpl extends BaseServiceImpl<t_item_loan> implements
         return Message.success(itemLoanDao.save(itemLoan));
     }
 
+    @Transactional
     public Message<t_item_loan> addItemLoanByUser(t_item_loan itemLoan,long userId){
         t_user user = new t_user();
         user.setId(userId);
@@ -40,6 +42,7 @@ public class ItemLoanServiceImpl extends BaseServiceImpl<t_item_loan> implements
         return addItemLoan(itemLoan);
     }
 
+    @Transactional
     public Message<t_item_loan> addItemLoanByAdmin(t_item_loan itemLoan,long adminId){
         t_admin admin = new t_admin();
         admin.setId(adminId);
