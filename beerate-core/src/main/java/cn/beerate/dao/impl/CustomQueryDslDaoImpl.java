@@ -2,8 +2,6 @@ package cn.beerate.dao.impl;
 
 import cn.beerate.dao.ICustomQueryDsl;
 import cn.beerate.model.Model;
-import cn.beerate.model.entity.Qt_admin;
-import cn.beerate.model.entity.t_admin;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
