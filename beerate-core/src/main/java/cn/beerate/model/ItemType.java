@@ -5,7 +5,7 @@ package cn.beerate.model;
  */
 public enum ItemType {
 
-    NONE("无"),
+    NONE("请选择"),
 
     STOCK_TRANSFER("老股转让"),
 

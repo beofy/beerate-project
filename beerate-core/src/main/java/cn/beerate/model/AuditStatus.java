@@ -5,7 +5,7 @@ package cn.beerate.model;
  */
 public enum AuditStatus {
 
-    NONE("无"),
+    NONE("请选择"),
 
     NO_AUDIT("审核失败"),
 

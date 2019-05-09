@@ -5,7 +5,9 @@ package cn.beerate.model;
  */
 public enum RatchetTerms {
 
-    NONE("无对赌"),
+    NONE("请选择"),
+
+    NO_BET("无对赌"),
 
     REPURCHASE("回购对赌"),
 

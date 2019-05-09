@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum Currency {
 
+    NONE("请选择"),
+
     RMB("人名币"),
 
 

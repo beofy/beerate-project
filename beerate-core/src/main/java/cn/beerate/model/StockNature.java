@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum StockNature {
 
+    NONE("请选择"),
+
     CIRCULATE("流通"),
 
     RESTRICTED("限售"),

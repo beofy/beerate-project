@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum AmountUnit{
 
+    NONE("请选择"),
+
     Y("元"),
 
     WY("万元"),

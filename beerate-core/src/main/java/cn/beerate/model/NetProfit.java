@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum  NetProfit {
 
+    NONE("请选择"),
+
     LESS_THAN_500_MILLION("少于500万"),
 
     IN_500_TO_1000_MILLION("500-1000万"),

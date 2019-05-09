@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum PeriodUnit {
 
+    NONE("请选择"),
+
     DAY("天"),
 
     MONTH("月"),

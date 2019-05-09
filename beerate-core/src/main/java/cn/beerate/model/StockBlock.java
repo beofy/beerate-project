@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum StockBlock {
 
+    NONE("请选择"),
+
     HS300("沪深300成分股"),
 
     OTHER_MAIN_STOCK_BOARD("主板其他"),

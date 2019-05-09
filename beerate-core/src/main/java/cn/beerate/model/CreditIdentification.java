@@ -5,7 +5,7 @@ package cn.beerate.model;
  */
 public enum CreditIdentification {
 
-    NONE("无"),
+    NONE("请选择"),
 
     STRONGER_STOCK_HOLDER("大股东/实控人"),
 

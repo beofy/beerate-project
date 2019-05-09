@@ -5,7 +5,7 @@ package cn.beerate.model;
  */
 public enum IndustryRealm {
 
-    NONE("无"),
+    NONE("请选择"),
 
     AI("人工智能"),
 

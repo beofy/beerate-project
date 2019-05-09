@@ -5,6 +5,8 @@ package cn.beerate.model;
  */
 public enum  LoanPeriod {
 
+    NONE("请选择"),
+
     ONE_YEAR("1年"),
 
     ONE_TO_THREE_YEAR("1-3年"),
