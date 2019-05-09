@@ -5,7 +5,9 @@ import cn.beerate.model.entity.t_item_stock_pledge;
 import cn.beerate.service.StockPledgeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 后台股票质押管理-控制器
@@ -39,6 +41,8 @@ public class StockPledgeMngController  extends AdminBaseController {
     /**
      * 项目添加
      */
+    @PostMapping("/add")
+    @ResponseBody
     public Message<String> add(t_item_stock_pledge stockPledge){
 
         Message<t_item_stock_pledge> message = stockPledgeService.addStockPledgeByAdmin(stockPledge,getAdminId());

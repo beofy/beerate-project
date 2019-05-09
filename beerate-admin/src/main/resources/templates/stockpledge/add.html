@@ -30,7 +30,7 @@
                                         <div class="form-group">
                                             <label for="stockNature">质押股票流通性质</label>
                                             <select class="form-control" name="stockNature" id="stockNature" >
-                                                <option value="">请选择</option>
+                                                <option value="NONE">请选择</option>
                                                 <option value="CIRCULATE">流通</option>
                                                 <option value="RESTRICTED">限售</option>
                                                 <option value="PROHIBITION">禁售</option>
@@ -46,7 +46,7 @@
                                         <div class="form-group">
                                             <label for="stockBlock">质押股票流通性质</label>
                                             <select class="form-control" name="stockBlock" id="stockBlock" >
-                                                <option value="">请选择</option>
+                                                <option value="NONE">请选择</option>
                                                 <option value="HS300">沪深300成分股</option>
                                                 <option value="OTHER_MAIN_STOCK_BOARD">主板其他</option>
                                                 <option value="MIDDLE_SMALL_STOCK_BOARD">中小板</option>
@@ -64,31 +64,31 @@
                                         </div>
 
                                         <label for="holdStockShares">总持有股票数</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="holdStockShares" id="holdStockShares" placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="holdStockShares" id="holdStockShares" placeholder="">
                                             <span class="input-group-addon">万股</span>
                                         </div>
 
                                         <label for="pledgeStockShares">质押股票数</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="pledgeStockShares" id="pledgeStockShares" placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="pledgeStockShares" id="pledgeStockShares" placeholder="">
                                             <span class="input-group-addon">万股</span>
                                         </div>
 
                                         <label for="surplusPledgeStockShares">剩余可质押股票数</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="surplusPledgeStockShares" id="surplusPledgeStockShares" placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="surplusPledgeStockShares" id="surplusPledgeStockShares" placeholder="">
                                             <span class="input-group-addon">万股</span>
                                         </div>
 
                                         <label for="loanAmount">融资金额</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="loanAmount" id="loanAmount" placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="loanAmount" id="loanAmount" placeholder="">
                                             <span class="input-group-addon">万元</span>
                                         </div>
 
                                         <label for="pledgeRates">质押率</label>
-                                        <div class="input-group">
+                                        <div class="input-group m-b-10">
                                             <input type="number" class="form-control" name="pledgeRates" id="pledgeRates" placeholder="">
                                             <span class="input-group-addon">%</span>
                                         </div>
@@ -96,7 +96,7 @@
                                         <div class="form-group">
                                             <label for="loanPeriod">融资期限</label>
                                             <select class="form-control" name="loanPeriod" id="loanPeriod" >
-                                                <option value="">请选择</option>
+                                                <option value="NONE">请选择</option>
                                                 <option value="ONE_YEAR">1年</option>
                                                 <option value="ONE_TO_THREE_YEAR">1-3年</option>
                                                 <option value="THREE_TO_FIVE_YEAR">3-5年</option>
@@ -105,7 +105,7 @@
                                         </div>
 
                                         <label for="financingPartyPaysCostRates">融资方愿意支付的融资成本</label>
-                                        <div class="input-group">
+                                        <div class="input-group m-b-10">
                                             <input type="number" class="form-control" name="financingPartyPaysCostRates" id="financingPartyPaysCostRates" placeholder="">
                                             <span class="input-group-addon">%</span>
                                         </div>
@@ -184,5 +184,42 @@
         </div>
     </div>
 </body>
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script>
+    //提交
+    $(".site-form").validate({
+        rules:{
+            // todo 待添加校验
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/stockpledge/add" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/stockpledge/list.html?page=1&size=10&column=id&order=desc&success="+data.msg
+
+
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger', 3000);
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
 
 </html>

@@ -40,7 +40,7 @@ public class t_item_stock_pledge extends ItemModel {
     @Column(columnDefinition = "datetime default null comment '限售到期日'")
     private Date salesDeadline;
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '质押股票所属板块'")
+    @Column(columnDefinition = "varchar(30) not null default '' comment '质押股票所属板块'")
     private String stockBlock;
 
     public void setStockBlock(StockBlock stockBlock) {
@@ -66,10 +66,10 @@ public class t_item_stock_pledge extends ItemModel {
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '融资金额'")
     private Double loanAmount;
 
-    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '质押率'")
+    @Column(columnDefinition = "double(5,2) not null default '0.00' comment '质押率'")
     private Double pledgeRates;
 
-    @Column(columnDefinition = "int(3) not null default '0.00' comment '融资期限'")
+    @Column(columnDefinition = "varchar(30) not null default '0' comment '融资期限'")
     private String loanPeriod;
 
     public void setLoanPeriod(LoanPeriod loanPeriod) {
@@ -80,7 +80,7 @@ public class t_item_stock_pledge extends ItemModel {
         return EnumUtils.getEnumIgnoreCase(LoanPeriod.class,loanPeriod);
     }
 
-    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '融资方愿意支付的融资成本'")
+    @Column(columnDefinition = "double(5,2) not null default '0.00' comment '融资方愿意支付的融资成本'")
     private Double financingPartyPaysCostRates;
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '最近一个年度盈利情况'")
