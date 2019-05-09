@@ -3,6 +3,7 @@ package cn.beerate.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -34,6 +35,10 @@ public class ItemModel extends Model {
 
     public void setAuditStatus(AuditStatus auditStatus) {
         this.auditStatus = auditStatus.name();
+    }
+
+    public AuditStatus getAuditStatus(){
+       return EnumUtils.getEnumIgnoreCase(AuditStatus.class,this.auditStatus);
     }
 
 }

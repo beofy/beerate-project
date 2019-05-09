@@ -30,7 +30,7 @@ public class ModelValidate {
             return Message.error("请选择是否前台展示");
         }
 
-        if (itemModel.getAuditStatus() == null) {
+        if (itemModel.getAuditStatus() == AuditStatus.NONE) {
             return Message.error("项目审核状态不正确");
         }
 
@@ -59,7 +59,7 @@ public class ModelValidate {
             return Message.error("请输入正确的减持金额");
         }
 
-        if (blockTrade.getUnderWeightIdentification() == null || blockTrade.getUnderWeightIdentification() == UnderWeightIdentification.NONE) {
+        if (blockTrade.getUnderWeightIdentification() == UnderWeightIdentification.NONE) {
             return Message.error("请输入选择减持方身份");
         }
 
@@ -78,7 +78,7 @@ public class ModelValidate {
                 return Message.error("请输入正确的增信期限");
             }
 
-            if (blockTrade.getCreditIdentification() == null || CreditIdentification.NONE == blockTrade.getCreditIdentification()) {
+            if (CreditIdentification.NONE == blockTrade.getCreditIdentification()) {
                 return Message.error("请选择正确的增信身份");
             }
 
@@ -108,7 +108,7 @@ public class ModelValidate {
             return Message.error("公司logo不存在");
         }
 
-        if(itemLoan.getIndustryRealm() == null || itemLoan.getIndustryRealm() ==IndustryRealm.NONE){
+        if(itemLoan.getIndustryRealm() ==IndustryRealm.NONE){
             return Message.error("请选择正确的行业领域");
         }
 
@@ -138,7 +138,7 @@ public class ModelValidate {
             return Message.error("请输入正确的融资金额");
         }
 
-        if(itemLoan.getAmountUnit()==null){
+        if(itemLoan.getAmountUnit()==AmountUnit.NONE){
             return Message.error("请选择金额单位");
         }
 
@@ -150,7 +150,7 @@ public class ModelValidate {
             return Message.error("请输入借款期限");
         }
 
-        if(itemLoan.getPeriodUnit()==null){
+        if(itemLoan.getPeriodUnit()==PeriodUnit.NONE){
             return Message.error("请选择期限单位");
         }
 
@@ -207,7 +207,7 @@ public class ModelValidate {
             return Message.error("请填写企业主营业务");
         }
 
-        if(overseasListing.getNetProfit()==null){
+        if(overseasListing.getNetProfit()==NetProfit.NONE){
             return Message.error("请选择净利润情况");
         }
 
@@ -220,7 +220,7 @@ public class ModelValidate {
             return Message.error("请填写项目名称");
         }
 
-        if(preIpo.getIndustryRealm()==null||preIpo.getIndustryRealm()==IndustryRealm.NONE){
+        if(preIpo.getIndustryRealm()==IndustryRealm.NONE){
             return Message.error("请选择标的所处行业领域");
         }
 
@@ -228,7 +228,7 @@ public class ModelValidate {
             return Message.error("请选择拟IPO基准日");
         }
 
-        if(preIpo.getRatchetTerms()==null){
+        if(preIpo.getRatchetTerms()==RatchetTerms.NONE){
             return Message.error("请选择对赌条件");
         }
 
@@ -298,7 +298,7 @@ public class ModelValidate {
                 return Message.error("请填写所在省市");
             }
 
-            if (preIpo.getCurrency()==null){
+            if (preIpo.getCurrency()==Currency.NONE){
                 return Message.error("请选择币种");
             }
 
@@ -314,7 +314,7 @@ public class ModelValidate {
                 return Message.error("请填写估值意向");
             }
 
-            if (preIpo.getLoanPeriod()==null){
+            if (preIpo.getLoanPeriod()==LoanPeriod.NONE){
                 return Message.error("请选择融资期限");
             }
 
@@ -356,8 +356,7 @@ public class ModelValidate {
             return Message.error("请填写股票代码");
         }
 
-
-        if(stockPledge.getStockNature()==null){
+        if(stockPledge.getStockNature()==StockNature.NONE){
             return Message.error("请选择质押股票流通性质");
         }
 
@@ -367,7 +366,7 @@ public class ModelValidate {
             }
         }
 
-        if (stockPledge.getStockBlock()==null){
+        if (stockPledge.getStockBlock()==StockBlock.NONE){
             return Message.error("请选择质押股票所属板块");
         }
 
@@ -440,7 +439,7 @@ public class ModelValidate {
             return Message.error("请填写企业名称");
         }
 
-        if (stockTransfer.getIndustryRealm()==null||stockTransfer.getIndustryRealm()==IndustryRealm.NONE){
+        if (stockTransfer.getIndustryRealm()==IndustryRealm.NONE){
             return Message.error("请选择行业领域");
         }
 
