@@ -64,7 +64,7 @@ public class t_item_stock_transfer extends ItemModel {
     @Column(columnDefinition = " bit(1) not null default 1 COMMENT '转让股权比例是否保密'")
     private Boolean isPrivacyEquityRatio;
 
-    @Column(columnDefinition = "double(3,2) not null default '0.00' comment '转让股权比例'")
+    @Column(columnDefinition = "double(5,2) not null default '0.00' comment '转让股权比例'")
     private Double equityRatio;
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")

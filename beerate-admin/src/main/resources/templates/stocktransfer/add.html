@@ -24,7 +24,7 @@
 
                                         <div class="form-group">
                                             <label for="isQuoted">是否上市</label>
-                                            <select  name="isQuoted" id="isQuoted" class="form-control">
+                                            <select name="isQuoted" id="isQuoted" class="form-control">
                                                 <option value="">请选择</option>
                                                 <option value="1">已上市</option>
                                                 <option value="0">未上市</option>
@@ -42,7 +42,7 @@
 
                                         <div class="form-group">
                                             <label for="companyName">企业名称</label>
-                                            <input type="text" class="form-control" name="companyName" id="companyName" placeholder=""  >
+                                            <input type="text" class="form-control" name="companyName" id="companyName" placeholder="请填写企业名称"  >
                                         </div>
 
                                         <div class="form-group">
@@ -55,27 +55,27 @@
                                         <div class="form-group">
                                             <label for="currency">币种</label>
                                             <select id="currency" name="currency" class="form-control" >
-                                                <option value="">请选择</option>
+                                                <option value="NONE">请选择</option>
                                                 <option value="RMB">人名币</option>
                                                 <option value="MY">美元</option>
                                             </select>
                                         </div>
 
                                         <label for="lastYearProfits">去年净利润</label>
-                                        <div class="input-group">
-                                            <input class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="请填写去年净利润">
                                             <span class="input-group-addon">万</span>
                                         </div>
 
                                         <label for="currentValuation">本轮估值</label>
-                                        <div class="input-group">
-                                            <input class="form-control" name="currentValuation" id="currentValuation"  placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="currentValuation" id="currentValuation"  placeholder="请填写本轮估值">
                                             <span class="input-group-addon">万</span>
                                         </div>
 
                                         <label for="transferAmount">转让金额</label>
-                                        <div class="input-group">
-                                            <input class="form-control" name="transferAmount" id="transferAmount"  placeholder="">
+                                        <div class="input-group m-b-10">
+                                            <input type="number" class="form-control" name="transferAmount" id="transferAmount"  placeholder="请填写转让金额">
                                             <span class="input-group-addon">万</span>
                                         </div>
 
@@ -90,7 +90,7 @@
 
                                         <label for="equityRatio">转让股权比例</label>
                                         <div class="input-group">
-                                            <input class="form-control" name="equityRatio" id="equityRatio"  placeholder="">
+                                            <input type="number" class="form-control" name="equityRatio" id="equityRatio"  placeholder="">
                                             <span class="input-group-addon">%</span>
                                         </div>
 
@@ -168,5 +168,41 @@
         </div>
     </div>
 </body>
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script>
+    //提交
+    $(".site-form").validate({
+        rules:{
+            // todo 待添加校验
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/stocktransfer/add" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/stocktransfer/list.html?page=1&size=10&column=id&order=desc&success="+data.msg
 
+
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger', 3000);
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
 </html>

@@ -7,7 +7,9 @@ import cn.beerate.service.StockTransferSerivce;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 后台老股转让管理-控制器
@@ -41,6 +43,8 @@ public class StockTransferMngController extends AdminBaseController  {
     /**
      * 项目添加
      */
+    @PostMapping("/add")
+    @ResponseBody
     public Message<String> add(t_item_stock_transfer stockTransfer){
         Message<t_item_stock_transfer> message = stockTransferSerivce.addStockTransferByAdmin(stockTransfer,getAdminId());
         if (message.fail()){
