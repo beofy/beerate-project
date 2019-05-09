@@ -4,7 +4,9 @@ import cn.beerate.common.Message;
 import cn.beerate.dao.PreIpoDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ModelValidate;
+import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_pre_ipo;
+import cn.beerate.model.entity.t_user;
 import cn.beerate.service.PreIpoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class PreIpoServiceImpl extends BaseServiceImpl<t_item_pre_ipo> implement
         this.preIpoDao = preIpoDao;
     }
 
+    @Transactional
     public Message<t_item_pre_ipo> addPreIpo( t_item_pre_ipo preIpo){
         Message<String> message =  ModelValidate.preIpoValid(preIpo);
         if (message.fail()){
@@ -29,14 +32,23 @@ public class PreIpoServiceImpl extends BaseServiceImpl<t_item_pre_ipo> implement
         return Message.success(preIpoDao.save(preIpo));
     }
 
+    @Transactional
     public Message<t_item_pre_ipo> addPreIpoByUser( t_item_pre_ipo preIpo,long userId){
-        preIpo.getUser().setId(userId);
+        t_user user = new t_user();
+        user.setId(userId);
+
+        preIpo.setUser(user);
         preIpo.setAuditStatus(AuditStatus.WAIT_AUDIT);
 
         return addPreIpo(preIpo);
     }
+
+    @Transactional
     public Message<t_item_pre_ipo> addPreIpoByAdmin( t_item_pre_ipo preIpo,long adminId){
-        preIpo.getAdmin().setId(adminId);
+        t_admin admin = new t_admin();
+        admin.setId(adminId);
+
+        preIpo.setAdmin(admin);
         preIpo.setAuditStatus(AuditStatus.PASS_AUDIT);
 
         return addPreIpo(preIpo);

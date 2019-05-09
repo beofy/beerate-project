@@ -52,7 +52,7 @@ public class t_item_pre_ipo extends ItemModel {
     private String city;
     /*  ====================未挂牌==================== */
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '标的所处行业领域'")
+    @Column(columnDefinition = "varchar(30) not null default '' comment '标的所处行业领域'")
     private String industryRealm;
 
     public void setIndustryRealm(IndustryRealm industryRealm) {
@@ -119,7 +119,7 @@ public class t_item_pre_ipo extends ItemModel {
     @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '去年净利润'")
     private Double lastYearProfits;
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '融资期限'")
+    @Column(columnDefinition = "varchar(30) not null default '' comment '融资期限'")
     private String loanPeriod;
 
     public void setLoanPeriod(LoanPeriod loanPeriod){
