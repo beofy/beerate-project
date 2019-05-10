@@ -1,17 +1,15 @@
 package cn.beerate.service;
 
 import cn.beerate.dao.ICustomQueryDsl;
-import cn.beerate.model.bean.BlockTrade;
+import cn.beerate.model.dto.BlockTrade;
 import cn.beerate.model.entity.Qt_admin;
 import cn.beerate.model.entity.Qt_item_block_trade;
 import cn.beerate.model.entity.t_admin;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.JPQLQueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
