@@ -1,16 +1,14 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.AuditStatus;
-import cn.beerate.model.ItemType;
+import cn.beerate.model.InvestPrefer;
 import cn.beerate.model.Model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -29,8 +27,9 @@ public class t_user_business extends Model {
         userBusiness.title="";
         userBusiness.telCell="";
         userBusiness.telWork="";
+        userBusiness.address="";
         userBusiness.email="";
-        userBusiness.businessCardUrl="";
+        userBusiness.businessCardUri="";
         userBusiness.investPrefer="";
         userBusiness.aboutText="";
         userBusiness.workText="";
@@ -64,10 +63,18 @@ public class t_user_business extends Model {
     private String email;
 
     @Column(columnDefinition = "varchar(50) not null default '' comment '名片保存地址'")
-    private String businessCardUrl;
+    private String businessCardUri;
 
-    @Column(columnDefinition = "varchar(10) not null default 0 comment '投资偏好'")
+    @Column(columnDefinition = "varchar(30) not null default 0 comment '投资偏好'")
     private String investPrefer;
+
+    public void setInvestPrefer(InvestPrefer investPrefer){
+        this.investPrefer=investPrefer.name();
+    }
+
+    public InvestPrefer getInvestPrefer(){
+        return EnumUtils.getEnumIgnoreCase(InvestPrefer.class,this.investPrefer);
+    }
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '个人介绍'")
     private String aboutText;
@@ -78,18 +85,18 @@ public class t_user_business extends Model {
     @Column(columnDefinition = "varchar(10) not null default '' comment '审核状态'")
     private String auditStatus;
 
-    @Column(columnDefinition = "datetime default null comment '审核时间'")
-    private Date verifyTime;
-
-    public void setInvestPrefer(ItemType itemType){
-        this.investPrefer=itemType.name();
-    }
-
     public void setAuditStatus(AuditStatus auditStatus) {
         this.auditStatus = auditStatus.name();
     }
 
-    @OneToOne
+    public AuditStatus getAuditStatus(){
+        return EnumUtils.getEnumIgnoreCase(AuditStatus.class,this.auditStatus);
+    }
+
+    @Column(columnDefinition = "datetime default null comment '审核时间'")
+    private Date verifyTime;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private t_user user;
 
