@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
  * 手机验证码处理器
  */
 @Component
-public class SmsCatpchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
+public class SmsCaptchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
     private static final Log logger = LogFactory.getLog(ExceptionHandle.class);
     private ISms chuangLanSms;
-    public SmsCatpchaProcessor(ISms chuangLanSms) {
+    public SmsCaptchaProcessor(ISms chuangLanSms) {
         this.chuangLanSms = chuangLanSms;
     }
 

@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  * 邮件验证码处理器
  */
 @Component
-public class EmailCatpchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
+public class EmailCaptchaProcessor extends AbstractCaptchaProcessor implements CaptchaProcessor {
 
     private static final Log logger = LogFactory.getLog(ExceptionHandle.class);
 
     private IEmail emailSender;
-    public EmailCatpchaProcessor(IEmail emailSender) {
+    public EmailCaptchaProcessor(IEmail emailSender) {
         this.emailSender = emailSender;
     }
 
