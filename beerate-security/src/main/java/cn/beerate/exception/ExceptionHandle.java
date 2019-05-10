@@ -1,6 +1,7 @@
 package cn.beerate.exception;
 
 import cn.beerate.common.Message;
+import cn.beerate.common.StatusCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,14 @@ public class ExceptionHandle {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin/login.html");
         return modelAndView;
+    }
+
+    /**
+     * 用户未登录异常(返回数据)
+     */
+    @ExceptionHandler(UserLoginException.class)
+    public Message<String> userNoLogin(UserLoginException e){
+        return new Message<>(StatusCode.NOT_LOGIN,e.getMessage());
     }
 
 }
