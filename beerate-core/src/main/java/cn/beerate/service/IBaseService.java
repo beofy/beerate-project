@@ -17,6 +17,21 @@ public interface IBaseService<T extends Model> {
     T getOne(long id);
 
     /**
+     * 条件查询
+     */
+    T getOne(Example<T> example);
+
+    /**
+     * 条件查询
+     */
+    T getOne(Specification<T> spec);
+
+    /**
+     * 条件查询
+     */
+    T getOne(Predicate predicate);
+
+    /**
      * 删除
      */
     T delete(T t);
@@ -32,20 +47,20 @@ public interface IBaseService<T extends Model> {
      * <br>非字符类型只能精准查询
      * <br>不支持范围查询
      */
-    Page<T> page(int page,int size,String column,String order, Example<T> example);
+    Page<T> page(int page, int size, String column, String order, Example<T> example);
 
     /**
      * 复杂分页查询
      * <br> 支持模糊查询
      * <br> 范围查询
      */
-    Page<T> page(int page,int size,String column,String order,Specification<T> spec);
+    Page<T> page(int page, int size, String column, String order, Specification<T> spec);
 
     /**
      * 复杂分页查询
      * <br> 支持模糊查询
      * <br> 范围查询
      */
-    Page<T> page(int page,int size,String column,String order, Predicate predicate);
+    Page<T> page(int page, int size, String column, String order, Predicate predicate);
 
 }

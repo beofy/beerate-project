@@ -6,6 +6,9 @@ import cn.beerate.service.IBaseService;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
     private IBaseDao<T> iBaseDao;
@@ -19,13 +22,33 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
         return iBaseDao.getOne(id);
     }
 
+    public T getOne(Example<T> example){
+        Optional<T> operation = iBaseDao.findOne(example);
+
+        return operation.orElse(null);
+    }
+
+    public T getOne(Specification<T> spec){
+        Optional<T> operation = iBaseDao.findOne(spec);
+
+        return operation.orElse(null);
+    }
+
+    public T getOne(Predicate predicate){
+        Optional<T> operation = iBaseDao.findOne(predicate);
+
+        return operation.orElse(null);
+    }
+
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public T delete(T t) {
         iBaseDao.delete(t);
         return t;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public T save(T t) {
         return iBaseDao.save(t);
     }
