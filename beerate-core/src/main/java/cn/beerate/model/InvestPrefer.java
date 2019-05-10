@@ -1,23 +1,23 @@
 package cn.beerate.model;
 
 /**
- * 项目类型
+ * 投资偏好
  */
-public enum ItemType {
+public enum InvestPrefer {
 
     NONE("请选择"),
 
     STOCK_TRANSFER("老股转让"),
 
-    PRE_IPO("老股转让"),
+    PRE_IPO("PRE-IPO"),
 
-    BLOCK_TRADE("老股转让"),
+    BLOCK_TRADE("大宗交易"),
 
-    STOCK_PLEDGE("老股转让");
+    STOCK_PLEDGE("股票质押");
 
     private String value;
 
-    ItemType(String value) {
+    InvestPrefer(String value) {
         this.value = value;
     }
 
