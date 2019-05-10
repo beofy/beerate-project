@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ICustomQueryDsl {
 
-    <B,T extends Model> Page<B> findAll(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate, Pageable pageable);
+    <B, T extends Model> Page<B> findAll(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate, Pageable pageable);
+
+    <B, T extends Model> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate);
 
 }

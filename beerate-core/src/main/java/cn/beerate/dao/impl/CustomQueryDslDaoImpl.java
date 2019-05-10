@@ -35,4 +35,13 @@ public class CustomQueryDslDaoImpl implements ICustomQueryDsl {
         return PageableExecutionUtils.getPage(jpaQuery.fetch(),pageable, jpaQuery::fetchCount);
     }
 
+    public <B,T extends Model> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate){
+
+        Querydsl querydsl = new Querydsl(entityManager,new PathBuilder<>(entityPath.getType(), entityPath.getMetadata()));
+
+        JPQLQuery<B> jpaQuery = querydsl.createQuery().select(expr).where(predicate);
+
+        return jpaQuery.from(entityPath).fetchOne();
+    }
+
 }
