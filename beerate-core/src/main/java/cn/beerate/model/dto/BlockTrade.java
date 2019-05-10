@@ -1,4 +1,4 @@
-package cn.beerate.model.bean;
+package cn.beerate.model.dto;
 
 import lombok.Data;
 
