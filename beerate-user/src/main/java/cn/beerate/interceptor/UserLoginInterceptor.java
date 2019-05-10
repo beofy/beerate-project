@@ -2,7 +2,10 @@ package cn.beerate.interceptor;
 
 import cn.beerate.constant.SessionKey;
 import cn.beerate.exception.UserLoginException;
+import cn.beerate.model.bean.User;
 import cn.beerate.request.RequestProxy;
+import cn.beerate.utils.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -28,10 +31,21 @@ public class UserLoginInterceptor implements HandlerInterceptor {
          */
         HttpServletRequest requestProxy = new RequestProxy(request);
         HttpSession session = requestProxy.getSession();
-        if(session.getAttribute(SessionKey.USER_SESSION_KEY)==null){
+        Object object =session.getAttribute(SessionKey.USER_SESSION_KEY);
+        if(object==null){
             throw new UserLoginException("用户未登录");
+        }
+
+        String token = requestProxy.getHeader("token");
+        if(StringUtils.isBlank(token)){
+            throw new UserLoginException("登录状态异常");
+        }
+
+        if(!token.equals(((User)object).getToken())){
+            throw new UserLoginException("登录超时");
         }
 
         return true;
     }
+
 }
