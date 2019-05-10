@@ -1,15 +1,17 @@
 package cn.beerate.controller;
 
+import cn.beerate.PropertiesHolder;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
 import cn.beerate.common.Message;
+import cn.beerate.common.StatusCode;
 import cn.beerate.constant.SessionKey;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.bean.User;
 import cn.beerate.model.entity.t_user;
+import cn.beerate.security.Encrypt;
 import cn.beerate.service.UserService;
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +42,7 @@ public class UserController extends UserBaseController{
      * 登录
      */
     @PostMapping("/login")
-    public Message<String> login(String mobile ,String password,String imageCaptchaCode){
+    public Message<User> login(String mobile ,String password,String imageCaptchaCode){
         if(StringUtils.isBlank(mobile)){
             return Message.error("请输入手机号");
         }
@@ -59,7 +61,7 @@ public class UserController extends UserBaseController{
 
             Message<String> messageCaptcha = imageCaptchaProcessor.check(getRequest(),Captcha.IMAGE,CaptchaScene.USER_LOGIN,imageCaptchaCode);
             if (messageCaptcha.fail()){
-                return messageCaptcha;
+                return Message.error(messageCaptcha.getMsg());
             }
         }
 
@@ -85,24 +87,25 @@ public class UserController extends UserBaseController{
 
         t_user user = message.getData();
 
-        //检查认证状态
-        boolean isApprove=false;
-        if(user.getUser_business()!=null&&EnumUtils.getEnumIgnoreCase(AuditStatus.class,user.getUser_business().getAuditStatus())==AuditStatus.PASS_AUDIT){
-            isApprove=true;
+        //认证状态
+        String token = Encrypt.encrypt3DES(String.valueOf(user.getId()),PropertiesHolder.properties.getSecurityProperties().getDes_encrypt_key());
+        User currUser = new User(token,user.getUsername(),user.getPhoto(),user.getMobile(),user.getEmail(),false);
+
+        if(user.getUser_business()!=null&&user.getUser_business().getAuditStatus()==AuditStatus.PASS_AUDIT){
+            currUser.setApprove(true);
         }
-        User currUser = new User(user.getId(),user.getUsername(),user.getPhoto(),isApprove);
 
         //保存登录状态
         super.getSession().setAttribute(SessionKey.USER_SESSION_KEY,currUser);
 
-        return Message.ok("登录成功");
+        return new Message<>(StatusCode.SUCCESS,"登录成功",currUser);
     }
 
     /**
      * 注册
      */
     @PostMapping("/reg")
-    public Message<String> registe(String mobile ,String password,String smsCaptchaCode){
+    public Message<String> reg(String mobile ,String password,String smsCaptchaCode){
         if(StringUtils.isBlank(mobile)){
             return Message.error("请输入手机号码");
         }
@@ -144,14 +147,6 @@ public class UserController extends UserBaseController{
         return Message.ok("登出成功");
     }
 
-    /**
-     * 更新用户信息
-     */
-    @PostMapping("/updateUserInfo")
-    public Message<String> updateUserInfo(){
-
-        return Message.ok("更新用户信息成功");
-    }
 
     /**
      * 查询当前用户信息
@@ -159,9 +154,7 @@ public class UserController extends UserBaseController{
 
     @PostMapping("/me")
     public Message me(){
-        t_user user =userService.getOne(getUserId());
-
-        return Message.success(user.getUser_business());
+        return Message.success(getUser());
     }
 
 
