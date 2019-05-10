@@ -14,6 +14,7 @@ import org.springframework.util.Base64Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 /**
@@ -21,7 +22,7 @@ import java.net.URI;
  */
 public class BcrUtil {
 
-	private static String parseImage(String imageBase64){
+	public static String parseImage(String imageBase64){
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://dm-57.data.aliyun.com//rest/160601/ocr/ocr_business_card.json");
         httpPost.setHeader("Authorization","APPCODE 6638733a2a8449d49a51db5d00353ffc");
@@ -73,6 +74,17 @@ public class BcrUtil {
         String result = null;
         try {
             result = parseImage(Base64Utils.encodeToString(IOUtils.toByteArray(new FileInputStream(imageFile))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static String parse(InputStream inputStream){
+        String result = null;
+        try {
+            result = parseImage(Base64Utils.encodeToString(IOUtils.toByteArray(inputStream)));
         } catch (IOException e) {
             e.printStackTrace();
         }
