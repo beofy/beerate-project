@@ -8,8 +8,6 @@ import cn.beerate.constant.SessionKey;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.bean.User;
 import cn.beerate.model.entity.t_user;
-import cn.beerate.service.UserBusinessService;
-import cn.beerate.service.UserInfoService;
 import cn.beerate.service.UserService;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,16 +27,12 @@ import java.util.Map;
 public class UserController extends UserBaseController{
 
     private UserService userService;
-    private UserInfoService userInfoService;
-    private UserBusinessService userBusinessService;
-    private CaptchaProcessor smsCatpchaProcessor;
+    private CaptchaProcessor smsCaptchaProcessor;
     private CaptchaProcessor imageCaptchaProcessor;
 
-    public UserController(UserService userService, UserInfoService userInfoService, UserBusinessService userBusinessService, CaptchaProcessor smsCatpchaProcessor, CaptchaProcessor imageCaptchaProcessor) {
+    public UserController(UserService userService, CaptchaProcessor smsCaptchaProcessor, CaptchaProcessor imageCaptchaProcessor) {
         this.userService = userService;
-        this.userInfoService = userInfoService;
-        this.userBusinessService = userBusinessService;
-        this.smsCatpchaProcessor = smsCatpchaProcessor;
+        this.smsCaptchaProcessor = smsCaptchaProcessor;
         this.imageCaptchaProcessor = imageCaptchaProcessor;
     }
 
@@ -122,12 +116,12 @@ public class UserController extends UserBaseController{
         }
 
         //短信验证码校验
-        Message<String> messageCaptchaCheck = smsCatpchaProcessor.check(getRequest(), Captcha.SMS, CaptchaScene.USER_REGIST,smsCaptchaCode);
+        Message<String> messageCaptchaCheck = smsCaptchaProcessor.check(getRequest(), Captcha.SMS, CaptchaScene.USER_REGIST,smsCaptchaCode);
         if(messageCaptchaCheck.fail()){
             return messageCaptchaCheck;
         }
         //清空验证码
-        smsCatpchaProcessor.remove(getSession(),Captcha.SMS, CaptchaScene.USER_REGIST);
+        smsCaptchaProcessor.remove(getSession(),Captcha.SMS, CaptchaScene.USER_REGIST);
 
         //注册
         Message<t_user> message = userService.registe(mobile,password,getIp(),getChannel().name());
@@ -171,27 +165,5 @@ public class UserController extends UserBaseController{
     }
 
 
-    /**
-     * 上传用户名片
-     */
-    @PostMapping("/uploadUserBusiness")
-    public Message<String> uploadUserBusiness(String businessFilePath){
-        if(StringUtils.isBlank(businessFilePath)){
-            return Message.success("请上传名片");
-        }
 
-
-
-        return userBusinessService.uploadUserBusiness(null,null,getUserId());
-    }
-
-    /**
-     * 更新名片信息
-     */
-    @PostMapping("/updateUserBusiness")
-    public Message<String> updateUserBusiness(){
-
-
-        return Message.ok("");
-    }
 }
