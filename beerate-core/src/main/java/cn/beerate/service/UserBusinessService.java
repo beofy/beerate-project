@@ -2,14 +2,19 @@ package cn.beerate.service;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.entity.t_user_business;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
+import java.io.InputStream;
+
 public interface UserBusinessService extends IBaseService<t_user_business>{
 
     /**
-     *上传用户名片
+     *解析名片
      */
-    Message<String> uploadUserBusiness(String tempFilePath,String userFilePath,long userId);
+    t_user_business parse(InputStream inputStream);
+
+    /**
+     * 添加名片信息
+     */
+    Message<t_user_business> addBusiness(t_user_business userBusiness , long userId);
 
 }
