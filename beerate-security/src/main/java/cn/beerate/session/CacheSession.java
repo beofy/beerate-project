@@ -1,6 +1,7 @@
 package cn.beerate.session;
 
 
+import cn.beerate.PropertiesHolder;
 import cn.beerate.cache.Cache;
 import org.apache.catalina.session.StandardSessionFacade;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * CacheSeesion提供者
  */
-public class CacheSeesion extends StandardSessionFacade implements ICacheSession {
+public class CacheSession extends StandardSessionFacade implements ICacheSession {
 
     /**
      * 渠道类型
@@ -22,7 +23,7 @@ public class CacheSeesion extends StandardSessionFacade implements ICacheSession
      */
     private String channelId;
 
-    public CacheSeesion(HttpSession session, String channel, String channelId){
+    public CacheSession(HttpSession session, String channel, String channelId){
         super(session);
         this.channel = channel;
         this.channelId = channelId;
@@ -32,11 +33,11 @@ public class CacheSeesion extends StandardSessionFacade implements ICacheSession
 
 
     /**
-     * 初始当前会话的cachesession,没有则创建的一个空的hashmap进行会话缓存
+     * 初始当前会话的cacheSession,没有则创建的一个空的hashMap进行会话缓存
      */
     private void initCacheSession(){
         if(Cache.get(this.channelId)==null){
-            Cache.set(channelId,new HashMap<String,Object>(),"1h");
+            Cache.set(channelId,new HashMap<String,Object>(), PropertiesHolder.properties.getSecurityProperties().getSession_time_out());
         }
     }
 
