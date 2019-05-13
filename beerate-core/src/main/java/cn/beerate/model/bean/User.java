@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
     /**
-     * 授权令牌
+     * 用户id
      */
-    private String token;
+    private long id;
 
     /**
      * 用户名称
@@ -38,14 +38,13 @@ public class User {
      */
     private boolean isApprove = false;
 
-    public User(String token, String name, String photo, String mobile, String email, boolean isApprove) {
-        this.token = token;
+
+    public User(long id, String name, String photo, String mobile, String email, boolean isApprove) {
+        this.id = id;
         this.name = name;
         this.photo = photo;
         this.mobile = mobile;
         this.email = email;
         this.isApprove = isApprove;
     }
-
-
 }
