@@ -67,4 +67,17 @@ public class ExceptionHandle {
         return new Message<>(StatusCode.NOT_LOGIN,e.getMessage());
     }
 
+    /**
+     * 用户未认证异常
+     */
+    @ExceptionHandler(NoApproveException.class)
+    public Message<String> userNoApprove(NoApproveException e){
+        return new Message<>(StatusCode.NOT_APPROVE,e.getMessage());
+    }
+
+    @ExceptionHandler(TokenException.class)
+    public Message<String> tokenException(TokenException e){
+        return new Message<>(StatusCode.TOKEN_EXCEPTION,e.getMessage());
+    }
+
 }
