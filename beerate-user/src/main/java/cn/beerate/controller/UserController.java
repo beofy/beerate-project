@@ -4,13 +4,14 @@ import cn.beerate.PropertiesHolder;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
+import cn.beerate.common.IToken;
 import cn.beerate.common.Message;
 import cn.beerate.common.StatusCode;
+import cn.beerate.common.Token;
 import cn.beerate.constant.SessionKey;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.bean.User;
 import cn.beerate.model.entity.t_user;
-import cn.beerate.security.Encrypt;
 import cn.beerate.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,7 @@ public class UserController extends UserBaseController{
      * 登录
      */
     @PostMapping("/login")
-    public Message<User> login(String mobile ,String password,String imageCaptchaCode){
+    public Message<IToken> login(String mobile ,String password,String imageCaptchaCode){
         if(StringUtils.isBlank(mobile)){
             return Message.error("请输入手机号");
         }
@@ -84,13 +85,10 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
-
         t_user user = message.getData();
 
         //认证状态
-        String token = Encrypt.encrypt3DES(String.valueOf(user.getId()),PropertiesHolder.properties.getSecurityProperties().getDes_encrypt_key());
-        User currUser = new User(token,user.getUsername(),user.getPhoto(),user.getMobile(),user.getEmail(),false);
-
+        User currUser = new User(user.getId(),user.getUsername(),user.getPhoto(),user.getMobile(),user.getEmail(),false);
         if(user.getUser_business()!=null&&user.getUser_business().getAuditStatus()==AuditStatus.PASS_AUDIT){
             currUser.setApprove(true);
         }
@@ -98,7 +96,10 @@ public class UserController extends UserBaseController{
         //保存登录状态
         super.getSession().setAttribute(SessionKey.USER_SESSION_KEY,currUser);
 
-        return new Message<>(StatusCode.SUCCESS,"登录成功",currUser);
+        //设置访问令牌
+        IToken iToken = new Token(user.getId(),PropertiesHolder.properties.getSecurityProperties().getSession_time_out());
+
+        return new Message<>(StatusCode.SUCCESS,"登录成功",iToken);
     }
 
     /**
