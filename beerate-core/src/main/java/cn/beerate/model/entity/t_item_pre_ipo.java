@@ -1,6 +1,7 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.*;
+import cn.beerate.model.IndustryRealm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
