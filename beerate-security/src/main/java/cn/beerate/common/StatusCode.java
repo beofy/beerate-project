@@ -18,4 +18,10 @@ public class StatusCode {
 
     /** 登录超时*/
     public static final int  LOGIN_TIME_OUT = -102;
+
+    /** token校验异常 */
+    public static final int  TOKEN_EXCEPTION = -103;
+
+    /** 用户未认证 */
+    public static final int NOT_APPROVE=-201;
 }
