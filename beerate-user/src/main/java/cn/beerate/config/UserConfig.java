@@ -29,6 +29,9 @@ public class UserConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/user/login","/user/reg");
 
         //名片认证拦截
+        registry.addInterceptor(businessInterceptor)
+                .addPathPatterns("/user/*/*")
+                .excludePathPatterns("/user/business/upload","/user/business/supplement");
 
     }
 }
