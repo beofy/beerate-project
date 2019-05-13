@@ -61,6 +61,8 @@ cn:
     security:
       password-md5-salt: wGyUtsswIYAMxHdW
       des-encrypt-key: nx76caxsh8mYa9Oi
+      session-time-out: 1h
+
 
 
 

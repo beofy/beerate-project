@@ -19,6 +19,11 @@ public class SecurityProperties {
      */
     private String des_encrypt_key;
 
+    /**
+     * session 会话超时时间
+     */
+    private String session_time_out;
+
     public String getDes_encrypt_key() {
         return des_encrypt_key;
     }
@@ -33,5 +38,13 @@ public class SecurityProperties {
 
     public void setPassword_md5_salt(String password_md5_salt) {
         this.password_md5_salt = password_md5_salt;
+    }
+
+    public String getSession_time_out() {
+        return session_time_out;
+    }
+
+    public void setSession_time_out(String session_time_out) {
+        this.session_time_out = session_time_out;
     }
 }

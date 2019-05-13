@@ -1,7 +1,7 @@
 package cn.beerate.request;
 
 
-import cn.beerate.session.CacheSeesion;
+import cn.beerate.session.CacheSession;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;
@@ -142,7 +142,7 @@ public class RequestProxy implements IRequestProxy {
         }
 
         //返回CacheSession
-        return new CacheSeesion(session,channel,channelId);
+        return new CacheSession(session,channel,channelId);
     }
 
     @Override

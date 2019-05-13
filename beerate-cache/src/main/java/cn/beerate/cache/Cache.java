@@ -270,7 +270,7 @@ public class Cache{
      * @param duration 3h, 2mn, 7s
      * @return The number of seconds
      */
-    private static int parseDuration(String duration) {
+    public static int parseDuration(String duration) {
 
         Pattern days = Pattern.compile("^([0-9]+)d$");
         Pattern hours = Pattern.compile("^([0-9]+)h$");
