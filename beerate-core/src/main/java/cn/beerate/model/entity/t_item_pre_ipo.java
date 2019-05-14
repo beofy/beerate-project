@@ -169,5 +169,10 @@ public class t_item_pre_ipo extends ItemModel {
     @JoinColumn(name = "pre_ipo_id")
     private List<t_item_message_board> message_boards;
 
+    //==========================================
+
+    @OneToMany(mappedBy = "pre_ipo")
+    private List<t_item_collect> itemCollects;
+
 
 }

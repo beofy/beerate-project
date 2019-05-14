@@ -111,4 +111,9 @@ public class t_item_stock_pledge extends ItemModel {
     @OneToMany
     @JoinColumn(name = "stock_pledge_id")
     private List<t_item_message_board> message_boards;
+
+    //==========================================
+
+    @OneToMany(mappedBy = "stock_pledge")
+    private List<t_item_collect> itemCollects;
 }

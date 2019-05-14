@@ -129,4 +129,9 @@ public class t_item_loan extends ItemModel {
 	@JoinColumn(name = "item_loan_id")
 	private List<t_item_message_board> message_boards;
 
+	//==========================================
+
+	@OneToMany(mappedBy = "item_loan")
+	private List<t_item_collect> itemCollects;
+
 }

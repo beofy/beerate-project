@@ -89,4 +89,8 @@ public class t_item_block_trade extends ItemModel {
     @JoinColumn(name = "block_trade_id")
     private List<t_item_message_board> message_boards;
 
+    //==========================================
+
+    @OneToMany(mappedBy = "block_trade")
+    private List<t_item_collect> itemCollects;
 }

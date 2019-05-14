@@ -108,4 +108,10 @@ public class t_user extends UserAndAdminModel {
     private List<t_item_overseas_listing> overseas_listing;
 
 
+    //======================项目收藏======================
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_collect> itemCollects;
+
+
 }
