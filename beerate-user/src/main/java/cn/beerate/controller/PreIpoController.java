@@ -60,6 +60,7 @@ public class PreIpoController extends UserBaseController {
 
         Expression<PreIpo> expression = Projections.constructor(
                 PreIpo.class,
+                preIpo.id,
                 preIpo.preIpoName,
                 preIpo.isNewThirdBoardListing,
                 /*  ====================↓↓已挂牌↓↓==================== */
