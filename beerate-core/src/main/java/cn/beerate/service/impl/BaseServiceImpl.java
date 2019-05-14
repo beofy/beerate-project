@@ -84,7 +84,7 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
 
 
     @Override
-    public <B> Page<B> findAll(int page,int size,String column,String order,Expression<B> expr, EntityPath<T> entityPath, Predicate predicate) {
+    public <B> Page<B> page(int page,int size,String column,String order,Expression<B> expr, EntityPath<T> entityPath, Predicate predicate) {
         //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),column);
 

@@ -66,8 +66,7 @@ public interface IBaseService<T extends Model> {
      */
     Page<T> page(int page, int size, String column, String order, Predicate predicate);
 
-
-    <B> Page<B> findAll(int page,int size,String column,String order,Expression<B> expr, EntityPath<T> entityPath, Predicate predicate);
+    <B> Page<B> page(int page,int size,String column,String order,Expression<B> expr, EntityPath<T> entityPath, Predicate predicate);
 
     <B> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate);
 
