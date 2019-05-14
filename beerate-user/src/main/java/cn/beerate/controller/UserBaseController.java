@@ -1,9 +1,7 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHolder;
 import cn.beerate.constant.SessionKey;
 import cn.beerate.model.bean.User;
-import cn.beerate.security.Encrypt;
 
 public class UserBaseController extends BaseController{
 
@@ -18,9 +16,7 @@ public class UserBaseController extends BaseController{
      * 获取当用户id
      */
     long getUserId(){
-        String userId = Encrypt.decrypt3DES(getUser().getToken(),PropertiesHolder.properties.getSecurityProperties().getDes_encrypt_key());
-
-        return Long.parseLong(userId);
+        return getUser().getId();
     }
 
     /**
