@@ -10,6 +10,7 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class PreIpoController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Message<Page<PreIpoList>> list(int page, int size, String column, String order) {
         Qt_item_pre_ipo preIpo = Qt_item_pre_ipo.t_item_pre_ipo;
 

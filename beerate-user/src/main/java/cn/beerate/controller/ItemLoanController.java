@@ -11,6 +11,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,7 +36,7 @@ public class ItemLoanController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Message<Page<ItemList>> list(int page, int size, String column, String order) {
 
         Qt_item_loan itemLoan = Qt_item_loan.t_item_loan;
