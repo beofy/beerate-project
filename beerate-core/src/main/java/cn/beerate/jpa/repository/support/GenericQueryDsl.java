@@ -21,17 +21,17 @@ import javax.persistence.EntityManager;
 public class GenericQueryDsl<T> extends QuerydslJpaPredicateExecutor<T> implements ICustomQueryDsl<T> {
 
     private final JpaEntityInformation<T, ?> entityInformation;
-    private final EntityPath<T> path;
+    private final EntityPath<T> entityPath;
     private final EntityManager entityManager;
 
     public GenericQueryDsl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager,EntityPathResolver resolver, @Nullable CrudMethodMetadata metadata) {
         super(entityInformation,entityManager,resolver,metadata);
         this.entityInformation = entityInformation;
-        this.path = resolver.createPath(entityInformation.getJavaType());
+        this.entityPath = resolver.createPath(entityInformation.getJavaType());
         this.entityManager = entityManager;
     }
 
-    public <B> Page<B> findAll(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate, Pageable pageable){
+    public <B> Page<B> findAll(Expression<B> expr, Predicate predicate, Pageable pageable){
 
         Querydsl querydsl = new Querydsl(entityManager,new PathBuilder<>(entityPath.getType(), entityPath.getMetadata()));
 
@@ -42,7 +42,7 @@ public class GenericQueryDsl<T> extends QuerydslJpaPredicateExecutor<T> implemen
         return PageableExecutionUtils.getPage(jpaQuery.fetch(),pageable, jpaQuery::fetchCount);
     }
 
-    public <B> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate){
+    public <B> B getOne(Expression<B> expr, Predicate predicate){
 
         Querydsl querydsl = new Querydsl(entityManager,new PathBuilder<>(entityPath.getType(), entityPath.getMetadata()));
 

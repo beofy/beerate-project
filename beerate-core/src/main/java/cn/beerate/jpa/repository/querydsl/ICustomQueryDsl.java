@@ -12,8 +12,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
  */
 public interface ICustomQueryDsl<T> extends QuerydslPredicateExecutor<T> {
 
-    <B> Page<B> findAll(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate, Pageable pageable);
+    <B> Page<B> findAll(Expression<B> expr, Predicate predicate, Pageable pageable);
 
-    <B> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate);
+    <B> B getOne(Expression<B> expr, Predicate predicate);
 
 }

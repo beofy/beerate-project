@@ -3,7 +3,6 @@ package cn.beerate.service.impl;
 import cn.beerate.dao.IBaseDao;
 import cn.beerate.model.Model;
 import cn.beerate.service.IBaseService;
-import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.*;
@@ -84,19 +83,19 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
 
 
     @Override
-    public <B> Page<B> page(int page,int size,String column,String order,Expression<B> expr, EntityPath<T> entityPath, Predicate predicate) {
+    public <B> Page<B> page(int page,int size,String column,String order,Expression<B> expr, Predicate predicate) {
         //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),column);
 
         //分页排序
         Pageable pageable = PageRequest.of(page-1,size,sort);
 
-        return iBaseDao.findAll(expr,entityPath,predicate,pageable);
+        return iBaseDao.findAll(expr,predicate,pageable);
     }
 
     @Override
-    public <B> B getOne(Expression<B> expr, EntityPath<T> entityPath, Predicate predicate) {
+    public <B> B getOne(Expression<B> expr, Predicate predicate) {
 
-        return iBaseDao.getOne(expr,entityPath,predicate);
+        return iBaseDao.getOne(expr,predicate);
     }
 }
