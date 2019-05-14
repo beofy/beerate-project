@@ -3,7 +3,7 @@ package cn.beerate.controller;
 import cn.beerate.common.Message;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.entity.t_item_stock_transfer;
-import cn.beerate.service.StockTransferSerivce;
+import cn.beerate.service.StockTransferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/admin/stocktransfer")
 public class StockTransferMngController extends AdminBaseController  {
-    private StockTransferSerivce stockTransferSerivce;
-    public StockTransferMngController(StockTransferSerivce stockTransferSerivce) {
+    private StockTransferService stockTransferSerivce;
+    public StockTransferMngController(StockTransferService stockTransferSerivce) {
         this.stockTransferSerivce = stockTransferSerivce;
     }
 
