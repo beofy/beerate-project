@@ -31,7 +31,7 @@ public class UserConfig implements WebMvcConfigurer {
         //名片认证拦截
         registry.addInterceptor(businessInterceptor)
                 .addPathPatterns("/user/*/*")
-                .excludePathPatterns("/user/business/upload","/user/business/supplement");
+                .excludePathPatterns("/user/business/upload","/user/business/supplement","/user/business/detail");
 
     }
 }
