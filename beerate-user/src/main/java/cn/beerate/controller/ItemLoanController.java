@@ -1,7 +1,7 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.ItemList;
+import cn.beerate.model.dto.ItemLoanList;
 import cn.beerate.model.dto.ItemLoan;
 import cn.beerate.model.entity.Qt_item_loan;
 import cn.beerate.model.entity.t_item_loan;
@@ -37,11 +37,11 @@ public class ItemLoanController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<ItemList>> list(int page, int size, String column, String order) {
+    public Message<Page<ItemLoanList>> list(int page, int size, String column, String order) {
 
         Qt_item_loan itemLoan = Qt_item_loan.t_item_loan;
-        Expression<ItemList> expression = Projections.constructor(
-                ItemList.class,
+        Expression<ItemLoanList> expression = Projections.constructor(
+                ItemLoanList.class,
                 itemLoan.id,
                 itemLoan.itemName,
                 itemLoan.industryRealm,
@@ -50,7 +50,7 @@ public class ItemLoanController extends UserBaseController {
                 itemLoan.auditStatus
         );
 
-        Page<ItemList> pageBean = itemLoanService.page(page, size, column, order, expression, itemLoan.id.eq(getUserId()));
+        Page<ItemLoanList> pageBean = itemLoanService.page(page, size, column, order, expression, itemLoan.id.eq(getUserId()));
 
         return Message.success(pageBean);
     }
