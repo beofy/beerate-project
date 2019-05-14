@@ -46,7 +46,8 @@ public class BlockTradeController extends UserBaseController {
                 blockTrade.blockTradeName,
                 blockTrade.exchangeRate,
                 blockTrade.underweightShares,
-                blockTrade.underweightAmount
+                blockTrade.underweightAmount,
+                blockTrade.auditStatus
         );
         Page<BlockTradeList> pageBean = blockTradeService.page(page, size, column, order, expression, blockTrade.user.id.eq(getUserId()));
 
