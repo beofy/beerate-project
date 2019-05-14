@@ -7,13 +7,13 @@ import cn.beerate.model.ModelValidate;
 import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_stock_transfer;
 import cn.beerate.model.entity.t_user;
-import cn.beerate.service.StockTransferSerivce;
+import cn.beerate.service.StockTransferService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class StockTransferServiceImpl extends BaseServiceImpl<t_item_stock_transfer> implements StockTransferSerivce {
+public class StockTransferServiceImpl extends BaseServiceImpl<t_item_stock_transfer> implements StockTransferService {
 
     private StockTransferDao stockTransferDao;
 
