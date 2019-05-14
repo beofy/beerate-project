@@ -1,4 +1,4 @@
-package cn.beerate.model.dto;
+package cn.beerate.model.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
