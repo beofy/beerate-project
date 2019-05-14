@@ -2,7 +2,7 @@ package cn.beerate.service.impl;
 
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.InvestPrefer;
-import cn.beerate.model.dto.Business;
+import cn.beerate.model.bean.Business;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.Qt_user_business;
 import cn.beerate.model.entity.t_user;
