@@ -13,7 +13,9 @@ public enum InvestPrefer {
 
     BLOCK_TRADE("大宗交易"),
 
-    STOCK_PLEDGE("股票质押");
+    STOCK_PLEDGE("股票质押"),
+
+    ITEM_LIAN("项目融资");
 
     private String value;
 
