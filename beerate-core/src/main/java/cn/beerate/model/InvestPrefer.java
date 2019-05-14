@@ -15,7 +15,7 @@ public enum InvestPrefer {
 
     STOCK_PLEDGE("股票质押"),
 
-    ITEM_LIAN("项目融资");
+    ITEM_LOAN("项目融资");
 
     private String value;
 
