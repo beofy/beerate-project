@@ -37,7 +37,7 @@ public class BlockTradeController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message list(int page, int size, String column, String order) {
+    public Message<Page<BlockTradeList>> list(int page, int size, String column, String order) {
         Qt_item_block_trade blockTrade = Qt_item_block_trade.t_item_block_trade;
 
         Expression<BlockTradeList> expression = Projections.constructor(
