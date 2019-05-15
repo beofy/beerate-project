@@ -131,7 +131,8 @@ public class t_item_loan extends ItemModel {
 
 	//==========================================
 
-	@OneToMany(mappedBy = "item_loan")
-	private List<t_item_collect> itemCollects;
+	@OneToMany
+	@JoinColumn(name = "item_loan_id")
+	private List<t_item_collect> item_collects;
 
 }

@@ -99,7 +99,8 @@ public class t_item_stock_transfer extends ItemModel {
 
     //==========================================
 
-    @OneToMany(mappedBy = "stock_transfer")
-    private List<t_item_collect> itemCollects;
+    @OneToMany
+    @JoinColumn(name = "stock_transfer_id")
+    private List<t_item_collect> item_collects;
 
 }

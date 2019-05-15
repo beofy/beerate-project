@@ -91,6 +91,7 @@ public class t_item_block_trade extends ItemModel {
 
     //==========================================
 
-    @OneToMany(mappedBy = "block_trade")
-    private List<t_item_collect> itemCollects;
+    @OneToMany
+    @JoinColumn(name = "block_trade_id")
+    private List<t_item_collect> item_collects;
 }
