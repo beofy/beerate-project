@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserService {
     private UserDao userDao;
     public UserServiceImpl(UserDao userDao) {
