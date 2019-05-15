@@ -81,13 +81,13 @@ public class t_item_stock_transfer extends ItemModel {
 
     //==========================================
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private t_user user;
 
     //==========================================
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private t_admin admin;
 

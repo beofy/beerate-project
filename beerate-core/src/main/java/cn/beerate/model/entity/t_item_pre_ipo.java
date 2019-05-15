@@ -153,13 +153,13 @@ public class t_item_pre_ipo extends ItemModel {
 
     //==========================================
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private t_user user;
 
     //==========================================
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private t_admin admin;
 
