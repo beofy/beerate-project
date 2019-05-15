@@ -14,15 +14,15 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Setter
 @Getter
-@org.hibernate.annotations.Table(appliesTo = "t_user_attention",comment="前台用户关注表")
-public class t_user_attention  extends Model {
+@org.hibernate.annotations.Table(appliesTo = "t_user_visitor",comment="用户访客表")
+public class t_user_visitor extends Model {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private t_user user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attention_user_id")
-    private t_user attention_user;
+    @JoinColumn(name = "visitor_user_id")
+    private t_user visitor_user;
 
 }

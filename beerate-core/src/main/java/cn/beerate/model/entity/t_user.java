@@ -111,7 +111,32 @@ public class t_user extends UserAndAdminModel {
     //======================项目收藏======================
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<t_item_collect> itemCollects;
+    private List<t_item_collect> item_collects;
 
+
+    //======================关注，联系，访客联系======================
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_user_attention> my_attention;
+
+    @OneToMany
+    @JoinColumn(name = "attention_user_id")
+    private List<t_user_attention> attention_me;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_user_contact> my_contact;
+
+    @OneToMany
+    @JoinColumn(name = "contact_user_id")
+    private List<t_user_contact> contact_me;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_user_visitor> my_visitor;
+
+    @OneToMany
+    @JoinColumn(name = "visitor_user_id")
+    private List<t_user_visitor> visitor_me;
 
 }
