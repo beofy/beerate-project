@@ -23,17 +23,17 @@ public class GenericQueryDsl<T> extends QuerydslJpaPredicateExecutor<T> implemen
     private final JpaEntityInformation<T, ?> entityInformation;
     private final EntityPath<T> entityPath;
     private final EntityManager entityManager;
+    private final Querydsl querydsl;
 
     public GenericQueryDsl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager,EntityPathResolver resolver, @Nullable CrudMethodMetadata metadata) {
         super(entityInformation,entityManager,resolver,metadata);
         this.entityInformation = entityInformation;
         this.entityPath = resolver.createPath(entityInformation.getJavaType());
         this.entityManager = entityManager;
+        this.querydsl = new Querydsl(entityManager, new PathBuilder<T>(entityPath.getType(), entityPath.getMetadata()));
     }
 
     public <B> Page<B> findAll(Expression<B> expr, Predicate predicate, Pageable pageable){
-
-        Querydsl querydsl = new Querydsl(entityManager,new PathBuilder<>(entityPath.getType(), entityPath.getMetadata()));
 
         JPQLQuery<B> jpaQuery = querydsl.createQuery().select(expr).where(predicate);
 
@@ -43,8 +43,6 @@ public class GenericQueryDsl<T> extends QuerydslJpaPredicateExecutor<T> implemen
     }
 
     public <B> B getOne(Expression<B> expr, Predicate predicate){
-
-        Querydsl querydsl = new Querydsl(entityManager,new PathBuilder<>(entityPath.getType(), entityPath.getMetadata()));
 
         JPQLQuery<B> jpaQuery = querydsl.createQuery().select(expr).where(predicate);
 
