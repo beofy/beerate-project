@@ -18,6 +18,7 @@ public class OverseasListingServiceImpl extends BaseServiceImpl<t_item_overseas_
         this.overseasListingDao = overseasListingDao;
     }
 
+    @Transactional
     public Message<t_item_overseas_listing> addOverseasListing(t_item_overseas_listing overseasListing){
 
         Message<String> message = ModelValidate.overseasListingValid(overseasListing);
