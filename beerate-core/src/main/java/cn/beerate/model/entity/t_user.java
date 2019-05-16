@@ -139,4 +139,11 @@ public class t_user extends UserAndAdminModel {
     @JoinColumn(name = "visitor_user_id")
     private List<t_user_visitor> visitor_me;
 
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<t_item_delivery> my_delivery;
+
+    @OneToMany
+    @JoinColumn(name = "delivery_user_id")
+    private List<t_item_delivery> delivery_me;
 }
