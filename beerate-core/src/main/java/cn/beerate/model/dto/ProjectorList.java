@@ -5,7 +5,16 @@ import lombok.Data;
 @Data
 public class ProjectorList {
 
-    private long id;
+    public ProjectorList(long userId, String name, String company, String title, long visitorTotals, long receiveItemTotals) {
+        this.userId = userId;
+        this.name = name;
+        this.company = company;
+        this.title = title;
+        this.visitorTotals = visitorTotals;
+        this.receiveItemTotals = receiveItemTotals;
+    }
+
+    private long userId;
 
     private String name;
 
@@ -13,8 +22,8 @@ public class ProjectorList {
 
     private String title;
 
-    private Integer visitorTotals;
+    private long visitorTotals;
 
-    private Integer receiveItemTotals;
+    private long receiveItemTotals;
 
 }
