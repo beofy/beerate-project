@@ -1,17 +1,17 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHolder;
 import cn.beerate.common.Message;
 import cn.beerate.model.InvestPrefer;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user_business;
-import cn.beerate.oss.OSS;
 import cn.beerate.service.UserBusinessService;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
@@ -22,11 +22,9 @@ import java.util.UUID;
 public class UserBusinessController extends UserBaseController {
 
     private UserBusinessService userBusinessService;
-    private OSS oss;
 
-    public UserBusinessController(UserBusinessService userBusinessService, OSS oss) {
+    public UserBusinessController(UserBusinessService userBusinessService) {
         this.userBusinessService = userBusinessService;
-        this.oss = oss;
     }
 
     /**
@@ -41,13 +39,13 @@ public class UserBusinessController extends UserBaseController {
         try (InputStream inputStream = file.getInputStream()) {
 
             t_user_business userBusiness = userBusinessService.parse(inputStream);
-            userBusiness.setBusinessCardUri("/" + PropertiesHolder.properties.getFileProperties().getUserFile() + UUID.randomUUID().toString());
+            userBusiness.setBusinessCardUri("/attachment/" + UUID.randomUUID().toString());
 
             //保存名片信息
             userBusinessService.addBusiness(userBusiness, getUserId());
 
             //保存名片文件
-            oss.uploadFile(inputStream, oss.getRoot() + userBusiness.getBusinessCardUri());
+            file.transferTo(new File(ResourceUtils.getURL("target/classes/static").getPath() + userBusiness.getBusinessCardUri()));
 
             return Message.ok("上传成功，请补充名片资料");
 

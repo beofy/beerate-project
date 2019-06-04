@@ -2,13 +2,7 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.dto.ProjectorList;
-import cn.beerate.model.entity.Qt_item_delivery;
-import cn.beerate.model.entity.Qt_user_business;
-import cn.beerate.model.entity.Qt_user_visitor;
 import cn.beerate.service.*;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -36,19 +30,8 @@ public class ProjectorServiceImpl implements ProjectorService {
      */
     @Override
     public Message<Page<ProjectorList>> pageOfProjectList(int page, int size, String column, String order){
-        Qt_user_business userBusiness = Qt_user_business.t_user_business;
 
-        Expression<ProjectorList> expression = Projections.constructor(
-                ProjectorList.class,
-                userBusiness.user.id,
-                userBusiness.name,
-                userBusiness.company,
-                userBusiness.title,
-                JPAExpressions.select(Qt_user_visitor.t_user_visitor.count()).from(Qt_user_visitor.t_user_visitor).where(Qt_user_visitor.t_user_visitor.visitor_user.id.eq(userBusiness.user.id)),
-                JPAExpressions.select(Qt_item_delivery.t_item_delivery.count()).from(Qt_item_delivery.t_item_delivery).where(Qt_item_delivery.t_item_delivery.delivery_user.id.eq(userBusiness.user.id))
-        );
-
-        return Message.success(userBusinessService.page(page,size,column,order,expression,null));
+        return Message.success(null);
     }
 
     /**
@@ -59,8 +42,6 @@ public class ProjectorServiceImpl implements ProjectorService {
 
         return null;
     }
-
-
 
 
 

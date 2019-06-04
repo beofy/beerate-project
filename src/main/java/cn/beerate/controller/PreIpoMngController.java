@@ -1,21 +1,21 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHolder;
 import cn.beerate.common.Message;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.entity.t_item_pre_ipo;
-import cn.beerate.oss.OSS;
 import cn.beerate.service.PreIpoService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -28,11 +28,9 @@ public class PreIpoMngController  extends AdminBaseController  {
 
     private final Log logger = LogFactory.getLog(this.getClass());
     private PreIpoService preIpoService;
-    private OSS oss;
 
-    public PreIpoMngController(PreIpoService preIpoService, OSS oss) {
+    public PreIpoMngController(PreIpoService preIpoService) {
         this.preIpoService = preIpoService;
-        this.oss = oss;
     }
 
     /**
@@ -62,7 +60,7 @@ public class PreIpoMngController  extends AdminBaseController  {
     @ResponseBody
     public Message<String> add(t_item_pre_ipo preIpo, MultipartFile businessProposal){
 
-        preIpo.setBusinessProposalUri("/"+ PropertiesHolder.properties.getFileProperties().getAdminFile()+ UUID.randomUUID().toString());
+        preIpo.setBusinessProposalUri("/attachment/"+ UUID.randomUUID().toString());
 
         Message<t_item_pre_ipo> message  = preIpoService.addPreIpoByAdmin(preIpo,getAdminId());
         if (message.fail()){
@@ -70,7 +68,7 @@ public class PreIpoMngController  extends AdminBaseController  {
         }
 
         try {
-            oss.uploadFile(businessProposal.getInputStream(),oss.getRoot()+preIpo.getBusinessProposalUri());
+            businessProposal.transferTo(new File(ResourceUtils.getURL("target/classes/static").getPath()+preIpo.getBusinessProposalUri()));
         }catch (IOException ioe){
             logger.error(String.format("文件保存失败,原因：[%s]",ioe.getCause()),ioe);
         }

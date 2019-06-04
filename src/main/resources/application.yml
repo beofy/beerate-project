@@ -47,17 +47,9 @@ spring:
     time-zone: GMT+8 #默认为格林尼治时间，即少8小时
     date-format: yyyy-MM-dd HH:mm:ss #时间戳统一转换
 
-
-
-
 #系统参数
 cn:
   beerate:
-    file: #不以分隔符开头，必须跟个服结尾，该路劲相对于类路劲
-      admin-file: oss/admin/
-      temp-file:  oss/temp/
-      user-file:  oss/user/
-      file-store-impl: cn.beerate.oss.LocalOSSImpl
     security:
       password-md5-salt: wGyUtsswIYAMxHdW
       des-encrypt-key: nx76caxsh8mYa9Oi

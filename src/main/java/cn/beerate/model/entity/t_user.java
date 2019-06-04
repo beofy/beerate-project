@@ -18,25 +18,6 @@ import java.util.List;
 @org.hibernate.annotations.Table(appliesTo = "t_user",comment="前台用户表")
 public class t_user extends UserAndAdminModel {
 
-    public static t_user getInstance(){
-        t_user user =new t_user();
-        user.setCreateTime(new Date());
-        user.setCreateTime(new Date());
-        user.setUsername("");
-        user.setMobile("");
-        user.setEmail("");
-        user.photo="";
-        user.password_continue_fails=0;
-        user.is_allow_login=true;
-        user.login_count=0;
-        user.last_login_ip="";
-        user.last_login_client="";
-        user.reg_ip="";
-        user.reg_channel="";
-
-        return user;
-    }
-
     @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
     private String photo;
 

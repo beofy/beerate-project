@@ -1,12 +1,8 @@
 package cn.beerate.service;
 
 import cn.beerate.model.Model;
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -29,10 +25,6 @@ public interface IBaseService<T extends Model> {
      */
     T getOne(Specification<T> spec);
 
-    /**
-     * 条件查询
-     */
-    T getOne(Predicate predicate);
 
     /**
      * 删除
@@ -58,16 +50,5 @@ public interface IBaseService<T extends Model> {
      * <br> 范围查询
      */
     Page<T> page(int page, int size, String column, String order, Specification<T> spec);
-
-    /**
-     * 复杂分页查询
-     * <br> 支持模糊查询
-     * <br> 范围查询
-     */
-    Page<T> page(int page, int size, String column, String order, Predicate predicate);
-
-    <B> Page<B> page(int page,int size,String column,String order,Expression<B> expr, Predicate predicate);
-
-    <B> B getOne(Expression<B> expr, Predicate predicate);
 
 }

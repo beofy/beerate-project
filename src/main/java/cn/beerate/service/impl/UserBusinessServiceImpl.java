@@ -1,25 +1,22 @@
 package cn.beerate.service.impl;
 
+import cn.beerate.common.Message;
+import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.InvestPrefer;
 import cn.beerate.model.bean.Business;
 import cn.beerate.model.dto.UserBusiness;
-import cn.beerate.model.entity.Qt_user_business;
 import cn.beerate.model.entity.t_user;
-import cn.beerate.utils.BcrUtil;
-import cn.beerate.common.Message;
-import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
+import cn.beerate.utils.BcrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.util.Date;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,7 +38,8 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
                 .getJSONObject("outputValue")
                 .getJSONObject("dataValue").toJavaObject(Business.class);
 
-        t_user_business userBusiness = t_user_business.getInstance();
+        t_user_business userBusiness = new t_user_business();
+        userBusiness.setCreateTime(new Date());
 
         if(StringUtils.isNotBlank(business.getName())){
             userBusiness.setName(business.getName());
@@ -104,7 +102,7 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
             return Message.error("请填写工作经历");
         }
 
-        t_user_business userBusiness =super.getOne(Qt_user_business.t_user_business.user.id.eq(userId));
+        t_user_business userBusiness =null;
         if (userBusiness == null) {
             return Message.error("名片信息不存在");
         }
@@ -124,27 +122,9 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     }
 
     public Message<UserBusiness> findUserBusinessDetail(long userId){
-        Qt_user_business qtUserBusiness = Qt_user_business.t_user_business;
 
-        Expression<UserBusiness> expression = Projections.constructor(UserBusiness.class
-                , qtUserBusiness.name
-                , qtUserBusiness.company
-                , qtUserBusiness.department
-                , qtUserBusiness.title
-                , qtUserBusiness.telCell
-                , qtUserBusiness.telWork
-                , qtUserBusiness.address
-                , qtUserBusiness.email
-                , qtUserBusiness.businessCardUri
-                , qtUserBusiness.investPrefer
-                , qtUserBusiness.aboutText
-                , qtUserBusiness.workText
-                , qtUserBusiness.auditStatus
-                , qtUserBusiness.verifyTime
-        );
-        Predicate predicate = qtUserBusiness.user.id.eq(userId);
 
-        UserBusiness userBusiness = super.getOne(expression, predicate);
+        UserBusiness userBusiness = null;
 
         if (userBusiness == null) {
             return Message.error("请上传名片");

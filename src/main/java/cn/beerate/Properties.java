@@ -6,20 +6,12 @@ import org.springframework.context.annotation.Configuration;
 public class Properties {
 
     private SecurityProperties securityProperties;
-    private FileProperties fileProperties;
 
-    public Properties(SecurityProperties securityProperties, FileProperties fileProperties) {
+    public Properties(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
-        this.fileProperties = fileProperties;
     }
 
     public SecurityProperties getSecurityProperties() {
         return securityProperties;
     }
-
-    public FileProperties getFileProperties() {
-        return fileProperties;
-    }
-
-
 }
