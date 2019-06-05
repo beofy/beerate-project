@@ -80,22 +80,7 @@ public class AdminController extends AdminBaseController{
                            @RequestParam(required = false) Date endDate,
                            Model model){
 
-        Page<t_admin> pageBean = adminService.page(page, size, column, order, (root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if(beginDate!=null&&endDate!=null&&beginDate.before(endDate)){
-                predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
-            }
-
-            if(StringUtils.isNotBlank(field)){
-                predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get(field),"%"+value+"%")));
-            }
-
-            Predicate[] predicate = new Predicate[predicates.size()];
-            return criteriaBuilder.and(predicates.toArray(predicate));
-        });
-
-        model.addAttribute("page",pageBean);
-
+        model.addAttribute("page",adminService.page(page, size, column, order,field,value,beginDate,endDate));
         return "admin/list";
     }
 

@@ -39,27 +39,7 @@ public class BlockTradeMngController  extends AdminBaseController {
                            @RequestParam(required = false) Date beginDate,
                            @RequestParam(required = false) Date endDate,
                            Model model){
-
-        Page<t_item_block_trade> pageBean = blockTradeService.page(page, size, column, order, (root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            Join<t_item_block_trade,t_admin> adminJoin = root.join("admin", JoinType.LEFT);
-            predicates.add(criteriaBuilder.equal(adminJoin.get("id"),getAdminId()));
-
-            if(beginDate!=null&&endDate!=null&&beginDate.before(endDate)){
-                predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
-            }
-
-            if(StringUtils.isNotBlank(field)){
-                predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get(field),"%"+value+"%")));
-            }
-
-            Predicate[] predicate = new Predicate[predicates.size()];
-
-            return criteriaBuilder.and(predicates.toArray(predicate));
-        });
-
-        model.addAttribute("page",pageBean);
+        model.addAttribute("page",blockTradeService.page(page, size, column, order, field,value,beginDate,endDate));
 
         return "blocktrade/list";
     }

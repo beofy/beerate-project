@@ -5,6 +5,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Date;
+
 /**
  * 基础业务接口
  */
@@ -51,4 +53,10 @@ public interface IBaseService<T extends Model> {
      */
     Page<T> page(int page, int size, String column, String order, Specification<T> spec);
 
+    /**
+     * 复杂分页查询
+     * <br> 支持模糊查询
+     * <br> 范围查询
+     */
+    Page<T> page(int page, int size, String column, String order, String field, String value, Date beginDate, Date endDate);
 }

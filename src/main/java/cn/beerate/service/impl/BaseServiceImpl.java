@@ -8,6 +8,10 @@ import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
@@ -75,5 +79,20 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
         return iBaseDao.findAll(spec,pageable);
     }
 
+    @Override
+    public Page<T> page(int page, int size, String column, String order, String field, String value, Date beginDate, Date endDate) {
+        return page(page,size,column,order,(root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if(beginDate!=null&&endDate!=null&&beginDate.before(endDate)){
+                predicates.add(criteriaBuilder.between(root.get("createTime") , beginDate, endDate));
+            }
 
+            if(StringUtils.isNotBlank(field)){
+                predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get(field),"%"+value+"%")));
+            }
+
+            Predicate[] predicate = new Predicate[predicates.size()];
+            return criteriaBuilder.and(predicates.toArray(predicate));
+        });
+    }
 }
