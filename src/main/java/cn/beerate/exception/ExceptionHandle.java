@@ -40,7 +40,8 @@ public class ExceptionHandle {
         //匹配后台请求
         if(new AntPathMatcher().match("/admin/**",request.getRequestURI())){
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("error");
+            modelAndView.addObject("ex",ex);
+            modelAndView.setViewName("500");
             return modelAndView;
         }else {
             return Message.error(ex.getMessage());
