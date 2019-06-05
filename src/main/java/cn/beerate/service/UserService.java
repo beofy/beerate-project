@@ -21,5 +21,5 @@ public interface UserService extends IBaseService<t_user> {
      * @param loginIp 登录ip
      * @param loginChannel 登录渠道
      */
-    public Message<t_user> login(String mobile,String password,String loginIp,String loginChannel);
+    Message<t_user> login(String mobile,String password,String loginIp,String loginChannel);
 }
