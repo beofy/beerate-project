@@ -3,6 +3,7 @@ package cn.beerate.service.impl;
 import cn.beerate.dao.IBaseDao;
 import cn.beerate.model.Model;
 import cn.beerate.service.IBaseService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,11 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
     }
 
     public Page<T> page(int page,int size,String column,String order,Example<T> example){
+        if (StringUtils.isBlank(column)||StringUtils.isBlank(order)){
+            column="id";
+            order="desc";
+        }
+
         //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),column);
         //分页排序
@@ -56,6 +62,11 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
     }
 
     public Page<T> page(int page,int size,String column,String order, Specification<T> spec){
+        if (StringUtils.isBlank(column)||StringUtils.isBlank(order)){
+            column="id";
+            order="desc";
+        }
+
         //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),column);
         //分页排序
