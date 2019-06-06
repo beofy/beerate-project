@@ -14,10 +14,7 @@ import cn.beerate.model.bean.User;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -143,6 +140,7 @@ public class UserController extends UserBaseController{
      * 退出登录
      */
     @GetMapping("/loginOut")
+    @ResponseBody
     public Message<String> loginOut(){
         getSession().removeAttribute(SessionKey.USER_SESSION_KEY);
         return Message.ok("登出成功");
