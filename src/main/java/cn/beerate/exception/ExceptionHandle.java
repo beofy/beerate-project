@@ -78,6 +78,7 @@ public class ExceptionHandle {
     }
 
     @ExceptionHandler(TokenException.class)
+    @ResponseBody
     public Message<String> tokenException(TokenException e){
         return new Message<>(StatusCode.TOKEN_EXCEPTION,e.getMessage());
     }
