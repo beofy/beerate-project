@@ -52,31 +52,22 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
     }
 
     public Page<T> page(int page,int size,String column,String order,Example<T> example){
-        if (StringUtils.isBlank(column)||StringUtils.isBlank(order)){
-            column="id";
-            order="desc";
-        }
-
-        //排序条件
-        Sort sort =Sort.by(Sort.Direction.fromString(order),column);
-        //分页排序
-        Pageable pageable = PageRequest.of(page-1,size,sort);
-
-        return iBaseDao.findAll(example,pageable);
+        return iBaseDao.findAll(example,getPageable(page,size,column,order));
     }
 
     public Page<T> page(int page,int size,String column,String order, Specification<T> spec){
+        return iBaseDao.findAll(spec,getPageable(page,size,column,order));
+    }
+
+    private Pageable getPageable(int page,int size,String column,String order){
         if (StringUtils.isBlank(column)||StringUtils.isBlank(order)){
             column="id";
             order="desc";
         }
 
-        //排序条件
         Sort sort =Sort.by(Sort.Direction.fromString(order),column);
-        //分页排序
-        Pageable pageable = PageRequest.of(page-1,size,sort);
 
-        return iBaseDao.findAll(spec,pageable);
+        return PageRequest.of(page-1,size,sort);
     }
 
     @Override

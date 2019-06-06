@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common::head('大宗交易列表')"></head>
+<head th:replace="common::head('平台会员')"></head>
 
 <body>
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
         <aside th:replace="common::aside"></aside>
-        <header th:replace="common::top('大宗交易列表')"></header>
+        <header th:replace="common::top('平台会员')"></header>
 
         <!--页面主要内容-->
         <main class="lyear-layout-content">
@@ -17,8 +17,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-
-                                <form class="search-bar" method="get" action=""  style="max-width: 100%">
+                                <form class="search-bar" method="get" th:action="@{/admin/user/list.html}"  style="max-width: 100%">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="input-group m-t-10">
@@ -30,36 +29,34 @@
 
                                         <div class="col-lg-6">
                                             <div class="input-group m-t-10">
+
                                                 <div class="input-group-btn">
                                                     <input type="hidden" name="page" th:value="${page.getNumber()+1}"/>
                                                     <input type="hidden" name="size" th:value="${page.getSize()}"/>
                                                     <input type="hidden" name="column" />
                                                     <input type="hidden" name="order" />
-
                                                     <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                                        项目名称<span class="caret"></span>
+                                                        手机 <span class="caret"></span>
                                                     </button>
-
                                                     <ul class="dropdown-menu">
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="blockTradeName">项目名称</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="stockCode">股票代码</a> </li>
+                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="mobile">手机</a> </li>
+                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="email">邮箱</a> </li>
                                                     </ul>
                                                 </div>
-
-                                                <input type="hidden" id="search-field" name="field" value="blockTradeName">
+                                                <input type="hidden" id="search-field" name="field" value="mobile">
                                                 <input type="text" class="form-control" placeholder="搜索条件" name="value">
 
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="submit">搜索</button>
                                                 </span>
+
                                             </div>
                                         </div>
                                     </div>
                                 </form>
 
-
                                 <div class="toolbar-btn-action m-t-10">
-                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/blocktrade/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -75,32 +72,30 @@
                                             </th>
                                             <th onclick="order('id',this)"> 编号</th>
                                             <th onclick="order('createTime',this)"> 时间</th>
-                                            <th>项目名称</th>
-                                            <th>股票代码</th>
-                                            <th>交易折价</th>
-                                            <th>减持股数</th>
-                                            <th>减持总金额</th>
-                                            <th>减持方身份</th>
-                                            <th>分配人</th>
+                                            <th>用户名</th>
+                                            <th>手机号</th>
+                                            <th>邮箱</th>
+                                            <th>登录次数</th>
+                                            <th>最后一次登录时间</th>
+                                            <th>最后一次登录ip</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="blocktrade:${page.getContent()}">
+                                        <tr th:each="user:${page.getContent()}">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" th:value="${blocktrade.id}"><span></span>
+                                                    <input type="checkbox" name="ids[]" th:value="${user.id}" ><span></span>
                                                 </label>
                                             </td>
-                                            <td th:text="${blocktrade.id}"></td>
-                                            <td th:text="${#dates.format(blocktrade.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-                                            <td th:text="${blocktrade.blockTradeName}"></td>
-                                            <td th:text="${blocktrade.stockCode}"></td>
-                                            <td th:text="${blocktrade.exchangeRate}"></td>
-                                            <td th:text="${blocktrade.underweightShares}"></td>
-                                            <td th:text="${blocktrade.underweightAmount}"></td>
-                                            <td th:text="${blocktrade.getUnderWeightIdentification().value}"></td>
-                                            <td th:text="${blocktrade.getAdmin().getRealityName()}"></td>
+                                            <td th:text="${user.id}"></td>
+                                            <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td th:text="${user.mobile}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td th:text="${user.login_count}"></td>
+                                            <td th:text="${#dates.format(user.last_login_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${user.last_login_ip}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
