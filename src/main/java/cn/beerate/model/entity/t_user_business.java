@@ -18,26 +18,6 @@ import java.util.Date;
 @org.hibernate.annotations.Table(appliesTo = "t_user_business",comment="用户名片表")
 public class t_user_business extends Model {
 
-    public static t_user_business getInstance(){
-        t_user_business userBusiness = new t_user_business();
-        userBusiness.setCreateTime(new Date());
-        userBusiness.name="";
-        userBusiness.company="";
-        userBusiness.department="";
-        userBusiness.title="";
-        userBusiness.telCell="";
-        userBusiness.telWork="";
-        userBusiness.address="";
-        userBusiness.email="";
-        userBusiness.businessCardUri="";
-        userBusiness.investPrefer="";
-        userBusiness.aboutText="";
-        userBusiness.workText="";
-        userBusiness.auditStatus="";
-
-        return userBusiness;
-    }
-
     @Column(columnDefinition = "varchar(20) not null default '' comment '姓名'")
     private String name;
 
