@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -62,6 +63,7 @@ public class ExceptionHandle {
      * 用户未登录异常(返回数据)
      */
     @ExceptionHandler(UserLoginException.class)
+    @ResponseBody
     public Message<String> userNoLogin(UserLoginException e){
         return new Message<>(StatusCode.NOT_LOGIN,e.getMessage());
     }
@@ -70,6 +72,7 @@ public class ExceptionHandle {
      * 用户未认证异常
      */
     @ExceptionHandler(NoApproveException.class)
+    @ResponseBody
     public Message<String> userNoApprove(NoApproveException e){
         return new Message<>(StatusCode.NOT_APPROVE,e.getMessage());
     }
