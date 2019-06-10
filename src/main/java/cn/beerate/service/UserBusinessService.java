@@ -29,4 +29,9 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
      */
     Message<UserBusiness> findUserBusinessDetail(long userId);
 
+    /**
+     * 更新用户名片信息
+     */
+    Message<t_user_business> updateBusinessByUserId(t_user_business business,long userId);
+
 }

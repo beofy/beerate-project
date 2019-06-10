@@ -57,9 +57,6 @@ public class t_user extends UserAndAdminModel {
 
     //======================基本信息======================
     @OneToOne(mappedBy = "user")
-    private t_user_info user_info;
-
-    @OneToOne(mappedBy = "user")
     private t_user_business user_business;
 
 

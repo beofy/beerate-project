@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserBusinessDao extends IBaseDao<t_user_business> {
+    t_user_business findByUserId(long userId);
 }

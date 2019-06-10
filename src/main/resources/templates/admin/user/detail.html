@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('会员信息')"></head>
+
+<link rel="stylesheet" th:href="@{/js/view/viewer.min.css}" />
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('个人信息')"></header>
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>名片信息</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <form class="row" id="from_updateBusiness">
+                                    <input hidden="hidden" name="userId" th:value="${user.getId()}">
+
+                                    <div class="form-group col-md-12">
+                                        <label for="name">姓名</label>
+                                        <input type="text" class="form-control" id="name" name="name" th:value="${user.getUser_business().getName()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="company">公司</label>
+                                        <input type="text" class="form-control" id="company" name="company" th:value="${user.getUser_business().getCompany()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="department">部门</label>
+                                        <input type="text" class="form-control" id="department" name="department" th:value="${user.getUser_business().getDepartment()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="title">职位</label>
+                                        <input type="text" class="form-control" id="title" name="title" th:value="${user.getUser_business().getTitle()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="telCell">手机号码</label>
+                                        <input type="number" class="form-control" id="telCell" name="telCell" th:value="${user.getUser_business().getTelCell()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="telWork">公司号码</label>
+                                        <input type="number" class="form-control" id="telWork" name="telWork"  th:value="${user.getUser_business().getTelWork()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="address">公司地址</label>
+                                        <input type="text" class="form-control" id="address" name="address" th:value="${user.getUser_business().getAddress()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="email">联系邮箱</label>
+                                        <input type="text" class="form-control" id="email" name="email" th:value="${user.getUser_business().getEmail()}" >
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="investPrefer">投资偏好</label>
+                                        <div class="form-controls">
+                                            <select name="investPrefer" class="form-control" id="investPrefer" >
+                                                <option th:each="investPrefer:${investPrefers}" th:value="${investPrefer.name()}" th:text="${investPrefer.getValue()}" th:selected="${investPrefer==user.getUser_business().getInvestPrefer()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>名片文件</label>
+                                        <div class="form-controls" id="dowebok">
+                                            <ul class="list-inline clearfix lyear-uploads-pic">
+                                                <li class="col-xs-4 col-sm-3 col-md-2">
+                                                    <figure>
+                                                        <img th:src="${user.getUser_business().getBusinessCardUri()}" src="" alt="" th:alt="${user.getUser_business().getName()}">
+                                                    </figure>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="auditStatus">审核状态</label>
+                                        <div class="form-controls">
+                                            <select name="auditStatus" class="form-control" id="auditStatus" >
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==user.getUser_business().getAuditStatus()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="aboutText">个人介绍</label>
+                                        <textarea class="form-control" id="aboutText" name="aboutText" rows="5" th:text="${user.getUser_business().getAboutText()}" ></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="workText">工作经历</label>
+                                        <textarea class="form-control" id="workText" name="workText" rows="5" th:text="${user.getUser_business().getWorkText()}" ></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post">修改</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+</body>
+
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+
+<script th:src="@{/js/view/viewer.min.js}"></script>
+<script>
+    //图片预览
+    function initViewer(id) {
+        var viewer = new Viewer(document.getElementById(id), {
+            url: 'data-original',
+            show: function (){
+                viewer.update();
+            }
+        });
+    }
+
+    initViewer('dowebok');
+
+
+    //提交
+    $("#from_updateBusiness").validate({
+        rules:{
+            name:{
+                required:true
+            },
+            company:{
+                required:true
+            },
+            department:{
+                required:true
+            },
+            title:{
+                required:true
+            },
+            telCell:{
+                required:true,
+                isMobile:true
+            },
+            telWork:{
+                required:true,
+                isTel:true
+            },
+            address:{
+                required:true
+            },
+            email:{
+                required:true,
+                email:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/user/update" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/user/list.html?page=1&size=10&success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+</html>

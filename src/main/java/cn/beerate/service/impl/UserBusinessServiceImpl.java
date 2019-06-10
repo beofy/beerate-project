@@ -9,9 +9,11 @@ import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
+import cn.beerate.service.UserService;
 import cn.beerate.utils.BcrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,9 @@ import java.util.Date;
 @Service
 @Transactional(readOnly = true)
 public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> implements UserBusinessService {
+
+    @Autowired
+    private UserService userService;
 
     private UserBusinessDao userBusinessDao;
     public UserBusinessServiceImpl(UserBusinessDao userBusinessDao) {
@@ -137,4 +142,28 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
         return Message.success(userBusiness);
     }
 
+
+    @Override
+    @Transactional
+    public Message<t_user_business> updateBusinessByUserId(t_user_business business, long userId) {
+        t_user_business userBusiness = userBusinessDao.findByUserId(userId);
+
+        userBusiness.setName(business.getName());
+        userBusiness.setCompany(business.getCompany());
+        userBusiness.setDepartment(business.getDepartment());
+        userBusiness.setTitle(business.getTitle());
+        userBusiness.setTelCell(business.getTelCell());
+        userBusiness.setTelWork(business.getTelWork());
+        userBusiness.setAddress(business.getAddress());
+        userBusiness.setEmail(business.getEmail());
+        userBusiness.setAuditStatus(business.getAuditStatus());
+        userBusiness.setAboutText(business.getAboutText());
+        userBusiness.setWorkText(business.getWorkText());
+
+        if (userBusiness.getAuditStatus()==AuditStatus.PASS_AUDIT){
+            userBusiness.setVerifyTime(new Date());
+        }
+
+        return Message.success(userBusinessDao.save(userBusiness));
+    }
 }
