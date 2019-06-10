@@ -1,4 +1,5 @@
-
+server:
+  port: 8080
 
 spring:
   datasource: #数据源配置
@@ -21,8 +22,6 @@ spring:
 
   mvc: #表示所有的访问都经过静态资源路径
     static-path-pattern: /**
-#  resources:
-#    static-locations:
 
   #thymelea模板配置
   thymeleaf:
@@ -41,8 +40,6 @@ spring:
   devtools:
     restart:
       enabled: true
-#  gson:
-#    date-format: yyyy-MM-dd HH:mm:ss
   jackson:
     time-zone: GMT+8 #默认为格林尼治时间，即少8小时
     date-format: yyyy-MM-dd HH:mm:ss #时间戳统一转换
@@ -54,7 +51,3 @@ cn:
       password-md5-salt: wGyUtsswIYAMxHdW
       des-encrypt-key: nx76caxsh8mYa9Oi
       session-time-out: 1h
-
-
-
-
