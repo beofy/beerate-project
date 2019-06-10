@@ -1,6 +1,5 @@
 package cn.beerate.controller;
 
-import cn.beerate.PropertiesHolder;
 import cn.beerate.captcha.Captcha;
 import cn.beerate.captcha.CaptchaProcessor;
 import cn.beerate.captcha.CaptchaScene;
@@ -8,7 +7,6 @@ import cn.beerate.common.Message;
 import cn.beerate.common.StatusCode;
 import cn.beerate.constant.SessionKey;
 import cn.beerate.model.entity.t_admin;
-import cn.beerate.security.Encrypt;
 import cn.beerate.service.AdminService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -91,19 +89,13 @@ public class AdminController extends AdminBaseController{
      */
     @PostMapping("/updatePassWord")
     @ResponseBody
-    public Message<String> updatePassWord(String oldPassWod,String newPassWord){
-        t_admin admin = adminService.getOne(getAdminId());
-        String encOldPassWod = Encrypt.MD5(oldPassWod+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
-        if(!admin.getPassword().equals(encOldPassWod)){
-            return Message.error("密码错误");
-        }
+    public Message<String> updatePassWord(String oldPwd,String newPwd){
+       Message<t_admin> message = adminService.updateAdminPassWord(oldPwd,newPwd,getAdminId());
+       if (message.fail()){
+           return Message.error(message.getMsg());
+       }
 
-        //更新密码
-        String encNwePassWord = Encrypt.MD5(newPassWord+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
-        admin.setPassword(encNwePassWord);
-        adminService.save(admin);
-
-        return Message.ok("密码修改成功");
+       return Message.ok("密码修改成功");
     }
 
 
@@ -155,7 +147,15 @@ public class AdminController extends AdminBaseController{
             return  Message.error("职位不能为空");
         }
 
-        return adminService.addAdmin(admin,getAdminId());
+        Message<t_admin> message =adminService.addAdmin(admin,getAdminId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        //登出
+        super.signOut();
+
+        return Message.ok("添加管理员成功");
     }
 
 
@@ -197,17 +197,13 @@ public class AdminController extends AdminBaseController{
         return new Message<>(StatusCode.SUCCESS,"登录成功",messageLogin.getData().getId().toString());
     }
 
-
     /**
      * 登出
      */
-    @GetMapping("/loginout")
+    @GetMapping("/loginOut")
     public String loginOut(){
-        super.getSession().removeAttribute(SessionKey.ADMIN_SESSION_KEY);
-
+        super.signOut();
         return "redirect:/admin/login.html";
     }
-
-
 
 }

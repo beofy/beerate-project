@@ -21,9 +21,6 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         this.adminDao = adminDao;
     }
 
-    /**
-     * 后台用户登陆
-     */
     @Transactional
     public Message<t_admin> login(String username,String password,String ipAddr){
         t_admin admin = adminDao.findByUsername(username);
@@ -54,7 +51,7 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
 
     @Override
     @Transactional
-    public Message<String> addAdmin(t_admin admin,long creatorId){
+    public Message<t_admin> addAdmin(t_admin admin,long creatorId){
 
         //判断用户名是否存在
         if(adminDao.findByUsername(admin.getUsername())!=null){
@@ -69,12 +66,23 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         admin.setLockStatus(false);
         admin.setLoginCount(0L);
 
-        if(super.save(admin)==null){
-            return Message.error("管理员添加失败");
-        }
-
-        return Message.ok("管理员添加成功");
+        return Message.success(super.save(admin));
     }
 
 
+    @Override
+    @Transactional
+    public Message<t_admin> updateAdminPassWord(String oldPwd, String newPwd, long adminId) {
+        t_admin admin = adminDao.getOne(adminId);
+        String encOldPassWod = Encrypt.MD5(oldPwd+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
+        if(!admin.getPassword().equals(encOldPassWod)){
+            return Message.error("密码错误");
+        }
+
+        //更新密码
+        String encNwePassWord = Encrypt.MD5(newPwd+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
+        admin.setPassword(encNwePassWord);
+
+        return Message.success(adminDao.save(admin));
+    }
 }

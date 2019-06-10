@@ -32,4 +32,11 @@ class AdminBaseController extends BaseController{
     public String getAdminPhoto(){
         return getAdmin().getPhoto();
     }
+
+    /**
+     *   登出
+     */
+    public void signOut(){
+        super.getSession().removeAttribute(SessionKey.ADMIN_SESSION_KEY);
+    }
 }
