@@ -21,14 +21,15 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         this.adminDao = adminDao;
     }
 
+    @Override
     @Transactional
     public Message<t_admin> login(String username,String password,String ipAddr){
         t_admin admin = adminDao.findByUsername(username);
         if(admin==null){
            return Message.error("用户不存在或者密码错误");
         }
+
         String  md5Password=Encrypt.MD5(password+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
-        
         if(!admin.getPassword().equals(md5Password)){
             return Message.error("用户不存在或者密码错误");
         }
@@ -44,8 +45,10 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         admin.setLastLoginIp(ipAddr);
         //设置登录时间
         admin.setLastLoginTime(new Date());
+        //修改登录信息
+        adminDao.save(admin);
 
-        return Message.success(adminDao.save(admin));
+        return Message.success(admin);
     }
 
 
@@ -66,7 +69,11 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         admin.setLockStatus(false);
         admin.setLoginCount(0L);
 
-        return Message.success(super.save(admin));
+        if (adminDao.save(admin)==null){
+            return Message.error("管理员添加失败");
+        }
+
+        return Message.success(admin);
     }
 
 
@@ -83,6 +90,33 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
         String encNwePassWord = Encrypt.MD5(newPwd+ PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt());
         admin.setPassword(encNwePassWord);
 
-        return Message.success(adminDao.save(admin));
+        if (adminDao.save(admin)==null){
+            return Message.error("密码修改失败");
+        }
+
+        return Message.success(admin);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_admin> updateAdmin(t_admin admin, long adminId) {
+        t_admin admin1 = adminDao.getOne(adminId);
+        if (admin1==null){
+            return Message.error("管理员不存在");
+        }
+
+        //不能修改用户名
+        admin1.setRealityName(admin.getRealityName());
+        admin1.setEmail(admin.getEmail());
+        admin1.setMobile(admin.getMobile());
+        admin1.setDepartment(admin.getDepartment());
+        admin1.setPosition(admin.getPosition());
+        admin1.setRemark(admin.getRemark());
+
+        if (adminDao.save(admin1)==null){
+            return Message.error("修改失败");
+        }
+
+        return Message.success(admin1);
     }
 }

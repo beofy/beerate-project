@@ -5,6 +5,7 @@ import cn.beerate.request.ChannelType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,9 +31,6 @@ public class t_user extends UserAndAdminModel {
     @Column(columnDefinition = "bit not null default 0 comment '是否允许登录'")
     private Boolean is_allow_login;
 
-    @Column(columnDefinition = "datetime comment '锁定时间'")
-    private Date lock_time;
-
     @Column(columnDefinition = "int  not null default 0 comment '登录次数'")
     private Integer login_count;
 
@@ -53,6 +51,10 @@ public class t_user extends UserAndAdminModel {
 
     public void setReg_channel(ChannelType channel) {
         this.reg_channel = channel.name();
+    }
+
+    public ChannelType getReg_channel(){
+        return EnumUtils.getEnumIgnoreCase(ChannelType.class,this.reg_channel);
     }
 
     //======================基本信息======================

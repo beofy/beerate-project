@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +22,6 @@ import java.util.List;
 @Getter
 @org.hibernate.annotations.Table(appliesTo = "t_admin",comment="后台管理员表")
 public class t_admin extends UserAndAdminModel {
-
-    @Column(columnDefinition = "varchar(255) not null default '' comment '头像'")
-    private String photo;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '真实姓名'")
     private String realityName;

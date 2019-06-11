@@ -33,6 +33,9 @@ public class ItemModel extends Model {
     @Column(columnDefinition = "varchar(12) not null default '' comment '审核状态'")
     private String auditStatus;
 
+    @Column(columnDefinition = "varchar(500) not null default '' comment '审核描述'")
+    private String description;
+
     public void setAuditStatus(AuditStatus auditStatus) {
         this.auditStatus = auditStatus.name();
     }

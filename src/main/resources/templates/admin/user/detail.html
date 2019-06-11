@@ -17,6 +17,107 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header bg-primary">
+                                <h4>注册信息</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <img th:src="${user.getPhoto()}" th:alt="${user.getUsername()}"  class="img-avatar">
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn ">注册时间</button>
+                                            <p class="m-0" th:text="${#dates.format(user.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn ">上次登录时间</button>
+                                            <p class="m-0" th:text="${#dates.format(user.getLast_login_time(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn ">上次登录ip</button>
+                                            <p class="m-0" th:text="${user.getLast_login_ip()}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn ">登录次数</button>
+                                            <p class="center-block" th:text="${user.getLogin_count()}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn ">注册渠道</button>
+                                            <p class="center-block" th:text="${user.getReg_channel()}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn ">上次登录渠道</button>
+                                            <p class="center-block" th:text="${user.getLast_login_client()}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn ">是否允许登录</button>
+                                            <p class="center-block" th:text="${user.getIs_allow_login()==true}?'允许':'禁止'"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <form class="row">
+                                    <div class="form-group col-md-12">
+                                        <label>用户名</label>
+                                        <input type="text" class="form-control" th:value="${user.getUsername()}" disabled="disabled">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>邮箱</label>
+                                        <input type="text" class="form-control" th:value="${user.getEmail()}" disabled="disabled">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>手机号码</label>
+                                        <input type="text" class="form-control" th:value="${user.getMobile()}" disabled="disabled">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>密码连续错误次数</label>
+                                        <input type="text" class="form-control" th:value="${user.getPassword_continue_fails()}" disabled="disabled">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>密码锁定时间</label>
+                                        <input type="text" class="form-control" th:value="${#dates.format(user.getPassword_locked_time(),'yyyy-MM-dd HH:mm:ss')}" disabled="disabled">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
                                 <h4>名片信息</h4>
                                 <ul class="card-actions">
                                     <li><i class="mdi mdi-more"></i></li>

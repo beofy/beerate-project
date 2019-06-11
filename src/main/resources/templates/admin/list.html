@@ -102,8 +102,9 @@
                                                 <td th:text="${admin.position}"><font class="text-success">正常</font></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                        <a class="btn btn-xs btn-default" th:href="@{/admin/update.html(adminId=${admin.id})}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="锁定" data-toggle="tooltip"><i class="mdi mdi-lock"></i></a>
+                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="解锁" data-toggle="tooltip"><i class="mdi mdi-lock-open"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

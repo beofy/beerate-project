@@ -11,14 +11,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -39,7 +37,16 @@ public class ItemLoanMngController extends AdminBaseController {
      * 列表页
      */
     @GetMapping("/list.html")
-    public String listPage() {
+    public String listPage(int page, int size,
+                           @RequestParam(required = false) String column,
+                           @RequestParam(required = false) String order,
+                           @RequestParam(required = false) String field,
+                           @RequestParam(required = false) String value,
+                           @RequestParam(required = false) Date beginDate,
+                           @RequestParam(required = false) Date endDate,
+                           Model model) {
+
+        model.addAttribute("page",itemLoanService.page(page, size, column, order,field,value,beginDate,endDate));
 
         return "itemloan/list";
     }
@@ -91,5 +98,12 @@ public class ItemLoanMngController extends AdminBaseController {
 
         return Message.ok("添加成功");
     }
+
+    @GetMapping("/detail.html")
+    public String detail(long itemId,Model model){
+        model.addAttribute("item",itemLoanService.getOne(itemId));
+        return "itemloan/detail";
+    }
+
 
 }

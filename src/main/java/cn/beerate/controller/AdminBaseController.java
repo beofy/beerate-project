@@ -27,13 +27,6 @@ class AdminBaseController extends BaseController{
     }
 
     /**
-     * 获取用户头像
-     */
-    public String getAdminPhoto(){
-        return getAdmin().getPhoto();
-    }
-
-    /**
      *   登出
      */
     public void signOut(){

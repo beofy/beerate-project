@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="card">
+    <div class="card-header bg-primary">
+        <h4>管理员信息</h4>
+        <ul class="card-actions">
+            <li><i class="mdi mdi-more"></i></li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <form class="row">
+            <div class="form-group">
+                <label for="realityName">真实姓名</label>
+                <input type="text" class="form-control" name="realityName" id="realityName" placeholder="" th:value="${admin.getRealityName()}" disabled="disabled">
+            </div>
+            <div class="form-group">
+                <label for="department">部门</label>
+                <input type="text" class="form-control" name="department" id="department" placeholder="" th:value="${admin.getDepartment()}" disabled="disabled">
+            </div>
+            <div class="form-group">
+                <label for="position">职位</label>
+                <input type="text" class="form-control" name="position" id="position" placeholder="" th:value="${admin.getPosition()}" disabled="disabled">
+            </div>
+        </form>
+    </div>
+</div>
+</html>

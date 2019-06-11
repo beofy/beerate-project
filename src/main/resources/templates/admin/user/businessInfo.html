@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="card">
+    <div class="card-header bg-primary">
+        <h4>用户信息</h4>
+        <ul class="card-actions">
+            <li><i class="mdi mdi-more"></i></li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <form class="row">
+            <input hidden="hidden" name="userId" th:value="${user.getId()}">
+
+            <div class="form-group col-md-12">
+                <label for="name">姓名</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${user.getUser_business().getName()}" disabled >
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="company">公司</label>
+                <input type="text" class="form-control" id="company" name="company" th:value="${user.getUser_business().getCompany()}" disabled >
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="department">部门</label>
+                <input type="text" class="form-control" id="department" name="department" th:value="${user.getUser_business().getDepartment()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="title">职位</label>
+                <input type="text" class="form-control" id="title" name="title" th:value="${user.getUser_business().getTitle()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="telCell">手机号码</label>
+                <input type="number" class="form-control" id="telCell" name="telCell" th:value="${user.getUser_business().getTelCell()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="telWork">公司号码</label>
+                <input type="number" class="form-control" id="telWork" name="telWork"  th:value="${user.getUser_business().getTelWork()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="address">公司地址</label>
+                <input type="text" class="form-control" id="address" name="address" th:value="${user.getUser_business().getAddress()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="email">联系邮箱</label>
+                <input type="text" class="form-control" id="email" name="email" th:value="${user.getUser_business().getEmail()}" disabled>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="investPrefer">投资偏好</label>
+                <div class="form-controls">
+                    <select name="investPrefer" class="form-control" id="investPrefer" disabled>
+                        <option th:each="investPrefer:${investPrefers}" th:value="${investPrefer.name()}" th:text="${investPrefer.getValue()}" th:selected="${investPrefer==user.getUser_business().getInvestPrefer()}" ></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="auditStatus">审核状态</label>
+                <div class="form-controls">
+                    <select name="auditStatus" class="form-control" id="auditStatus" disabled>
+                        <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==user.getUser_business().getAuditStatus()}" ></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="aboutText">个人介绍</label>
+                <textarea class="form-control" id="aboutText" name="aboutText" rows="5" th:text="${user.getUser_business().getAboutText()}" disabled></textarea>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="workText">工作经历</label>
+                <textarea class="form-control" id="workText" name="workText" rows="5" th:text="${user.getUser_business().getWorkText()}" disabled></textarea>
+            </div>
+
+        </form>
+    </div>
+</div>
+</html>

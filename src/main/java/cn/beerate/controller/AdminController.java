@@ -95,6 +95,9 @@ public class AdminController extends AdminBaseController{
            return Message.error(message.getMsg());
        }
 
+        //登出
+        super.signOut();
+
        return Message.ok("密码修改成功");
     }
 
@@ -152,9 +155,6 @@ public class AdminController extends AdminBaseController{
             return Message.error(message.getMsg());
         }
 
-        //登出
-        super.signOut();
-
         return Message.ok("添加管理员成功");
     }
 
@@ -196,6 +196,32 @@ public class AdminController extends AdminBaseController{
 
         return new Message<>(StatusCode.SUCCESS,"登录成功",messageLogin.getData().getId().toString());
     }
+
+
+    @GetMapping("/adminInfo.html")
+    public String AdminInfo(long adminId,Model model){
+        model.addAttribute("admin",adminService.getOne(adminId));
+        return "admin/adminInfo";
+    }
+
+    @GetMapping("/update.html")
+    public String update(long adminId,Model model){
+        model.addAttribute("admin",adminService.getOne(adminId));
+
+        return "admin/update";
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public Message<String> update(t_admin admin,long adminId){
+        Message<t_admin> message = adminService.updateAdmin(admin,adminId);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        return Message.ok("修改成功");
+    }
+
 
     /**
      * 登出

@@ -62,9 +62,6 @@
 
                                 <div class="toolbar-btn-action m-t-10">
                                     <a class="btn btn-primary m-r-5" th:href="@{/admin/itemloan/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
-                                    <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-check"></i> 启用</a>
-                                    <a class="btn btn-warning m-r-5" href="#!"><i class="mdi mdi-block-helper"></i> 禁用</a>
-                                    <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -72,48 +69,51 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" id="check-all"><span></span>
-                                                </label>
-                                            </th>
-                                            <th onclick="order('id',this)"> 编号</th>
-                                            <th onclick="order('createTime',this)"> 时间</th>
-                                            <th>项目名称</th>
-                                            <th>公司</th>
-                                            <th>LOGO</th>
-                                            <th>领域</th>
-                                            <th>官网</th>
-                                            <th>金额</th>
-                                            <th>期限</th>
-                                            <th>审核状态</th>
-                                            <th>分配人</th>
-                                            <th>操作</th>
-                                        </tr>
+                                            <tr>
+                                                <th>
+                                                    <label class="lyear-checkbox checkbox-primary">
+                                                        <input type="checkbox" id="check-all"><span></span>
+                                                    </label>
+                                                </th>
+                                                <th onclick="order('id',this)"> 编号</th>
+                                                <th onclick="order('createTime',this)"> 时间</th>
+                                                <th>项目名称</th>
+                                                <th>公司</th>
+                                                <th>领域</th>
+                                                <th>官网</th>
+                                                <th>金额</th>
+                                                <th>期限</th>
+                                                <th>审核状态</th>
+                                                <th>分配人</th>
+                                                <th>操作</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr >
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr th:each="item:${page.getContent()}">
+                                                <td>
+                                                    <label class="lyear-checkbox checkbox-primary">
+                                                        <input type="checkbox" name="ids[]" th:value="${item.id}"><span></span>
+                                                    </label>
+                                                </td>
+                                                <td th:text="${item.id}"></td>
+                                                <td th:text="${item.createTime}"></td>
+                                                <td th:text="${item.itemName}"></td>
+                                                <td th:text="${item.companyName}"></td>
+                                                <td th:text="${item.industryRealm.value}"></td>
+                                                <td th:text="${item.companyWebsite}"></td>
+                                                <td th:text="${item.amount}+${item.amountUnit.value}"></td>
+                                                <td th:text="${item.period}+${item.periodUnit.value}"></td>
+                                                <td th:text="${item.auditStatus.value}"></td>
+                                                <td th:text="${item.getAdmin().getRealityName()}"></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-default" th:href="@{/admin/itemloan/detail.html(itemId=${item.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" data-toggle="tooltip"><i class="mdi mdi-account"></i></a>
+                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="上架" data-toggle="tooltip"><i class="mdi mdi-arrow-up-bold-circle"></i></a>
+                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="下架" data-toggle="tooltip"><i class="mdi mdi-arrow-down-bold-circle"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
 
