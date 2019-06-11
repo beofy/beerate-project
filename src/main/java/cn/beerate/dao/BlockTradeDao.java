@@ -1,6 +1,8 @@
 package cn.beerate.dao;
 
 import cn.beerate.model.entity.t_item_block_trade;
+import org.springframework.stereotype.Repository;
 
-public interface BlockTradeDao extends IBaseDao<t_item_block_trade> {
+@Repository
+public interface BlockTradeDao extends ItemCommonDao<t_item_block_trade> {
 }

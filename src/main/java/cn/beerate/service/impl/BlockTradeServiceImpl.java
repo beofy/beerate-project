@@ -13,11 +13,9 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 @Service
 @Transactional(readOnly = true)
-public class BlockTradeServiceImpl extends BaseServiceImpl<t_item_block_trade> implements BlockTradeService {
+public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_trade> implements BlockTradeService {
     private BlockTradeDao blockTradeDao;
 
     public BlockTradeServiceImpl(BlockTradeDao blockTradeDao) {

@@ -3,7 +3,7 @@ package cn.beerate.service;
 import cn.beerate.common.Message;
 import cn.beerate.model.entity.t_item_block_trade;
 
-public interface BlockTradeService extends IBaseService<t_item_block_trade> {
+public interface BlockTradeService extends ItemCommonService<t_item_block_trade> {
 
     /**
      * 添加大宗交易

@@ -3,7 +3,7 @@ package cn.beerate.service;
 import cn.beerate.common.Message;
 import cn.beerate.model.entity.t_item_stock_pledge;
 
-public interface StockPledgeService extends IBaseService<t_item_stock_pledge> {
+public interface StockPledgeService extends ItemCommonService<t_item_stock_pledge> {
 
     Message<t_item_stock_pledge> addStockPledge(t_item_stock_pledge stockPledge);
 

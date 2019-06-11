@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class StockTransferServiceImpl extends BaseServiceImpl<t_item_stock_transfer> implements StockTransferService {
+public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock_transfer> implements StockTransferService {
 
     private StockTransferDao stockTransferDao;
 

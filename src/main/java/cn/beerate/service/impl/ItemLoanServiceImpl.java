@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class ItemLoanServiceImpl extends BaseServiceImpl<t_item_loan> implements ItemLoanService {
+public class ItemLoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implements ItemLoanService {
 
     private ItemLoanDao itemLoanDao;
     public ItemLoanServiceImpl(ItemLoanDao itemLoanDao) {
@@ -53,4 +53,14 @@ public class ItemLoanServiceImpl extends BaseServiceImpl<t_item_loan> implements
         return addItemLoan(itemLoan);
     }
 
+    @Override
+    public Message<t_item_loan> auditItemLoan(AuditStatus auditStatus,long itemId) {
+        t_item_loan itemLoan = itemLoanDao.getOne(itemId);
+        if (itemLoan.getAuditStatus()!=AuditStatus.WAIT_AUDIT){
+            return Message.error(String.format("项目状态：[%s]", itemLoan.getAuditStatus().getValue()));
+        }
+
+        itemLoan.setAuditStatus(auditStatus);
+        return null;
+    }
 }

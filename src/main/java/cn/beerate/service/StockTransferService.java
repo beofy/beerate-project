@@ -3,7 +3,7 @@ package cn.beerate.service;
 import cn.beerate.common.Message;
 import cn.beerate.model.entity.t_item_stock_transfer;
 
-public interface StockTransferService extends IBaseService<t_item_stock_transfer>{
+public interface StockTransferService extends ItemCommonService<t_item_stock_transfer>{
 
     Message<t_item_stock_transfer> addStockTransfer(t_item_stock_transfer stockTransfer);
 

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class PreIpoServiceImpl extends BaseServiceImpl<t_item_pre_ipo> implements PreIpoService {
+public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> implements PreIpoService {
 
     private PreIpoDao preIpoDao;
 

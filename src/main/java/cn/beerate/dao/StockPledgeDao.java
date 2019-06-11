@@ -4,5 +4,5 @@ import cn.beerate.model.entity.t_item_stock_pledge;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StockPledgeDao extends IBaseDao<t_item_stock_pledge> {
+public interface StockPledgeDao extends ItemCommonDao<t_item_stock_pledge> {
 }

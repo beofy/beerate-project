@@ -2,6 +2,7 @@ package cn.beerate.controller;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.AmountUnit;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.PeriodUnit;
 import cn.beerate.model.entity.t_item_loan;
@@ -102,7 +103,15 @@ public class ItemLoanMngController extends AdminBaseController {
     @GetMapping("/detail.html")
     public String detail(long itemId,Model model){
         model.addAttribute("item",itemLoanService.getOne(itemId));
+        model.addAttribute("auditStatus", AuditStatus.values());
         return "itemloan/detail";
+    }
+
+    @PostMapping("/detail.html")
+    @ResponseBody
+    public Message<String> detail(String auditStatus){
+
+        return Message.ok("审核成功");
     }
 
 

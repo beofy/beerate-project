@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class StockPledgeServiceImpl extends BaseServiceImpl<t_item_stock_pledge> implements StockPledgeService {
+public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_pledge> implements StockPledgeService {
 
     private StockPledgeDao stockPledgeDao;
 
