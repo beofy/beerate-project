@@ -20,8 +20,11 @@ spring:
       hibernate:
         format_sql: false
 
-  mvc: #表示所有的访问都经过静态资源路径
-    static-path-pattern: /**
+#  静态资源不适用默认配置，SecurityConfig已配置
+#  mvc: #表示所有的访问都经过静态资源路径
+#    static-path-pattern: /**
+#  resources: #静态路劲
+#    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/
 
   #thymelea模板配置
   thymeleaf:

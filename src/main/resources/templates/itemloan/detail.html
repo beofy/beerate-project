@@ -14,11 +14,6 @@
         <main class="lyear-layout-content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6" id="businessInfo">
-                    </div>
-                    <div class="col-lg-6" id="adminInfo">
-                    </div>
-
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header bg-primary">
@@ -28,17 +23,160 @@
                                 </ul>
                             </div>
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6" id="logo">
+                                        <div class="avatar-divider"></div>
+                                        <img th:src="${item.getLogoUri()}" th:alt="${item.getCompanyName()}" class="img-avatar" style="cursor: pointer;">
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">项目结束时间</button>
+                                            <p class="m-0" th:text="${#dates.format(item.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">是否加急</button>
+                                            <p class="m-0" th:text="${item.getIsUrgent()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">查看是否需要平台认证</button>
+                                            <p class="m-0" th:text="${item.getIsPlatformAuthentication()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否一手</button>
+                                            <p class="center-block" th:text="${item.getIsFirstHandle()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否前台展示</button>
+                                            <p class="center-block" th:text="${item.getIsShow()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">公司官网</button>
+                                            <p class="center-block" ><a th:href="${item.getCompanyWebsite()}" th:text="${item.getCompanyWebsite()}" target="_blank"></a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">IOS应用地址</button>
+                                            <p class="center-block" ><a th:href="${item.getCompanyIosUrl()}" th:text="${item.getCompanyIosUrl()}" target="_blank"></a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">Android应用地址</button>
+                                            <p class="center-block" ><a th:href="${item.getCompanyAndroidUrl()}" th:text="${item.getCompanyAndroidUrl()}" target="_blank"></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
                                 <form class="row">
                                     <div class="form-group col-md-12">
                                         <label for="itemName">项目名称</label>
-                                        <input type="hidden" >
-                                        <input type="text" class="form-control" id="itemName" name="itemName" th:value="${item.getItemName()}" disabled>
+                                        <input type="text" class="form-control" id="itemName" th:value="${item.getItemName()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="companyName">公司名称</label>
+                                        <input type="text" class="form-control" id="companyName" th:value="${item.getCompanyName()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="industryRealm">行业领域</label>
+                                        <input type="text" class="form-control" id="industryRealm" th:value="${item.getIndustryRealm().getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="stockCode">股票代码</label>
+                                        <div class="input-group col-md-12">
+                                            <input type="text" class="form-control" id="stockCode" th:value="${item.getStockCode()}" disabled>
+                                            <span class="input-group-addon" th:text="${item.getIsQuoted()==true?'已上市':'未上市'}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="amount">融资金额</label>
+                                        <div class="input-group col-md-12">
+                                            <input type="text" class="form-control" id="amount" th:value="${item.getAmount()}" disabled>
+                                            <span class="input-group-addon" th:text="${item.getAmountUnit().getValue()}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="period">借款期限</label>
+                                        <div class="input-group col-md-12">
+                                            <input type="text" class="form-control" id="period" th:value="${item.getPeriod()}" disabled>
+                                            <span class="input-group-addon" th:text="${item.getPeriodUnit().getValue()}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="purpose">资金用途</label>
+                                        <textarea class="form-control" id="purpose" rows="3" th:text="${item.getPurpose()}" disabled="disabled"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="repayment">还款来源</label>
+                                        <textarea class="form-control" id="repayment" rows="3" th:text="${item.getRepayment()}" disabled="disabled"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>BP计划书</span>
+                                        <a th:href="${item.getBusinessProposalUri()}" target="_blank">查看</a>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>营业执照彩色扫描件（三证合一）</span>
+                                        <a th:href="${item.getBusinessLicenseUri()}" target="_blank">查看</a>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>前三年+本年度资产负债表、损益表、现金流量表</span>
+                                        <a th:href="${item.getFinancialReportUri()}" target="_blank">查看</a>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>最近一年审计报告</span>
+                                        <a th:href="${item.getAuditReportUri()}" target="_blank">查看</a>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>有息负债明细：含起止时间、金额、担保或保证方</span>
+                                        <a th:href="${item.getIndebtednessUri()}" target="_blank">查看</a>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-5">
+                                        <span>近6个月银行流水（主要银行）</span>
+                                        <a th:href="${item.getCapitalFlowUri()}" target="_blank">查看</a>
+                                    </div>
+                                </form>
+                                <form class="row" id="audit">
+                                    <input type="hidden" name="itemId" th:value="${item.getId()}">
+                                    <div class="form-group col-md-12">
+                                        <label for="auditStatus">审核状态</label>
+                                        <div class="form-controls">
+                                            <select id="auditStatus" name="auditStatus" class="form-control">
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==item.getAuditStatus()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">审核描述</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${item.getDescription()}"></textarea>
                                     </div>
 
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post">审核</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6" id="businessInfo"></div>
+                    <div class="col-lg-6" id="adminInfo"></div>
                 </div>
             </div>
         </main>
@@ -52,63 +190,79 @@
 <script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
 <script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
 <script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+
+<script th:src="@{/js/view/viewer.min.js}"></script>
 <script th:inline="javascript">
 
     $(function () {
         //用户信息
-        $.ajax({
-            url : "/admin/user/businessInfo.html",
-            type : "GET",
-            data : {
-                userId:1
-            },
-            success : function(data) {
-                $("#businessInfo").html(data);
-            }
-        });
+        var userId = [[${item.getUser()==null?0:item.getUser().getId()}]];
+        if (userId!==0){
+            $.ajax({
+                url : "/admin/user/businessInfo.html",
+                type : "GET",
+                data : {
+                    userId:userId
+                },
+                success : function(data) {
+                    $("#businessInfo").html(data);
+                },
+                error : function () {
+                    $("#businessInfo").remove();
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify("用户信息查询失败", 'danger');
+                    }, 1e3);
+                }
+            });
+        }else {
+            $("#businessInfo").remove();
+        }
 
         //管理员信息
-        $.ajax({
-            url : "/admin/adminInfo.html",
-            type : "GET",
-            data : {
-                adminId:[[${item.getAdmin().getId()}]]
-            },
-            success : function(data) {
-                $("#adminInfo").html(data);
-            }
-        });
+        var adminId = [[${item.getAdmin()==null?0:item.getAdmin().getId()}]];
+        if (adminId!==0){
+            $.ajax({
+                url : "/admin/adminInfo.html",
+                type : "GET",
+                data : {
+                    adminId:adminId
+                },
+                success : function(data) {
+                    $("#adminInfo").html(data);
+                },
+                error : function () {
+                    $("#adminInfo").remove();
+                }
+            });
+        }else {
+            $("#adminInfo").remove();
+            setTimeout(function() {
+                lightyear.loading('hide');
+                lightyear.notify("管理员信息查询失败", 'danger');
+            }, 1e3);
+        }
     });
 
+    //图片预览
+    function initViewer(id) {
+        var viewer = new Viewer(document.getElementById(id), {
+            url: 'data-original',
+            show: function (){
+                viewer.update();
+            }
+        });
+    }
+    initViewer('logo');
+
     //提交
-    $("#from_updateBusiness").validate({
+    $("#audit").validate({
         rules:{
-            name:{
+            auditStatus:{
                 required:true
             },
-            company:{
+            description:{
                 required:true
-            },
-            department:{
-                required:true
-            },
-            title:{
-                required:true
-            },
-            telCell:{
-                required:true,
-                isMobile:true
-            },
-            telWork:{
-                required:true,
-                isTel:true
-            },
-            address:{
-                required:true
-            },
-            email:{
-                required:true,
-                email:true
             }
         },
         onkeyup:false,
@@ -118,10 +272,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/user/update" ,
+                url: "/admin/itemloan/audit" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/user/list.html?page=1&size=10&success="+data.msg
+                        location.href="/admin/itemloan/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');
