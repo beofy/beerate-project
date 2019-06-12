@@ -7,9 +7,8 @@ import cn.beerate.model.AuditStatus;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.PeriodUnit;
 import cn.beerate.model.entity.t_item_loan;
-import cn.beerate.service.ItemLoanService;
+import cn.beerate.service.LoanService;
 import cn.beerate.utils.PathUtil;
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -26,12 +25,12 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/admin/itemloan")
-public class ItemLoanMngController extends AdminBaseController {
+public class LoanMngController extends AdminBaseController {
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    private ItemLoanService itemLoanService;
+    private LoanService itemLoanService;
 
-    public ItemLoanMngController(ItemLoanService itemLoanService) {
+    public LoanMngController(LoanService itemLoanService) {
         this.itemLoanService = itemLoanService;
     }
 
@@ -110,20 +109,5 @@ public class ItemLoanMngController extends AdminBaseController {
         model.addAttribute("auditStatus", AuditStatus.values());
         return "itemloan/detail";
     }
-
-    /**
-     * 项目审核
-     */
-    @PostMapping("/audit")
-    @ResponseBody
-    public Message<String> detail(String auditStatus,String description,long itemId){
-        Message<t_item_loan> message =itemLoanService.auditItem(EnumUtils.getEnumIgnoreCase(AuditStatus.class,auditStatus),description,itemId);
-        if (message.fail()){
-            return Message.error(message.getMsg());
-        }
-
-        return Message.ok("审核成功");
-    }
-
 
 }

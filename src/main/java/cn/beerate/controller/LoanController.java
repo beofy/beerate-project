@@ -4,7 +4,7 @@ import cn.beerate.common.Message;
 import cn.beerate.model.dto.ItemLoan;
 import cn.beerate.model.dto.ItemLoanList;
 import cn.beerate.model.entity.t_item_loan;
-import cn.beerate.service.ItemLoanService;
+import cn.beerate.service.LoanService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user/itemloan")
-public class ItemLoanController extends UserBaseController {
+public class LoanController extends UserBaseController {
 
-    private ItemLoanService itemLoanService;
+    private LoanService itemLoanService;
 
-    public ItemLoanController(ItemLoanService itemLoanService) {
+    public LoanController(LoanService itemLoanService) {
         this.itemLoanService = itemLoanService;
     }
 

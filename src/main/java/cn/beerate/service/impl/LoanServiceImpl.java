@@ -1,12 +1,12 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
-import cn.beerate.dao.ItemLoanDao;
+import cn.beerate.dao.LoanDao;
 import cn.beerate.model.AmountUnit;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.PeriodUnit;
 import cn.beerate.model.entity.t_item_loan;
-import cn.beerate.service.ItemLoanService;
+import cn.beerate.service.LoanService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class ItemLoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implements ItemLoanService {
+public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implements LoanService {
 
-    private ItemLoanDao itemLoanDao;
-    public ItemLoanServiceImpl(ItemLoanDao itemLoanDao) {
+    private LoanDao itemLoanDao;
+    public LoanServiceImpl(LoanDao itemLoanDao) {
         super(itemLoanDao);
         this.itemLoanDao = itemLoanDao;
     }
