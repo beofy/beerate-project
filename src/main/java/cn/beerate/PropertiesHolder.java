@@ -5,6 +5,11 @@ package cn.beerate;
  */
 public class PropertiesHolder {
 
+    /**
+     * 附件路劲地址
+     */
+    public static final String ATTACHMENT_PATH="/attachment/";
+
     public static Properties properties;
 
 }

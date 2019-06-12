@@ -8,6 +8,7 @@ import cn.beerate.captcha.email.IEmail;
 import cn.beerate.captcha.mobile.ISms;
 import cn.beerate.captcha.mobile.chuanglan.ChuangLanSms;
 import cn.beerate.request.RequestProxy;
+import cn.beerate.utils.PathUtil;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +58,13 @@ public class SecurityConfig implements WebMvcConfigurer {
         PropertiesHolder.properties=properties;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/","file:"+PathUtil.getRoot()+"attachment");
+    }
+
     @Bean
+
     public HttpMessageConverters fastJsonHttpMessageConverters() {
         // 1.定义一个converters转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
@@ -76,6 +84,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         fastConverter.setFastJsonConfig(fastJsonConfig);
 
         // 4.将converter赋值给HttpMessageConverter
+        @SuppressWarnings("unchecked")
         HttpMessageConverter<?> converter = fastConverter;
 
         // 5.返回HttpMessageConverters对象
