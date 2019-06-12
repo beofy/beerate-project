@@ -62,7 +62,7 @@ public class PreIpoMngController  extends AdminBaseController  {
 
         preIpo.setBusinessProposalUri("/attachment/"+ UUID.randomUUID().toString());
 
-        Message<t_item_pre_ipo> message  = preIpoService.addPreIpoByAdmin(preIpo,getAdminId());
+        Message<t_item_pre_ipo> message  = preIpoService.addItemByAdmin(preIpo,getAdminId());
         if (message.fail()){
             return Message.error(message.getMsg());
         }

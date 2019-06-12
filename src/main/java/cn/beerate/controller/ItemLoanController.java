@@ -24,7 +24,7 @@ public class ItemLoanController extends UserBaseController {
 
     @PostMapping("/add")
     public Message add(t_item_loan itemLoan) {
-        Message<t_item_loan> message = itemLoanService.addItemLoanByUser(itemLoan, getUserId());
+        Message<t_item_loan> message = itemLoanService.addItemByUser(itemLoan, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

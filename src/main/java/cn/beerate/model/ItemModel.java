@@ -1,12 +1,13 @@
 package cn.beerate.model;
 
+import cn.beerate.model.entity.t_admin;
+import cn.beerate.model.entity.t_user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
@@ -43,5 +44,17 @@ public class ItemModel extends Model {
     public AuditStatus getAuditStatus(){
        return EnumUtils.getEnumIgnoreCase(AuditStatus.class,this.auditStatus);
     }
+
+    //==========================================
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private t_user user;
+
+    //==========================================
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private t_admin admin;
 
 }

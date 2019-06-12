@@ -2,10 +2,11 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.PreIpoDao;
-import cn.beerate.model.*;
-import cn.beerate.model.entity.t_admin;
+import cn.beerate.model.Currency;
+import cn.beerate.model.IndustryRealm;
+import cn.beerate.model.LoanPeriod;
+import cn.beerate.model.RatchetTerms;
 import cn.beerate.model.entity.t_item_pre_ipo;
-import cn.beerate.model.entity.t_user;
 import cn.beerate.service.PreIpoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -156,35 +157,14 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
         return super.itemModelValid(preIpo);
     }
 
+    @Override
     @Transactional
-    public Message<t_item_pre_ipo> addPreIpo( t_item_pre_ipo preIpo){
+    public Message<t_item_pre_ipo> addItem(t_item_pre_ipo preIpo) {
         Message<String> message =  preIpoValid(preIpo);
         if (message.fail()){
             return Message.error(message.getMsg());
         }
 
-        return Message.success(preIpoDao.save(preIpo));
-    }
-
-    @Transactional
-    public Message<t_item_pre_ipo> addPreIpoByUser( t_item_pre_ipo preIpo,long userId){
-        t_user user = new t_user();
-        user.setId(userId);
-
-        preIpo.setUser(user);
-        preIpo.setAuditStatus(AuditStatus.WAIT_AUDIT);
-
-        return addPreIpo(preIpo);
-    }
-
-    @Transactional
-    public Message<t_item_pre_ipo> addPreIpoByAdmin( t_item_pre_ipo preIpo,long adminId){
-        t_admin admin = new t_admin();
-        admin.setId(adminId);
-
-        preIpo.setAdmin(admin);
-        preIpo.setAuditStatus(AuditStatus.PASS_AUDIT);
-
-        return addPreIpo(preIpo);
+        return super.addItem(preIpo);
     }
 }

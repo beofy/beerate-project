@@ -81,18 +81,6 @@ public class t_item_stock_transfer extends ItemModel {
 
     //==========================================
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private t_user user;
-
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private t_admin admin;
-
-    //==========================================
-
     @OneToMany
     @JoinColumn(name = "stock_transfer_id")
     private List<t_item_message_board> message_boards;

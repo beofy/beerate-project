@@ -2,12 +2,9 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.StockPledgeDao;
-import cn.beerate.model.AuditStatus;
 import cn.beerate.model.StockBlock;
 import cn.beerate.model.StockNature;
-import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_stock_pledge;
-import cn.beerate.model.entity.t_user;
 import cn.beerate.service.StockPledgeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -101,37 +98,14 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
         return itemModelValid(stockPledge);
     }
 
+    @Override
     @Transactional
-    public Message<t_item_stock_pledge> addStockPledge(t_item_stock_pledge stockPledge) {
-
+    public Message<t_item_stock_pledge> addItem(t_item_stock_pledge stockPledge) {
         Message<String> message = stockPledgeValid(stockPledge);
         if (message.fail()) {
             return Message.error(message.getMsg());
         }
 
-        return Message.success(stockPledgeDao.save(stockPledge));
+        return super.addItem(stockPledge);
     }
-
-    @Transactional
-    public Message<t_item_stock_pledge> addStockPledgeByUser(t_item_stock_pledge stockPledge, long userId) {
-        t_user user = new t_user();
-        user.setId(userId);
-
-        stockPledge.setUser(user);
-        stockPledge.setAuditStatus(AuditStatus.WAIT_AUDIT);
-
-        return addStockPledge(stockPledge);
-    }
-
-    @Transactional
-    public Message<t_item_stock_pledge> addStockPledgeByAdmin(t_item_stock_pledge stockPledge, long adminId) {
-        t_admin admin = new t_admin();
-        admin.setId(adminId);
-
-        stockPledge.setAdmin(admin);
-        stockPledge.setAuditStatus(AuditStatus.PASS_AUDIT);
-
-        return addStockPledge(stockPledge);
-    }
-
 }

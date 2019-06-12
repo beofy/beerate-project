@@ -22,7 +22,7 @@ public class StockTransferController extends UserBaseController {
 
     @PostMapping("/add")
     public Message<String> add(t_item_stock_transfer stockTransfer) {
-        Message<t_item_stock_transfer> message = stockTransferService.addStockTransferByUser(stockTransfer, getUserId());
+        Message<t_item_stock_transfer> message = stockTransferService.addItemByUser(stockTransfer, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

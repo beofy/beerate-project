@@ -80,7 +80,7 @@ public class ItemLoanMngController extends AdminBaseController {
         itemLoan.setAmountUnit(AmountUnit.WY);//设置金额单位
         itemLoan.setPeriodUnit(PeriodUnit.MONTH);//设置期限单位
 
-        Message<t_item_loan> message = itemLoanService.addItemLoanByAdmin(itemLoan, getAdminId());
+        Message<t_item_loan> message = itemLoanService.addItemByAdmin(itemLoan, getAdminId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

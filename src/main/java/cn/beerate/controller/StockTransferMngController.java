@@ -46,7 +46,7 @@ public class StockTransferMngController extends AdminBaseController  {
     @PostMapping("/add")
     @ResponseBody
     public Message<String> add(t_item_stock_transfer stockTransfer){
-        Message<t_item_stock_transfer> message = stockTransferSerivce.addStockTransferByAdmin(stockTransfer,getAdminId());
+        Message<t_item_stock_transfer> message = stockTransferSerivce.addItemByAdmin(stockTransfer,getAdminId());
         if (message.fail()){
             return Message.error(message.getMsg());
         }

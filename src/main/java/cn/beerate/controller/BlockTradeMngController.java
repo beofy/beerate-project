@@ -1,19 +1,13 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.service.BlockTradeService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 后台大宗交易管理-控制器
@@ -59,7 +53,7 @@ public class BlockTradeMngController  extends AdminBaseController {
     @ResponseBody
     public Message<String> add(t_item_block_trade blockTrade){
 
-        Message<t_item_block_trade> message = blockTradeService.addBlockTradeByAdmin(blockTrade,getAdminId());
+        Message<t_item_block_trade> message = blockTradeService.addItemByAdmin(blockTrade,getAdminId());
         if(message.fail()){
             return Message.error(message.getMsg());
         }

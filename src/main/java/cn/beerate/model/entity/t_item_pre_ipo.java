@@ -150,19 +150,6 @@ public class t_item_pre_ipo extends ItemModel {
     @Column(columnDefinition = "varchar(255) not null default '' comment '内容描述'")
     private String contentDescription;
 
-
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private t_user user;
-
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private t_admin admin;
-
     //==========================================
 
     @OneToMany

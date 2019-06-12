@@ -2,11 +2,8 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.StockTransferDao;
-import cn.beerate.model.AuditStatus;
 import cn.beerate.model.IndustryRealm;
-import cn.beerate.model.entity.t_admin;
 import cn.beerate.model.entity.t_item_stock_transfer;
-import cn.beerate.model.entity.t_user;
 import cn.beerate.service.StockTransferService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -88,37 +85,14 @@ public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock
         return itemModelValid(stockTransfer);
     }
 
+    @Override
     @Transactional
-    public Message<t_item_stock_transfer> addStockTransfer(t_item_stock_transfer stockTransfer) {
-
+    public Message<t_item_stock_transfer> addItem(t_item_stock_transfer stockTransfer) {
         Message<String> message = stockTransferValid(stockTransfer);
         if (message.fail()) {
             return Message.error(message.getMsg());
         }
 
-        return Message.success(stockTransferDao.save(stockTransfer));
+        return super.addItem(stockTransfer);
     }
-
-    @Transactional
-    public Message<t_item_stock_transfer> addStockTransferByUser(t_item_stock_transfer stockTransfer, long userId) {
-        t_user user = new t_user();
-        user.setId(userId);
-
-        stockTransfer.setUser(user);
-        stockTransfer.setAuditStatus(AuditStatus.WAIT_AUDIT);
-
-        return addStockTransfer(stockTransfer);
-    }
-
-    @Transactional
-    public Message<t_item_stock_transfer> addStockTransferByAdmin(t_item_stock_transfer stockTransfer, long adminId) {
-        t_admin admin = new t_admin();
-        admin.setId(adminId);
-
-        stockTransfer.setAdmin(admin);
-        stockTransfer.setAuditStatus(AuditStatus.PASS_AUDIT);
-
-        return addStockTransfer(stockTransfer);
-    }
-
 }

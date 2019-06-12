@@ -22,7 +22,7 @@ public class StockPledgeController extends UserBaseController {
 
     @PostMapping("/add")
     public Message<String> add(t_item_stock_pledge stockPledge) {
-        Message message = stockPledgeService.addStockPledgeByUser(stockPledge, getUserId());
+        Message message = stockPledgeService.addItemByUser(stockPledge, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

@@ -4,20 +4,23 @@ import cn.beerate.common.Message;
 import cn.beerate.dao.ItemCommonDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemModel;
-import cn.beerate.model.entity.t_item_loan;
+import cn.beerate.model.entity.t_admin;
+import cn.beerate.model.entity.t_user;
 import cn.beerate.service.ItemCommonService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<T> implements ItemCommonService<T> {
 
     private ItemCommonDao<T> itemCommonDao;
+
     public <D extends ItemCommonDao<T>> ItemCommonServiceImpl(D d) {
         super(d);
         this.itemCommonDao = d;
     }
 
-    protected Message<String> itemModelValid(ItemModel itemModel) {
+    Message<String> itemModelValid(ItemModel itemModel) {
         if (itemModel.getEndTime().before(new Date())) {
             return Message.error("请选择正确的项目结束日期");
         }
@@ -45,15 +48,60 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
         return Message.ok("校验成功");
     }
 
-
     @Override
-    public Message<t_item_loan> auditItem(AuditStatus auditStatus, long itemId) {
-        ItemModel itemModel = itemCommonDao.getOne(itemId);
-        if (itemModel.getAuditStatus()!=AuditStatus.WAIT_AUDIT){
-            return Message.error(String.format("项目状态：[%s]", itemModel.getAuditStatus().getValue()));
+    @Transactional
+    public Message<T> addItem(T t) {
+        //参数校验
+        Message<String> messageValid = itemModelValid(t);
+        if(messageValid.fail()){
+            return Message.error(messageValid.getMsg());
         }
 
-        itemModel.setAuditStatus(auditStatus);
-        return null;
+        //设置审核描述
+        t.setDescription("");
+
+        return Message.success(itemCommonDao.save(t));
+    }
+
+    @Override
+    @Transactional
+    public Message<T> addItemByUser(T t, long userId) {
+        t_user user = new t_user();
+        user.setId(userId);
+
+        t.setUser(user);
+        t.setAuditStatus(AuditStatus.WAIT_AUDIT);//设置审核状态-等待审核
+
+        return addItem(t);
+    }
+
+    @Override
+    @Transactional
+    public Message<T> addItemByAdmin(T t, long adminId) {
+        t_admin admin = new t_admin();
+        admin.setId(adminId);
+
+        t.setAdmin(admin);
+        t.setAuditStatus(AuditStatus.PASS_AUDIT);//管理员直接通过审核
+
+        return addItem(t);
+    }
+
+    @Override
+    @Transactional
+    public  Message<T> auditItem(AuditStatus auditStatus, String description, long itemId) {
+        T t = itemCommonDao.getOne(itemId);
+        if (t.getAuditStatus() != AuditStatus.WAIT_AUDIT) {
+            return Message.error(String.format("项目状态：[%s]", t.getAuditStatus().getValue()));
+        }
+
+        t.setAuditStatus(auditStatus);
+        t.setDescription(description);
+
+        if (super.save(t)==null){
+            return Message.error("审核失败，请重试");
+        }
+
+        return Message.success(t);
     }
 }

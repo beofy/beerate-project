@@ -24,7 +24,7 @@ public class BlockTradeController extends UserBaseController {
 
     @PostMapping("/add")
     public Message add(t_item_block_trade blockTrade) {
-        Message<t_item_block_trade> message = blockTradeService.addBlockTradeByUser(blockTrade, getUserId());
+        Message<t_item_block_trade> message = blockTradeService.addItemByUser(blockTrade, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

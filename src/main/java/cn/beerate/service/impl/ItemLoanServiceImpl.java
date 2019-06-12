@@ -2,10 +2,10 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.ItemLoanDao;
-import cn.beerate.model.*;
-import cn.beerate.model.entity.t_admin;
+import cn.beerate.model.AmountUnit;
+import cn.beerate.model.IndustryRealm;
+import cn.beerate.model.PeriodUnit;
 import cn.beerate.model.entity.t_item_loan;
-import cn.beerate.model.entity.t_user;
 import cn.beerate.service.ItemLoanService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -112,36 +112,14 @@ public class ItemLoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> impl
         return super.itemModelValid(itemLoan);
     }
 
+    @Override
     @Transactional
-    public Message<t_item_loan> addItemLoan(t_item_loan itemLoan){
+    public Message<t_item_loan> addItem(t_item_loan itemLoan) {
         Message message = itemLoanValid(itemLoan);
         if (message.fail()){
             return Message.error(message.getMsg());
         }
 
-        return Message.success(itemLoanDao.save(itemLoan));
+        return super.addItem(itemLoan);
     }
-
-    @Transactional
-    public Message<t_item_loan> addItemLoanByUser(t_item_loan itemLoan,long userId){
-        t_user user = new t_user();
-        user.setId(userId);
-
-        itemLoan.setUser(user);
-        itemLoan.setAuditStatus(AuditStatus.WAIT_AUDIT);
-
-        return addItemLoan(itemLoan);
-    }
-
-    @Transactional
-    public Message<t_item_loan> addItemLoanByAdmin(t_item_loan itemLoan,long adminId){
-        t_admin admin = new t_admin();
-        admin.setId(adminId);
-
-        itemLoan.setAdmin(admin);
-        itemLoan.setAuditStatus(AuditStatus.PASS_AUDIT);
-
-        return addItemLoan(itemLoan);
-    }
-
 }

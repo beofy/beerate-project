@@ -110,19 +110,6 @@ public class t_item_loan extends ItemModel {
 	private String capitalFlowUri;
 	/* ======================补充资料====================== */
 
-
-	//==========================================
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private t_user user;
-
-	//==========================================
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "admin_id")
-	private t_admin admin;
-
 	//==========================================
 
 	@OneToMany

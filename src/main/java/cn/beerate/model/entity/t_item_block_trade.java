@@ -73,18 +73,6 @@ public class t_item_block_trade extends ItemModel {
 
     //==========================================
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private t_user user;
-
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private t_admin admin;
-
-    //==========================================
-
     @OneToMany
     @JoinColumn(name = "block_trade_id")
     private List<t_item_message_board> message_boards;

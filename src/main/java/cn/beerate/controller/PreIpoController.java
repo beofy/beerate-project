@@ -23,7 +23,7 @@ public class PreIpoController extends UserBaseController {
 
     @PostMapping("/add")
     public Message add(t_item_pre_ipo preIpo) {
-        Message<t_item_pre_ipo> message = preIpoService.addPreIpoByUser(preIpo, getUserId());
+        Message<t_item_pre_ipo> message = preIpoService.addItemByUser(preIpo, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }
