@@ -66,7 +66,7 @@ public class UserMngController extends AdminBaseController{
 
 
 
-    @RequestMapping("/businessInfo.html")
+    @PostMapping("/businessInfo.html")
     public String businessInfo(long userId,Model model){
         model.addAttribute("user",userService.getOne(userId));
         model.addAttribute("investPrefers", InvestPrefer.values());

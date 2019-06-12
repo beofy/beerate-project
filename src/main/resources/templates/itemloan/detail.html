@@ -200,7 +200,7 @@
         if (userId!==0){
             $.ajax({
                 url : "/admin/user/businessInfo.html",
-                type : "GET",
+                type : "POST",
                 data : {
                     userId:userId
                 },
@@ -224,7 +224,7 @@
         if (adminId!==0){
             $.ajax({
                 url : "/admin/adminInfo.html",
-                type : "GET",
+                type : "POST",
                 data : {
                     adminId:adminId
                 },
