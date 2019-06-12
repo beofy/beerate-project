@@ -101,6 +101,9 @@ public class ItemLoanMngController extends AdminBaseController {
         return Message.ok("添加成功");
     }
 
+    /**
+     * 项目详情
+     */
     @GetMapping("/detail.html")
     public String detail(long itemId,Model model){
         model.addAttribute("item",itemLoanService.getOne(itemId));
@@ -108,6 +111,9 @@ public class ItemLoanMngController extends AdminBaseController {
         return "itemloan/detail";
     }
 
+    /**
+     * 项目审核
+     */
     @PostMapping("/audit")
     @ResponseBody
     public Message<String> detail(String auditStatus,String description,long itemId){
