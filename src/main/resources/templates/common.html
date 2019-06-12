@@ -77,8 +77,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a th:href="@{/admin/me.html}"><i class="mdi mdi-account"></i> 个人信息</a></li>
-                        <li><a th:href="@{/admin/updatePassWord.html}"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
-                        </li>
+                        <li><a th:href="@{/admin/updatePassWord.html}"><i class="mdi mdi-lock-outline"></i> 修改密码</a></li>
                         <li class="divider"></li>
                         <li><a th:href="@{/admin/loginOut}"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
                     </ul>
@@ -222,10 +221,10 @@
 
 <!--左侧导航-->
 <aside class="lyear-layout-sidebar" th:fragment="aside">
-    <!-- logo -->
-    <div id="logo" class="sidebar-header">
-        <a th:href="@{/templates/admin/main.html}"><img th:src="@{/images/logo-sidebar.png}" src="" title="LightYear"
-                                                        alt="LightYear"/></a>
+    <div class="sidebar-header">
+        <a th:href="@{/admin/main.html}">
+            <img th:src="@{/images/logo-sidebar.png}" src="" title="LightYear"alt="LightYear"/>
+        </a>
     </div>
     <div class="lyear-layout-sidebar-scroll">
         <nav class="sidebar-main">
