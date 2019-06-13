@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('项目详情')"></head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('项目详情')"></header>
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目详细</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">项目结束时间</button>
+                                            <p class="m-0" th:text="${#dates.format(stockPledge.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">是否加急</button>
+                                            <p class="m-0" th:text="${stockPledge.getIsUrgent()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">查看是否需要平台认证</button>
+                                            <p class="m-0" th:text="${stockPledge.getIsPlatformAuthentication()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否一手</button>
+                                            <p class="center-block" th:text="${stockPledge.getIsFirstHandle()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">股票代码</button>
+                                            <p class="center-block" th:text="${stockPledge.stockCode}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否前台展示</button>
+                                            <p class="center-block" th:text="${stockPledge.getIsShow()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="financingBody">融资主体</label>
+                                        <input type="text" class="form-control" id="financingBody" th:value="${stockPledge.financingBody}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="stockNature">质押股票流通性质</label>
+                                        <input type="text" class="form-control" id="stockNature" th:value="${stockPledge.stockNature.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="salesDeadline">限售到期日</label>
+                                        <input type="text" class="form-control" id="salesDeadline" th:value="${stockPledge.salesDeadline}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="stockBlock">质押股票所属板块</label>
+                                        <input type="text" class="form-control" id="stockBlock" th:value="${stockPledge.stockBlock.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="isQuoteOrActualController">融资人是否为上市公司控股股东或实际控制人</label>
+                                        <input type="text" class="form-control" id="isQuoteOrActualController" th:value="${stockPledge.isQuoteOrActualController==true?'是':'否'}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="holdStockShares">总持有股票数</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="holdStockShares" th:value="${stockPledge.holdStockShares}" disabled>
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="pledgeStockShares">质押股票数</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="pledgeStockShares" th:value="${stockPledge.pledgeStockShares}" disabled>
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="surplusPledgeStockShares">质押股票数</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="surplusPledgeStockShares" th:value="${stockPledge.surplusPledgeStockShares}" disabled>
+                                            <span class="input-group-addon">万股</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="loanAmount">融资金额</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="loanAmount" th:value="${stockPledge.loanAmount}" disabled>
+                                            <span class="input-group-addon">万元</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="pledgeRates">质押率</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="pledgeRates" th:value="${stockPledge.loanAmount}" disabled>
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="loanPeriod">融资期限</label>
+                                        <input type="text" class="form-control" id="loanPeriod" th:value="${stockPledge.loanPeriod.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="financingPartyPaysCostRates">融资方愿意支付的融资成本</label>
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" id="financingPartyPaysCostRates" th:value="${stockPledge.financingPartyPaysCostRates}" disabled>
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="recentOneYearProfitsDescription">最近一个年度盈利情况</label>
+                                        <textarea class="form-control" id="recentOneYearProfitsDescription" name="recentOneYearProfitsDescription" rows="3" th:text="${stockPledge.recentOneYearProfitsDescription}" disabled></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="purpose">借款用途说明</label>
+                                        <textarea class="form-control" id="purpose" name="purpose" rows="3" th:text="${stockPledge.purpose}" disabled></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="enhancementConfidenceMeasures">其他增信措施</label>
+                                        <textarea class="form-control" id="enhancementConfidenceMeasures" name="enhancementConfidenceMeasures" rows="3" th:text="${stockPledge.enhancementConfidenceMeasures}" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目审核</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <form class="row" id="audit">
+                                    <input type="hidden" name="itemId" th:value="${stockPledge.getId()}">
+                                    <div class="form-group col-md-12">
+                                        <label for="auditStatus">审核状态</label>
+                                        <div class="form-controls">
+                                            <select id="auditStatus" name="auditStatus" class="form-control">
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==stockPledge.getAuditStatus()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">审核描述</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${stockPledge.getDescription()}"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post">审核</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" id="businessInfo"></div>
+                    <div class="col-lg-6" id="adminInfo"></div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+</body>
+
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+
+<script th:inline="javascript">
+
+    $(function () {
+        //用户信息
+        var userId = [[${stockPledge.getUser()==null?0:stockPledge.getUser().getId()}]];
+        if (userId!==0){
+            $.ajax({
+                url : "/admin/item/common/businessInfo.html",
+                type : "POST",
+                data : {
+                    userId:userId
+                },
+                success : function(data) {
+                    $("#businessInfo").html(data);
+                },
+                error : function () {
+                    $("#businessInfo").remove();
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify("用户信息查询失败", 'danger');
+                    }, 1e3);
+                }
+            });
+        }else {
+            $("#businessInfo").remove();
+        }
+
+        //管理员信息
+        var adminId = [[${stockPledge.getAdmin()==null?0:stockPledge.getAdmin().getId()}]];
+        if (adminId!==0){
+            $.ajax({
+                url : "/admin/item/common/adminInfo.html",
+                type : "POST",
+                data : {
+                    adminId:adminId
+                },
+                success : function(data) {
+                    $("#adminInfo").html(data);
+                },
+                error : function () {
+                    $("#adminInfo").remove();
+                }
+            });
+        }else {
+            $("#adminInfo").remove();
+            setTimeout(function() {
+                lightyear.loading('hide');
+                lightyear.notify("管理员信息查询失败", 'danger');
+            }, 1e3);
+        }
+    });
+
+    //提交
+    $("#audit").validate({
+        rules:{
+            auditStatus:{
+                required:true
+            },
+            description:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/item/common/audit",
+                data:{
+                    serviceName:"stockTransferServiceImpl"
+                },
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/item/stockpledge/list.html?page=1&size=10&success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+</html>

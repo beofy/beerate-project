@@ -12,7 +12,7 @@
             <main class="lyear-layout-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-offset-2 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
@@ -202,10 +202,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/stockpledge/add" ,
+                url: "/admin/item/stockpledge/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/stockpledge/list.html?page=1&size=10&success="+data.msg
+                        location.href="/admin/item/stockpledge/list.html?page=1&size=10&success="+data.msg
 
 
                     } else {

@@ -1,13 +1,14 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.entity.t_item_stock_pledge;
 import cn.beerate.service.StockPledgeService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * 后台股票质押管理-控制器
@@ -25,7 +26,15 @@ public class StockPledgeMngController  extends AdminBaseController {
      * 列表页
      */
     @GetMapping("/list.html")
-    public String listPage(){
+    public String list(int page, int size,
+                       @RequestParam(required = false) String column,
+                       @RequestParam(required = false) String order,
+                       @RequestParam(required = false) String field,
+                       @RequestParam(required = false) String value,
+                       @RequestParam(required = false) Date beginDate,
+                       @RequestParam(required = false) Date endDate,
+                       Model model){
+        model.addAttribute("page",stockPledgeService.page(page, size, column, order, field,value,beginDate,endDate));
 
         return "admin/item/stockpledge/list";
     }
@@ -34,7 +43,7 @@ public class StockPledgeMngController  extends AdminBaseController {
      * 添加页面
      */
     @GetMapping("/add.html")
-    public String addPage(){
+    public String add(){
         return "admin/item/stockpledge/add";
     }
 
@@ -51,6 +60,18 @@ public class StockPledgeMngController  extends AdminBaseController {
         }
 
         return Message.ok("添加成功");
+    }
+
+
+    /**
+     * 项目详情
+     */
+    @GetMapping("/detail.html")
+    public String detail(long stockPledgeId,Model model){
+        model.addAttribute("stockPledge",stockPledgeService.getOne(stockPledgeId));
+        model.addAttribute("auditStatus", AuditStatus.values());
+
+        return "admin/item/stockpledge/detail";
     }
 
 }

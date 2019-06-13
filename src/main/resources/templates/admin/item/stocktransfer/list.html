@@ -89,7 +89,7 @@
                                                 </label>
                                             </td>
                                             <td th:text="${transfer.id}"></td>
-                                            <td th:text="${transfer.createTime}"></td>
+                                            <td th:text="${#dates.format(transfer.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                                             <td th:text="${transfer.bidName}"></td>
                                             <td th:text="${transfer.companyName}"></td>
                                             <td th:text="${transfer.isQuoted==true?'已上市':'未上市'}"></td>
@@ -108,8 +108,8 @@
                                         </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
+                                <ul th:replace="common::TPageControl(${page},'.search-bar')"></ul>
                             </div>
                         </div>
                     </div>

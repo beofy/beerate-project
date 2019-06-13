@@ -90,7 +90,7 @@
                                                     </label>
                                                 </td>
                                                 <td th:text="${item.id}"></td>
-                                                <td th:text="${item.createTime}"></td>
+                                                <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${item.itemName}"></td>
                                                 <td th:text="${item.companyName}"></td>
                                                 <td th:text="${item.industryRealm.value}"></td>
