@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common::head('项目详情')"></head>
 
-<link rel="stylesheet" th:href="@{/js/view/viewer.min.css}" />
-
 <body>
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
@@ -24,133 +22,114 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4 col-sm-6" id="logo">
-                                        <div class="avatar-divider"></div>
-                                        <img th:src="${loan.getLogoUri()}" th:alt="${loan.getCompanyName()}" class="img-avatar" style="cursor: pointer;">
-                                    </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="avatar-divider"></div>
                                         <div class="edit-avatar-content">
                                             <button class="btn">项目结束时间</button>
-                                            <p class="m-0" th:text="${#dates.format(loan.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                            <p class="m-0" th:text="${#dates.format(stockTransfer.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="avatar-divider"></div>
                                         <div class="edit-avatar-content">
                                             <button class="btn">是否加急</button>
-                                            <p class="m-0" th:text="${loan.getIsUrgent()?'是':'否'}"></p>
+                                            <p class="m-0" th:text="${stockTransfer.getIsUrgent()?'是':'否'}"></p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="avatar-divider"></div>
                                         <div class=" edit-avatar-content">
                                             <button class="btn">查看是否需要平台认证</button>
-                                            <p class="m-0" th:text="${loan.getIsPlatformAuthentication()?'是':'否'}"></p>
+                                            <p class="m-0" th:text="${stockTransfer.getIsPlatformAuthentication()?'是':'否'}"></p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="avatar-divider"></div>
                                         <div class=" edit-avatar-content">
                                             <button class="btn">是否一手</button>
-                                            <p class="center-block" th:text="${loan.getIsFirstHandle()?'是':'否'}"></p>
+                                            <p class="center-block" th:text="${stockTransfer.getIsFirstHandle()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否上市</button>
+                                            <p class="center-block" th:text="${stockTransfer.getIsQuoted()?'是':'否'}"></p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="avatar-divider"></div>
                                         <div class=" edit-avatar-content">
                                             <button class="btn">是否前台展示</button>
-                                            <p class="center-block" th:text="${loan.getIsShow()?'是':'否'}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-6">
-                                        <div class="avatar-divider"></div>
-                                        <div class=" edit-avatar-content">
-                                            <button class="btn">公司官网</button>
-                                            <p class="center-block" ><a th:href="${loan.getCompanyWebsite()}" th:text="${loan.getCompanyWebsite()}" target="_blank"></a></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-6">
-                                        <div class="avatar-divider"></div>
-                                        <div class=" edit-avatar-content">
-                                            <button class="btn">IOS应用地址</button>
-                                            <p class="center-block" ><a th:href="${loan.getCompanyIosUrl()}" th:text="${loan.getCompanyIosUrl()}" target="_blank"></a></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-6">
-                                        <div class="avatar-divider"></div>
-                                        <div class=" edit-avatar-content">
-                                            <button class="btn">Android应用地址</button>
-                                            <p class="center-block" ><a th:href="${loan.getCompanyAndroidUrl()}" th:text="${loan.getCompanyAndroidUrl()}" target="_blank"></a></p>
+                                            <p class="center-block" th:text="${stockTransfer.getIsShow()?'是':'否'}"></p>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <form class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="itemName">项目名称</label>
-                                        <input type="text" class="form-control" id="itemName" th:value="${loan.getItemName()}" disabled>
+                                        <label for="bidName">标的名称</label>
+                                        <input type="text" class="form-control" id="bidName" th:value="${stockTransfer.bidName}" disabled>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="companyName">公司名称</label>
-                                        <input type="text" class="form-control" id="companyName" th:value="${loan.getCompanyName()}" disabled>
+                                        <label for="companyName">企业名称</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="companyName" th:value="${stockTransfer.bidName}" disabled>
+                                            <span class="input-group-addon" th:text="${stockTransfer.getCompanyNameIsPublic()==true?'公开':'未公开'}">万元</span>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="industryRealm">行业领域</label>
-                                        <input type="text" class="form-control" id="industryRealm" th:value="${loan.getIndustryRealm().getValue()}" disabled>
+                                        <input type="text" class="form-control" id="industryRealm" th:value="${stockTransfer.industryRealm.getValue()}" disabled>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="stockCode">股票代码</label>
-                                        <div class="input-group col-md-12">
-                                            <input type="text" class="form-control" id="stockCode" th:value="${loan.getStockCode()}" disabled>
-                                            <span class="input-group-addon" th:text="${loan.getIsQuoted()==true?'已上市':'未上市'}"></span>
+                                        <label for="currency">币种</label>
+                                        <input type="text" class="form-control" id="currency" th:value="${stockTransfer.currency.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="lastYearProfits">去年净利润</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="lastYearProfits" th:value="${stockTransfer.lastYearProfits}" disabled>
+                                            <span class="input-group-addon">万</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="amount">融资金额</label>
-                                        <div class="input-group col-md-12">
-                                            <input type="text" class="form-control" id="amount" th:value="${loan.getAmount()}" disabled>
-                                            <span class="input-group-addon" th:text="${loan.getAmountUnit().getValue()}"></span>
+                                        <label for="currentValuation">本轮估值</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="currentValuation" th:value="${stockTransfer.currentValuation}" disabled>
+                                            <span class="input-group-addon">万</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="period">借款期限</label>
-                                        <div class="input-group col-md-12">
-                                            <input type="text" class="form-control" id="period" th:value="${loan.getPeriod()}" disabled>
-                                            <span class="input-group-addon" th:text="${loan.getPeriodUnit().getValue()}"></span>
+                                        <label for="transferAmount">转让金额</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="transferAmount" th:value="${stockTransfer.transferAmount}" disabled>
+                                            <span class="input-group-addon">万</span>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="purpose">资金用途</label>
-                                        <textarea class="form-control" id="purpose" rows="3" th:text="${loan.getPurpose()}" disabled="disabled"></textarea>
+                                        <label for="equityRatio">转让股权比例</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="equityRatio" th:value="${stockTransfer.equityRatio}" disabled>
+                                            <span class="input-group-addon">%</span>
+                                            <span class="input-group-addon" th:text="${stockTransfer.getIsPrivacyEquityRatio()==true?'保密':'未保密'}"></span>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="repayment">还款来源</label>
-                                        <textarea class="form-control" id="repayment" rows="3" th:text="${loan.getRepayment()}" disabled="disabled"></textarea>
+                                        <label for="investLightSpot">投资亮点</label>
+                                        <textarea class="form-control" id="investLightSpot" name="description" rows="3" th:text="${stockTransfer.investLightSpot}" disabled></textarea>
                                     </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>BP计划书</span>
-                                        <a th:href="${loan.getBusinessProposalUri()}" target="_blank">查看</a>
+                                    <div class="form-group col-md-12">
+                                        <label for="contact">联系人</label>
+                                        <input type="text" class="form-control" id="contact" th:value="${stockTransfer.contact}" disabled>
                                     </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>营业执照彩色扫描件（三证合一）</span>
-                                        <a th:href="${loan.getBusinessLicenseUri()}" target="_blank">查看</a>
+                                    <div class="form-group col-md-12">
+                                        <label for="contactMobile">联系人电话</label>
+                                        <input type="text" class="form-control" id="contactMobile" th:value="${stockTransfer.contactMobile}" disabled>
                                     </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>前三年+本年度资产负债表、损益表、现金流量表</span>
-                                        <a th:href="${loan.getFinancialReportUri()}" target="_blank">查看</a>
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>最近一年审计报告</span>
-                                        <a th:href="${loan.getAuditReportUri()}" target="_blank">查看</a>
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>有息负债明细：含起止时间、金额、担保或保证方</span>
-                                        <a th:href="${loan.getIndebtednessUri()}" target="_blank">查看</a>
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-5">
-                                        <span>近6个月银行流水（主要银行）</span>
-                                        <a th:href="${loan.getCapitalFlowUri()}" target="_blank">查看</a>
+                                    <div class="form-group col-md-12">
+                                        <label for="contentDescription">内容描述</label>
+                                        <textarea class="form-control" id="contentDescription" name="contentDescription" rows="3" th:text="${stockTransfer.contentDescription}" disabled></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -166,18 +145,18 @@
                             </div>
                             <div class="card-body">
                                 <form class="row" id="audit">
-                                    <input type="hidden" name="itemId" th:value="${loan.getId()}">
+                                    <input type="hidden" name="itemId" th:value="${stockTransfer.getId()}">
                                     <div class="form-group col-md-12">
                                         <label for="auditStatus">审核状态</label>
                                         <div class="form-controls">
                                             <select id="auditStatus" name="auditStatus" class="form-control">
-                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==loan.getAuditStatus()}" ></option>
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==stockTransfer.getAuditStatus()}" ></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="description">审核描述</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${loan.getDescription()}"></textarea>
+                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${stockTransfer.getDescription()}"></textarea>
                                     </div>
 
                                     <div class="form-group col-md-12">
@@ -203,12 +182,11 @@
 <script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
 <script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
 
-<script th:src="@{/js/view/viewer.min.js}"></script>
 <script th:inline="javascript">
 
     $(function () {
         //用户信息
-        var userId = [[${loan.getUser()==null?0:loan.getUser().getId()}]];
+        var userId = [[${stockTransfer.getUser()==null?0:stockTransfer.getUser().getId()}]];
         if (userId!==0){
             $.ajax({
                 url : "/admin/item/common/businessInfo.html",
@@ -232,7 +210,7 @@
         }
 
         //管理员信息
-        var adminId = [[${loan.getAdmin()==null?0:loan.getAdmin().getId()}]];
+        var adminId = [[${stockTransfer.getAdmin()==null?0:stockTransfer.getAdmin().getId()}]];
         if (adminId!==0){
             $.ajax({
                 url : "/admin/item/common/adminInfo.html",
@@ -256,17 +234,6 @@
         }
     });
 
-    //图片预览
-    function initViewer(id) {
-        var viewer = new Viewer(document.getElementById(id), {
-            url: 'data-original',
-            show: function (){
-                viewer.update();
-            }
-        });
-    }
-    initViewer('logo');
-
     //提交
     $("#audit").validate({
         rules:{
@@ -286,11 +253,11 @@
                 type: 'post',
                 url: "/admin/item/common/audit",
                 data:{
-                    serviceName:"loanServiceImpl"
+                    serviceName:"stockTransferServiceImpl"
                 },
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/item/loan/list.html?page=1&size=10&success="+data.msg
+                        location.href="/admin/item/stocktransfer/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

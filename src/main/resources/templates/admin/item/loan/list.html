@@ -101,7 +101,7 @@
                                                 <td th:text="${item.getAdmin().getRealityName()}"></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a class="btn btn-xs btn-default" th:href="@{/admin/item/loan/detail.html(itemId=${item.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                        <a class="btn btn-xs btn-default" th:href="@{/admin/item/loan/detail.html(loanId=${item.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                         <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" th:data-itemId="${item.getId()}" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account"></i></a>
                                                         <a class="btn btn-xs btn-default" th:href="'javascript:show('+${item.id}+')'" th:title="${item.getIsShow()==true?'下架':'上架'}" data-toggle="tooltip">
                                                             <i th:class="${item.getIsShow()==true?'mdi mdi-arrow-down-bold-circle':'mdi mdi-arrow-up-bold-circle'}"></i>

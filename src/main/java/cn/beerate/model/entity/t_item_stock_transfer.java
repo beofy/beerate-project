@@ -21,7 +21,7 @@ public class t_item_stock_transfer extends ItemModel {
     @Column(columnDefinition = "varchar(128) not null default '' comment '标的名称'")
     private String bidName;
 
-    @Column(columnDefinition = " bit(1) not null default 0 COMMENT '标的所属阶段'")
+    @Column(columnDefinition = " bit(1) not null default 0 COMMENT '是否上市'")
     private Boolean isQuoted;
 
     @Column(columnDefinition = " bit(1) not null default 0 COMMENT '企业名称是否公开'")
@@ -76,7 +76,7 @@ public class t_item_stock_transfer extends ItemModel {
     @Column(columnDefinition = "varchar(15) not null default '' comment '联系人电话'")
     private String contactMobile;
 
-    @Column(columnDefinition = "varchar(15) not null default '' comment '内容描述'")
+    @Column(columnDefinition = "varchar(500) not null default '' comment '内容描述'")
     private String contentDescription;
 
     //==========================================

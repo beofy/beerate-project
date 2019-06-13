@@ -37,20 +37,16 @@
                                                     <input type="hidden" name="order" />
 
                                                     <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                                        账号 <span class="caret"></span>
+                                                        标的名称 <span class="caret"></span>
                                                     </button>
 
                                                     <ul class="dropdown-menu">
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="username">账号</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="eamil">邮箱</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="realityName">姓名</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="mobie">手机</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="department">部门</a> </li>
-                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="position">职位</a> </li>
+                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="bidName">标的名称</a> </li>
+                                                        <li> <a tabindex="-1" href="javascript:void(0)" data-field="companyName">公司名称</a> </li>
                                                     </ul>
                                                 </div>
-                                                <input type="text" id="search-field" class="form-control" placeholder="搜索条件" name="username">
-
+                                                <input type="hidden" id="search-field" name="field" value="bidName">
+                                                <input type="text" class="form-control" placeholder="搜索条件" name="value">
                                                 <span class="input-group-btn">
                                                   <button class="btn btn-default" type="submit">搜索</button>
                                                 </span>
@@ -60,7 +56,7 @@
                                 </form>
 
                                 <div class="toolbar-btn-action m-t-10">
-                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/stocktransfer/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/item/stocktransfer/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -76,34 +72,37 @@
                                             </th>
                                             <th onclick="order('id',this)"> 编号</th>
                                             <th onclick="order('createTime',this)"> 时间</th>
-                                            <th>账号</th>
-                                            <th>邮箱</th>
-                                            <th>姓名</th>
-                                            <th>手机</th>
-                                            <th>部门</th>
-                                            <th>职位</th>
+                                            <th>标的名称</th>
+                                            <th>公司名称</th>
+                                            <th>是否上市</th>
+                                            <th>本轮估值</th>
+                                            <th>转让金额</th>
+                                            <th>股权比例</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr >
+                                        <tr th:each="transfer:${page.getContent()}">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                    <input type="checkbox" name="ids[]" th:value="${transfer.id}"><span></span>
                                                 </label>
                                             </td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ><font class="text-success">正常</font></td>
+                                            <td th:text="${transfer.id}"></td>
+                                            <td th:text="${transfer.createTime}"></td>
+                                            <td th:text="${transfer.bidName}"></td>
+                                            <td th:text="${transfer.companyName}"></td>
+                                            <td th:text="${transfer.isQuoted==true?'已上市':'未上市'}"></td>
+                                            <td th:text="${transfer.currentValuation}"></td>
+                                            <td th:text="${transfer.transferAmount}"></td>
+                                            <td th:text="${transfer.equityRatio}"></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="@{/admin/item/stocktransfer/detail.html(stockTransferId=${transfer.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" th:data-itemId="${transfer.getId()}" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="'javascript:show('+${transfer.id}+')'" th:title="${transfer.getIsShow()==true?'下架':'上架'}" data-toggle="tooltip">
+                                                        <i th:class="${transfer.getIsShow()==true?'mdi mdi-arrow-down-bold-circle':'mdi mdi-arrow-up-bold-circle'}"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -119,6 +118,8 @@
             </div>
         </main>
         <!--End 页面主要内容-->
+
+        <div class="modal fade" id="allocation" tabindex="-1" role="dialog" aria-labelledby="allocationLabel"></div>
     </div>
 </div>
 </body>
@@ -130,5 +131,44 @@
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
     });
+
+    //分配人列表
+    $('#allocation').on('show.bs.modal', function (event) {
+        $.ajax({
+            url : "/admin/item/common/assigner.html",
+            type : "POST",
+            data:{
+                page:1,
+                size:5,
+                itemId:$(event.relatedTarget).data("itemid"),
+                serviceName:"stockTransferServiceImpl"
+            },
+            success : function(data) {
+                $('#allocation').html(data)
+            }
+        });
+    });
+
+    //上下架
+    function show(itemId) {
+        $.ajax({
+            url : "/admin/item/common/show",
+            type : "POST",
+            data:{
+                itemId:itemId,
+                serviceName:"stockTransferServiceImpl"
+            },
+            success : function(data) {
+                if (data.code>0){
+                    location.href="/admin/item/stocktransfer/list.html?page=1&size=10&success="+data.msg
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger', 3000);
+                    }, 1e3);
+                }
+            }
+        });
+    }
 </script>
 </html>

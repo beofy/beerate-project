@@ -12,7 +12,7 @@
             <main class="lyear-layout-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
@@ -32,17 +32,17 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="companyNameIsPublic">企业名称是否公开</label>
-                                            <select  name="companyNameIsPublic" id="companyNameIsPublic" class="form-control">
-                                                <option value="">请选择</option>
-                                                <option value="1">是</option>
-                                                <option value="0">否</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
                                             <label for="companyName">企业名称</label>
-                                            <input type="text" class="form-control" name="companyName" id="companyName" placeholder="请填写企业名称"  >
+                                            <div class="input-group ">
+                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="请填写企业名称"  >
+                                                <div class="input-group-btn">
+                                                    <select name="companyNameIsPublic" id="companyNameIsPublic" class="form-control" style="width: 120px">
+                                                        <option value="">是否公开</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -61,37 +61,43 @@
                                             </select>
                                         </div>
 
-                                        <label for="lastYearProfits">去年净利润</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="请填写去年净利润">
-                                            <span class="input-group-addon">万</span>
-                                        </div>
-
-                                        <label for="currentValuation">本轮估值</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="currentValuation" id="currentValuation"  placeholder="请填写本轮估值">
-                                            <span class="input-group-addon">万</span>
-                                        </div>
-
-                                        <label for="transferAmount">转让金额</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="transferAmount" id="transferAmount"  placeholder="请填写转让金额">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group">
+                                            <label for="lastYearProfits">去年净利润</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="请填写去年净利润">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="isPrivacyEquityRatio">转让股权比例是否保密</label>
-                                            <select  name="isPrivacyEquityRatio" id="isPrivacyEquityRatio" class="form-control">
-                                                <option value="">请选择</option>
-                                                <option value="1">是</option>
-                                                <option value="0">否</option>
-                                            </select>
+                                            <label for="currentValuation">本轮估值</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="currentValuation" id="currentValuation"  placeholder="请填写本轮估值">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <label for="equityRatio">转让股权比例</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" name="equityRatio" id="equityRatio"  placeholder="">
-                                            <span class="input-group-addon">%</span>
+                                        <div class="form-group">
+                                            <label for="transferAmount">转让金额</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="transferAmount" id="transferAmount"  placeholder="请填写转让金额">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="equityRatio">转让股权比例</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="equityRatio" id="equityRatio"  placeholder="">
+                                                <span class="input-group-addon">%</span>
+                                                <div class="input-group-btn">
+                                                    <select  name="isPrivacyEquityRatio" id="isPrivacyEquityRatio" class="form-control" style="width: 120px">
+                                                        <option value="">是否保密</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -186,12 +192,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/stocktransfer/add" ,
+                url: "/admin/item/stocktransfer/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/stocktransfer/list.html?page=1&size=10&success="+data.msg
-
-
+                        location.href="/admin/item/stocktransfer/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

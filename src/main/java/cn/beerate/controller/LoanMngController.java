@@ -104,8 +104,8 @@ public class LoanMngController extends AdminBaseController {
      * 项目详情
      */
     @GetMapping("/detail.html")
-    public String detail(long itemId,Model model){
-        model.addAttribute("item",loanService.getOne(itemId));
+    public String detail(long loanId,Model model){
+        model.addAttribute("loan",loanService.getOne(loanId));
         model.addAttribute("auditStatus", AuditStatus.values());
         return "admin/item/loan/detail";
     }
