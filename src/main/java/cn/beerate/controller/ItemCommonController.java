@@ -2,7 +2,7 @@ package cn.beerate.controller;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.AuditStatus;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.ItemModel;
 import cn.beerate.service.AdminService;
 import cn.beerate.service.ItemCommonService;
@@ -49,7 +49,7 @@ public class ItemCommonController extends AdminBaseController{
     @PostMapping("/businessInfo.html")
     public String businessInfo(long userId,Model model){
         model.addAttribute("user",userService.getOne(userId));
-        model.addAttribute("investPrefers", InvestPrefer.values());
+        model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("auditStatus", AuditStatus.values());
 
         return "admin/item/common/businessInfo";

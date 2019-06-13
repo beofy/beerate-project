@@ -2,7 +2,7 @@ package cn.beerate.controller;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.AuditStatus;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
 import cn.beerate.service.UserService;
@@ -48,7 +48,7 @@ public class UserMngController extends AdminBaseController{
     @RequestMapping("/detail.html")
     public String detail(long userId,Model model){
         model.addAttribute("user",userService.getOne(userId));
-        model.addAttribute("investPrefers", InvestPrefer.values());
+        model.addAttribute("itemTypes", ItemType.values());
         model.addAttribute("auditStatus", AuditStatus.values());
         return "admin/user/detail";
     }

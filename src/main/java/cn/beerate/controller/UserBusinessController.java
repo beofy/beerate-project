@@ -1,7 +1,7 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
@@ -59,7 +59,7 @@ public class UserBusinessController extends UserBaseController {
      * 补充名片信息
      */
     @PostMapping("/supplement")
-    public Message<String> supplementUserBusiness(InvestPrefer investPrefer, String aboutText, String workText) {
+    public Message<String> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText) {
 
         return userBusinessService.supplementUserBusiness(investPrefer, aboutText, workText, getUserId());
     }

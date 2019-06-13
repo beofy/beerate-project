@@ -3,7 +3,7 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.bean.Business;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user;
@@ -93,9 +93,9 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     }
 
     @Transactional
-    public Message<String> supplementUserBusiness(InvestPrefer investPrefer, String aboutText, String workText,long userId){
+    public Message<String> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId){
 
-        if (investPrefer == InvestPrefer.NONE) {
+        if (investPrefer == ItemType.NONE) {
             return Message.error("请选择投资偏好");
         }
 

@@ -1,7 +1,7 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.AuditStatus;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.Model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,12 +48,12 @@ public class t_user_business extends Model {
     @Column(columnDefinition = "varchar(30) not null default 0 comment '投资偏好'")
     private String investPrefer;
 
-    public void setInvestPrefer(InvestPrefer investPrefer){
+    public void setInvestPrefer(ItemType investPrefer){
         this.investPrefer=investPrefer.name();
     }
 
-    public InvestPrefer getInvestPrefer(){
-        return EnumUtils.getEnumIgnoreCase(InvestPrefer.class,this.investPrefer);
+    public ItemType getInvestPrefer(){
+        return EnumUtils.getEnumIgnoreCase(ItemType.class,this.investPrefer);
     }
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '个人介绍'")

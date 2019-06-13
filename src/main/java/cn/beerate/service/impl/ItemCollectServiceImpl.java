@@ -2,7 +2,7 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.ItemCollectDao;
-import cn.beerate.model.InvestPrefer;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.entity.*;
 import cn.beerate.service.ItemCollectService;
 import org.apache.commons.lang3.EnumUtils;
@@ -22,7 +22,7 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
     @Transactional
     @Override
     public Message<String> addCollect(String itemType, long userId, long itemId) {
-        InvestPrefer prefer = EnumUtils.getEnumIgnoreCase(InvestPrefer.class, itemType);
+        ItemType prefer = EnumUtils.getEnumIgnoreCase(ItemType.class, itemType);
         if (prefer == null) {
             return Message.error("项目类型错误");
         }
@@ -94,7 +94,7 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
 
     @Override
     public t_item_collect findCollect(String itemType, long userId, long itemId) {
-        InvestPrefer prefer = EnumUtils.getEnumIgnoreCase(InvestPrefer.class, itemType);
+        ItemType prefer = EnumUtils.getEnumIgnoreCase(ItemType.class, itemType);
         if (prefer == null) {
             throw new IllegalArgumentException("项目类型错误");
         }

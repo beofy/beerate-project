@@ -54,7 +54,7 @@
                 <label for="investPrefer">投资偏好</label>
                 <div class="form-controls">
                     <select name="investPrefer" class="form-control" id="investPrefer" disabled>
-                        <option th:each="investPrefer:${investPrefers}" th:value="${investPrefer.name()}" th:text="${investPrefer.getValue()}" th:selected="${investPrefer==user.getUser_business().getInvestPrefer()}" ></option>
+                        <option th:each="itemType:${itemTypes}" th:value="${itemType.name()}" th:text="${itemType.getValue()}" th:selected="${itemType==user.getUser_business().getInvestPrefer()}" ></option>
                     </select>
                 </div>
             </div>

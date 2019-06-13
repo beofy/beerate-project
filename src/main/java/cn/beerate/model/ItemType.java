@@ -3,7 +3,7 @@ package cn.beerate.model;
 /**
  * 投资偏好
  */
-public enum InvestPrefer {
+public enum ItemType {
 
     NONE("请选择"),
 
@@ -19,7 +19,7 @@ public enum InvestPrefer {
 
     private String value;
 
-    InvestPrefer(String value) {
+    ItemType(String value) {
         this.value = value;
     }
 
