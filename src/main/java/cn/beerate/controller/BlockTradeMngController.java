@@ -1,6 +1,7 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.service.BlockTradeService;
 import org.springframework.stereotype.Controller;
@@ -61,4 +62,14 @@ public class BlockTradeMngController  extends AdminBaseController {
         return Message.ok("添加成功");
     }
 
+    /**
+     * 项目详情
+     */
+    @GetMapping("/detail.html")
+    public String detail(long blockTradeId,Model model){
+        model.addAttribute("blockTrade",blockTradeService.getOne(blockTradeId));
+        model.addAttribute("auditStatus", AuditStatus.values());
+
+        return "admin/item/blocktrade/detail";
+    }
 }

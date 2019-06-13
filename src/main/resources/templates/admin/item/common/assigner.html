@@ -60,7 +60,7 @@
             },
             success : function(data) {
                 if (data.code>0){
-                    location.href="/admin/item/loan/list.html?page=1&size=10&success="+data.msg
+                    location.href=location.href+"&success="+data.msg
                 } else {
                     setTimeout(function() {
                         lightyear.loading('hide');

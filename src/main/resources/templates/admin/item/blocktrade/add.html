@@ -12,7 +12,7 @@
             <main class="lyear-layout-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-offset-2 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form">
@@ -27,22 +27,28 @@
                                             <input type="number" class="form-control" name="stockCode" id="stockCode" placeholder="请输入股票代码"  >
                                         </div>
 
-                                        <label for="exchangeRate">交易折价</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="exchangeRate" id="exchangeRate" placeholder="请输入交易折价"  >
-                                            <span class="input-group-addon">%</span>
+                                        <div class="form-group">
+                                            <label for="exchangeRate">交易折价</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="exchangeRate" id="exchangeRate" placeholder="请输入交易折价"  >
+                                                <span class="input-group-addon">%</span>
+                                            </div>
                                         </div>
 
-                                        <label for="underweightShares">减持股数</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="underweightShares" id="underweightShares" placeholder="请输入减持股数" >
-                                            <span class="input-group-addon">万股</span>
+                                        <div class="form-group">
+                                            <label for="underweightShares">减持股数</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="underweightShares" id="underweightShares" placeholder="请输入减持股数" >
+                                                <span class="input-group-addon">万股</span>
+                                            </div>
                                         </div>
 
-                                        <label for="underweightAmount">减持总金额</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="underweightAmount" id="underweightAmount" placeholder="请输入减持总金额">
-                                            <span class="input-group-addon">万元</span>
+                                        <div class="form-group">
+                                            <label for="underweightAmount">减持总金额</label>
+                                            <div class="input-group ">
+                                                <input type="number" class="form-control" name="underweightAmount" id="underweightAmount" placeholder="请输入减持总金额">
+                                                <span class="input-group-addon">万元</span>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -56,7 +62,6 @@
                                                 <option value="PRIVATE_EQUITY">私募</option>
                                                 <option value="OTHER">其他</option>
                                             </select>
-
                                         </div>
 
                                         <div class="form-group">
@@ -70,10 +75,13 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <label for="expectedReturn">预期收益率（增信）</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="number" class="form-control" name="expectedReturn" id="expectedReturn" placeholder="请输入预期收益率">
-                                            <span class="input-group-addon">%</span>
+
+                                        <div class="form-group">
+                                            <label for="expectedReturn">预期收益率（增信）</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="expectedReturn" id="expectedReturn" placeholder="请输入预期收益率">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -92,10 +100,12 @@
                                             </select>
                                         </div>
 
-                                        <label for="confidenceShare">增信方超额收益分成（增信）</label>
-                                        <div class="input-group m-b-10">
-                                            <input type="text" class="form-control" name="confidenceShare" id="confidenceShare" placeholder="">
-                                            <span class="input-group-addon">%</span>
+                                        <div class="form-group">
+                                            <label for="confidenceShare">增信方超额收益分成（增信）</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="confidenceShare" id="confidenceShare" placeholder="">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -181,12 +191,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/blocktrade/add" ,
+                url: "/admin/item/blocktrade/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/blocktrade/list.html?page=1&size=10&success="+data.msg
-
-
+                        location.href="/admin/item/blocktrade/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

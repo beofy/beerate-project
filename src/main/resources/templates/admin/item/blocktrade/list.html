@@ -59,7 +59,7 @@
 
 
                                 <div class="toolbar-btn-action m-t-10">
-                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/blocktrade/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" th:href="@{/admin/item/blocktrade/add.html}"><i class="mdi mdi-plus"></i> 新增</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -103,8 +103,11 @@
                                             <td th:text="${blocktrade.getAdmin().getRealityName()}"></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="@{/admin/item/blocktrade/detail.html(blockTradeId=${blocktrade.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" th:data-itemId="${blocktrade.getId()}" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="'javascript:show('+${blocktrade.id}+')'" th:title="${blocktrade.getIsShow()==true?'下架':'上架'}" data-toggle="tooltip">
+                                                        <i th:class="${blocktrade.getIsShow()==true?'mdi mdi-arrow-down-bold-circle':'mdi mdi-arrow-up-bold-circle'}"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -121,6 +124,7 @@
             </div>
         </main>
         <!--End 页面主要内容-->
+        <div class="modal fade" id="allocation" tabindex="-1" role="dialog" aria-labelledby="allocationLabel"></div>
     </div>
 </div>
 </body>
@@ -132,5 +136,44 @@
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
     });
+
+    //分配人列表
+    $('#allocation').on('show.bs.modal', function (event) {
+        $.ajax({
+            url : "/admin/item/common/assigner.html",
+            type : "POST",
+            data:{
+                page:1,
+                size:5,
+                itemId:$(event.relatedTarget).data("itemid"),
+                serviceName:"blockTradeServiceImpl"
+            },
+            success : function(data) {
+                $('#allocation').html(data)
+            }
+        });
+    });
+
+    //上下架
+    function show(itemId) {
+        $.ajax({
+            url : "/admin/item/common/show",
+            type : "POST",
+            data:{
+                itemId:itemId,
+                serviceName:"blockTradeServiceImpl"
+            },
+            success : function(data) {
+                if (data.code>0){
+                    location.href="/admin/item/blocktrade/list.html?page=1&size=10&success="+data.msg
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger', 3000);
+                    }, 1e3);
+                }
+            }
+        });
+    }
 </script>
 </html>

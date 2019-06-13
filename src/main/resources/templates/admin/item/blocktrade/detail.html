@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('项目详情')"></head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('项目详情')"></header>
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目详细</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">项目结束时间</button>
+                                            <p class="m-0" th:text="${#dates.format(blockTrade.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">是否加急</button>
+                                            <p class="m-0" th:text="${blockTrade.getIsUrgent()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">查看是否需要平台认证</button>
+                                            <p class="m-0" th:text="${blockTrade.getIsPlatformAuthentication()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否一手</button>
+                                            <p class="center-block" th:text="${blockTrade.getIsFirstHandle()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">股票代码</button>
+                                            <p class="center-block" th:text="${blockTrade.stockCode}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否前台展示</button>
+                                            <p class="center-block" th:text="${blockTrade.getIsShow()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否增信</button>
+                                            <p class="center-block" th:text="${blockTrade.isConfidence?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">增信是否公开（增信）</button>
+                                            <p class="center-block" th:text="${blockTrade.confidenceIsPublic?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div  class="row">
+
+                                    <div class="form-group col-md-12">
+                                        <label for="bidName">项目名称</label>
+                                        <input type="text" class="form-control" id="bidName" th:value="${blockTrade.blockTradeName}" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="exchangeRate">交易折价</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="exchangeRate" th:value="${blockTrade.exchangeRate}" disabled>
+                                            <span class="input-group-addon" >%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="underweightShares">减持股数</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="underweightShares" th:value="${blockTrade.underweightShares}" disabled>
+                                            <span class="input-group-addon" >万股</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="underweightAmount">减持总金额</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="underweightAmount" th:value="${blockTrade.underweightAmount}" disabled>
+                                            <span class="input-group-addon" >万元</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="underweightIdentification">减持方身份</label>
+                                        <input type="text" class="form-control" id="underweightIdentification" th:value="${blockTrade.underWeightIdentification.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="expectedReturn">预期收益率（增信）</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="expectedReturn" th:value="${blockTrade.expectedReturn}" disabled>
+                                            <span class="input-group-addon" >%</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="confidencePeriod">增信期限（增信）</label>
+                                        <input type="text" class="form-control" id="confidencePeriod" th:value="${blockTrade.confidencePeriod}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="creditIdentification">增信身份（增信</label>
+                                        <input type="text" class="form-control" id="creditIdentification" th:value="${blockTrade.creditIdentification.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="confidenceShare">增信方超额收益分成（增信）</label>
+                                        <input type="text" class="form-control" id="confidenceShare" th:value="${blockTrade.confidenceShare}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目审核</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <form class="row" id="audit">
+                                    <input type="hidden" name="itemId" th:value="${blockTrade.getId()}">
+                                    <div class="form-group col-md-12">
+                                        <label for="auditStatus">审核状态</label>
+                                        <div class="form-controls">
+                                            <select id="auditStatus" name="auditStatus" class="form-control">
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==blockTrade.getAuditStatus()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">审核描述</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${blockTrade.getDescription()}"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post">审核</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" id="businessInfo"></div>
+                    <div class="col-lg-6" id="adminInfo"></div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+</body>
+
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+
+<script th:inline="javascript">
+
+    $(function () {
+        //用户信息
+        var userId = [[${blockTrade.getUser()==null?0:blockTrade.getUser().getId()}]];
+        if (userId!==0){
+            $.ajax({
+                url : "/admin/item/common/businessInfo.html",
+                type : "POST",
+                data : {
+                    userId:userId
+                },
+                success : function(data) {
+                    $("#businessInfo").html(data);
+                },
+                error : function () {
+                    $("#businessInfo").remove();
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify("用户信息查询失败", 'danger');
+                    }, 1e3);
+                }
+            });
+        }else {
+            $("#businessInfo").remove();
+        }
+
+        //管理员信息
+        var adminId = [[${blockTrade.getAdmin()==null?0:blockTrade.getAdmin().getId()}]];
+        if (adminId!==0){
+            $.ajax({
+                url : "/admin/item/common/adminInfo.html",
+                type : "POST",
+                data : {
+                    adminId:adminId
+                },
+                success : function(data) {
+                    $("#adminInfo").html(data);
+                },
+                error : function () {
+                    $("#adminInfo").remove();
+                }
+            });
+        }else {
+            $("#adminInfo").remove();
+            setTimeout(function() {
+                lightyear.loading('hide');
+                lightyear.notify("管理员信息查询失败", 'danger');
+            }, 1e3);
+        }
+    });
+
+    //提交
+    $("#audit").validate({
+        rules:{
+            auditStatus:{
+                required:true
+            },
+            description:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/item/common/audit",
+                data:{
+                    serviceName:"blockTradeServiceImpl"
+                },
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/item/stocktransfer/list.html?page=1&size=10&success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+</html>
