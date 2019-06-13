@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal-dialog "  style="width: 1000px" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="addDeptLabel">项目分配</h4>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th onclick="order('id',this)"> 编号</th>
+                            <th onclick="order('createTime',this)"> 时间</th>
+                            <th>账号</th>
+                            <th>邮箱</th>
+                            <th>姓名</th>
+                            <th>手机</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="admin:${page.getContent()}">
+                            <td th:text="${admin.id}"></td>
+                            <td th:text="${#dates.format(admin.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${admin.username}"></td>
+                            <td th:text="${admin.email}"></td>
+                            <td th:text="${admin.realityName}"></td>
+                            <td th:text="${admin.mobile}"></td>
+                            <td th:text="${admin.department}"></td>
+                            <td th:text="${admin.position}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account-star"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul th:replace="common::TPageControl(${page},'.search-bar')"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    function allocation(adminId) {
+        $.ajax({
+            url : "/admin/item/common/assigner",
+            type : "POST",
+            data:{
+                serviceName:[[${serviceName}]]
+            },
+            success : function(data) {
+                $('#allocation').html(data)
+            }
+        });
+    }
+</script>
+</html>

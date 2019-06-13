@@ -1,8 +1,8 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.ItemLoan;
-import cn.beerate.model.dto.ItemLoanList;
+import cn.beerate.model.dto.Loan;
+import cn.beerate.model.dto.LoanList;
 import cn.beerate.model.entity.t_item_loan;
 import cn.beerate.service.LoanService;
 import org.springframework.data.domain.Page;
@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/user/itemloan")
+@RequestMapping("/user/loan")
 public class LoanController extends UserBaseController {
 
-    private LoanService itemLoanService;
+    private LoanService loanService;
 
-    public LoanController(LoanService itemLoanService) {
-        this.itemLoanService = itemLoanService;
+    public LoanController(LoanService loanService) {
+        this.loanService = loanService;
     }
 
     @PostMapping("/add")
-    public Message add(t_item_loan itemLoan) {
-        Message<t_item_loan> message = itemLoanService.addItemByUser(itemLoan, getUserId());
+    public Message add(t_item_loan loan) {
+        Message<t_item_loan> message = loanService.addItemByUser(loan, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }
@@ -33,17 +33,17 @@ public class LoanController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<ItemLoanList>> list(int page, int size, String column, String order) {
+    public Message<Page<LoanList>> list(int page, int size, String column, String order) {
 
-        Page<ItemLoanList> pageBean = null;
+        Page<LoanList> pageBean = null;
 
         return Message.success(pageBean);
     }
 
     @PostMapping("/detail")
-    public Message<ItemLoan> detail(long itemLoanId) {
+    public Message<Loan> detail(long loanId) {
 
-        ItemLoan loan = null;
+        Loan loan = null;
 
         return Message.success(loan);
     }

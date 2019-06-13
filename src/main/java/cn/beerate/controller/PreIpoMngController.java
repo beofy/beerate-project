@@ -23,7 +23,7 @@ import java.util.UUID;
  * 后台PRE-IPO管理-控制器
  */
 @Controller
-@RequestMapping("/admin/preipo")
+@RequestMapping("/admin/item/preipo")
 public class PreIpoMngController  extends AdminBaseController  {
 
     private final Log logger = LogFactory.getLog(this.getClass());
@@ -40,7 +40,7 @@ public class PreIpoMngController  extends AdminBaseController  {
     public String listPage(){
 
 
-        return "preipo/list";
+        return "admin/item/preipo/list";
     }
 
     /**
@@ -50,7 +50,7 @@ public class PreIpoMngController  extends AdminBaseController  {
     public String addPage(Model model){
         model.addAttribute("industryRealms", IndustryRealm.values());
 
-        return "preipo/add";
+        return "admin/item/preipo/add";
     }
 
     /**

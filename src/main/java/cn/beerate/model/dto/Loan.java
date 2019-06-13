@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ItemLoan {
-    public ItemLoan(Long id, String itemName, String companyName, String logoUri, String industryRealm, String companyWebsite, String companyIosUrl, String companyAndroidUrl, Boolean isQuoted, String stockCode, Double amount, String amountUnit, String purpose, Integer period, String periodUnit, String repayment, String businessProposalUri, String businessLicenseUri, String financialReportUri, String auditReportUri, String indebtednessUri, String capitalFlowUri, Date endTime, Boolean isUrgent, Boolean isPlatformAuthentication, Boolean isFirstHandle, String auditStatus) {
+public class Loan {
+    public Loan(Long id, String itemName, String companyName, String logoUri, String industryRealm, String companyWebsite, String companyIosUrl, String companyAndroidUrl, Boolean isQuoted, String stockCode, Double amount, String amountUnit, String purpose, Integer period, String periodUnit, String repayment, String businessProposalUri, String businessLicenseUri, String financialReportUri, String auditReportUri, String indebtednessUri, String capitalFlowUri, Date endTime, Boolean isUrgent, Boolean isPlatformAuthentication, Boolean isFirstHandle, String auditStatus) {
         this.id = id;
         this.itemName = itemName;
         this.companyName = companyName;

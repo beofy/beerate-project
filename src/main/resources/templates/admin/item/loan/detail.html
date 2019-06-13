@@ -199,7 +199,7 @@
         var userId = [[${item.getUser()==null?0:item.getUser().getId()}]];
         if (userId!==0){
             $.ajax({
-                url : "/admin/user/businessInfo.html",
+                url : "/admin/item/common/businessInfo.html",
                 type : "POST",
                 data : {
                     userId:userId
@@ -223,7 +223,7 @@
         var adminId = [[${item.getAdmin()==null?0:item.getAdmin().getId()}]];
         if (adminId!==0){
             $.ajax({
-                url : "/admin/adminInfo.html",
+                url : "/admin/item/common/adminInfo.html",
                 type : "POST",
                 data : {
                     adminId:adminId
@@ -272,10 +272,13 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/itemloan/audit" ,
+                url: "/admin/item/common/audit",
+                data:{
+                    serviceName:"loanServiceImpl"
+                },
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/itemloan/list.html?page=1&size=10&success="+data.msg
+                        location.href="/admin/item/loan/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

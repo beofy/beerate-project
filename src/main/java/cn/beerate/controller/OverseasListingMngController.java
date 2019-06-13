@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 后台海外上市管理-控制器
  */
 @Controller
-@RequestMapping("/admin/overseaslisting")
+@RequestMapping("/admin/item/overseaslisting")
 public class OverseasListingMngController extends AdminBaseController {
 
     private OverseasListingService overseasListingService;
@@ -26,7 +26,7 @@ public class OverseasListingMngController extends AdminBaseController {
     @GetMapping("/list.html")
     public String listPage(){
 
-        return "overseaslisting/list";
+        return "admin/item/overseaslisting/list";
     }
 
     /**
@@ -34,7 +34,7 @@ public class OverseasListingMngController extends AdminBaseController {
      */
     @GetMapping("/add.html")
     public String addPage(){
-        return "overseaslisting/add";
+        return "admin/item/overseaslisting/add";
     }
 
     /**

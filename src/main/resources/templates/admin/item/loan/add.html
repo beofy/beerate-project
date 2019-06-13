@@ -197,10 +197,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/itemloan/add" ,
+                url: "/admin/item/loan/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/itemloan/list.html?page=1&size=10&column=id&order=desc&success="+data.msg
+                        location.href="/admin/item/loan/list.html?page=1&size=10&column=id&order=desc&success="+data.msg
 
 
                     } else {

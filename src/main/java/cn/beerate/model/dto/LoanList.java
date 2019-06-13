@@ -3,9 +3,9 @@ package cn.beerate.model.dto;
 import lombok.Data;
 
 @Data
-public class ItemLoanList {
+public class LoanList {
 
-    public ItemLoanList(long id, String itemName, String industryRealm, Double amount, Integer period, String auditStatus) {
+    public LoanList(long id, String itemName, String industryRealm, Double amount, Integer period, String auditStatus) {
         this.id = id;
         this.itemName = itemName;
         this.industryRealm = industryRealm;

@@ -13,7 +13,7 @@ import java.util.Date;
  * 后台大宗交易管理-控制器
  */
 @Controller
-@RequestMapping("/admin/blocktrade")
+@RequestMapping("/admin/item/blocktrade")
 public class BlockTradeMngController  extends AdminBaseController {
 
     private BlockTradeService blockTradeService;
@@ -35,7 +35,7 @@ public class BlockTradeMngController  extends AdminBaseController {
                            Model model){
         model.addAttribute("page",blockTradeService.page(page, size, column, order, field,value,beginDate,endDate));
 
-        return "blocktrade/list";
+        return "admin/item/blocktrade/list";
     }
 
     /**
@@ -43,7 +43,7 @@ public class BlockTradeMngController  extends AdminBaseController {
      */
     @GetMapping("/add.html")
     public String addPage(){
-        return "blocktrade/add";
+        return "admin/item/blocktrade/add";
     }
 
     /**

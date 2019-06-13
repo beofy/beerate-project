@@ -24,14 +24,14 @@ import java.util.Date;
  * 后台项目融资管理-控制器
  */
 @Controller
-@RequestMapping("/admin/itemloan")
+@RequestMapping("/admin/item/loan")
 public class LoanMngController extends AdminBaseController {
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    private LoanService itemLoanService;
+    private LoanService loanService;
 
-    public LoanMngController(LoanService itemLoanService) {
-        this.itemLoanService = itemLoanService;
+    public LoanMngController(LoanService loanService) {
+        this.loanService = loanService;
     }
 
     /**
@@ -47,9 +47,9 @@ public class LoanMngController extends AdminBaseController {
                            @RequestParam(required = false) Date endDate,
                            Model model) {
 
-        model.addAttribute("page",itemLoanService.page(page, size, column, order,field,value,beginDate,endDate));
+        model.addAttribute("page",loanService.page(page, size, column, order,field,value,beginDate,endDate));
 
-        return "itemloan/list";
+        return "admin/item/loan/list";
     }
 
     /**
@@ -59,7 +59,7 @@ public class LoanMngController extends AdminBaseController {
     public String addPage(Model model) {
         model.addAttribute("industryRealms", IndustryRealm.values());
 
-        return "itemloan/add";
+        return "admin/item/loan/add";
     }
 
     /**
@@ -67,32 +67,32 @@ public class LoanMngController extends AdminBaseController {
      */
     @PostMapping("/add")
     @ResponseBody
-    public Message<String> add(t_item_loan itemLoan, MultipartFile logo, MultipartFile businessProposal, MultipartFile businessLicense, MultipartFile financialReport, MultipartFile auditReport, MultipartFile indebtedness, MultipartFile capitalFlow)  {
+    public Message<String> add(t_item_loan loan, MultipartFile logo, MultipartFile businessProposal, MultipartFile businessLicense, MultipartFile financialReport, MultipartFile auditReport, MultipartFile indebtedness, MultipartFile capitalFlow)  {
 
-        itemLoan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + logo.getOriginalFilename());
-        itemLoan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
-        itemLoan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + businessLicense.getOriginalFilename());
-        itemLoan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH+ financialReport.getOriginalFilename());
-        itemLoan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + auditReport.getOriginalFilename());
-        itemLoan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH+ indebtedness.getOriginalFilename());
-        itemLoan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + capitalFlow.getOriginalFilename());
+        loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + logo.getOriginalFilename());
+        loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
+        loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + businessLicense.getOriginalFilename());
+        loan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH+ financialReport.getOriginalFilename());
+        loan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + auditReport.getOriginalFilename());
+        loan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH+ indebtedness.getOriginalFilename());
+        loan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + capitalFlow.getOriginalFilename());
 
-        itemLoan.setAmountUnit(AmountUnit.WY);//设置金额单位
-        itemLoan.setPeriodUnit(PeriodUnit.MONTH);//设置期限单位
+        loan.setAmountUnit(AmountUnit.WY);//设置金额单位
+        loan.setPeriodUnit(PeriodUnit.MONTH);//设置期限单位
 
-        Message<t_item_loan> message = itemLoanService.addItemByAdmin(itemLoan, getAdminId());
+        Message<t_item_loan> message = loanService.addItemByAdmin(loan, getAdminId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }
 
         try {
-            logo.transferTo(new File(PathUtil.getRoot() +itemLoan.getLogoUri()));
-            businessProposal.transferTo(new File(PathUtil.getRoot()+ itemLoan.getBusinessProposalUri()));
-            businessLicense.transferTo(new File(PathUtil.getRoot() + itemLoan.getBusinessLicenseUri()));
-            financialReport.transferTo(new File(PathUtil.getRoot() + itemLoan.getFinancialReportUri()));
-            auditReport.transferTo(new File(PathUtil.getRoot() + itemLoan.getAuditReportUri()));
-            indebtedness.transferTo(new File(PathUtil.getRoot() + itemLoan.getIndebtednessUri()));
-            capitalFlow.transferTo(new File(PathUtil.getRoot()+ itemLoan.getCapitalFlowUri()));
+            logo.transferTo(new File(PathUtil.getRoot() +loan.getLogoUri()));
+            businessProposal.transferTo(new File(PathUtil.getRoot()+ loan.getBusinessProposalUri()));
+            businessLicense.transferTo(new File(PathUtil.getRoot() + loan.getBusinessLicenseUri()));
+            financialReport.transferTo(new File(PathUtil.getRoot() + loan.getFinancialReportUri()));
+            auditReport.transferTo(new File(PathUtil.getRoot() + loan.getAuditReportUri()));
+            indebtedness.transferTo(new File(PathUtil.getRoot() + loan.getIndebtednessUri()));
+            capitalFlow.transferTo(new File(PathUtil.getRoot()+ loan.getCapitalFlowUri()));
         }catch (IOException ioe){
             logger.error(String.format("文件保存失败,原因：[%s]",ioe.getCause()),ioe);
         }
@@ -105,9 +105,9 @@ public class LoanMngController extends AdminBaseController {
      */
     @GetMapping("/detail.html")
     public String detail(long itemId,Model model){
-        model.addAttribute("item",itemLoanService.getOne(itemId));
+        model.addAttribute("item",loanService.getOne(itemId));
         model.addAttribute("auditStatus", AuditStatus.values());
-        return "itemloan/detail";
+        return "admin/item/loan/detail";
     }
 
 }

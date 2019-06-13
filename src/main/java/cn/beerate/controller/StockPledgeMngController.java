@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 后台股票质押管理-控制器
  */
 @Controller
-@RequestMapping("/admin/stockpledge")
+@RequestMapping("/admin/item/stockpledge")
 public class StockPledgeMngController  extends AdminBaseController {
 
     private StockPledgeService stockPledgeService;
@@ -27,7 +27,7 @@ public class StockPledgeMngController  extends AdminBaseController {
     @GetMapping("/list.html")
     public String listPage(){
 
-        return "stockpledge/list";
+        return "admin/item/stockpledge/list";
     }
 
     /**
@@ -35,7 +35,7 @@ public class StockPledgeMngController  extends AdminBaseController {
      */
     @GetMapping("/add.html")
     public String addPage(){
-        return "stockpledge/add";
+        return "admin/item/stockpledge/add";
     }
 
     /**

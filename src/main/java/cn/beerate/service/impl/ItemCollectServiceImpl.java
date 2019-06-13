@@ -42,9 +42,9 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
 
                 break;
             case ITEM_LOAN:
-                t_item_loan itemLoan = new t_item_loan();
-                itemLoan.setId(itemId);
-                itemCollect.setItem_loan(itemLoan);
+                t_item_loan loan = new t_item_loan();
+                loan.setId(itemId);
+                itemCollect.setItem_loan(loan);
 
                 break;
             case PRE_IPO:

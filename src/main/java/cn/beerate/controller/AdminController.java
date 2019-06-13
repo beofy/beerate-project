@@ -35,16 +35,15 @@ public class AdminController extends AdminBaseController{
      * 登录页面
      */
     @GetMapping("/login.html")
-    public String loginPage(){
+    public String login(){
         return "admin/login";
     }
-
 
     /**
      * 主页
      */
     @GetMapping("/main.html")
-    public String mainPage(){
+    public String main(){
         return "admin/main";
     }
 
@@ -53,17 +52,16 @@ public class AdminController extends AdminBaseController{
      * 查询管理员信息
      */
     @GetMapping("/me.html")
-    public String mePage(Model model){
+    public String me(Model model){
         model.addAttribute("admin",adminService.getOne(getAdminId()));
         return "admin/me";
     }
-
 
     /**
      * 管理员列表
      */
     @GetMapping("/list.html")
-    public String listPage(int page, int size,
+    public String list(int page, int size,
                            @RequestParam(required = false) String column,
                            @RequestParam(required = false) String order,
                            @RequestParam(required = false) String field,
@@ -75,6 +73,8 @@ public class AdminController extends AdminBaseController{
         model.addAttribute("page",adminService.page(page, size, column, order,field,value,beginDate,endDate));
         return "admin/list";
     }
+
+
 
     /**
      * 密码修改页面
@@ -198,12 +198,6 @@ public class AdminController extends AdminBaseController{
     }
 
 
-    @GetMapping("/adminInfo.html")
-    public String AdminInfo(long adminId,Model model){
-        model.addAttribute("admin",adminService.getOne(adminId));
-        return "admin/adminInfo";
-    }
-
     @GetMapping("/update.html")
     public String update(long adminId,Model model){
         model.addAttribute("admin",adminService.getOne(adminId));
@@ -221,7 +215,6 @@ public class AdminController extends AdminBaseController{
 
         return Message.ok("修改成功");
     }
-
 
     /**
      * 登出

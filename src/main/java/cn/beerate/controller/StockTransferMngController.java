@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 后台老股转让管理-控制器
  */
 @Controller
-@RequestMapping("/admin/stocktransfer")
+@RequestMapping("/admin/item/stocktransfer")
 public class StockTransferMngController extends AdminBaseController  {
     private StockTransferService stockTransferSerivce;
     public StockTransferMngController(StockTransferService stockTransferSerivce) {
@@ -28,7 +28,7 @@ public class StockTransferMngController extends AdminBaseController  {
     @GetMapping("/list.html")
     public String listPage(){
 
-        return "stocktransfer/list";
+        return "admin/item/stocktransfer/list";
     }
 
     /**
@@ -37,7 +37,7 @@ public class StockTransferMngController extends AdminBaseController  {
     @GetMapping("/add.html")
     public String addPage(Model model){
         model.addAttribute("industryRealms", IndustryRealm.values());
-        return "stocktransfer/add";
+        return "admin/item/stocktransfer/add";
     }
 
     /**
