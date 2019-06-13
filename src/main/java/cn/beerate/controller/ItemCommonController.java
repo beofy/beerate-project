@@ -82,6 +82,11 @@ public class ItemCommonController extends AdminBaseController{
     @PostMapping("/assigner")
     @ResponseBody
     public Message<String> assigner(String serviceName,long adminId,long itemId){
+        @SuppressWarnings("unchecked")
+        Message<ItemModel> message = itemCommonService.get(serviceName).addItemAssigner(adminId,itemId);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
         return Message.ok("分配成功");
     }

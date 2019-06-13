@@ -94,7 +94,7 @@
                                                 <td th:text="${item.itemName}"></td>
                                                 <td th:text="${item.companyName}"></td>
                                                 <td th:text="${item.industryRealm.value}"></td>
-                                                <td th:text="${item.companyWebsite}"></td>
+                                                <td ><a th:href="${item.companyWebsite}" th:text="${item.companyWebsite}" target="_blank"></a></td>
                                                 <td th:text="${item.amount}+${item.amountUnit.value}"></td>
                                                 <td th:text="${item.period}+${item.periodUnit.value}"></td>
                                                 <td th:text="${item.auditStatus.value}"></td>
@@ -136,7 +136,7 @@
 
     $('#allocation').on('show.bs.modal', function (event) {
         $.ajax({
-            url : "/admin/assigner.html",
+            url : "/admin/item/common/assigner.html",
             type : "POST",
             data:{
                 page:1,

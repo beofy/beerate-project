@@ -104,4 +104,23 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
 
         return Message.success(t);
     }
+
+    @Override
+    public Message<T> addItemAssigner(long adminId, long itemId) {
+        T t = itemCommonDao.getOne(itemId);
+
+        if (t.getAdmin()!=null){
+            return Message.error("项目已分配");
+        }
+
+        t_admin admin  = new t_admin();
+        admin.setId(adminId);
+        t.setAdmin(admin);
+
+        if (itemCommonDao.save(t)==null){
+            return Message.error("分配失败");
+        }
+
+        return Message.success(t);
+    }
 }

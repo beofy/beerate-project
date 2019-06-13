@@ -36,7 +36,7 @@
                             <td th:text="${admin.position}"></td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account-star"></i></a>
+                                    <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" data-toggle="tooltip"  th:onclick="'allocation('+${admin.id}+')'"><i class="mdi mdi-account-star"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -54,10 +54,19 @@
             url : "/admin/item/common/assigner",
             type : "POST",
             data:{
+                adminId:adminId,
+                itemId:[[${itemId}]],
                 serviceName:[[${serviceName}]]
             },
             success : function(data) {
-                $('#allocation').html(data)
+                if (data.code>0){
+                    location.href="/admin/item/loan/list.html?page=1&size=10&success="+data.msg
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger', 3000);
+                    }, 1e3);
+                }
             }
         });
     }
