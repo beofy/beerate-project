@@ -31,4 +31,9 @@ public interface ItemCommonService<T extends ItemModel> extends IBaseService<T> 
      */
     Message<T>  addItemAssigner(long adminId,long itemId);
 
+    /**
+     * 项目上下架
+     */
+    Message<T> editItemIsShow(long itemId);
+
 }

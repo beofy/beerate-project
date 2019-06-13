@@ -123,4 +123,16 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
 
         return Message.success(t);
     }
+
+    @Override
+    public Message<T> editItemIsShow(long itemId) {
+        T t = itemCommonDao.getOne(itemId);
+        t.setIsShow(!t.getIsShow());
+
+        if (itemCommonDao.save(t)==null){
+            return Message.error("系统异常，请重试");
+        }
+
+        return Message.success(t);
+    }
 }

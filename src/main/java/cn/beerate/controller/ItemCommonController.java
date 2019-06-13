@@ -106,5 +106,16 @@ public class ItemCommonController extends AdminBaseController{
         return Message.ok("审核成功");
     }
 
+    @PostMapping("/show")
+    @ResponseBody
+    public Message<String> editIsShow(String serviceName,long itemId){
+        @SuppressWarnings("unchecked")
+        Message<ItemModel> message =itemCommonService.get(serviceName).editItemIsShow(itemId);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        return Message.ok("设置成功");
+    }
 
 }

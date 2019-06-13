@@ -103,8 +103,9 @@
                                                     <div class="btn-group">
                                                         <a class="btn btn-xs btn-default" th:href="@{/admin/item/loan/detail.html(itemId=${item.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                         <a class="btn btn-xs btn-default" href="javascript:void(0)" title="分配" th:data-itemId="${item.getId()}" data-toggle="modal" data-target="#allocation"><i class="mdi mdi-account"></i></a>
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="上架" data-toggle="tooltip"><i class="mdi mdi-arrow-up-bold-circle"></i></a>
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="下架" data-toggle="tooltip"><i class="mdi mdi-arrow-down-bold-circle"></i></a>
+                                                        <a class="btn btn-xs btn-default" th:href="'javascript:show('+${item.id}+')'" th:title="${item.getIsShow()==true?'下架':'上架'}" data-toggle="tooltip">
+                                                            <i th:class="${item.getIsShow()==true?'mdi mdi-arrow-down-bold-circle':'mdi mdi-arrow-up-bold-circle'}"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -134,6 +135,7 @@
         });
     });
 
+    //分配人列表
     $('#allocation').on('show.bs.modal', function (event) {
         $.ajax({
             url : "/admin/item/common/assigner.html",
@@ -149,5 +151,27 @@
             }
         });
     });
+
+    //上下架
+    function show(itemId) {
+        $.ajax({
+            url : "/admin/item/common/show",
+            type : "POST",
+            data:{
+                itemId:itemId,
+                serviceName:"loanServiceImpl"
+            },
+            success : function(data) {
+                if (data.code>0){
+                    location.href="/admin/item/loan/list.html?page=1&size=10&success="+data.msg
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger', 3000);
+                    }, 1e3);
+                }
+            }
+        });
+    }
 </script>
 </html>
