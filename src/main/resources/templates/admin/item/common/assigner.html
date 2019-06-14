@@ -43,7 +43,26 @@
                         </tbody>
                     </table>
                 </div>
-                <ul th:replace="common::TPageControl(${page},'.search-bar')"></ul>
+                <ul class="pagination no-border">
+                    <!-- 上一页 -->
+                    <th:block th:if="${page.hasPrevious()}">
+                        <li><a th:href="'javascript:assigner_jumpPage('+${page.getNumber()}+')'"><i class="mdi mdi-chevron-left"></i></a></li>
+                    </th:block>
+                    <th:block th:unless="${page.hasPrevious()}">
+                        <li class="disabled"><span><i class="mdi mdi-chevron-left"></i></span></li>
+                    </th:block>
+
+                    <!-- 当前页 -->
+                    <li class="active"><a href="javascript:void(0)" th:text="${page.getNumber()+1}"></a></li>
+
+                    <!-- 下一页 -->
+                    <th:block th:if="${page.hasNext()}">
+                        <li><a th:href="'javascript:assigner_jumpPage('+${page.getNumber()+2}+')'"><i class="mdi mdi-chevron-right"></i></a></li>
+                    </th:block>
+                    <th:block th:unless="${page.hasNext()}">
+                        <li class="disabled"><a><i class="mdi mdi-chevron-right"></i></a></li>
+                    </th:block>
+                </ul>
             </div>
         </div>
     </div>
@@ -70,5 +89,23 @@
             }
         });
     }
+
+    function assigner_jumpPage(page) {
+        $.ajax({
+            url : "/admin/item/common/assigner.html",
+            type : "POST",
+            data:{
+                page:page,
+                size:[[${page.getSize()}]],
+                itemId:[[${itemId}]],
+                serviceName:[[${serviceName}]]
+            },
+            success : function(data) {
+                $('#allocation').html(data)
+            }
+        });
+    }
+
+
 </script>
 </html>

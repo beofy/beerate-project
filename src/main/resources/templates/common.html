@@ -281,13 +281,10 @@
 <ul class="pagination no-border" th:fragment="TPageControl(page,from_selector)">
     <!-- 上一页 -->
     <th:block th:if="${page.hasPrevious()}">
-        <li th:onclick="'jumpPage('+${page.getNumber()}+')'"><a
-                th:href="'javascript:jumpPage('+${page.getNumber()}+')'"><i class="mdi mdi-chevron-left"></i></a></li>
+        <li ><a th:href="'javascript:jumpPage('+${page.getNumber()}+')'"><i class="mdi mdi-chevron-left"></i></a></li>
     </th:block>
     <th:block th:unless="${page.hasPrevious()}">
-        <li class="disabled">
-            <span><i class="mdi mdi-chevron-left"></i></span>
-        </li>
+        <li class="disabled"><span><i class="mdi mdi-chevron-left"></i></span></li>
     </th:block>
 
     <!-- 当前页 -->
@@ -295,14 +292,10 @@
 
     <!-- 下一页 -->
     <th:block th:if="${page.hasNext()}">
-        <li th:onclick="'jumpPage('+${page.getNumber()+2}+')'"><a
-                th:href="'javascript:jumpPage('+${page.getNumber()+2}+')'"><i class="mdi mdi-chevron-right"></i></a>
-        </li>
+        <li><a th:href="'javascript:jumpPage('+${page.getNumber()+2}+')'"><i class="mdi mdi-chevron-right"></i></a></li>
     </th:block>
     <th:block th:unless="${page.hasNext()}">
-        <li class="disabled">
-            <a><i class="mdi mdi-chevron-right"></i></a>
-        </li>
+        <li class="disabled"><a><i class="mdi mdi-chevron-right"></i></a></li>
     </th:block>
 
     <script th:inline="javascript">
