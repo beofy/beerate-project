@@ -243,18 +243,10 @@
                     <a href="javascript:void(0)"><i class="mdi mdi-folder-plus"></i>项目</a>
                     <ul class="nav nav-subnav">
                         <li><a th:href="@{/admin/item/loan/list.html(page=1,size=10)}">项目融资</a></li>
-                        <li><a href="/admin/item/overseaslisting/list.html">海外上市重组</a></li>
+<!--                        <li><a href="/admin/item/overseaslisting/list.html">海外上市重组</a></li>-->
                         <li><a th:href="@{/admin/item/stocktransfer/list.html(page=1,size=10)}">老股转让</a></li>
-                        <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)">PRE-IPO</a>
-                            <ul class="nav nav-subnav">
-                                <li><a th:href="@{/admin/item/preipo/list.html}">已挂牌</a></li>
-                                <li><a th:href="@{/admin/item/preipo/list.html}">未挂牌</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a th:href="@{/admin/item/blocktrade/list.html(page=1,size=10)}">大宗交易</a>
-                        </li>
+                        <li><a th:href="@{/admin/item/preipo/list.html(page=1,size=10)}">PRE-IPO</a></li>
+                        <li><a th:href="@{/admin/item/blocktrade/list.html(page=1,size=10)}">大宗交易</a></li>
                         <li><a th:href="@{/admin/item/stockpledge/list.html(page=1,size=10)}">股票质押</a></li>
                     </ul>
                 </li>

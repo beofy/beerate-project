@@ -12,7 +12,7 @@
             <main class="lyear-layout-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-offset-2 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="site-form" enctype="multipart/form-data">
@@ -34,13 +34,13 @@
                                             <input type="text" class="form-control" name="preIpoName" id="preIpoName" />
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="stockCode">股票代码</label>
+                                        <div class="form-group listing">
+                                            <label for="stockCode">股票代码(挂牌)</label>
                                             <input type="number" class="form-control" name="stockCode" id="stockCode" placeholder=""  >
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="isPrincipalUnderwriter">是否主承销券商</label>
+                                        <div class="form-group listing">
+                                            <label for="isPrincipalUnderwriter">是否主承销券商(挂牌)</label>
                                             <select  class="form-control" name="isPrincipalUnderwriter" id="isPrincipalUnderwriter" >
                                                 <option value="">请选择</option>
                                                 <option value="1">是</option>
@@ -48,8 +48,8 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="isTutoringBrokerage">辅导券商是否已进场</label>
+                                        <div class="form-group listing">
+                                            <label for="isTutoringBrokerage">辅导券商是否已进场(挂牌)</label>
                                             <select  class="form-control" name="isTutoringBrokerage" id="isTutoringBrokerage" >
                                                 <option value="">请选择</option>
                                                 <option value="1">是</option>
@@ -57,33 +57,33 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="TutoringBrokerageName">辅导券商名称</label>
-                                            <input type="text" class="form-control" name="TutoringBrokerageName" id="TutoringBrokerageName" placeholder="">
+                                        <div class="form-group listing">
+                                            <label for="tutoringBrokerageName">辅导券商名称(挂牌)</label>
+                                            <input type="text" class="form-control" name="tutoringBrokerageName" id="tutoringBrokerageName" placeholder="">
                                         </div>
 
 
-                                        <div class="form-group">
-                                            <label for="bidName">标的名称</label>
+                                        <div class="form-group not-listing">
+                                            <label for="bidName">标的名称(未挂牌)</label>
                                             <input type="text" class="form-control" name="bidName" id="bidName" placeholder="">
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="companyNameIsPublic">标的企业名称是否公开</label>
-                                            <select  class="form-control" name="companyNameIsPublic" id="companyNameIsPublic" >
-                                                <option value="">请选择</option>
-                                                <option value="1">是</option>
-                                                <option value="0">否</option>
-                                            </select>
+                                        <div class="form-group not-listing">
+                                            <label for="companyName">标的企业名称(未挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="companyName" id="companyName"  placeholder="">
+                                                <div class="input-group-btn">
+                                                    <select class="form-control" name="companyNameIsPublic" id="companyNameIsPublic" style="width: 120px">
+                                                        <option value="">是否公开</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="companyName">标的企业名称</label>
-                                            <input type="text" class="form-control" name="companyName" id="companyName"  placeholder="">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="city">所在省市</label>
+                                        <div class="form-group not-listing">
+                                            <label for="city">所在省市(未挂牌)</label>
                                             <input type="text" class="form-control" name="city" id="city"  placeholder="">
                                         </div>
 
@@ -95,8 +95,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>拟IPO基准日</label>
-                                            <input class="form-control js-datepicker m-b-10" type="text"  name="iPOBaseDate" placeholder="请选择拟IPO基准日" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
+                                            <label for="iPOBaseDate">拟IPO基准日</label>
+                                            <input class="form-control js-datepicker m-b-10" type="text"  id="iPOBaseDate" name="iPOBaseDate" placeholder="请选择拟IPO基准日" data-date-format="yyyy-mm-dd" readonly style="cursor: pointer;background-color: white">
                                         </div>
 
                                         <div class="form-group">
@@ -114,8 +114,8 @@
                                             <textarea class="form-control" name="ratchetTermsDescription" id="ratchetTermsDescription" rows="3"  placeholder=""></textarea>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="isPriceNegotiable">价格是否面议</label>
+                                        <div class="form-group listing">
+                                            <label for="isPriceNegotiable">价格是否面议(挂牌)</label>
                                             <select id="isPriceNegotiable" name="isPriceNegotiable" class="form-control" >
                                                 <option value="">请选择</option>
                                                 <option value="1">是</option>
@@ -123,32 +123,40 @@
                                             </select>
                                         </div>
 
-                                        <label for="intentionalPrice">意向价格</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" name="intentionalPrice" id="intentionalPrice"  placeholder="">
-                                            <span class="input-group-addon">元/股</span>
+                                        <div class="form-group listing">
+                                            <label for="intentionalPrice">意向价格(挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="intentionalPrice" id="intentionalPrice"  placeholder="">
+                                                <span class="input-group-addon">元/股</span>
+                                            </div>
                                         </div>
 
-                                        <label for="exchangeShares">交易股数</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" name="exchangeShares" id="exchangeShares"  placeholder="">
-                                            <span class="input-group-addon">元/股</span>
+                                        <div class="form-group listing">
+                                            <label for="exchangeShares">交易股数(挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="exchangeShares" id="exchangeShares"  placeholder="">
+                                                <span class="input-group-addon">元/股</span>
+                                            </div>
                                         </div>
 
-                                        <label for="sharesAmount">份额规模</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" name="sharesAmount" id="sharesAmount"  placeholder="">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group listing">
+                                            <label for="sharesAmount">份额规模(挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="sharesAmount" id="sharesAmount"  placeholder="">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <label for="thresholdAmount">参与门槛</label>
-                                        <div class="input-group">
-                                            <input type="number"  class="form-control" name="thresholdAmount" id="thresholdAmount"  placeholder="">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group listing">
+                                            <label for="thresholdAmount">参与门槛(挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number"  class="form-control" name="thresholdAmount" id="thresholdAmount"  placeholder="">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="currency">币种</label>
+                                        <div class="form-group not-listing">
+                                            <label for="currency">币种(未挂牌)</label>
                                             <select id="currency" name="currency" class="form-control" >
                                                 <option value="NONE">请选择</option>
                                                 <option value="RMB">人民币</option>
@@ -156,26 +164,32 @@
                                             </select>
                                         </div>
 
-                                        <label for="loanAmount">融资金额</label>
-                                        <div class="input-group">
-                                            <input type="number"  class="form-control" name="loanAmount" id="loanAmount"  placeholder="">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group not-listing">
+                                            <label for="loanAmount">融资金额(未挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number"  class="form-control" name="loanAmount" id="loanAmount"  placeholder="">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <label for="IntentionValuation">意向估值</label>
-                                        <div class="input-group">
-                                            <input type="number"  class="form-control" name="IntentionValuation" id="IntentionValuation"  placeholder="">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group not-listing">
+                                            <label for="intentionValuation">意向估值(未挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number"  class="form-control" name="intentionValuation" id="intentionValuation"  placeholder="">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <label for="lastYearProfits">去年净利润</label>
-                                        <div class="input-group">
-                                            <input type="number"  class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="">
-                                            <span class="input-group-addon">万</span>
+                                        <div class="form-group not-listing">
+                                            <label for="lastYearProfits">去年净利润(未挂牌)</label>
+                                            <div class="input-group">
+                                                <input type="number"  class="form-control" name="lastYearProfits" id="lastYearProfits"  placeholder="">
+                                                <span class="input-group-addon">万</span>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="loanPeriod">融资期限</label>
+                                        <div class="form-group not-listing">
+                                            <label for="loanPeriod">融资期限(未挂牌)</label>
                                             <select id="loanPeriod" name="loanPeriod" class="form-control" >
                                                 <option value="NONE">请选择</option>
                                                 <option value="ONE_YEAR">1年</option>
@@ -185,13 +199,13 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="purpose">融资用途</label>
+                                        <div class="form-group not-listing">
+                                            <label for="purpose">融资用途(未挂牌)</label>
                                             <textarea class="form-control" name="purpose" id="purpose" rows="3"  placeholder=""></textarea>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="investLightSpot">投资亮点</label>
+                                        <div class="form-group not-listing">
+                                            <label for="investLightSpot">投资亮点(未挂牌)</label>
                                             <textarea class="form-control" name="investLightSpot" id="investLightSpot" rows="3"  placeholder=""></textarea>
                                         </div>
 
@@ -206,7 +220,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="contact">联系人电话</label>
+                                            <label for="contactMobile">联系人电话</label>
                                             <input type="number" class="form-control" name="contactMobile" id="contactMobile"  placeholder="">
                                         </div>
 
@@ -277,6 +291,30 @@
 <script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
 <script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
 <script>
+    $(function () {
+        isNewThirdBoardListing();
+        $("input[name='isNewThirdBoardListing']").click(function () {
+            isNewThirdBoardListing();
+        })
+    });
+
+    //是否已挂牌
+    function isNewThirdBoardListing(){
+        //获取选中的单选框
+        var newThirdBoard = $("input[name='isNewThirdBoardListing']:checked");
+        //已挂牌
+        if(newThirdBoard.val()==="1"){
+            $(".listing").show();
+            $(".not-listing").hide();
+        }
+        //未挂牌
+        if(newThirdBoard.val()==="0"){
+            $(".listing").hide();
+            $(".not-listing").show();
+        }
+    }
+
+
     //提交
     $(".site-form").validate({
         rules:{
@@ -289,12 +327,10 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/preipo/add" ,
+                url: "/admin/item/preipo/add" ,
                 success: function(data){
                     if (data.code>0){
-                        location.href="/admin/preipo/list.html?page=1&size=10&success="+data.msg
-
-
+                        location.href="/admin/item/preipo/list.html?page=1&size=10&success="+data.msg
                     } else {
                         setTimeout(function() {
                             lightyear.loading('hide');

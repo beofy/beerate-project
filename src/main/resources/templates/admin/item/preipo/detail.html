@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('项目详情')"></head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('项目详情')"></header>
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目详细</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">项目结束时间</button>
+                                            <p class="m-0" th:text="${#dates.format(preIpo.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class="edit-avatar-content">
+                                            <button class="btn">是否加急</button>
+                                            <p class="m-0" th:text="${preIpo.getIsUrgent()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">查看是否需要平台认证</button>
+                                            <p class="m-0" th:text="${preIpo.getIsPlatformAuthentication()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否一手</button>
+                                            <p class="center-block" th:text="${preIpo.getIsFirstHandle()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否前台展示</button>
+                                            <p class="center-block" th:text="${preIpo.getIsShow()?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div class="avatar-divider"></div>
+                                        <div class=" edit-avatar-content">
+                                            <button class="btn">是否新三板挂牌</button>
+                                            <p class="center-block" th:text="${preIpo.isNewThirdBoardListing?'是':'否'}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="preIpoName">融资主体</label>
+                                        <input type="text" class="form-control" id="preIpoName" th:value="${preIpo.preIpoName}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="stockCode">股票代码</label>
+                                        <input type="text" class="form-control" id="stockCode" th:value="${preIpo.stockCode}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="isPrincipalUnderwriter">是否主承销券商</label>
+                                        <input type="text" class="form-control" id="isPrincipalUnderwriter" th:value="${preIpo.isPrincipalUnderwriter}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="isTutoringBrokerage">辅导券商是否已进场</label>
+                                        <input type="text" class="form-control" id="isTutoringBrokerage" th:value="${preIpo.isTutoringBrokerage}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="tutoringBrokerageName">辅导券商名称</label>
+                                        <input type="text" class="form-control" id="tutoringBrokerageName" th:value="${preIpo.tutoringBrokerageName}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="bidName">标的名称</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="bidName" th:value="${preIpo.bidName}" disabled>
+                                            <span class="input-group-addon" th:text="${preIpo.companyNameIsPublic==true?'公开':'未公开'}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="city">所在省市</label>
+                                        <input type="text" class="form-control" id="city" th:value="${preIpo.city}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="industryRealm">标的所处行业领域</label>
+                                        <input type="text" class="form-control" id="industryRealm" th:value="${preIpo.industryRealm.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="iPOBaseDate">拟IPO基准日</label>
+                                        <input type="text" class="form-control" id="iPOBaseDate" th:value="${#dates.format(preIpo.getIPOBaseDate(),'yyyy-MM-dd')}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="ratchetTerms">对赌条件</label>
+                                        <input type="text" class="form-control" id="ratchetTerms" th:value="${preIpo.ratchetTerms.getValue()}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="ratchetTermsDescription">对赌描述</label>
+                                        <textarea class="form-control" id="ratchetTermsDescription" name="ratchetTermsDescription" rows="3" th:text="${preIpo.ratchetTermsDescription}" disabled></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="isPriceNegotiable">价格是否面议</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="isPriceNegotiable" name="isPriceNegotiable" th:value="${preIpo.isPriceNegotiable}" disabled>
+                                            <span class="input-group-addon">元/股</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="intentionalPrice">意向价格</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="intentionalPrice" name="intentionalPrice" th:value="${preIpo.intentionalPrice}" disabled>
+                                            <span class="input-group-addon">元/股</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="sharesAmount">交易股数</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="sharesAmount" name="sharesAmount"  th:value="${preIpo.sharesAmount}" disabled>
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="thresholdAmount">参与门槛</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="thresholdAmount" name="thresholdAmount" th:value="${preIpo.thresholdAmount}" disabled>
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="currency">币种</label>
+                                        <input type="text" class="form-control" id="currency" th:value="${preIpo.currency.getValue()}" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="loanAmount">融资金额</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="loanAmount" name="loanAmount" th:value="${preIpo.loanAmount}" disabled>
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="intentionValuation">意向估值</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="intentionValuation" name="intentionValuation" th:value="${preIpo.intentionValuation}" disabled>
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="lastYearProfits">去年净利润</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="lastYearProfits" name="lastYearProfits" th:value="${preIpo.lastYearProfits}" disabled>
+                                            <span class="input-group-addon">万</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="loanPeriod">融资期限</label>
+                                        <input type="text" class="form-control" id="loanPeriod" th:value="${preIpo.loanPeriod.getValue()}" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="purpose">融资用途</label>
+                                        <textarea class="form-control" id="purpose"  rows="3" th:text="${preIpo.purpose}" disabled></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="investLightSpot">投资亮点</label>
+                                        <textarea class="form-control" id="investLightSpot"  rows="3" th:text="${preIpo.investLightSpot}" disabled></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>BP计划书</label>
+                                        <a th:href="${preIpo.businessProposalUri}" target="_blank">查看</a>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="contact">联系人</label>
+                                        <input type="text" class="form-control" id="contact" th:value="${preIpo.contact}" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="contactMobile">联系人电话</label>
+                                        <input type="text" class="form-control" id="contactMobile" th:value="${preIpo.contactMobile}" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="contentDescription">内容描述</label>
+                                        <textarea class="form-control" id="contentDescription"  rows="3" th:text="${preIpo.contentDescription}" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>项目审核</h4>
+                                <ul class="card-actions">
+                                    <li><i class="mdi mdi-more"></i></li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <form class="row" id="audit">
+                                    <input type="hidden" name="itemId" th:value="${preIpo.getId()}">
+                                    <div class="form-group col-md-12">
+                                        <label for="auditStatus">审核状态</label>
+                                        <div class="form-controls">
+                                            <select id="auditStatus" name="auditStatus" class="form-control">
+                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==preIpo.getAuditStatus()}" ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">审核描述</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" th:text="${preIpo.getDescription()}"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-primary ajax-post">审核</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" id="businessInfo"></div>
+                    <div class="col-lg-6" id="adminInfo"></div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+</body>
+
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+
+<script th:inline="javascript">
+
+    $(function () {
+        //用户信息
+        var userId = [[${preIpo.getUser()==null?0:preIpo.getUser().getId()}]];
+        if (userId!==0){
+            $.ajax({
+                url : "/admin/item/common/businessInfo.html",
+                type : "POST",
+                data : {
+                    userId:userId
+                },
+                success : function(data) {
+                    $("#businessInfo").html(data);
+                },
+                error : function () {
+                    $("#businessInfo").remove();
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify("用户信息查询失败", 'danger');
+                    }, 1e3);
+                }
+            });
+        }else {
+            $("#businessInfo").remove();
+        }
+
+        //管理员信息
+        var adminId = [[${preIpo.getAdmin()==null?0:preIpo.getAdmin().getId()}]];
+        if (adminId!==0){
+            $.ajax({
+                url : "/admin/item/common/adminInfo.html",
+                type : "POST",
+                data : {
+                    adminId:adminId
+                },
+                success : function(data) {
+                    $("#adminInfo").html(data);
+                },
+                error : function () {
+                    $("#adminInfo").remove();
+                }
+            });
+        }else {
+            $("#adminInfo").remove();
+            setTimeout(function() {
+                lightyear.loading('hide');
+                lightyear.notify("管理员信息查询失败", 'danger');
+            }, 1e3);
+        }
+    });
+
+    //提交
+    $("#audit").validate({
+        rules:{
+            auditStatus:{
+                required:true
+            },
+            description:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/admin/item/common/audit",
+                data:{
+                    serviceName:"preIpoServiceImpl"
+                },
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/admin/item/preipo/list.html?page=1&size=10&success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+</html>

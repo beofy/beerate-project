@@ -26,30 +26,31 @@ public class t_item_pre_ipo extends ItemModel {
     private Boolean isNewThirdBoardListing;
 
     /*  ====================已挂牌==================== */
-    @Column(columnDefinition = "varchar(6) not null default '' comment '股票代码'")
+    @Column(columnDefinition = "varchar(6) default '' comment '股票代码'")
     private String stockCode;
 
-    @Column(columnDefinition = "bit not null default 0 comment '是否主承销券商'")
+    @Column(columnDefinition = "bit default 0 comment '是否主承销券商'")
     private Boolean isPrincipalUnderwriter;
 
-    @Column(columnDefinition = "bit not null default 0 comment '辅导券商是否已进场'")
+    @Column(columnDefinition = "bit default 0 comment '辅导券商是否已进场'")
     private Boolean isTutoringBrokerage;
 
-    @Column(columnDefinition = "varchar(128) not null default '' comment '辅导券商名称'")
-    private String TutoringBrokerageName;
+    @Column(columnDefinition = "varchar(128) default '' comment '辅导券商名称'")
+    private String tutoringBrokerageName;
+
     /*  ====================已挂牌====================*/
 
     /*  ====================未挂牌==================== */
-    @Column(columnDefinition = "varchar(128) not null default '' comment '标的名称'")
+    @Column(columnDefinition = "varchar(128) default '' comment '标的名称'")
     private String bidName;
 
-    @Column(columnDefinition = "bit not null default 0 comment '标的企业名称是否公开'")
+    @Column(columnDefinition = "bit default 0 comment '标的企业名称是否公开'")
     private Boolean companyNameIsPublic;
 
-    @Column(columnDefinition = "varchar(128) not null default '' comment '标的企业名称'")
+    @Column(columnDefinition = "varchar(128) default '' comment '标的企业名称'")
     private String companyName;
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '所在省市'")
+    @Column(columnDefinition = "varchar(12) default '' comment '所在省市'")
     private String city;
     /*  ====================未挂牌==================== */
 
@@ -82,25 +83,25 @@ public class t_item_pre_ipo extends ItemModel {
     private String ratchetTermsDescription;
 
     /*  ====================已挂牌==================== */
-    @Column(columnDefinition = "bit(1) not null default 0 comment '价格是否面议'")
+    @Column(columnDefinition = "bit(1) default 0 comment '价格是否面议'")
     private Boolean isPriceNegotiable;
 
-    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '意向价格'")
+    @Column(columnDefinition = "decimal(12,2) default '0.00' comment '意向价格'")
     private Double intentionalPrice;
 
-    @Column(columnDefinition = "bigint(12) not null default '0' comment '交易股数'")
+    @Column(columnDefinition = "bigint(12) default '0' comment '交易股数'")
     private Integer exchangeShares;
 
-    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '份额规模'")
+    @Column(columnDefinition = "double(12,2) default '0.00' comment '份额规模'")
     private Double sharesAmount;
 
-    @Column(columnDefinition = "double(12,2) not null default '0.00' comment '参与门槛'")
+    @Column(columnDefinition = "double(12,2) default '0.00' comment '参与门槛'")
     private Double thresholdAmount;
     /* ====================已挂牌==================== */
 
     /* ====================未挂牌==================== */
 
-    @Column(columnDefinition = "varchar(12) not null default '' comment '币种'")
+    @Column(columnDefinition = "varchar(12) default '' comment '币种'")
     private String currency;
 
     public void setCurrency(Currency currency) {
@@ -111,16 +112,16 @@ public class t_item_pre_ipo extends ItemModel {
         return EnumUtils.getEnumIgnoreCase(Currency.class,currency);
     }
 
-    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '融资金额'")
+    @Column(columnDefinition = "decimal(12,2) default '0.00' comment '融资金额'")
     private Double loanAmount;
 
-    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '意向估值'")
-    private Double IntentionValuation;
+    @Column(columnDefinition = "decimal(12,2) default '0.00' comment '意向估值'")
+    private Double intentionValuation;
 
-    @Column(columnDefinition = "decimal(12,2) not null default '0.00' comment '去年净利润'")
+    @Column(columnDefinition = "decimal(12,2) default '0.00' comment '去年净利润'")
     private Double lastYearProfits;
 
-    @Column(columnDefinition = "varchar(30) not null default '' comment '融资期限'")
+    @Column(columnDefinition = "varchar(30) default '' comment '融资期限'")
     private String loanPeriod;
 
     public void setLoanPeriod(LoanPeriod loanPeriod){
@@ -131,10 +132,10 @@ public class t_item_pre_ipo extends ItemModel {
         return EnumUtils.getEnumIgnoreCase(LoanPeriod.class,loanPeriod);
     }
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '融资用途'")
+    @Column(columnDefinition = "varchar(255) default '' comment '融资用途'")
     private String purpose;
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '投资亮点'")
+    @Column(columnDefinition = "varchar(255) default '' comment '投资亮点'")
     private String investLightSpot;
     /*  ====================未挂牌==================== */
 
