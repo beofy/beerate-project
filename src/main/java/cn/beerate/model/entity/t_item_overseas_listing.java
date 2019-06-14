@@ -32,7 +32,7 @@ public class t_item_overseas_listing extends Model {
 	@Column(columnDefinition = "varchar(32) not null default '' comment '企业主营业务'")
 	private String companyBusiness;
 	
-	@Column(columnDefinition = "varchar(12) not null default '' comment '企业全年净利润情况（单位：人民币）'")
+	@Column(columnDefinition = "varchar(30) not null default '' comment '企业全年净利润情况（单位：人民币）'")
 	private String netProfit;
 	public void setNetProfit(NetProfit netProfit){
 		this.netProfit=netProfit.name();

@@ -51,13 +51,26 @@ public class OverseasListingServiceImpl extends BaseServiceImpl<t_item_overseas_
 
     @Transactional
     public Message<t_item_overseas_listing> addOverseasListing(t_item_overseas_listing overseasListing){
-
         Message<String> message = overseasListingValid(overseasListing);
+        overseasListing.setIsShow(false);
         if (message.fail()){
             return Message.error(message.getMsg());
         }
 
         return Message.success(overseasListingDao.save(overseasListing));
+    }
+
+    @Override
+    @Transactional
+    public Message<t_item_overseas_listing> editItemIsShow(long overseasListingId) {
+        t_item_overseas_listing t = overseasListingDao.getOne(overseasListingId);
+        t.setIsShow(!t.getIsShow());
+
+        if (overseasListingDao.save(t)==null){
+            return Message.error("系统异常，请重试");
+        }
+
+        return Message.success(t);
     }
 
 }
