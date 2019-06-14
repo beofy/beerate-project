@@ -53,8 +53,25 @@ public class EmailCaptchaProcessor extends AbstractCaptchaProcessor implements C
     @Override
     public Message<String> check(HttpServletRequest request, Captcha captcha, CaptchaScene captchaScene, String captchaCode) {
         EmailCaptchaCode smsCaptchaCode = (EmailCaptchaCode)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
-        if(smsCaptchaCode==null||!getEmail(request).getData().equals(smsCaptchaCode.getEmail())||!smsCaptchaCode.checkExpireIn()){
-            return Message.error("验证码错误或已超时");
+        //验证码是否存在
+        if(smsCaptchaCode==null){
+            return Message.error("验证码不存在");
+        }
+
+        //邮箱是否匹配
+        if (!getEmail(request).getData().equals(smsCaptchaCode.getEmail())){
+            return Message.error("系统异常");
+        }
+
+        //验证码判断
+        if (!captchaCode.equalsIgnoreCase(smsCaptchaCode.getCaptchaCode())){
+
+            return Message.error("验证码错误");
+        }
+
+        //验证码是否过期
+        if (!smsCaptchaCode.checkExpireIn()){
+            return Message.error("验证码已过期");
         }
 
         return Message.ok("验证码校验成功");

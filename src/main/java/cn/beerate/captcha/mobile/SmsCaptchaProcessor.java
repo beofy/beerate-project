@@ -52,10 +52,26 @@ public class SmsCaptchaProcessor extends AbstractCaptchaProcessor implements Cap
 
     @Override
     public Message<String> check(HttpServletRequest request, Captcha captcha, CaptchaScene captchaScene, String captchaCode) {
-
         SmsCaptchaCode smsCaptchaCode = (SmsCaptchaCode)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
-        if(smsCaptchaCode==null||!getMobile(request).getData().equals(smsCaptchaCode.getMobile())||!smsCaptchaCode.checkExpireIn()){
-            return Message.error("验证码错误或已超时");
+
+        //验证码是否存在
+        if(smsCaptchaCode==null){
+            return Message.error("验证码不存在");
+        }
+
+        //手机号是否匹配
+        if(!getMobile(request).getData().equalsIgnoreCase(smsCaptchaCode.getMobile())){
+            return Message.error("系统异常");
+        }
+
+        //验证码判断
+        if (!captchaCode.equalsIgnoreCase(smsCaptchaCode.getCaptchaCode())){
+            return Message.error("验证码错误");
+        }
+
+        //验证码是否过期
+        if(!smsCaptchaCode.checkExpireIn()){
+            return Message.error("验证码已过期");
         }
 
         return Message.ok("验证码校验成功");
