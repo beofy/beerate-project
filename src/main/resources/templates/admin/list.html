@@ -103,8 +103,9 @@
                                                 <td>
                                                     <div class="btn-group">
                                                         <a class="btn btn-xs btn-default" th:href="@{/admin/update.html(adminId=${admin.id})}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="锁定" data-toggle="tooltip"><i class="mdi mdi-lock"></i></a>
-                                                        <a class="btn btn-xs btn-default" href="javascript:void(0)" title="解锁" data-toggle="tooltip"><i class="mdi mdi-lock-open"></i></a>
+                                                        <a class="btn btn-xs btn-default" th:href="'javascript:updateLock('+${admin.id}+')'" th:title="${admin.lockStatus==true?'解锁':'锁定'}" data-toggle="tooltip">
+                                                            <i th:class="${admin.lockStatus==true?'mdi mdi-lock-open':'mdi mdi-lock'}  "></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -132,5 +133,25 @@
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
     });
+
+    function updateLock(adminId) {
+        $.ajax({
+            url : "/admin/updateLock",
+            type : "POST",
+            data:{
+                adminId:adminId
+            },
+            success : function(data) {
+                if (data.code>0){
+                    location.href="/admin/list.html?page=1&size=10&success="+data.msg;
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger');
+                    }, 1e3);
+                }
+            }
+        })
+    }
 </script>
 </html>

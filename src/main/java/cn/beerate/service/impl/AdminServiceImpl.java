@@ -119,4 +119,17 @@ public class AdminServiceImpl extends BaseServiceImpl<t_admin> implements AdminS
 
         return Message.success(admin1);
     }
+
+    @Override
+    @Transactional
+    public Message<t_admin> updateLock(long adminId) {
+        t_admin admin = adminDao.getOne(adminId);
+        admin.setLockStatus(!admin.getLockStatus());
+
+        if (adminDao.save(admin)==null){
+            return Message.error("设置失败");
+        }
+
+        return Message.success(admin);
+    }
 }

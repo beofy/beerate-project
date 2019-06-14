@@ -216,6 +216,17 @@ public class AdminController extends AdminBaseController{
         return Message.ok("修改成功");
     }
 
+    @PostMapping("/updateLock")
+    @ResponseBody
+    public Message<String> updateLock(long adminId){
+        Message<t_admin> message = adminService.updateLock(adminId);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        return Message.ok("设置成功");
+    }
+
     /**
      * 登出
      */

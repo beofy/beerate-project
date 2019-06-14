@@ -26,4 +26,9 @@ public interface AdminService extends IBaseService<t_admin>{
      */
     Message<t_admin> updateAdmin(t_admin admin,long adminId);
 
+    /**
+     * 管理员锁定/解锁
+     */
+    Message<t_admin> updateLock(long adminId);
+
 }
