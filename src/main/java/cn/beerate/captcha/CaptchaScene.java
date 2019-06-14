@@ -16,6 +16,19 @@ public enum CaptchaScene {
     /**
      * 用户注册
      */
-    USER_REGIST;
+    USER_REGIST,
+    /**
+     * 更新手机号
+     */
+    UPDATE_USER_MOBILE,
+
+    /**
+     * 更新邮箱
+     */
+    UPDATE_USER_EMAIL,
+    /**
+     * 用户密码重置
+     */
+    RESET_USER_PASSWORD;
 
 }

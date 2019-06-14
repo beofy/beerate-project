@@ -93,7 +93,7 @@
                                             <td th:text="${user.login_count}"></td>
                                             <td th:text="${#dates.format(user.last_login_time,'yyyy-MM-dd HH:mm:ss')}"></td>
                                             <td th:text="${user.last_login_ip}"></td>
-                                            <td th:text="${user.getUser_business().getAuditStatus().getValue()}"></td>
+                                            <td th:text="${user.getUser_business()==null?'未上传':user.getUser_business().getAuditStatus().getValue()}" ></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/admin/user/detail.html(userId=${user.id})}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

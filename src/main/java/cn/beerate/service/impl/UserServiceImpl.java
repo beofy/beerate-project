@@ -69,6 +69,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
      * @param loginIp 登录ip
      * @param loginChannel 登录渠道
      */
+    @Transactional
     public Message<t_user> login(String mobile,String password,String loginIp,String loginChannel){
         t_user user = userDao.findByMobile(mobile);
         if(user==null){
@@ -104,8 +105,87 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
         user.setLast_login_client(loginChannel);//登录渠道
         user.setLast_login_ip(loginIp);//登录ip
 
-        return Message.success(userDao.save(user));
+        if (userDao.save(user)==null){
+            return Message.error("登录失败");
+        }
+
+        return Message.success(user);
 
     }
 
+    @Transactional
+    public Message<t_user> updateUserPhoto(String photo,long userId){
+        t_user user = userDao.getOne(userId);
+        user.setPhoto(photo);
+
+        if (userDao.save(user)==null){
+            return Message.error("更新失败");
+        }
+
+        return Message.success(user);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_user> updateUserPassWord(String oldPwd, String newPwd, long userId) {
+        t_user user = userDao.getOne(userId);
+        if (!user.getPassword().equals(Encrypt.MD5(oldPwd+PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()))){
+            return Message.error("密码不正确");
+        }
+        //设置新密码
+        user.setPassword(Encrypt.MD5(newPwd+PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()));
+
+        if (userDao.save(user)==null){
+            return Message.error("密码更改失败");
+        }
+
+        return Message.success(user);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_user> updateUserMobile(String mobile, long userId) {
+        if (userDao.findByMobile(mobile)!=null){
+            return Message.error("手机号已绑定");
+        }
+
+        t_user user = userDao.getOne(userId);
+        user.setMobile(mobile);
+        if (userDao.save(user)==null){
+            return Message.error("手机号更改失败");
+        }
+
+        return Message.success(user);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_user> updateUserEmail(String email, long userId) {
+        if (userDao.findByEmail(email)!=null){
+            return Message.error("邮箱已绑定");
+        }
+
+        t_user user = userDao.getOne(userId);
+        user.setEmail(email);
+        if (userDao.save(user)==null){
+            return Message.error("邮箱更改失败");
+        }
+
+        return Message.success(user);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_user> resetUserPassword(String mobile,String newPwd) {
+        t_user user = userDao.findByMobile(mobile);
+
+        user.setPassword(Encrypt.MD5(newPwd+PropertiesHolder.properties.getSecurityProperties().getPassword_md5_salt()));
+        user.setPassword_continue_fails(0);//重置密码错误次数
+        user.setPassword_locked_time(null);//重置密码锁定时间
+        if (userDao.save(user)==null){
+            return Message.error("密码重置失败");
+        }
+
+        return Message.success(user);
+    }
 }

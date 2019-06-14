@@ -24,9 +24,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-4 col-sm-6" id="photo">
                                         <div class="avatar-divider"></div>
-                                        <img th:src="${user.getPhoto()}" th:alt="${user.getUsername()}"  class="img-avatar">
+                                        <img th:src="${user.getPhoto()}" src="" onerror="$(this).attr('src','/images/user/default.png');" th:alt="${user.getUsername()}" style="cursor: pointer" class="img-avatar">
                                     </div>
 
                                     <div class="col-lg-4 col-sm-6">
@@ -86,14 +86,14 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <form class="row">
+                                <div class="row">
                                     <div class="form-group col-md-12">
                                         <label>用户名</label>
                                         <input type="text" class="form-control" th:value="${user.getUsername()}" disabled="disabled">
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        <label>邮箱</label>
+                                        <label >邮箱</label>
                                         <input type="text" class="form-control" th:value="${user.getEmail()}" disabled="disabled">
                                     </div>
 
@@ -111,7 +111,7 @@
                                         <label>密码锁定时间</label>
                                         <input type="text" class="form-control" th:value="${#dates.format(user.getPassword_locked_time(),'yyyy-MM-dd HH:mm:ss')}" disabled="disabled">
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,94 +124,99 @@
                                 </ul>
                             </div>
                             <div class="card-body">
-                                <form class="row" id="from_updateBusiness">
-                                    <input hidden="hidden" name="userId" th:value="${user.getId()}">
+                                <th:block th:if="${user.getUser_business()}">
+                                    <form class="row" id="from_updateBusiness">
+                                        <input hidden="hidden" name="userId" th:value="${user.getId()}">
 
-                                    <div class="form-group col-md-12">
-                                        <label for="name">姓名</label>
-                                        <input type="text" class="form-control" id="name" name="name" th:value="${user.getUser_business().getName()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="company">公司</label>
-                                        <input type="text" class="form-control" id="company" name="company" th:value="${user.getUser_business().getCompany()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="department">部门</label>
-                                        <input type="text" class="form-control" id="department" name="department" th:value="${user.getUser_business().getDepartment()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="title">职位</label>
-                                        <input type="text" class="form-control" id="title" name="title" th:value="${user.getUser_business().getTitle()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="telCell">手机号码</label>
-                                        <input type="number" class="form-control" id="telCell" name="telCell" th:value="${user.getUser_business().getTelCell()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="telWork">公司号码</label>
-                                        <input type="number" class="form-control" id="telWork" name="telWork"  th:value="${user.getUser_business().getTelWork()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="address">公司地址</label>
-                                        <input type="text" class="form-control" id="address" name="address" th:value="${user.getUser_business().getAddress()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="email">联系邮箱</label>
-                                        <input type="text" class="form-control" id="email" name="email" th:value="${user.getUser_business().getEmail()}" >
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label for="investPrefer">投资偏好</label>
-                                        <div class="form-controls">
-                                            <select name="investPrefer" class="form-control" id="investPrefer" >
-                                                <option th:each="itemType:${itemTypes}" th:value="${itemType.name()}" th:text="${itemType.getValue()}" th:selected="${itemType==user.getUser_business().getInvestPrefer()}" ></option>
-                                            </select>
+                                        <div class="form-group col-md-12">
+                                            <label for="name">姓名</label>
+                                            <input type="text" class="form-control" id="name" name="name" th:value="${user.getUser_business().getName()}" >
                                         </div>
-                                    </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label>名片文件</label>
-                                        <div class="form-controls" id="dowebok">
-                                            <ul class="list-inline clearfix lyear-uploads-pic">
-                                                <li class="col-xs-4 col-sm-3 col-md-2">
-                                                    <figure>
-                                                        <img th:src="${user.getUser_business().getBusinessCardUri()}" src="" alt="" th:alt="${user.getUser_business().getName()}">
-                                                    </figure>
-                                                </li>
-                                            </ul>
+                                        <div class="form-group col-md-12">
+                                            <label for="company">公司</label>
+                                            <input type="text" class="form-control" id="company" name="company" th:value="${user.getUser_business().getCompany()}" >
                                         </div>
-                                    </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="auditStatus">审核状态</label>
-                                        <div class="form-controls">
-                                            <select name="auditStatus" class="form-control" id="auditStatus" >
-                                                <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==user.getUser_business().getAuditStatus()}" ></option>
-                                            </select>
+                                        <div class="form-group col-md-12">
+                                            <label for="department">部门</label>
+                                            <input type="text" class="form-control" id="department" name="department" th:value="${user.getUser_business().getDepartment()}" >
                                         </div>
-                                    </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="aboutText">个人介绍</label>
-                                        <textarea class="form-control" id="aboutText" name="aboutText" rows="5" th:text="${user.getUser_business().getAboutText()}" ></textarea>
-                                    </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="title">职位</label>
+                                            <input type="text" class="form-control" id="title" name="title" th:value="${user.getUser_business().getTitle()}" >
+                                        </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="workText">工作经历</label>
-                                        <textarea class="form-control" id="workText" name="workText" rows="5" th:text="${user.getUser_business().getWorkText()}" ></textarea>
-                                    </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="telCell">手机号码</label>
+                                            <input type="number" class="form-control" id="telCell" name="telCell" th:value="${user.getUser_business().getTelCell()}" >
+                                        </div>
 
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-primary ajax-post">修改</button>
-                                    </div>
-                                </form>
+                                        <div class="form-group col-md-12">
+                                            <label for="telWork">公司号码</label>
+                                            <input type="number" class="form-control" id="telWork" name="telWork"  th:value="${user.getUser_business().getTelWork()}" >
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="address">公司地址</label>
+                                            <input type="text" class="form-control" id="address" name="address" th:value="${user.getUser_business().getAddress()}" >
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="email">联系邮箱</label>
+                                            <input type="text" class="form-control" id="email" name="email" th:value="${user.getUser_business().getEmail()}" >
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="investPrefer">投资偏好</label>
+                                            <div class="form-controls">
+                                                <select name="investPrefer" class="form-control" id="investPrefer" >
+                                                    <option th:each="itemType:${itemTypes}" th:value="${itemType.name()}" th:text="${itemType.getValue()}" th:selected="${itemType==user.getUser_business().getInvestPrefer()}" ></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label>名片文件</label>
+                                            <div class="form-controls" id="dowebok">
+                                                <ul class="list-inline clearfix lyear-uploads-pic">
+                                                    <li class="col-xs-4 col-sm-3 col-md-2">
+                                                        <figure>
+                                                            <img th:src="${user.getUser_business().getBusinessCardUri()}" src="" alt="" th:alt="${user.getUser_business().getName()}">
+                                                        </figure>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="auditStatus">审核状态</label>
+                                            <div class="form-controls">
+                                                <select name="auditStatus" class="form-control" id="auditStatus" >
+                                                    <option th:each="auditStatu:${auditStatus}" th:value="${auditStatu.name()}" th:text="${auditStatu.getValue()}" th:selected="${auditStatu==user.getUser_business().getAuditStatus()}" ></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="aboutText">个人介绍</label>
+                                            <textarea class="form-control" id="aboutText" name="aboutText" rows="5" th:text="${user.getUser_business().getAboutText()}" ></textarea>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="workText">工作经历</label>
+                                            <textarea class="form-control" id="workText" name="workText" rows="5" th:text="${user.getUser_business().getWorkText()}" ></textarea>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <button type="submit" class="btn btn-primary ajax-post">修改</button>
+                                        </div>
+                                    </form>
+                                </th:block>
+                                <th:block th:unless="${user.getUser_business()}">
+                                    <div class="divider text-uppercase"><h4>名片未上传</h4></div>
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -233,16 +238,19 @@
 <script>
     //图片预览
     function initViewer(id) {
-        var viewer = new Viewer(document.getElementById(id), {
+        var target = document.getElementById(id);
+        if (target==null){
+            return
+        }
+        var viewer = new Viewer(target, {
             url: 'data-original',
             show: function (){
                 viewer.update();
             }
         });
     }
-
+    initViewer('photo');
     initViewer('dowebok');
-
 
     //提交
     $("#from_updateBusiness").validate({

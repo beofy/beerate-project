@@ -26,7 +26,7 @@ public class UserConfig implements WebMvcConfigurer {
         //添加登录拦截
         registry.addInterceptor(userLoginInterceptor)
                 .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/login","/user/reg");
+                .excludePathPatterns("/user/login","/user/reg","/user/resetUserPassWord");
 
         //名片认证拦截
         registry.addInterceptor(businessInterceptor)
