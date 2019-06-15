@@ -2,19 +2,14 @@ package cn.beerate.model.dto;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Data
+@Entity
 public class BlockTradeList {
 
-    public BlockTradeList(long id, String blockTradeName, String stockCode, Double exchangeRate, Integer underweightShares, Double underweightAmount, String auditStatus) {
-        this.id = id;
-        this.blockTradeName = blockTradeName;
-        this.stockCode = stockCode;
-        this.exchangeRate = exchangeRate;
-        this.underweightShares = underweightShares;
-        this.underweightAmount = underweightAmount;
-        this.auditStatus = auditStatus;
-    }
-
+    @Id
     private long id;
 
     private String blockTradeName;

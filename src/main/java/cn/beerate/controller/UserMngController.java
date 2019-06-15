@@ -53,10 +53,10 @@ public class UserMngController extends AdminBaseController{
         return "admin/user/detail";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/updateUserBusiness")
     @ResponseBody
-    public Message<String> update(t_user_business business,long userId){
-       Message<t_user_business> message = userBusinessService.updateBusinessByUserId(business,userId);
+    public Message<String> updateUserBusiness(t_user_business business,long userId){
+       Message<t_user_business> message = userBusinessService.updateUserBusiness(business,userId);
        if (message.fail()){
            return Message.error(message.getMsg());
        }

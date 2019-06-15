@@ -2,18 +2,15 @@ package cn.beerate.model.dto;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Data
+@Entity
 public class LoanList {
 
-    public LoanList(long id, String itemName, String industryRealm, Double amount, Integer period, String auditStatus) {
-        this.id = id;
-        this.itemName = itemName;
-        this.industryRealm = industryRealm;
-        this.amount = amount;
-        this.period = period;
-        this.auditStatus = auditStatus;
-    }
 
+    @Id
     private long id;
 
     private String itemName;

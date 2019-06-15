@@ -290,7 +290,7 @@
             lightyear.loading('show');
             $(form).ajaxSubmit({
                 type: 'post',
-                url: "/admin/user/update" ,
+                url: "/admin/user/updateUserBusiness" ,
                 success: function(data){
                     if (data.code>0){
                         location.href="/admin/user/list.html?page=1&size=10&success="+data.msg

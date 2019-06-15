@@ -1,11 +1,14 @@
 package cn.beerate.controller;
 
+import cn.beerate.PropertiesHolder;
 import cn.beerate.common.Message;
 import cn.beerate.model.ItemType;
-import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
-import org.springframework.util.ResourceUtils;
+import cn.beerate.utils.PathUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 
 @RestController
 @RequestMapping("/user/business")
 public class UserBusinessController extends UserBaseController {
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     private UserBusinessService userBusinessService;
 
@@ -36,23 +39,26 @@ public class UserBusinessController extends UserBaseController {
             return Message.error("请上传用户文件");
         }
 
+        //保存名片信息
+        t_user_business userBusiness;
         try (InputStream inputStream = file.getInputStream()) {
-
-            t_user_business userBusiness = userBusinessService.parse(inputStream);
-            userBusiness.setBusinessCardUri("/attachment/" + UUID.randomUUID().toString());
-
-            //保存名片信息
-            userBusinessService.addBusiness(userBusiness, getUserId());
-
-            //保存名片文件
-            file.transferTo(new File(ResourceUtils.getURL("target/classes/static").getPath() + userBusiness.getBusinessCardUri()));
-
-            return Message.ok("上传成功，请补充名片资料");
-
+            userBusiness = userBusinessService.parse(inputStream);
+            userBusiness.setBusinessCardUri(PropertiesHolder.ATTACHMENT_PATH + file.getOriginalFilename());
+            userBusinessService.addUserBusiness(userBusiness, getUserId());
         } catch (IOException e) {
-            return Message.success("解析名片文件异常，请重新上传");
+            logger.error(String.format("解析名片文件异常,原因：[%s]",e.getCause()),e);
+            return Message.error("解析名片文件异常");
         }
 
+        //保存名片文件
+        try {
+            file.transferTo(new File(PathUtil.getRoot() + userBusiness.getBusinessCardUri()));
+        } catch (IOException e) {
+            logger.error(String.format("名片上传异常,原因：[%s]",e.getCause()),e);
+            return Message.error("名片上传异常");
+        }
+
+        return Message.ok("上传成功，请补充名片资料");
     }
 
     /**
@@ -60,16 +66,31 @@ public class UserBusinessController extends UserBaseController {
      */
     @PostMapping("/supplement")
     public Message<String> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText) {
+        if (investPrefer == ItemType.NONE) {
+            return Message.error("请选择投资偏好");
+        }
 
-        return userBusinessService.supplementUserBusiness(investPrefer, aboutText, workText, getUserId());
+        if (StringUtils.isBlank(aboutText)) {
+            return Message.error("请填写个人介绍");
+        }
+
+        if (StringUtils.isBlank(workText)) {
+            return Message.error("请填写工作经历");
+        }
+
+        Message<t_user_business> message = userBusinessService.supplementUserBusiness(investPrefer, aboutText, workText, getUserId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        return Message.ok("补充成功");
     }
 
     /**
      * 名片信息
      */
     @PostMapping("/detail")
-    public Message<UserBusiness> detail() {
+    public Message detail() {
         return userBusinessService.findUserBusinessDetail(getUserId());
-
     }
 }

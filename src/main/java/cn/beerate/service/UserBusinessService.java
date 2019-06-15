@@ -17,12 +17,12 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
     /**
      * 添加名片信息
      */
-    Message<t_user_business> addBusiness(t_user_business userBusiness , long userId);
+    Message<t_user_business> addUserBusiness(t_user_business userBusiness , long userId);
 
     /**
      * 补充用户名片资料
      */
-    Message<String> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId);
+    Message<t_user_business> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId);
 
     /**
      * 查询用户名片详细信息
@@ -32,6 +32,6 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
     /**
      * 更新用户名片信息
      */
-    Message<t_user_business> updateBusinessByUserId(t_user_business business,long userId);
+    Message<t_user_business> updateUserBusiness(t_user_business business,long userId);
 
 }

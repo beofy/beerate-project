@@ -1,6 +1,7 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
+import cn.beerate.dao.GenericDao;
 import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemType;
@@ -9,11 +10,9 @@ import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
-import cn.beerate.service.UserService;
 import cn.beerate.utils.BcrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +23,12 @@ import java.util.Date;
 @Transactional(readOnly = true)
 public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> implements UserBusinessService {
 
-    @Autowired
-    private UserService userService;
-
+    private GenericDao genericDao;
     private UserBusinessDao userBusinessDao;
-    public UserBusinessServiceImpl(UserBusinessDao userBusinessDao) {
+
+    public UserBusinessServiceImpl( GenericDao genericDao, UserBusinessDao userBusinessDao) {
         super(userBusinessDao);
+        this.genericDao = genericDao;
         this.userBusinessDao = userBusinessDao;
     }
 
@@ -82,38 +81,26 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     }
 
     @Transactional
-    public Message<t_user_business> addBusiness(t_user_business userBusiness,long userId){
+    public Message<t_user_business> addUserBusiness(t_user_business userBusiness,long userId){
         t_user user = new t_user();
         user.setId(userId);
 
         userBusiness.setUser(user);
         userBusiness.setAuditStatus(AuditStatus.SUPPLEMENT);//补充资料
 
-        return Message.success(userBusinessDao.save(userBusiness));
+        if (userBusinessDao.save(userBusiness)==null){
+            return Message.error("系统异常");
+        }
+
+        return Message.success(userBusiness);
     }
 
     @Transactional
-    public Message<String> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId){
+    public Message<t_user_business> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId){
+        t_user_business userBusiness =userBusinessDao.findByUserId(userId);
 
-        if (investPrefer == ItemType.NONE) {
-            return Message.error("请选择投资偏好");
-        }
-
-        if (StringUtils.isBlank(aboutText)) {
-            return Message.error("请填写个人介绍");
-        }
-
-        if (StringUtils.isBlank(workText)) {
-            return Message.error("请填写工作经历");
-        }
-
-        t_user_business userBusiness =null;
-        if (userBusiness == null) {
-            return Message.error("名片信息不存在");
-        }
-
-        if (userBusiness.getAuditStatus() == AuditStatus.WAIT_AUDIT) {
-            return Message.error("名片信息审核中");
+        if (userBusiness.getAuditStatus() != AuditStatus.SUPPLEMENT) {
+            return Message.error("资料已经补充，如需修改请致电");
         }
 
         userBusiness.setInvestPrefer(investPrefer);
@@ -121,15 +108,16 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
         userBusiness.setWorkText(workText);
         userBusiness.setAuditStatus(AuditStatus.WAIT_AUDIT);
 
-        userBusinessDao.save(userBusiness);
+        if (userBusinessDao.save(userBusiness)==null){
+            return Message.error("资料补充失败");
+        }
 
-        return Message.ok("提交成功,等待审核中");
+        return Message.success(userBusiness);
     }
 
     public Message<UserBusiness> findUserBusinessDetail(long userId){
-
-
-        UserBusiness userBusiness = null;
+        String sql = "SELECT t_user_business.id, t_user_business.createTime, t_user_business.updateTime, t_user_business.user_id, t_user_business.aboutText, t_user_business.address, t_user_business.auditStatus, t_user_business.businessCardUri, t_user_business.company, t_user_business.department, t_user_business.email, t_user_business.investPrefer, t_user_business.`name`, t_user_business.title, t_user_business.telWork, t_user_business.telCell, t_user_business.verifyTime, t_user_business.workText FROM t_user_business";
+        UserBusiness userBusiness = genericDao.getObject(sql,null,UserBusiness.class);
 
         if (userBusiness == null) {
             return Message.error("请上传名片");
@@ -145,7 +133,7 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
 
     @Override
     @Transactional
-    public Message<t_user_business> updateBusinessByUserId(t_user_business business, long userId) {
+    public Message<t_user_business> updateUserBusiness(t_user_business business, long userId) {
         t_user_business userBusiness = userBusinessDao.findByUserId(userId);
 
         userBusiness.setName(business.getName());
@@ -164,6 +152,10 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
             userBusiness.setVerifyTime(new Date());
         }
 
-        return Message.success(userBusinessDao.save(userBusiness));
+        if (userBusinessDao.save(userBusiness)==null){
+            return Message.error("更新失败");
+        }
+
+        return Message.success(userBusiness);
     }
 }
