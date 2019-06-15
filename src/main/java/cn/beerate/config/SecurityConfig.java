@@ -64,7 +64,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
-
+    @SuppressWarnings("all")
     public HttpMessageConverters fastJsonHttpMessageConverters() {
         // 1.定义一个converters转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
@@ -84,7 +84,6 @@ public class SecurityConfig implements WebMvcConfigurer {
         fastConverter.setFastJsonConfig(fastJsonConfig);
 
         // 4.将converter赋值给HttpMessageConverter
-        @SuppressWarnings("unchecked")
         HttpMessageConverter<?> converter = fastConverter;
 
         // 5.返回HttpMessageConverters对象
