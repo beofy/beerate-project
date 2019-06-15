@@ -1,4 +1,4 @@
-package cn.beerate.dao;
+package cn.beerate.dao.support;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 通用的sql查询接口
  */
-public interface GenericDao {
+public interface IGenericDao {
 
     /**
      * 根据sql获取自定对象

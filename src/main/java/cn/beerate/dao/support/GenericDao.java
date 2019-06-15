@@ -1,6 +1,5 @@
-package cn.beerate.dao.Impl;
+package cn.beerate.dao.support;
 
-import cn.beerate.dao.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,16 +16,21 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * 通用的sql查询接口
+ */
 @Repository
-public class GenericDaoImpl implements GenericDao {
-
+public class GenericDao implements IGenericDao {
     private EntityManager entityManager;
 
     @Autowired
-    public GenericDaoImpl(EntityManager entityManager) {
+    public GenericDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    /**
+     * 根据sql获取自定对象
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <B> B getObject(String sql, Map<String, Object> args, Class<B> bClass) {
@@ -36,6 +40,9 @@ public class GenericDaoImpl implements GenericDao {
         return (B) nativeQuery.getSingleResult();
     }
 
+    /**
+     * 统计条数
+     */
     @Override
     public Long getCount(String sql, Map<String, Object> args) {
         Query nativeQuery = entityManager.createNativeQuery(sql);
@@ -44,6 +51,9 @@ public class GenericDaoImpl implements GenericDao {
         return ((BigInteger)nativeQuery.getSingleResult()).longValue() ;
     }
 
+    /**
+     * 根据sql获取自定对象集合
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <B> List<B> getList(String sql,Map<String, Object> args,Class<B> bClass) {
