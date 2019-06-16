@@ -77,6 +77,7 @@ public class LoanController extends UserBaseController {
     @PostMapping("/update")
     public Message<String> update(t_item_loan loan, MultipartFile logo, MultipartFile businessProposal, MultipartFile businessLicense, MultipartFile financialReport, MultipartFile auditReport, MultipartFile indebtedness, MultipartFile capitalFlow ,long loanId) {
 
+        // TODO: 2019/6/16 警告：相同的文件会覆盖掉之前 
         loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + logo.getOriginalFilename());
         loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
         loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + businessLicense.getOriginalFilename());
