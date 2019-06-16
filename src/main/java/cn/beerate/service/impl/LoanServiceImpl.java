@@ -3,12 +3,16 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.LoanDao;
 import cn.beerate.model.AmountUnit;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.PeriodUnit;
+import cn.beerate.model.dto.LoanDetail;
+import cn.beerate.model.dto.MyLoan;
 import cn.beerate.model.entity.t_item_loan;
 import cn.beerate.service.LoanService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -109,7 +113,7 @@ public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implemen
             return Message.error("银行流水不存在");
         }
 
-        return super.itemModelValid(loan);
+        return Message.ok("检验通过");
     }
 
     @Override
@@ -121,5 +125,55 @@ public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implemen
         }
 
         return super.addItem(loan);
+    }
+
+    @Override
+    public Page<MyLoan> pageMyLoanByUser(int page, int size, String column, String order,long userId) {
+        return loanDao.pageMyLoanByUser(getPageable(page,size,column,order),userId);
+    }
+
+    @Override
+    public LoanDetail LoanDetailByUser(long loanId, long userId) {
+        return loanDao.LoanDetailByUser(loanId,userId);
+    }
+
+    @Override
+    @Transactional
+    public Message<t_item_loan> updateItemByUser(t_item_loan loan, long itemId,long userId) {
+        //参数校验
+        Message message = loanValid(loan);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        t_item_loan itemLoan = loanDao.findByIdAndUserId(itemId, userId);
+        if (itemLoan.getAuditStatus()!= AuditStatus.SUPPLEMENT){
+            return Message.error("非补充资料状态");
+        }
+
+        //更改信息
+        itemLoan.setItemName(loan.getItemName());
+        itemLoan.setCompanyName(loan.getCompanyName());
+        itemLoan.setLogoUri(loan.getLogoUri());
+        itemLoan.setIndustryRealm(loan.getIndustryRealm());
+        itemLoan.setCompanyWebsite(loan.getCompanyWebsite());
+        itemLoan.setCompanyIosUrl(loan.getCompanyIosUrl());
+        itemLoan.setCompanyAndroidUrl(loan.getCompanyAndroidUrl());
+        itemLoan.setIsQuoted(loan.getIsQuoted());
+        itemLoan.setStockCode(loan.getStockCode());
+        itemLoan.setAmount(loan.getAmount());
+        itemLoan.setAmountUnit(loan.getAmountUnit());
+        itemLoan.setPurpose(loan.getPurpose());
+        itemLoan.setPeriod(loan.getPeriod());
+        itemLoan.setPeriodUnit(loan.getPeriodUnit());
+        itemLoan.setRepayment(loan.getRepayment());
+        itemLoan.setBusinessProposalUri(loan.getBusinessProposalUri());
+        itemLoan.setBusinessLicenseUri(loan.getBusinessLicenseUri());
+        itemLoan.setFinancialReportUri(loan.getFinancialReportUri());
+        itemLoan.setAuditReportUri(loan.getAuditReportUri());
+        itemLoan.setIndebtednessUri(loan.getIndebtednessUri());
+        itemLoan.setCapitalFlowUri(loan.getCapitalFlowUri());
+
+        return super.updateItem(itemLoan);
     }
 }

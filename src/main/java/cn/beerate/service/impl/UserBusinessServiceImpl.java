@@ -1,7 +1,6 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
-import cn.beerate.dao.GenericDao;
 import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemType;
@@ -23,12 +22,10 @@ import java.util.Date;
 @Transactional(readOnly = true)
 public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> implements UserBusinessService {
 
-    private GenericDao genericDao;
     private UserBusinessDao userBusinessDao;
 
-    public UserBusinessServiceImpl( GenericDao genericDao, UserBusinessDao userBusinessDao) {
+    public UserBusinessServiceImpl(UserBusinessDao userBusinessDao) {
         super(userBusinessDao);
-        this.genericDao = genericDao;
         this.userBusinessDao = userBusinessDao;
     }
 
@@ -98,6 +95,9 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     @Transactional
     public Message<t_user_business> supplementUserBusiness(ItemType investPrefer, String aboutText, String workText, long userId){
         t_user_business userBusiness =userBusinessDao.findByUserId(userId);
+        if (userBusiness == null) {
+            return Message.error("请上传名片");
+        }
 
         if (userBusiness.getAuditStatus() != AuditStatus.SUPPLEMENT) {
             return Message.error("资料已经补充，如需修改请致电");
@@ -116,8 +116,7 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     }
 
     public Message<UserBusiness> findUserBusinessDetail(long userId){
-        String sql = "SELECT t_user_business.id, t_user_business.createTime, t_user_business.updateTime, t_user_business.user_id, t_user_business.aboutText, t_user_business.address, t_user_business.auditStatus, t_user_business.businessCardUri, t_user_business.company, t_user_business.department, t_user_business.email, t_user_business.investPrefer, t_user_business.`name`, t_user_business.title, t_user_business.telWork, t_user_business.telCell, t_user_business.verifyTime, t_user_business.workText FROM t_user_business";
-        UserBusiness userBusiness = genericDao.getObject(sql,null,UserBusiness.class);
+        UserBusiness userBusiness = userBusinessDao.findUserBusinessDetailByUser(userId);
 
         if (userBusiness == null) {
             return Message.error("请上传名片");

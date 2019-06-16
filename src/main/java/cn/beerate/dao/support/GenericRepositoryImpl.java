@@ -20,11 +20,11 @@ import java.util.Set;
  * 通用的sql查询接口
  */
 @Repository
-public class GenericDao implements IGenericDao {
+public class GenericRepositoryImpl implements GenericRepository {
     private EntityManager entityManager;
 
     @Autowired
-    public GenericDao(EntityManager entityManager) {
+    public GenericRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -64,15 +64,10 @@ public class GenericDao implements IGenericDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <B> Page<B> getPage(String querySql, String countSql, Map<String, Object> args, Pageable pageable, Class<B> bClass) {
         Query nativeQuery = entityManager.createNativeQuery(querySql, bClass);
         setParameter(nativeQuery,args);
-
-        //分页参数
-        if (pageable.isPaged()) {
-            nativeQuery.setFirstResult((int) pageable.getOffset());
-            nativeQuery.setMaxResults(pageable.getPageSize());
-        }
 
         //排序条件
         Sort sort =pageable.getSort();
@@ -84,7 +79,13 @@ public class GenericDao implements IGenericDao {
             }
         }
 
-        return pageable.isUnpaged()?new PageImpl<>(getList(querySql,args,bClass)): PageableExecutionUtils.getPage(getList(querySql,args,bClass),pageable,() -> getCount(countSql,args));
+        //分页参数
+        if (pageable.isPaged()) {
+            nativeQuery.setFirstResult((int) pageable.getOffset());
+            nativeQuery.setMaxResults(pageable.getPageSize());
+        }
+
+        return pageable.isUnpaged()?new PageImpl<>(getList(querySql,args,bClass)): PageableExecutionUtils.getPage((List<B>)nativeQuery.getResultList(),pageable,() -> getCount(countSql,args));
     }
 
     private void setParameter(Query query ,Map<String,Object> args){

@@ -20,7 +20,7 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
         this.itemCommonDao = d;
     }
 
-    Message<String> itemModelValid(ItemModel itemModel) {
+    private Message<String> itemModelValid(ItemModel itemModel) {
         if (itemModel.getEndTime().before(new Date())) {
             return Message.error("请选择正确的项目结束日期");
         }
@@ -71,6 +71,7 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
 
         t.setUser(user);
         t.setAuditStatus(AuditStatus.WAIT_AUDIT);//设置审核状态-等待审核
+        t.setIsShow(false);
 
         return addItem(t);
     }
@@ -127,10 +128,26 @@ public class ItemCommonServiceImpl<T extends ItemModel> extends BaseServiceImpl<
     @Override
     public Message<T> editItemIsShow(long itemId) {
         T t = itemCommonDao.getOne(itemId);
-        t.setIsShow(!t.getIsShow());
+
+        boolean isShow = !t.getIsShow();
+        t.setIsShow(isShow);
+
+        if (isShow&&t.getAuditStatus()!=AuditStatus.PASS_AUDIT){
+            return Message.error("项目未通过审核");
+        }
 
         if (itemCommonDao.save(t)==null){
             return Message.error("系统异常，请重试");
+        }
+
+        return Message.success(t);
+    }
+
+    @Transactional
+    Message<T> updateItem(T t) {
+        t.setAuditStatus(AuditStatus.WAIT_AUDIT);
+        if (itemCommonDao.save(t)==null){
+            return Message.error("修改失败");
         }
 
         return Message.success(t);

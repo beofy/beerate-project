@@ -154,7 +154,7 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
             return Message.error("请填写内容描述");
         }
 
-        return super.itemModelValid(preIpo);
+        return Message.ok("检验通过");
     }
 
     @Override

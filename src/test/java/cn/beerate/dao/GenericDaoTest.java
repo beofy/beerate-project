@@ -1,6 +1,7 @@
 package cn.beerate.dao;
 
-import cn.beerate.model.dto.LoanList;
+import cn.beerate.dao.support.GenericRepository;
+import cn.beerate.model.dto.MyLoan;
 import cn.beerate.model.dto.UserBusiness;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class GenericDaoTest {
 
     @Autowired
-    private GenericDao genericDao;
+    private GenericRepository genericDao;
 
     @Test
     @Transactional
@@ -51,7 +52,7 @@ public class GenericDaoTest {
 
         System.out.println("//=============================测试集合查询==============================");
         String listSql = "SELECT id, itemName, industryRealm, amount, period , auditStatus FROM t_item_loan";
-        List<LoanList> loanList = genericDao.getList(listSql,null,LoanList.class);
+        List<MyLoan> loanList = genericDao.getList(listSql,null, MyLoan.class);
         System.out.println(loanList);
 
 
@@ -63,7 +64,7 @@ public class GenericDaoTest {
         String countSql = "SELECT count(1) FROM t_item_loan";
 
         Pageable pageable =PageRequest.of(0, 1, Sort.by(Sort.Direction.fromString("asc"), "id"));
-        Page<LoanList> page = genericDao.getPage(querySql,countSql,null,pageable,LoanList.class);
+        Page<MyLoan> page = genericDao.getPage(querySql,countSql,null,pageable, MyLoan.class);
 
         System.out.println(page);
 

@@ -74,7 +74,7 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
                 return Message.error("请选择增信是否公开");
             }
         }
-        return super.itemModelValid(blockTrade);
+        return Message.ok("检验通过");
     }
 
     @Override

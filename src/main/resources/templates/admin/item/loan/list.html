@@ -98,7 +98,7 @@
                                                 <td th:text="${item.amount}+${item.amountUnit.value}"></td>
                                                 <td th:text="${item.period}+${item.periodUnit.value}"></td>
                                                 <td th:text="${item.auditStatus.value}"></td>
-                                                <td th:text="${item.getAdmin().getRealityName()}"></td>
+                                                <td th:text="${item.getAdmin()==null?'':item.getAdmin().getRealityName()}" ></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <a class="btn btn-xs btn-default" th:href="@{/admin/item/loan/detail.html(loanId=${item.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

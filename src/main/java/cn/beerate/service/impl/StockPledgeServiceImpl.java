@@ -95,7 +95,7 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
             return Message.error("请填写其他增信措施");
         }
 
-        return itemModelValid(stockPledge);
+        return Message.ok("检验通过");
     }
 
     @Override

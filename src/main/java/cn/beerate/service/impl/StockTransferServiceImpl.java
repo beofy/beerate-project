@@ -82,7 +82,7 @@ public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock
             return Message.error("请填写内容描述");
         }
 
-        return itemModelValid(stockTransfer);
+        return Message.ok("检验通过");
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 通用的sql查询接口
  */
-public interface IGenericDao {
+public interface GenericRepository {
 
     /**
      * 根据sql获取自定对象

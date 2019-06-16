@@ -59,7 +59,7 @@ public class BaseServiceImpl<T extends Model> implements IBaseService<T> {
         return iBaseDao.findAll(spec,getPageable(page,size,column,order));
     }
 
-    private Pageable getPageable(int page,int size,String column,String order){
+    Pageable getPageable(int page,int size,String column,String order){
         if (StringUtils.isBlank(column)||StringUtils.isBlank(order)){
             column="id";
             order="desc";

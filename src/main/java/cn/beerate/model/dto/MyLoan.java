@@ -7,9 +7,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class LoanList {
-
-
+public class MyLoan {
     @Id
     private long id;
 
