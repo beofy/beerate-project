@@ -79,16 +79,4 @@ public class t_item_stock_transfer extends ItemModel {
     @Column(columnDefinition = "varchar(500) not null default '' comment '内容描述'")
     private String contentDescription;
 
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "stock_transfer_id")
-    private List<t_item_message_board> message_boards;
-
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "stock_transfer_id")
-    private List<t_item_collect> item_collects;
-
 }

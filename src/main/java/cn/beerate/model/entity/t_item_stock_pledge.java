@@ -95,14 +95,4 @@ public class t_item_stock_pledge extends ItemModel {
     @Column(columnDefinition = "varchar(255) not null default '' comment '其他增信措施'")
     private String enhancementConfidenceMeasures;
 
-    //==========================================
-    @OneToMany
-    @JoinColumn(name = "stock_pledge_id")
-    private List<t_item_message_board> message_boards;
-
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "stock_pledge_id")
-    private List<t_item_collect> item_collects;
 }

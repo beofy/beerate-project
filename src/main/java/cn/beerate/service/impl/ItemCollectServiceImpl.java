@@ -3,9 +3,10 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.ItemCollectDao;
 import cn.beerate.model.ItemType;
-import cn.beerate.model.entity.*;
+import cn.beerate.model.dto.UserItemCollect;
+import cn.beerate.model.entity.t_item_collect;
 import cn.beerate.service.ItemCollectService;
-import org.apache.commons.lang3.EnumUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,88 +19,47 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
         this.itemCollectDao = itemCollectDao;
     }
 
-
     @Transactional
     @Override
-    public Message<String> addCollect(String itemType, long userId, long itemId) {
-        ItemType prefer = EnumUtils.getEnumIgnoreCase(ItemType.class, itemType);
-        if (prefer == null) {
-            return Message.error("项目类型错误");
+    public Message<t_item_collect> addCollect(long userId, long itemId, ItemType itemType) {
+        t_item_collect item_collect = isCollect(userId, itemId,itemType);
+        if (item_collect!=null) {
+            return Message.error("项目已收藏");
         }
 
         t_item_collect itemCollect = new t_item_collect();
+        itemCollect.setUser_id(userId);
+        itemCollect.setItem_id(itemId);
+        itemCollect.setItemType(itemType);
 
-        t_user user = new t_user();
-        user.setId(userId);
-
-        itemCollect.setUser(user);
-
-        switch (prefer) {
-            case BLOCK_TRADE:
-                t_item_block_trade blockTrade = new t_item_block_trade();
-                blockTrade.setId(itemId);
-                itemCollect.setBlock_trade(blockTrade);
-
-                break;
-            case ITEM_LOAN:
-                t_item_loan loan = new t_item_loan();
-                loan.setId(itemId);
-                itemCollect.setItem_loan(loan);
-
-                break;
-            case PRE_IPO:
-                t_item_pre_ipo preIpo = new t_item_pre_ipo();
-                preIpo.setId(itemId);
-                itemCollect.setPre_ipo(preIpo);
-
-                break;
-            case STOCK_PLEDGE:
-                t_item_stock_pledge stockPledge = new t_item_stock_pledge();
-                stockPledge.setId(itemId);
-                itemCollect.setStock_pledge(stockPledge);
-
-                break;
-            case STOCK_TRANSFER:
-                t_item_stock_transfer stockTransfer = new t_item_stock_transfer();
-                stockTransfer.setId(itemId);
-                itemCollect.setStock_transfer(stockTransfer);
-
-                break;
-            default:
-                return Message.error("系统异常");
+        if (itemCollectDao.save(itemCollect) == null) {
+            return Message.error("添加失败");
         }
 
-        itemCollectDao.save(itemCollect);
-
-        return Message.ok("收藏成功");
+        return Message.success(itemCollect);
     }
 
     @Override
-    public Message pageOfCollect(int page, int size, String column, String order, long userId, String itemType) {
-        return null;
+    public Page<UserItemCollect> pageOfCollect(int page, int size, String column, String order, long userId) {
+        return itemCollectDao.userItemCollect(getPageable(page, size, column, order),userId);
     }
 
     @Transactional
     @Override
-    public Message<String> delCollect(String itemType, long userId, long itemId) {
-        t_item_collect itemCollect = findCollect(itemType,userId,itemId);
-        if (itemCollect==null){
-            return Message.error("该项目未收藏");
+    public Message<t_item_collect> delCollect(long userId, long itemId, ItemType itemType) {
+        t_item_collect item_collect = isCollect(userId, itemId,itemType);
+        if (item_collect==null) {
+            return Message.error("项目未收藏");
         }
 
-        itemCollectDao.deleteById(itemCollect.getId());
+        itemCollectDao.delete(item_collect);
 
-        return Message.ok("删除成功");
+        return Message.success(item_collect);
     }
 
     @Override
-    public t_item_collect findCollect(String itemType, long userId, long itemId) {
-        ItemType prefer = EnumUtils.getEnumIgnoreCase(ItemType.class, itemType);
-        if (prefer == null) {
-            throw new IllegalArgumentException("项目类型错误");
-        }
-
-        return null;
+    public t_item_collect isCollect(long userId, long itemId, ItemType itemType) {
+        return itemCollectDao.findByUser_idAndItem_idAndItemType(userId,itemId,itemType);
     }
 
 }

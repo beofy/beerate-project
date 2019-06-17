@@ -151,17 +151,4 @@ public class t_item_pre_ipo extends ItemModel {
     @Column(columnDefinition = "varchar(255) not null default '' comment '内容描述'")
     private String contentDescription;
 
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "pre_ipo_id")
-    private List<t_item_message_board> message_boards;
-
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "pre_ipo_id")
-    private List<t_item_collect> item_collects;
-
-
 }

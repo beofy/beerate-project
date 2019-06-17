@@ -87,13 +87,6 @@ public class t_user extends UserAndAdminModel {
     @JoinColumn(name = "user_id")
     private List<t_item_overseas_listing> overseas_listing;
 
-
-    //======================项目收藏======================
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<t_item_collect> item_collects;
-
-
     //======================关注，联系，访客联系======================
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -121,9 +114,9 @@ public class t_user extends UserAndAdminModel {
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<t_item_delivery> my_delivery;
+    private List<t_user_item_delivery> my_delivery;
 
     @OneToMany
     @JoinColumn(name = "delivery_user_id")
-    private List<t_item_delivery> delivery_me;
+    private List<t_user_item_delivery> delivery_me;
 }

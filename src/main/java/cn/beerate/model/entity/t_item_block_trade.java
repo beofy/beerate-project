@@ -71,15 +71,4 @@ public class t_item_block_trade extends ItemModel {
     @Column(columnDefinition = "bit(1) not null default 0 comment '增信是否公开（增信）'")
     private Boolean confidenceIsPublic;
 
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "block_trade_id")
-    private List<t_item_message_board> message_boards;
-
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "block_trade_id")
-    private List<t_item_collect> item_collects;
 }

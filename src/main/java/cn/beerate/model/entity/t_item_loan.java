@@ -93,7 +93,6 @@ public class t_item_loan extends ItemModel {
 	@Column(columnDefinition = "varchar(255) not null default '' comment 'BP计划书'")
 	private String businessProposalUri;
 
-	/* ======================补充资料====================== */
 	@Column(columnDefinition = "varchar(255) not null default '' comment '营业执照彩色扫描件（三证合一）'")
 	private String businessLicenseUri;
 	
@@ -108,18 +107,5 @@ public class t_item_loan extends ItemModel {
 	
 	@Column(columnDefinition = "varchar(255) not null default '' comment '近6个月银行流水（主要银行）'")
 	private String capitalFlowUri;
-	/* ======================补充资料====================== */
-
-	//==========================================
-
-	@OneToMany
-	@JoinColumn(name = "item_loan_id")
-	private List<t_item_message_board> message_boards;
-
-	//==========================================
-
-	@OneToMany
-	@JoinColumn(name = "item_loan_id")
-	private List<t_item_collect> item_collects;
 
 }

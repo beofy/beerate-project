@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 项目方控制器
  */
 @RestController
-@RequestMapping("/user/projector")
+@RequestMapping("/user/item/projector")
 public class ProjectorController {
 
     private ProjectorService projectorService;

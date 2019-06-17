@@ -20,7 +20,7 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping("/user/loan")
+@RequestMapping("/user/item/loan")
 public class LoanController extends UserBaseController {
     private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -64,12 +64,12 @@ public class LoanController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Message<Page<MyLoan>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(loanService.pageMyLoanByUser(page,size,column,order,getUserId()));
     }
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Message<LoanDetail> detail(long loanId) {
         return Message.success(loanService.LoanDetailByUser(loanId,getUserId()));
     }

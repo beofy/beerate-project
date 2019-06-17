@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/blocktrade/")
+@RequestMapping("/user/item/blocktrade/")
 public class BlockTradeController extends UserBaseController {
 
     private BlockTradeService blockTradeService;

@@ -1,17 +1,18 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.entity.t_item_collect;
 import cn.beerate.service.ItemCollectService;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/itemcollect")
+@RequestMapping("/user/item/collect")
 public class ItemCollectController extends UserBaseController{
-
     private ItemCollectService itemCollectService;
     public ItemCollectController(ItemCollectService itemCollectService) {
         this.itemCollectService = itemCollectService;
@@ -19,29 +20,44 @@ public class ItemCollectController extends UserBaseController{
 
     @PostMapping("/add")
     public Message<String> add(String itemType,long itemId){
-        t_item_collect itemCollect = itemCollectService.findCollect(itemType,getUserId(),itemId);
-        if (itemCollect!=null){
-            return Message.error("项目已收藏");
+        ItemType itemTypeEum = EnumUtils.getEnumIgnoreCase(ItemType.class,itemType);
+        if (itemTypeEum==null){
+            return Message.error("项目类型错误");
         }
 
-       return itemCollectService.addCollect(itemType,getUserId(),itemId);
+        Message<t_item_collect> message = itemCollectService.addCollect(getUserId(),itemId,itemTypeEum);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+       return Message.ok("收藏成功");
     }
 
     @PostMapping("/del")
     public Message<String> del(String itemType,long itemId){
-        t_item_collect itemCollect = itemCollectService.findCollect(itemType,getUserId(),itemId);
-        if (itemCollect==null){
-            return Message.error("项目未收藏");
+        ItemType itemTypeEum = EnumUtils.getEnumIgnoreCase(ItemType.class,itemType);
+        if (itemTypeEum==null){
+            return Message.error("项目类型错误");
         }
 
-       return itemCollectService.delCollect(itemType,getUserId(),itemId);
+        Message<t_item_collect> message = itemCollectService.delCollect(getUserId(),itemId,itemTypeEum);
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+       return Message.ok("删除成功");
     }
 
-    @PostMapping("/findCollect")
-    public Message<Boolean> status(String itemType,long itemId){
-        t_item_collect itemCollect = itemCollectService.findCollect(itemType,getUserId(),itemId);
+    @PostMapping("/isCollect")
+    public Message<Boolean> isCollect(String itemType,long itemId){
+        ItemType itemTypeEum = EnumUtils.getEnumIgnoreCase(ItemType.class,itemType);
+        if (itemTypeEum==null){
+            return Message.error("项目类型错误");
+        }
+
+        t_item_collect itemCollect = itemCollectService.isCollect(getUserId(),itemId,itemTypeEum);
         if (itemCollect==null){
-            Message.success(false);
+           return Message.success(false);
         }
 
         return Message.success(true);
@@ -49,7 +65,11 @@ public class ItemCollectController extends UserBaseController{
 
     @GetMapping("/list")
     public Message list(int page, int size, String column, String order,String itemType){
-        return itemCollectService.pageOfCollect(page,size,column,order,getUserId(),itemType);
-    }
+        ItemType itemTypeEum = EnumUtils.getEnumIgnoreCase(ItemType.class,itemType);
+        if (itemTypeEum==null){
+            return Message.error("项目类型错误");
+        }
 
+        return Message.success(itemCollectService.pageOfCollect(page,size,column,order,getUserId()));
+    }
 }

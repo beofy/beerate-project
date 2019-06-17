@@ -18,12 +18,12 @@ public class LoanRepositoryImpl implements LoanRepository{
 
     public Page<MyLoan> pageMyLoanByUser(Pageable pageable,long userId){
         String querySql="SELECT id,itemName,industryRealm,amount,period,auditStatus FROM t_item_loan WHERE user_id = :user_id";
-        String CountSql="SELECT count(1) FROM t_item_loan WHERE user_id = :user_id";
+        String countSql="SELECT count(1) FROM t_item_loan WHERE user_id = :user_id";
 
         Map<String,Object> args= new HashMap<>();
         args.put("user_id",userId);
 
-        return genericRepository.getPage(querySql,CountSql,args,pageable,MyLoan.class);
+        return genericRepository.getPage(querySql,countSql,args,pageable,MyLoan.class);
     }
 
     @Override

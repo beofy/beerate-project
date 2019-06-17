@@ -13,10 +13,10 @@ public class ProjectorServiceImpl implements ProjectorService {
     private UserAttentionService userAttentionService;
     private UserConcatService userConcatService;
     private UserVisitorService userVisitorService;
-    private ItemDeliveryService itemDeliveryService;
+    private UserItemDeliveryService itemDeliveryService;
     private ItemMessageBoardService itemMessageBoardService;
 
-    public ProjectorServiceImpl(UserBusinessService userBusinessService, UserAttentionService userAttentionService, UserConcatService userConcatService, UserVisitorService userVisitorService, ItemDeliveryService itemDeliveryService, ItemMessageBoardService itemMessageBoardService) {
+    public ProjectorServiceImpl(UserBusinessService userBusinessService, UserAttentionService userAttentionService, UserConcatService userConcatService, UserVisitorService userVisitorService, UserItemDeliveryService itemDeliveryService, ItemMessageBoardService itemMessageBoardService) {
         this.userBusinessService = userBusinessService;
         this.userAttentionService = userAttentionService;
         this.userConcatService = userConcatService;

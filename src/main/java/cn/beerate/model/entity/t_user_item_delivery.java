@@ -7,23 +7,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @Setter
 @Getter
-@org.hibernate.annotations.Table(appliesTo = "t_item_collect",comment="项目收藏")
-public class t_item_collect extends Model {
+@org.hibernate.annotations.Table(appliesTo = "t_user_item_delivery", comment = "用户项目投递表")
+public class t_user_item_delivery extends Model {
 
     @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
     private Long user_id;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目id'")
     private Long item_id;
+
+    @Column( columnDefinition = "varchar(50) not null default '' comment '项目名称'")
+    private String name;
 
     @Column( columnDefinition = "varchar(30) not null default '' comment '项目类型'")
     private String  itemType;

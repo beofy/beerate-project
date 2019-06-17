@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/stockpledge")
+@RequestMapping("/user/item/stockpledge")
 public class StockPledgeController extends UserBaseController {
     private StockPledgeService stockPledgeService;
 

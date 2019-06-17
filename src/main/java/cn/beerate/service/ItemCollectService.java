@@ -1,16 +1,30 @@
 package cn.beerate.service;
 
 import cn.beerate.common.Message;
+import cn.beerate.model.ItemType;
+import cn.beerate.model.dto.UserItemCollect;
 import cn.beerate.model.entity.t_item_collect;
+import org.springframework.data.domain.Page;
 
 public interface ItemCollectService extends IBaseService<t_item_collect> {
 
-    Message<String> addCollect(String itemType, long userId, long itemId);
+    /**
+     * 添加收藏
+     */
+    Message<t_item_collect> addCollect(long userId, long itemId,ItemType itemType);
 
-    Message<String> delCollect(String itemType, long userId, long itemId);
+    /**
+     * 取消收藏
+     */
+    Message<t_item_collect> delCollect(long userId, long itemId, ItemType itemType);
 
-    t_item_collect findCollect(String itemType, long userId, long itemId);
+    /**
+     * 是否已收藏
+     */
+    t_item_collect isCollect(long userId, long itemId,ItemType itemType);
 
-    Message pageOfCollect(int page, int size, String column, String order, long userId, String itemType);
-
+    /**
+     * 我的收藏
+     */
+    Page<UserItemCollect> pageOfCollect(int page, int size, String column, String order, long userId);
 }
