@@ -3,9 +3,12 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.BlockTradeDao;
 import cn.beerate.model.CreditIdentification;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.UnderWeightIdentification;
 import cn.beerate.model.entity.t_item_block_trade;
+import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.BlockTradeService;
+import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -17,9 +20,11 @@ import java.util.Date;
 @Transactional(readOnly = true)
 public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_trade> implements BlockTradeService {
     private BlockTradeDao blockTradeDao;
-    public BlockTradeServiceImpl(BlockTradeDao blockTradeDao) {
+    private UserItemDeliveryService userItemDeliveryService;
+    public BlockTradeServiceImpl(BlockTradeDao blockTradeDao,UserItemDeliveryService userItemDeliveryService) {
         super(blockTradeDao);
         this.blockTradeDao = blockTradeDao;
+        this.userItemDeliveryService=userItemDeliveryService;
     }
 
     private Message<String> blockTradeValid(t_item_block_trade blockTrade) {
@@ -81,9 +86,9 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
     @Transactional
     public Message<t_item_block_trade> addItem(t_item_block_trade blockTrade) {
         //参数校验
-        Message<String> messageValid = blockTradeValid(blockTrade);
-        if(messageValid.fail()){
-            return Message.error(messageValid.getMsg());
+        Message<String> message = blockTradeValid(blockTrade);
+        if(message.fail()){
+            return Message.error(message.getMsg());
         }
 
         if (!BooleanUtils.isTrue(blockTrade.getIsConfidence())) {
@@ -94,6 +99,18 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
             blockTrade.setConfidenceIsPublic(false);
         }
 
-        return super.addItem(blockTrade);
+        Message<t_item_block_trade> message1 = super.addItem(blockTrade);
+        if (message1.fail()){
+            return message1;
+        }
+
+        //添加投递项目列表
+        t_item_block_trade block_trade = message1.getData();
+        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(block_trade.getUser().getId(),block_trade.getId(),block_trade.getBlockTradeName(), ItemType.BLOCK_TRADE);
+        if (message2.fail()){
+            return Message.error(message2.getMsg());
+        }
+
+        return message1;
     }
 }

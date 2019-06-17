@@ -2,14 +2,13 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.LoanDao;
-import cn.beerate.model.AmountUnit;
-import cn.beerate.model.AuditStatus;
-import cn.beerate.model.IndustryRealm;
-import cn.beerate.model.PeriodUnit;
+import cn.beerate.model.*;
 import cn.beerate.model.dto.LoanDetail;
 import cn.beerate.model.dto.MyLoan;
 import cn.beerate.model.entity.t_item_loan;
+import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.LoanService;
+import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -21,9 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implements LoanService {
 
     private LoanDao loanDao;
-    public LoanServiceImpl(LoanDao loanDao) {
+    private UserItemDeliveryService userItemDeliveryService;
+
+    public LoanServiceImpl(LoanDao loanDao,UserItemDeliveryService userItemDeliveryService) {
         super(loanDao);
         this.loanDao = loanDao;
+        this.userItemDeliveryService=userItemDeliveryService;
     }
 
     private Message<String> loanValid(t_item_loan loan){
@@ -124,7 +126,19 @@ public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implemen
             return Message.error(message.getMsg());
         }
 
-        return super.addItem(loan);
+        Message<t_item_loan> message1= super.addItem(loan);
+        if (message1.fail()){
+            return message1;
+        }
+
+        //添加投递项目列表
+        t_item_loan itemLoan = message1.getData();
+        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(itemLoan.getUser().getId(),itemLoan.getId(),itemLoan.getItemName(), ItemType.ITEM_LOAN);
+        if (message2.fail()){
+            return Message.error(message2.getMsg());
+        }
+
+        return message1;
     }
 
     @Override

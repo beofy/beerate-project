@@ -2,10 +2,13 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.StockPledgeDao;
+import cn.beerate.model.ItemType;
 import cn.beerate.model.StockBlock;
 import cn.beerate.model.StockNature;
 import cn.beerate.model.entity.t_item_stock_pledge;
+import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.StockPledgeService;
+import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +20,11 @@ import java.util.Date;
 public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_pledge> implements StockPledgeService {
 
     private StockPledgeDao stockPledgeDao;
-
-    public StockPledgeServiceImpl(StockPledgeDao stockPledgeDao) {
+    private UserItemDeliveryService userItemDeliveryService;
+    public StockPledgeServiceImpl(StockPledgeDao stockPledgeDao,UserItemDeliveryService userItemDeliveryService) {
         super(stockPledgeDao);
         this.stockPledgeDao = stockPledgeDao;
+        this.userItemDeliveryService=userItemDeliveryService;
     }
 
     private Message<String> stockPledgeValid(t_item_stock_pledge stockPledge){
@@ -106,6 +110,18 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
             return Message.error(message.getMsg());
         }
 
-        return super.addItem(stockPledge);
+        Message<t_item_stock_pledge> message1 = super.addItem(stockPledge);
+        if (message1.fail()){
+            return message1;
+        }
+
+        //添加投递项目列表
+        t_item_stock_pledge stock_pledge = message1.getData();
+        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(stock_pledge.getUser().getId(),stock_pledge.getId(),stock_pledge.getFinancingBody(), ItemType.STOCK_PLEDGE);
+        if (message2.fail()){
+            return Message.error(message2.getMsg());
+        }
+
+        return message1;
     }
 }

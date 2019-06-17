@@ -2,12 +2,11 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.PreIpoDao;
-import cn.beerate.model.Currency;
-import cn.beerate.model.IndustryRealm;
-import cn.beerate.model.LoanPeriod;
-import cn.beerate.model.RatchetTerms;
+import cn.beerate.model.*;
 import cn.beerate.model.entity.t_item_pre_ipo;
+import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.PreIpoService;
+import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +18,11 @@ import java.util.Date;
 public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> implements PreIpoService {
 
     private PreIpoDao preIpoDao;
-
-    public PreIpoServiceImpl(PreIpoDao preIpoDao) {
+    private UserItemDeliveryService userItemDeliveryService;
+    public PreIpoServiceImpl(PreIpoDao preIpoDao,UserItemDeliveryService userItemDeliveryService) {
         super(preIpoDao);
         this.preIpoDao = preIpoDao;
+        this.userItemDeliveryService=userItemDeliveryService;
     }
 
     private Message<String> preIpoValid(t_item_pre_ipo preIpo){
@@ -165,6 +165,18 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
             return Message.error(message.getMsg());
         }
 
-        return super.addItem(preIpo);
+        Message<t_item_pre_ipo> message1 = super.addItem(preIpo);
+        if (message1.fail()){
+            return message1;
+        }
+
+        //添加投递项目列表
+        t_item_pre_ipo pre_ipo = message1.getData();
+        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(pre_ipo.getUser().getId(),pre_ipo.getId(),pre_ipo.getPreIpoName(), ItemType.PRE_IPO);
+        if (message2.fail()){
+            return Message.error(message2.getMsg());
+        }
+
+        return message1;
     }
 }

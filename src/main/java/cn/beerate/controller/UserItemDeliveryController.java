@@ -9,6 +9,7 @@ import cn.beerate.service.UserItemDeliveryService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserItemDeliveryController extends UserBaseController {
      * 我的投递列表
      */
     @PostMapping("/list")
-    public Message<Page<UserItemDelivery>> list(int page, int size, String column, String order, long user_accept_id) {
+    public Message<Page<UserItemDelivery>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long user_accept_id) {
         return Message.success(userItemDeliveryService.userItemDelivery(page, size, column, order, getUserId(), user_accept_id));
     }
 
@@ -36,20 +37,20 @@ public class UserItemDeliveryController extends UserBaseController {
      */
     @PostMapping("/delivery")
     public Message<String> delivery(long user_accept_id, long delivery_id) {
-       Message<t_user_item_accept> message = userItemAcceptService.acceptItem(user_accept_id, delivery_id);
-       if (message.fail()){
-           return Message.success(message.getMsg());
-       }
+        Message<t_user_item_accept> message = userItemAcceptService.acceptItem(user_accept_id, delivery_id);
+        if (message.fail()) {
+            return Message.success(message.getMsg());
+        }
 
-       return Message.ok("投递成功");
+        return Message.ok("投递成功");
     }
 
     /**
      * 收到的项目
      */
     @PostMapping("/accept")
-    public Message<Page<UserItemAccept>> accept(int page, int size, String column, String order) {
-        return Message.success(userItemAcceptService.userItemAccept(page,size,column,order,getUserId()));
+    public Message<Page<UserItemAccept>> accept(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
+        return Message.success(userItemAcceptService.userItemAccept(page, size, column, order, getUserId()));
     }
 
 }
