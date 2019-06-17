@@ -50,29 +50,4 @@ public class t_admin extends UserAndAdminModel {
     @Column(columnDefinition = "bigint not null default 0 comment '创建者ID'")
     private Long creatorId;
 
-    //======================项目关联======================
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_loan> item_loan;
-
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_block_trade> block_trade;
-
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_pre_ipo> pre_ipo;
-
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_stock_pledge> stock_pledge;
-
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_stock_transfer> stock_transfer;
-
-    @OneToMany
-    @JoinColumn(name = "admin_id")
-    private List<t_item_overseas_listing> overseas_listing;
-
 }

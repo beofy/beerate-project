@@ -77,7 +77,7 @@ public class t_user_business extends Model {
     private Date verifyTime;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private t_user user;
 
 }

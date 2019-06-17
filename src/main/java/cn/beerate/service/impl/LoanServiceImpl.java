@@ -126,7 +126,13 @@ public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implemen
             return Message.error(message.getMsg());
         }
 
-        Message<t_item_loan> message1= super.addItem(loan);
+        return super.addItem(loan);
+    }
+
+    @Override
+    public Message<t_item_loan> addItemByUser(t_item_loan loan, long userId) {
+        Message<t_item_loan> message1= super.addItemByUser(loan,userId);
+
         if (message1.fail()){
             return message1;
         }

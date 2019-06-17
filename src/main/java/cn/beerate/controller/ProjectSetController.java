@@ -12,18 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
  * 项目方控制器
  */
 @RestController
-@RequestMapping("/user/item/projector")
-public class ProjectorController {
+@RequestMapping("/user/projectSet")
+public class ProjectSetController {
 
     private ProjectorService projectorService;
-    public ProjectorController(ProjectorService projectorService) {
+    public ProjectSetController(ProjectorService projectorService) {
         this.projectorService = projectorService;
     }
 
-
     /**
      * 项目列表
-     * @return
      */
     @GetMapping("/list")
     public Message list(){
@@ -31,18 +29,12 @@ public class ProjectorController {
     }
 
     /**
-     * 项目简介
+     * 项目方简介
      */
     @PostMapping("/intro")
     public Message intro(){
         return null;
     }
-
-
-    /**
-     * @// TODO: 2019/5/16  项目方功能待完善
-     */
-
 
     /**
      * 项目详细信息

@@ -16,13 +16,13 @@ public class UserItemDeliveryRepositoryImpl implements UserItemDeliveryRepositor
     @Autowired
     private GenericRepository genericRepository;
 
-    public  Page<UserItemDelivery> userItemDelivery(Pageable pageable,long userId,long accept_user_id){
+    public  Page<UserItemDelivery> userItemDelivery(Pageable pageable,long userId,long acceptUserId){
         String querySql="";
         String countSql="";
 
         Map<String,Object> args= new HashMap<>();
         args.put("user_id",userId);
-        args.put("accept_user_id",accept_user_id);
+        args.put("accept_user_id",acceptUserId);
 
        return genericRepository.getPage(querySql,countSql,args,pageable, UserItemDelivery.class);
     }

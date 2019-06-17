@@ -17,10 +17,10 @@ import javax.persistence.*;
 public class t_user_item_delivery extends Model {
 
     @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
-    private Long user_id;
+    private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目id'")
-    private Long item_id;
+    private Long itemId;
 
     @Column( columnDefinition = "varchar(50) not null default '' comment '项目名称'")
     private String name;

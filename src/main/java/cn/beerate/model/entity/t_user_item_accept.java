@@ -16,9 +16,9 @@ import javax.persistence.Entity;
 public class t_user_item_accept extends Model {
 
     @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
-    private Long user_id;
+    private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目投递表id'")
-    private Long user_item_delivery_id;
+    private Long userItemDeliveryId;
 
 }

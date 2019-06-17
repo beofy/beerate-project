@@ -17,21 +17,21 @@ public class LoanRepositoryImpl implements LoanRepository{
     private GenericRepository genericRepository;
 
     public Page<MyLoan> pageMyLoanByUser(Pageable pageable,long userId){
-        String querySql="SELECT id,itemName,industryRealm,amount,period,auditStatus FROM t_item_loan WHERE user_id = :user_id";
-        String countSql="SELECT count(1) FROM t_item_loan WHERE user_id = :user_id";
+        String querySql="SELECT id,itemName,industryRealm,amount,period,auditStatus FROM t_item_loan WHERE userId = :userId";
+        String countSql="SELECT count(1) FROM t_item_loan WHERE userId = :userId";
 
         Map<String,Object> args= new HashMap<>();
-        args.put("user_id",userId);
+        args.put("userId",userId);
 
         return genericRepository.getPage(querySql,countSql,args,pageable,MyLoan.class);
     }
 
     @Override
     public LoanDetail LoanDetailByUser(long loanId, long userId) {
-        String querySql="SELECT id, itemName, companyName, logoUri, industryRealm, companyWebsite, companyIosUrl, companyAndroidUrl, isQuoted, stockCode, amount, amountUnit, purpose, period, periodUnit, repayment, businessProposalUri, businessLicenseUri, financialReportUri, auditReportUri, indebtednessUri, capitalFlowUri, endTime, isUrgent, isPlatformAuthentication, isFirstHandle, auditStatus, description, admin_id, user_id FROM t_item_loan WHERE  id = :id and user_id = :user_id ";
+        String querySql="SELECT id, itemName, companyName, logoUri, industryRealm, companyWebsite, companyIosUrl, companyAndroidUrl, isQuoted, stockCode, amount, amountUnit, purpose, period, periodUnit, repayment, businessProposalUri, businessLicenseUri, financialReportUri, auditReportUri, indebtednessUri, capitalFlowUri, endTime, isUrgent, isPlatformAuthentication, isFirstHandle, auditStatus, description, adminId, userId FROM t_item_loan WHERE  id = :id and userId = :userId ";
         Map<String,Object> args= new HashMap<>();
         args.put("id",loanId);
-        args.put("user_id",userId);
+        args.put("userId",userId);
 
         return genericRepository.getObject(querySql,args,LoanDetail.class);
     }

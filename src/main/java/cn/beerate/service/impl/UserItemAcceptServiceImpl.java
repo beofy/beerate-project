@@ -21,10 +21,10 @@ public class UserItemAcceptServiceImpl extends BaseServiceImpl<t_user_item_accep
     }
 
     @Override
-    public Message<t_user_item_accept> acceptItem(long accept_user_id,long delivery_id) {
+    public Message<t_user_item_accept> acceptItem(long AcceptUserId,long deliveryId) {
         t_user_item_accept itemAccept = new t_user_item_accept();
-        itemAccept.setUser_id(accept_user_id);
-        itemAccept.setUser_item_delivery_id(delivery_id);
+        itemAccept.setUserId(AcceptUserId);
+        itemAccept.setUserItemDeliveryId(deliveryId);
 
         if (userItemAcceptDao.save(itemAccept)==null){
             return Message.error("添加失败");

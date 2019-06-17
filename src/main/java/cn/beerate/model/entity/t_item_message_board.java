@@ -14,10 +14,10 @@ import javax.persistence.*;
 @org.hibernate.annotations.Table(appliesTo = "t_item_message_board",comment="项目留言表")
 public class t_item_message_board extends Model {
     @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
-    private Long user_id;
+    private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目id'")
-    private Long item_id;
+    private Long itemId;
 
     @Column( columnDefinition = "varchar(500) not null default '' comment '描述'")
     private String description;

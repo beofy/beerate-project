@@ -99,7 +99,12 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
             blockTrade.setConfidenceIsPublic(false);
         }
 
-        Message<t_item_block_trade> message1 = super.addItem(blockTrade);
+        return super.addItem(blockTrade);
+    }
+
+    @Override
+    public Message<t_item_block_trade> addItemByUser(t_item_block_trade blockTrade, long userId) {
+        Message<t_item_block_trade> message1 = super.addItemByUser(blockTrade,userId);
         if (message1.fail()){
             return message1;
         }

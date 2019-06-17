@@ -26,8 +26,8 @@ public class UserItemDeliveryServiceImpl extends BaseServiceImpl<t_user_item_del
     @Override
     public Message<t_user_item_delivery> addUserItemDelivery(long userId, long itemId,String name,ItemType itemType) {
         t_user_item_delivery userItemDelivery = new t_user_item_delivery();
-        userItemDelivery.setUser_id(userId);
-        userItemDelivery.setItem_id(itemId);
+        userItemDelivery.setUserId(userId);
+        userItemDelivery.setItemId(itemId);
         userItemDelivery.setName(name);
         userItemDelivery.setItemType(itemType);
 
@@ -39,7 +39,7 @@ public class UserItemDeliveryServiceImpl extends BaseServiceImpl<t_user_item_del
     }
 
     @Override
-    public Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long user_accept_id) {
-        return userItemDeliveryDao.userItemDelivery(getPageable(page,size,column,order),userId,user_accept_id);
+    public Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long userAcceptId) {
+        return userItemDeliveryDao.userItemDelivery(getPageable(page,size,column,order),userId,userAcceptId);
     }
 }

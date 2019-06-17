@@ -47,21 +47,4 @@ public class t_item_overseas_listing extends Model {
 	@Column(columnDefinition = "bit(1) not null default 0 comment '前台是否展示'")
 	private Boolean isShow;
 
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private t_user user;
-
-    //==========================================
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private t_admin admin;
-
-    //==========================================
-
-    @OneToMany
-    @JoinColumn(name = "overseas_listing_id")
-    private List<t_item_message_board> message_boards;
 }

@@ -16,5 +16,5 @@ public interface UserItemDeliveryService extends IBaseService<t_user_item_delive
     /**
      * 查询我的投递列表
      */
-    Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long accept_user_id);
+    Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long acceptUserId);
 }

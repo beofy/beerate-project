@@ -110,7 +110,14 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
             return Message.error(message.getMsg());
         }
 
-        Message<t_item_stock_pledge> message1 = super.addItem(stockPledge);
+
+
+        return super.addItem(stockPledge);
+    }
+
+    @Override
+    public Message<t_item_stock_pledge> addItemByUser(t_item_stock_pledge stockPledge, long userId) {
+        Message<t_item_stock_pledge> message1 = super.addItemByUser(stockPledge, userId);
         if (message1.fail()){
             return message1;
         }

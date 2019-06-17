@@ -24,6 +24,4 @@ public class t_admin_right extends Model {
     @Column(columnDefinition = "varchar(255) not null default '' comment '权限描述'")
     private String description;
 
-
-
 }

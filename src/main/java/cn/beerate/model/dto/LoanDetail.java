@@ -67,8 +67,8 @@ public class LoanDetail {
 
     private String description;
 
-    private Long admin_id;
+    private Long adminId;
 
-    private Long user_id;
+    private Long userId;
 
 }

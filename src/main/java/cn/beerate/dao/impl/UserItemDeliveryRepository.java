@@ -9,8 +9,8 @@ public interface UserItemDeliveryRepository {
     /**
      *
      * @param userId 用户id
-     * @param accept_user_id 接受者用户id
+     * @param acceptUserId 接受者用户id
      */
-    Page<UserItemDelivery> userItemDelivery(Pageable pageable, long userId, long accept_user_id);
+    Page<UserItemDelivery> userItemDelivery(Pageable pageable, long userId, long acceptUserId);
 
 }

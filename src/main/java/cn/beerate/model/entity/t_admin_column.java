@@ -16,9 +16,9 @@ import javax.persistence.Entity;
 public class t_admin_column extends Model {
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '栏目名'")
-    private String columName;
+    private String columnName;
 
     @Column(columnDefinition = "varchar(255) not null default '' comment '父类栏目id'")
-    private String columParentId;
+    private String columnParentId;
 
 }

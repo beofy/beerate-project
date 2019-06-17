@@ -1,18 +1,22 @@
 package cn.beerate.model.dto;
 
 import cn.beerate.model.ItemType;
+import lombok.Data;
 import org.apache.commons.lang3.EnumUtils;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Data
+@Entity
 public class UserItemAccept {
 
     @Id
     private Long id;
 
-    private Long user_id;
+    private Long userId;
 
-    private Long item_id;
+    private Long itemId;
 
     private String name;
 

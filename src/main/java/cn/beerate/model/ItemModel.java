@@ -48,13 +48,13 @@ public class ItemModel extends Model {
     //==========================================
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private t_user user;
 
     //==========================================
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
+    @JoinColumn(name = "adminId")
     private t_admin admin;
 
 }

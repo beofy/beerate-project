@@ -20,10 +20,10 @@ import javax.persistence.ManyToOne;
 public class t_item_collect extends Model {
 
     @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
-    private Long user_id;
+    private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目id'")
-    private Long item_id;
+    private Long itemId;
 
     @Column( columnDefinition = "varchar(30) not null default '' comment '项目类型'")
     private String  itemType;

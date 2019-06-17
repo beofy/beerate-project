@@ -28,16 +28,16 @@ public class UserItemDeliveryController extends UserBaseController {
      * 我的投递列表
      */
     @PostMapping("/list")
-    public Message<Page<UserItemDelivery>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long user_accept_id) {
-        return Message.success(userItemDeliveryService.userItemDelivery(page, size, column, order, getUserId(), user_accept_id));
+    public Message<Page<UserItemDelivery>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userAcceptId) {
+        return Message.success(userItemDeliveryService.userItemDelivery(page, size, column, order, getUserId(), userAcceptId));
     }
 
     /**
      * 项目投递
      */
     @PostMapping("/delivery")
-    public Message<String> delivery(long user_accept_id, long delivery_id) {
-        Message<t_user_item_accept> message = userItemAcceptService.acceptItem(user_accept_id, delivery_id);
+    public Message<String> delivery(long userAcceptId, long deliveryId) {
+        Message<t_user_item_accept> message = userItemAcceptService.acceptItem(userAcceptId, deliveryId);
         if (message.fail()) {
             return Message.success(message.getMsg());
         }

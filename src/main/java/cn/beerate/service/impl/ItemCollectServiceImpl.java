@@ -28,8 +28,8 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
         }
 
         t_item_collect itemCollect = new t_item_collect();
-        itemCollect.setUser_id(userId);
-        itemCollect.setItem_id(itemId);
+        itemCollect.setUserId(userId);
+        itemCollect.setItemId(itemId);
         itemCollect.setItemType(itemType);
 
         if (itemCollectDao.save(itemCollect) == null) {
@@ -59,7 +59,7 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
 
     @Override
     public t_item_collect isCollect(long userId, long itemId, ItemType itemType) {
-        return itemCollectDao.findByUser_idAndItem_idAndItemType(userId,itemId,itemType);
+        return itemCollectDao.findByUserIdAndItemIdAndItemType(userId,itemId,itemType.name());
     }
 
 }

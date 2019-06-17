@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemCollectDao extends IBaseDao<t_item_collect>, ItemCollectRepository {
 
-    t_item_collect findByUser_idAndItem_idAndItemType(long user_id, long item_id, ItemType itemType);
+    t_item_collect findByUserIdAndItemIdAndItemType(long userId, long itemId, String itemType);
 
 }
