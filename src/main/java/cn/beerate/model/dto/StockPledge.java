@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class StockPledge {
+
     @Id
     private Long id;
 

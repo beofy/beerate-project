@@ -83,6 +83,11 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
 
     @Transactional
     public Message<t_user_business> addUserBusiness(t_user_business userBusiness,long userId){
+        t_user_business user_business = userBusinessDao.findByUserId(userId);
+        if (user_business!=null){
+            return Message.error("名片已上传");
+        }
+
         t_user user = new t_user();
         user.setId(userId);
 

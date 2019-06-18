@@ -5,11 +5,13 @@ import lombok.Data;
 import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @Entity
 public class ProjectorDetail {
 
+    @Id
     private Long id;
 
     private String name;

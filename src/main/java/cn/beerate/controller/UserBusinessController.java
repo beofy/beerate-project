@@ -44,7 +44,10 @@ public class UserBusinessController extends UserBaseController {
         try (InputStream inputStream = file.getInputStream()) {
             userBusiness = userBusinessService.parse(inputStream);
             userBusiness.setBusinessCardUri(PropertiesHolder.ATTACHMENT_PATH + file.getOriginalFilename());
-            userBusinessService.addUserBusiness(userBusiness, getUserId());
+            Message<t_user_business> message = userBusinessService.addUserBusiness(userBusiness, getUserId());
+            if (message.fail()){
+                return Message.error(message.getMsg());
+            }
         } catch (IOException e) {
             logger.error(String.format("解析名片文件异常,原因：[%s]",e.getCause()),e);
             return Message.error("解析名片文件异常");

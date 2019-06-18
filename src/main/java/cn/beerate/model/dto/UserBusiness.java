@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 public class UserBusiness {
+
     @Id
     private Long id;
 
