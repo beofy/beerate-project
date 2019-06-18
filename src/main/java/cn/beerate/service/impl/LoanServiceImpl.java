@@ -3,6 +3,7 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.LoanDao;
 import cn.beerate.model.*;
+import cn.beerate.model.dto.Loan;
 import cn.beerate.model.dto.LoanDetail;
 import cn.beerate.model.dto.MyLoan;
 import cn.beerate.model.entity.t_item_loan;
@@ -195,5 +196,10 @@ public class LoanServiceImpl extends ItemCommonServiceImpl<t_item_loan> implemen
         itemLoan.setCapitalFlowUri(loan.getCapitalFlowUri());
 
         return super.updateItem(itemLoan);
+    }
+
+    @Override
+    public Page<Loan> pageLoan(int page, int size, String column, String order) {
+        return loanDao.pageLoan(getPageable(page, size, column, order));
     }
 }

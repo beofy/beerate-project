@@ -2,14 +2,19 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.StockPledgeDao;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemType;
 import cn.beerate.model.StockBlock;
 import cn.beerate.model.StockNature;
+import cn.beerate.model.dto.MyStockPledge;
+import cn.beerate.model.dto.StockPledge;
+import cn.beerate.model.dto.StockPledgeDetail;
 import cn.beerate.model.entity.t_item_stock_pledge;
 import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.StockPledgeService;
 import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,5 +135,55 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
         }
 
         return message1;
+    }
+
+    @Override
+    public Page<MyStockPledge> pageMyStockPledge(int page, int size, String column, String order, long userId) {
+        return stockPledgeDao.pageMyStockPledgeByUser(getPageable(page, size, column, order),userId);
+    }
+
+    @Override
+    public StockPledgeDetail stockPledgeDetailByUser(long stockPledgeId, long userId) {
+        return stockPledgeDao.stockPledgeDetailByUser(stockPledgeId,userId);
+    }
+
+    @Override
+    public Message<t_item_stock_pledge> updateItemByUser(t_item_stock_pledge stockPledge, long itemId, long userId) {
+        //参数校验
+        Message message = stockPledgeValid(stockPledge);
+        if (message.fail()) {
+            return Message.error(message.getMsg());
+        }
+
+        t_item_stock_pledge stock_pledge = stockPledgeDao.findByIdAndUserId(itemId, userId);
+        if (stock_pledge.getAuditStatus() != AuditStatus.SUPPLEMENT) {
+            return Message.error("非补充资料状态");
+        }
+
+        //更改信息
+        stock_pledge.setFinancingBody(stockPledge.getFinancingBody());
+        stock_pledge.setStockCode(stockPledge.getStockCode());
+        stock_pledge.setStockNature(stockPledge.getStockNature());
+        stock_pledge.setSalesDeadline(stockPledge.getSalesDeadline());
+        stock_pledge.setStockBlock(stockPledge.getStockBlock());
+        stock_pledge.setIsQuoteOrActualController(stockPledge.getIsQuoteOrActualController());
+        stock_pledge.setHoldStockShares(stockPledge.getHoldStockShares());
+        stock_pledge.setPledgeStockShares(stockPledge.getPledgeStockShares());
+        stock_pledge.setSurplusPledgeStockShares(stockPledge.getSurplusPledgeStockShares());
+        stock_pledge.setLoanAmount(stockPledge.getLoanAmount());
+        stock_pledge.setPledgeRates(stockPledge.getPledgeRates());
+        stock_pledge.setLoanPeriod(stockPledge.getLoanPeriod());
+        stock_pledge.setFinancingPartyPaysCostRates(stockPledge.getFinancingPartyPaysCostRates());
+        stock_pledge.setRecentOneYearProfitsDescription(stockPledge.getRecentOneYearProfitsDescription());
+        stock_pledge.setPurpose(stockPledge.getPurpose());
+        stock_pledge.setRepaymentDescription(stockPledge.getRepaymentDescription());
+        stock_pledge.setEnhancementConfidenceMeasures(stockPledge.getEnhancementConfidenceMeasures());
+
+        return super.updateItem(stock_pledge);
+    }
+
+    @Override
+    public Page<StockPledge> pageStockPledge(int page, int size, String column, String order) {
+        return stockPledgeDao.pageStockPledge(getPageable(page, size, column, order));
     }
 }

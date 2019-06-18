@@ -3,24 +3,23 @@ package cn.beerate.model.dto;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Date;
 
 @Data
 @Entity
-public class PreIpo {
+public class MyPreIpo {
 
-    @Id
-    private Long id;
+    private long id;
 
     private String preIpoName;
 
-    private Boolean isNewThirdBoardListing;
-
     private String industryRealm;
-
-    private Date iPOBaseDate;
 
     private String ratchetTerms;
 
+    private Boolean isNewThirdBoardListing;
+
+    private Date iPOBaseDate;
+
+    private String auditStatus;
 }

@@ -1,8 +1,9 @@
 package cn.beerate.dao;
 
+import cn.beerate.dao.impl.UserConcatRepository;
 import cn.beerate.model.entity.t_user_contact;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserConcatDao extends IBaseDao<t_user_contact> {
+public interface UserConcatDao extends IBaseDao<t_user_contact> , UserConcatRepository {
 }

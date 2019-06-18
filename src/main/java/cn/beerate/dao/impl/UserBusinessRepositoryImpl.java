@@ -2,8 +2,12 @@ package cn.beerate.dao.impl;
 
 
 import cn.beerate.dao.support.GenericRepository;
+import cn.beerate.model.dto.Projector;
+import cn.beerate.model.dto.ProjectorDetail;
 import cn.beerate.model.dto.UserBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -23,4 +27,18 @@ public class UserBusinessRepositoryImpl implements UserBusinessRepository {
         return genericRepository.getObject(sql,map,UserBusiness.class);
     }
 
+    @Override
+    public Page<Projector> pageOfProjector(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Projector projectorIntro() {
+        return null;
+    }
+
+    @Override
+    public ProjectorDetail projectorDetail() {
+        return null;
+    }
 }

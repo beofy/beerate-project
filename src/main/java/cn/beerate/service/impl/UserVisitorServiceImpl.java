@@ -1,5 +1,6 @@
 package cn.beerate.service.impl;
 
+import cn.beerate.common.Message;
 import cn.beerate.dao.UserVisitorDao;
 import cn.beerate.model.entity.t_user_visitor;
 import cn.beerate.service.UserVisitorService;
@@ -14,6 +15,19 @@ public class UserVisitorServiceImpl extends BaseServiceImpl<t_user_visitor>  imp
     public UserVisitorServiceImpl(UserVisitorDao userVisitorDao) {
         super(userVisitorDao);
         this.userVisitorDao = userVisitorDao;
+    }
+
+    @Override
+    public Message<t_user_visitor> addUserVisitor(long userId, long userVisitorId,String ipAddr) {
+        t_user_visitor userVisitor = new t_user_visitor();
+        userVisitor.setUserId(userId);
+        userVisitor.setVisitorUserId(userVisitorId);
+        userVisitor.setIpAddr(ipAddr);
+        if (userVisitorDao.save(userVisitor)==null){
+            return Message.error("保存失败");
+        }
+
+        return Message.success(userVisitor);
     }
 
 }

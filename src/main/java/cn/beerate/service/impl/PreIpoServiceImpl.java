@@ -3,11 +3,15 @@ package cn.beerate.service.impl;
 import cn.beerate.common.Message;
 import cn.beerate.dao.PreIpoDao;
 import cn.beerate.model.*;
+import cn.beerate.model.dto.MyPreIpo;
+import cn.beerate.model.dto.PreIpo;
+import cn.beerate.model.dto.PreIpoDetail;
 import cn.beerate.model.entity.t_item_pre_ipo;
 import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.PreIpoService;
 import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -183,5 +187,68 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
         }
 
         return message1;
+    }
+
+    @Override
+    public Page<MyPreIpo> pageMyPreIpoUser(int page, int size, String column, String order, long userId) {
+        return preIpoDao.pageMyPreIpoByUser(getPageable(page, size, column, order),userId);
+    }
+
+    @Override
+    public PreIpoDetail preIpoDetailByUser(long preIpoId, long userId) {
+        return preIpoDao.preIpoDetailByUser(preIpoId,userId);
+    }
+
+    @Override
+    public Message<t_item_pre_ipo> updateItemByUser(t_item_pre_ipo preIpo, long itemId, long userId) {
+        //参数校验
+        Message message = preIpoValid(preIpo);
+        if (message.fail()) {
+            return Message.error(message.getMsg());
+        }
+
+        t_item_pre_ipo pre_ipo = preIpoDao.findByIdAndUserId(itemId, userId);
+        if (pre_ipo.getAuditStatus() != AuditStatus.SUPPLEMENT) {
+            return Message.error("非补充资料状态");
+        }
+
+        //更改信息
+        pre_ipo.setPreIpoName(preIpo.getPreIpoName());
+        pre_ipo.setIsNewThirdBoardListing(preIpo.getIsNewThirdBoardListing());
+        pre_ipo.setStockCode(preIpo.getStockCode());
+        pre_ipo.setIsPrincipalUnderwriter(preIpo.getIsPrincipalUnderwriter());
+        pre_ipo.setIsTutoringBrokerage(preIpo.getIsTutoringBrokerage());
+        pre_ipo.setTutoringBrokerageName(preIpo.getTutoringBrokerageName());
+        pre_ipo.setBidName(preIpo.getBidName());
+        pre_ipo.setCompanyNameIsPublic(preIpo.getCompanyNameIsPublic());
+        pre_ipo.setCompanyName(preIpo.getCompanyName());
+        pre_ipo.setCity(preIpo.getCity());
+        pre_ipo.setIndustryRealm(preIpo.getIndustryRealm());
+        pre_ipo.setIPOBaseDate(preIpo.getIPOBaseDate());
+        pre_ipo.setRatchetTerms(preIpo.getRatchetTerms());
+        pre_ipo.setRatchetTermsDescription(preIpo.getRatchetTermsDescription());
+        pre_ipo.setIsPriceNegotiable(preIpo.getIsPriceNegotiable());
+        pre_ipo.setIntentionalPrice(preIpo.getIntentionalPrice());
+        pre_ipo.setExchangeShares(preIpo.getExchangeShares());
+        pre_ipo.setSharesAmount(preIpo.getSharesAmount());
+        pre_ipo.setThresholdAmount(preIpo.getThresholdAmount());
+        pre_ipo.setCurrency(preIpo.getCurrency());
+        pre_ipo.setLoanAmount(preIpo.getLoanAmount());
+        pre_ipo.setIntentionValuation(preIpo.getIntentionValuation());
+        pre_ipo.setLastYearProfits(preIpo.getLastYearProfits());
+        pre_ipo.setLoanPeriod(preIpo.getLoanPeriod());
+        pre_ipo.setPurpose(preIpo.getPurpose());
+        pre_ipo.setInvestLightSpot(preIpo.getInvestLightSpot());
+        pre_ipo.setBusinessProposalUri(preIpo.getBusinessProposalUri());
+        pre_ipo.setContact(preIpo.getContact());
+        pre_ipo.setContactMobile(preIpo.getContactMobile());
+        pre_ipo.setContentDescription(preIpo.getContentDescription());
+
+        return super.updateItem(pre_ipo);
+    }
+
+    @Override
+    public Page<PreIpo> pagePreIpo(int page, int size, String column, String order) {
+        return preIpoDao.pagePreIpo(getPageable(page, size, column, order));
     }
 }

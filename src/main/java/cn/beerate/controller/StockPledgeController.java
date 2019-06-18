@@ -1,8 +1,8 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.StockPledge;
-import cn.beerate.model.dto.StockPledgeList;
+import cn.beerate.model.dto.StockPledgeDetail;
+import cn.beerate.model.dto.MyStockPledge;
 import cn.beerate.model.entity.t_item_stock_pledge;
 import cn.beerate.service.StockPledgeService;
 import org.springframework.data.domain.Page;
@@ -31,21 +31,23 @@ public class StockPledgeController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<StockPledgeList>> list(int page, int size, String column, String order) {
-
-
-
-        Page<StockPledgeList> pageBean = null;
-
-        return Message.success(pageBean);
+    public Message<Page<MyStockPledge>> list(int page, int size, String column, String order) {
+        return Message.success(stockPledgeService.pageMyStockPledge(page,size,column,order,getUserId()));
     }
 
 
     @PostMapping("/detail")
-    public Message<StockPledge> detail(long stockPledgeId) {
+    public Message<StockPledgeDetail> detail(long stockPledgeId) {
+        return Message.success(stockPledgeService.stockPledgeDetailByUser(stockPledgeId,getUserId()));
+    }
 
-        StockPledge pledge = null;
+    @PostMapping("/update")
+    public Message<String> update(t_item_stock_pledge stockPledge, long itemId){
+        Message<t_item_stock_pledge> message = stockPledgeService.updateItemByUser(stockPledge,itemId,getUserId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
-        return Message.success(pledge);
+        return Message.ok("修改成功");
     }
 }

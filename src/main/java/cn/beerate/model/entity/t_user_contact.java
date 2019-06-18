@@ -19,6 +19,6 @@ public class t_user_contact  extends Model {
     private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '被联系的用户id'")
-    private Long attentionUserId;
+    private Long contactUserId;
 
 }

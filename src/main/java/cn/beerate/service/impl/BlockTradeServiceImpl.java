@@ -2,15 +2,20 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.BlockTradeDao;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.CreditIdentification;
 import cn.beerate.model.ItemType;
 import cn.beerate.model.UnderWeightIdentification;
+import cn.beerate.model.dto.BlockTrade;
+import cn.beerate.model.dto.BlockTradeDetail;
+import cn.beerate.model.dto.MyBlockTrade;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.BlockTradeService;
 import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +26,11 @@ import java.util.Date;
 public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_trade> implements BlockTradeService {
     private BlockTradeDao blockTradeDao;
     private UserItemDeliveryService userItemDeliveryService;
-    public BlockTradeServiceImpl(BlockTradeDao blockTradeDao,UserItemDeliveryService userItemDeliveryService) {
+
+    public BlockTradeServiceImpl(BlockTradeDao blockTradeDao, UserItemDeliveryService userItemDeliveryService) {
         super(blockTradeDao);
         this.blockTradeDao = blockTradeDao;
-        this.userItemDeliveryService=userItemDeliveryService;
+        this.userItemDeliveryService = userItemDeliveryService;
     }
 
     private Message<String> blockTradeValid(t_item_block_trade blockTrade) {
@@ -87,7 +93,7 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
     public Message<t_item_block_trade> addItem(t_item_block_trade blockTrade) {
         //参数校验
         Message<String> message = blockTradeValid(blockTrade);
-        if(message.fail()){
+        if (message.fail()) {
             return Message.error(message.getMsg());
         }
 
@@ -104,18 +110,63 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
 
     @Override
     public Message<t_item_block_trade> addItemByUser(t_item_block_trade blockTrade, long userId) {
-        Message<t_item_block_trade> message1 = super.addItemByUser(blockTrade,userId);
-        if (message1.fail()){
+        Message<t_item_block_trade> message1 = super.addItemByUser(blockTrade, userId);
+        if (message1.fail()) {
             return message1;
         }
 
         //添加投递项目列表
         t_item_block_trade block_trade = message1.getData();
-        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(block_trade.getUser().getId(),block_trade.getId(),block_trade.getBlockTradeName(), ItemType.BLOCK_TRADE);
-        if (message2.fail()){
+        Message<t_user_item_delivery> message2 = userItemDeliveryService.addUserItemDelivery(block_trade.getUser().getId(), block_trade.getId(), block_trade.getBlockTradeName(), ItemType.BLOCK_TRADE);
+        if (message2.fail()) {
             return Message.error(message2.getMsg());
         }
 
         return message1;
+    }
+
+    @Override
+    public Page<MyBlockTrade> pageMyBlockTradeUser(int page, int size, String column, String order, long userId) {
+        return blockTradeDao.pageMyBlockTradeByUser(getPageable(page, size, column, order), userId);
+    }
+
+    @Override
+    public BlockTradeDetail BlockTradeDetailByUser(long blockTradeId, long userId) {
+        return blockTradeDao.blockTradeDetailByUser(blockTradeId, userId);
+    }
+
+    @Override
+    public Message<t_item_block_trade> updateItemByUser(t_item_block_trade blockTrade, long itemId, long userId) {
+        //参数校验
+        Message message = blockTradeValid(blockTrade);
+        if (message.fail()) {
+            return Message.error(message.getMsg());
+        }
+
+        t_item_block_trade block_trade = blockTradeDao.findByIdAndUserId(itemId, userId);
+        if (block_trade.getAuditStatus() != AuditStatus.SUPPLEMENT) {
+            return Message.error("非补充资料状态");
+        }
+
+        //更改信息
+        block_trade.setBlockTradeName(blockTrade.getBlockTradeName());
+        block_trade.setStockCode(blockTrade.getStockCode());
+        block_trade.setExchangeRate(blockTrade.getExchangeRate());
+        block_trade.setUnderweightShares(blockTrade.getUnderweightShares());
+        block_trade.setUnderweightAmount(blockTrade.getUnderweightAmount());
+        block_trade.setUnderweightIdentification(blockTrade.getUnderWeightIdentification());
+        block_trade.setIsConfidence(blockTrade.getIsConfidence());
+        block_trade.setExpectedReturn(blockTrade.getExpectedReturn());
+        block_trade.setConfidencePeriod(blockTrade.getConfidencePeriod());
+        block_trade.setCreditIdentification(blockTrade.getCreditIdentification());
+        block_trade.setConfidenceShare(blockTrade.getConfidenceShare());
+        block_trade.setConfidenceIsPublic(blockTrade.getConfidenceIsPublic());
+
+        return super.updateItem(block_trade);
+    }
+
+    @Override
+    public Page<BlockTrade> pageBlockTrade(int page, int size, String column, String order) {
+        return blockTradeDao.pageBlockTrade(getPageable(page, size, column, order));
     }
 }

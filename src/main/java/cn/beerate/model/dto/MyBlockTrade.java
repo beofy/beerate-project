@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class BlockTradeList {
+public class MyBlockTrade {
 
     @Id
     private long id;

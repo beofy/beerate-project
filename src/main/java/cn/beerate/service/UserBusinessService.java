@@ -2,8 +2,12 @@ package cn.beerate.service;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.ItemType;
+import cn.beerate.model.dto.Projector;
+import cn.beerate.model.dto.ProjectorDetail;
+import cn.beerate.model.dto.ProjectorIntro;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user_business;
+import org.springframework.data.domain.Page;
 
 import java.io.InputStream;
 
@@ -33,5 +37,20 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
      * 更新用户名片信息
      */
     Message<t_user_business> updateUserBusiness(t_user_business business,long userId);
+
+    /**
+     * 项目方列表
+     */
+    Page<Projector> pageOfProjector(int page, int size, String column, String order);
+
+    /**
+     * 项目简介
+     */
+    Message<ProjectorIntro> projectorIntro();
+
+    /**
+     * 项目详情
+     */
+    Message<ProjectorDetail> projectorDetail();
 
 }

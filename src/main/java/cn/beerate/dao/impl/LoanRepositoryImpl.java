@@ -1,6 +1,7 @@
 package cn.beerate.dao.impl;
 
 import cn.beerate.dao.support.GenericRepository;
+import cn.beerate.model.dto.Loan;
 import cn.beerate.model.dto.LoanDetail;
 import cn.beerate.model.dto.MyLoan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class LoanRepositoryImpl implements LoanRepository{
         args.put("userId",userId);
 
         return genericRepository.getObject(querySql,args,LoanDetail.class);
+    }
+
+    @Override
+    public Page<Loan> pageLoan(Pageable pageable) {
+        return null;
     }
 }

@@ -1,8 +1,8 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.StockTransfer;
-import cn.beerate.model.dto.StockTransferList;
+import cn.beerate.model.dto.MyStockTransfer;
+import cn.beerate.model.dto.StockTransferDetail;
 import cn.beerate.model.entity.t_item_stock_transfer;
 import cn.beerate.service.StockTransferService;
 import org.springframework.data.domain.Page;
@@ -31,20 +31,24 @@ public class StockTransferController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<StockTransferList>> list(int page, int size, String column, String order) {
-
-        Page<StockTransferList> pageBean = null;
-
-        return Message.success(pageBean);
+    public Message<Page<MyStockTransfer>> list(int page, int size, String column, String order) {
+        return Message.success(stockTransferService.pageMyStockTransfer(page,size,column,order,getUserId()));
     }
 
 
     @PostMapping("/detail")
-    public Message<StockTransfer> detail(long stockTransferId) {
+    public Message<StockTransferDetail> detail(long stockTransferId) {
+        return Message.success(stockTransferService.stockTransferDetailByUser(stockTransferId,getUserId()));
+    }
 
-        StockTransfer transfer = null;
+    @PostMapping("/update")
+    public Message<String> update(t_item_stock_transfer stockTransfer, long itemId){
+        Message<t_item_stock_transfer> message = stockTransferService.updateItemByUser(stockTransfer,itemId,getUserId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
-        return Message.success(transfer);
+        return Message.ok("修改成功");
     }
 
 }

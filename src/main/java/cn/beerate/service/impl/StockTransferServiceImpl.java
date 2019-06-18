@@ -2,13 +2,18 @@ package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
 import cn.beerate.dao.StockTransferDao;
+import cn.beerate.model.AuditStatus;
 import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.ItemType;
+import cn.beerate.model.dto.MyStockTransfer;
+import cn.beerate.model.dto.StockTransfer;
+import cn.beerate.model.dto.StockTransferDetail;
 import cn.beerate.model.entity.t_item_stock_transfer;
 import cn.beerate.model.entity.t_user_item_delivery;
 import cn.beerate.service.StockTransferService;
 import cn.beerate.service.UserItemDeliveryService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,5 +120,53 @@ public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock
         }
 
         return message1;
+    }
+
+    @Override
+    public Page<MyStockTransfer> pageMyStockTransfer(int page, int size, String column, String order, long userId) {
+        return stockTransferDao.pageMyStockTransferByUser(getPageable(page, size, column, order),userId);
+    }
+
+    @Override
+    public StockTransferDetail stockTransferDetailByUser(long stockTransferId, long userId) {
+        return stockTransferDao.stockTransferDetailByUser(stockTransferId,userId);
+    }
+
+    @Override
+    public Message<t_item_stock_transfer> updateItemByUser(t_item_stock_transfer stockTransfer, long itemId, long userId) {
+        //参数校验
+        Message message = stockTransferValid(stockTransfer);
+        if (message.fail()) {
+            return Message.error(message.getMsg());
+        }
+
+        t_item_stock_transfer stock_transfer = stockTransferDao.findByIdAndUserId(itemId, userId);
+        if (stock_transfer.getAuditStatus() != AuditStatus.SUPPLEMENT) {
+            return Message.error("非补充资料状态");
+        }
+
+        //更改信息
+        stock_transfer.setBidName(stockTransfer.getBidName());
+        stock_transfer.setIsQuoted(stockTransfer.getIsQuoted());
+        stock_transfer.setCompanyNameIsPublic(stockTransfer.getCompanyNameIsPublic());
+        stock_transfer.setCompanyName(stockTransfer.getCompanyName());
+        stock_transfer.setIndustryRealm(stockTransfer.getIndustryRealm());
+        stock_transfer.setCurrency(stockTransfer.getCurrency());
+        stock_transfer.setLastYearProfits(stockTransfer.getLastYearProfits());
+        stock_transfer.setCurrentValuation(stockTransfer.getCurrentValuation());
+        stock_transfer.setTransferAmount(stockTransfer.getTransferAmount());
+        stock_transfer.setIsPrivacyEquityRatio(stockTransfer.getIsPrivacyEquityRatio());
+        stock_transfer.setEquityRatio(stockTransfer.getEquityRatio());
+        stock_transfer.setInvestLightSpot(stockTransfer.getInvestLightSpot());
+        stock_transfer.setContact(stockTransfer.getContact());
+        stock_transfer.setContactMobile(stockTransfer.getContactMobile());
+        stock_transfer.setContentDescription(stockTransfer.getContentDescription());
+
+        return super.updateItem(stock_transfer);
+    }
+
+    @Override
+    public Page<StockTransfer> pageStockTransfer(int page, int size, String column, String order) {
+        return stockTransferDao.pageStockTransfer(getPageable(page, size, column, order));
     }
 }

@@ -5,6 +5,9 @@ import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemType;
 import cn.beerate.model.bean.Business;
+import cn.beerate.model.dto.Projector;
+import cn.beerate.model.dto.ProjectorDetail;
+import cn.beerate.model.dto.ProjectorIntro;
 import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.model.entity.t_user_business;
@@ -12,6 +15,7 @@ import cn.beerate.service.UserBusinessService;
 import cn.beerate.utils.BcrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -156,5 +160,20 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
         }
 
         return Message.success(userBusiness);
+    }
+
+    @Override
+    public Page<Projector> pageOfProjector(int page, int size, String column, String order) {
+        return null;
+    }
+
+    @Override
+    public Message<ProjectorIntro> projectorIntro() {
+        return null;
+    }
+
+    @Override
+    public Message<ProjectorDetail> projectorDetail() {
+        return null;
     }
 }

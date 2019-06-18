@@ -1,5 +1,6 @@
 package cn.beerate.dao.impl;
 
+import cn.beerate.model.dto.Loan;
 import cn.beerate.model.dto.LoanDetail;
 import cn.beerate.model.dto.MyLoan;
 import org.springframework.data.domain.Page;
@@ -16,5 +17,10 @@ public interface LoanRepository {
      * 查询项目详情
      */
     LoanDetail LoanDetailByUser(long loanId,long userId);
+
+    /**
+     * 项目集列表
+     */
+    Page<Loan> pageLoan(Pageable pageable);
 
 }

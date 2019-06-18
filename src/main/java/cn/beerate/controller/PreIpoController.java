@@ -1,8 +1,8 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.PreIpo;
-import cn.beerate.model.dto.PreIpoList;
+import cn.beerate.model.dto.PreIpoDetail;
+import cn.beerate.model.dto.MyPreIpo;
 import cn.beerate.model.entity.t_item_pre_ipo;
 import cn.beerate.service.PreIpoService;
 import org.springframework.data.domain.Page;
@@ -32,20 +32,22 @@ public class PreIpoController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<PreIpoList>> list(int page, int size, String column, String order) {
-
-
-        Page<PreIpoList> pageBean = null;
-
-        return Message.success(pageBean);
+    public Message<Page<MyPreIpo>> list(int page, int size, String column, String order) {
+        return Message.success(preIpoService.pageMyPreIpoUser(page,size,column,order,getUserId()));
     }
 
     @PostMapping("/detail")
-    public Message<PreIpo> detail(long preIpoId) {
+    public Message<PreIpoDetail> detail(long preIpoId) {
+        return Message.success(preIpoService.preIpoDetailByUser(preIpoId,getUserId()));
+    }
 
+    @PostMapping("/update")
+    public Message<String> update(t_item_pre_ipo preIpo, long itemId){
+        Message<t_item_pre_ipo> message = preIpoService.updateItemByUser(preIpo,itemId,getUserId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
 
-        PreIpo pre =null;
-
-        return Message.success(pre);
+        return Message.ok("修改成功");
     }
 }

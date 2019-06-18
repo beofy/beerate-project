@@ -1,18 +1,15 @@
 package cn.beerate.controller;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.BlockTrade;
-import cn.beerate.model.dto.BlockTradeList;
+import cn.beerate.model.dto.BlockTradeDetail;
+import cn.beerate.model.dto.MyBlockTrade;
 import cn.beerate.model.entity.t_item_block_trade;
 import cn.beerate.service.BlockTradeService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/item/blocktrade/")
+@RequestMapping("/user/item/blocktrade")
 public class BlockTradeController extends UserBaseController {
 
     private BlockTradeService blockTradeService;
@@ -21,9 +18,8 @@ public class BlockTradeController extends UserBaseController {
         this.blockTradeService = blockTradeService;
     }
 
-
     @PostMapping("/add")
-    public Message add(t_item_block_trade blockTrade) {
+    public Message<String> add(t_item_block_trade blockTrade) {
         Message<t_item_block_trade> message = blockTradeService.addItemByUser(blockTrade, getUserId());
         if (message.fail()) {
             return Message.error(message.getMsg());
@@ -33,26 +29,23 @@ public class BlockTradeController extends UserBaseController {
     }
 
     @GetMapping("/list")
-    public Message<Page<BlockTradeList>> list(int page, int size, String column, String order) {
-
-        Page<BlockTradeList> pageBean = null;
-
-        return Message.success(pageBean);
+    public Message<Page<MyBlockTrade>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
+        return Message.success(blockTradeService.pageMyBlockTradeUser(page,size,column,order,getUserId()));
     }
 
     @PostMapping("/detail")
-    public Message detail(long blockTradeId) {
-        BlockTrade trade = null;
-        if (trade==null){
-            return Message.error("项目不存在");
-        }
-
-        return Message.success(trade);
+    public Message<BlockTradeDetail> detail(long blockTradeId) {
+        return Message.success(blockTradeService.BlockTradeDetailByUser(blockTradeId,getUserId()));
     }
 
     @PostMapping("/update")
-    public Message update() {
-        return null;
+    public Message<String> update(t_item_block_trade blockTrade, long itemId){
+        Message<t_item_block_trade> message = blockTradeService.updateItemByUser(blockTrade,itemId,getUserId());
+        if (message.fail()){
+            return Message.error(message.getMsg());
+        }
+
+        return Message.ok("修改成功");
     }
 
 }

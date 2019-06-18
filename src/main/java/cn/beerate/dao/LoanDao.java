@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoanDao extends ItemCommonDao<t_item_loan>, LoanRepository {
 
-    t_item_loan findByIdAndUserId(long itemId,long userId);
 }

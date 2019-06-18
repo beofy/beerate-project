@@ -1,37 +1,18 @@
 package cn.beerate.model.dto;
 
+import cn.beerate.model.LoanPeriod;
+import cn.beerate.model.StockBlock;
+import cn.beerate.model.StockNature;
 import lombok.Data;
+import org.apache.commons.lang3.EnumUtils;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
+@Entity
 public class StockPledge {
-    public StockPledge(Long id, String financingBody, String stockCode, String stockNature, Date salesDeadline, String stockBlock, Boolean isQuoteOrActualController, Integer holdStockShares, Integer pledgeStockShares, Integer surplusPledgeStockShares, Double loanAmount, Double pledgeRates, String loanPeriod, Double financingPartyPaysCostRates, String recentOneYearProfitsDescription, String purpose, String repaymentDescription, String enhancementConfidenceMeasures, Date endTime, Boolean isUrgent, Boolean isPlatformAuthentication, Boolean isFirstHandle, String auditStatus) {
-        this.id = id;
-        this.financingBody = financingBody;
-        this.stockCode = stockCode;
-        this.stockNature = stockNature;
-        this.salesDeadline = salesDeadline;
-        this.stockBlock = stockBlock;
-        this.isQuoteOrActualController = isQuoteOrActualController;
-        this.holdStockShares = holdStockShares;
-        this.pledgeStockShares = pledgeStockShares;
-        this.surplusPledgeStockShares = surplusPledgeStockShares;
-        this.loanAmount = loanAmount;
-        this.pledgeRates = pledgeRates;
-        this.loanPeriod = loanPeriod;
-        this.financingPartyPaysCostRates = financingPartyPaysCostRates;
-        this.recentOneYearProfitsDescription = recentOneYearProfitsDescription;
-        this.purpose = purpose;
-        this.repaymentDescription = repaymentDescription;
-        this.enhancementConfidenceMeasures = enhancementConfidenceMeasures;
-        this.endTime = endTime;
-        this.isUrgent = isUrgent;
-        this.isPlatformAuthentication = isPlatformAuthentication;
-        this.isFirstHandle = isFirstHandle;
-        this.auditStatus = auditStatus;
-    }
-
+    @Id
     private Long id;
 
     private String financingBody;
@@ -40,17 +21,23 @@ public class StockPledge {
 
     private String stockNature;
 
-    private Date salesDeadline;
+    public void setStockNature(StockNature stockNature) {
+        this.stockNature = stockNature.name();
+    }
+
+    public StockNature getStockNature(){
+        return EnumUtils.getEnumIgnoreCase(StockNature.class,stockNature);
+    }
 
     private String stockBlock;
 
-    private Boolean isQuoteOrActualController;
+    public void setStockBlock(StockBlock stockBlock) {
+        this.stockBlock = stockBlock.name();
+    }
 
-    private Integer holdStockShares;
-
-    private Integer pledgeStockShares;
-
-    private Integer surplusPledgeStockShares;
+    public StockBlock getStockBlock(){
+        return EnumUtils.getEnumIgnoreCase(StockBlock.class,stockBlock);
+    }
 
     private Double loanAmount;
 
@@ -58,24 +45,12 @@ public class StockPledge {
 
     private String loanPeriod;
 
-    private Double financingPartyPaysCostRates;
+    public void setLoanPeriod(LoanPeriod loanPeriod) {
+        this.loanPeriod = loanPeriod.name();
+    }
 
-    private String recentOneYearProfitsDescription;
-
-    private String purpose;
-
-    private String repaymentDescription;
-
-    private String enhancementConfidenceMeasures;
-
-    private Date endTime;
-
-    private Boolean isUrgent;
-
-    private Boolean isPlatformAuthentication;
-
-    private Boolean isFirstHandle;
-
-    private String auditStatus;
+    public LoanPeriod getLoanPeriod(){
+        return EnumUtils.getEnumIgnoreCase(LoanPeriod.class,loanPeriod);
+    }
 
 }

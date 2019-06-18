@@ -1,8 +1,13 @@
 package cn.beerate.dao;
 
+import cn.beerate.dao.impl.UserAttentionRepository;
 import cn.beerate.model.entity.t_user_attention;
+import cn.beerate.model.entity.t_user_visitor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserAttentionDao extends IBaseDao<t_user_attention>{
+public interface UserAttentionDao extends IBaseDao<t_user_attention>, UserAttentionRepository {
+
+    t_user_attention findByUserIdAndAttentionUserId(long userId,long attentionUserId);
+
 }

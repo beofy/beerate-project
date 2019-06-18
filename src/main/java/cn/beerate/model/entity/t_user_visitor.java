@@ -19,6 +19,9 @@ public class t_user_visitor extends Model {
     private Long userId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '被访问的用户id'")
-    private Long attentionUserId;
+    private Long visitorUserId;
+
+    @Column( columnDefinition = "varchar(128) not null  comment '访问ip'")
+    private String ipAddr;
 
 }
