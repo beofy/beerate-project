@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
 public class PreIpoRepositoryImpl implements PreIpoRepository {
     @Autowired
@@ -16,12 +19,23 @@ public class PreIpoRepositoryImpl implements PreIpoRepository {
 
     @Override
     public Page<MyPreIpo> pageMyPreIpoByUser(Pageable pageable, long userId) {
-        return null;
+        String querySql="SELECT id, preIpoName, industryRealm, ratchetTerms, isNewThirdBoardListing, iPOBaseDate, auditStatus FROM t_item_pre_ipo WHERE userId = :userId";
+        String countSql="SELECT COUNT(1) FROM t_item_pre_ipo WHERE userId = :userId";
+
+        Map<String,Object> args= new HashMap<>();
+        args.put("userId",userId);
+        return genericRepository.getPage(querySql,countSql,args,pageable, MyPreIpo.class);
     }
 
     @Override
     public PreIpoDetail preIpoDetailByUser(long preIpoId, long userId) {
-        return null;
+        String querySql="SELECT id, preIpoName, isNewThirdBoardListing, stockCode, isPrincipalUnderwriter, isTutoringBrokerage, TutoringBrokerageName, bidName, companyNameIsPublic, companyName, city, industryRealm, iPOBaseDate, ratchetTerms, ratchetTermsDescription, isPriceNegotiable, intentionalPrice, exchangeShares, sharesAmount, thresholdAmount, currency, loanAmount, IntentionValuation, lastYearProfits, loanPeriod, purpose, investLightSpot, businessProposalUri, contact, contactMobile, contentDescription, endTime, isUrgent, isPlatformAuthentication, isFirstHandle, auditStatus, description, adminId, userId FROM t_item_pre_ipo WHERE id = :id AND userId = :userId";
+
+        Map<String,Object> args= new HashMap<>();
+        args.put("id",preIpoId);
+        args.put("userId",userId);
+
+        return genericRepository.getObject(querySql,args,PreIpoDetail.class);
     }
 
     @Override
