@@ -74,6 +74,8 @@
                                             <th>质押股数</th>
                                             <th>融资金额</th>
                                             <th>期限</th>
+                                            <th>审核状态</th>
+                                            <th>分配人</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -93,6 +95,8 @@
                                             <td th:text="${pledge.pledgeStockShares}"></td>
                                             <td th:text="${pledge.loanAmount}"></td>
                                             <td th:text="${pledge.loanPeriod.getValue()}"></td>
+                                            <td th:text="${pledge.auditStatus.value}"></td>
+                                            <td th:text="${pledge.getAdmin()==null?'':pledge.getAdmin().getRealityName()}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/admin/item/stockpledge/detail.html(stockPledgeId=${pledge.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

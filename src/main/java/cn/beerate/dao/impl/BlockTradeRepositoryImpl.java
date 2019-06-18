@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
 public class BlockTradeRepositoryImpl implements BlockTradeRepository {
     @Autowired
@@ -16,12 +19,23 @@ public class BlockTradeRepositoryImpl implements BlockTradeRepository {
 
     @Override
     public Page<MyBlockTrade> pageMyBlockTradeByUser(Pageable pageable, long userId) {
-        return null;
+        String querySql="SELECT id, blockTradeName ,stockCode ,exchangeRate, underweightShares, underweightAmount ,auditStatus FROM t_item_block_trade WHERE userId = :userId";
+        String countSql="SELECT COUNT(1) FROM t_item_block_trade WHERE userId = :userId";
+
+        Map<String,Object> args= new HashMap<>();
+        args.put("userId",userId);
+        return genericRepository.getPage(querySql,countSql,args,pageable, MyBlockTrade.class);
     }
 
     @Override
-    public BlockTradeDetail blockTradeDetailByUser(long loanId, long userId) {
-        return null;
+    public BlockTradeDetail blockTradeDetailByUser(long blockTradeId, long userId) {
+        String querySql="SELECT id, blockTradeName, stockCode, exchangeRate, underweightShares , underweightAmount, underweightIdentification, isConfidence, expectedReturn, confidencePeriod , creditIdentification, confidenceShare, confidenceIsPublic, endTime, isUrgent , isPlatformAuthentication, isFirstHandle, auditStatus, description, adminId , userId FROM t_item_block_trade WHERE id = :id AND userId = :userId";
+
+        Map<String,Object> args= new HashMap<>();
+        args.put("id",blockTradeId);
+        args.put("userId",userId);
+
+        return genericRepository.getObject(querySql,args,BlockTradeDetail.class);
     }
 
     @Override

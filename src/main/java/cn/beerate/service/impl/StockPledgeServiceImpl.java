@@ -121,6 +121,7 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
     }
 
     @Override
+    @Transactional
     public Message<t_item_stock_pledge> addItemByUser(t_item_stock_pledge stockPledge, long userId) {
         Message<t_item_stock_pledge> message1 = super.addItemByUser(stockPledge, userId);
         if (message1.fail()){
@@ -148,6 +149,7 @@ public class StockPledgeServiceImpl extends ItemCommonServiceImpl<t_item_stock_p
     }
 
     @Override
+    @Transactional
     public Message<t_item_stock_pledge> updateItemByUser(t_item_stock_pledge stockPledge, long itemId, long userId) {
         //参数校验
         Message message = stockPledgeValid(stockPledge);

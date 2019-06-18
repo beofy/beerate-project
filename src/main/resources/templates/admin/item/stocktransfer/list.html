@@ -78,6 +78,8 @@
                                             <th>本轮估值</th>
                                             <th>转让金额</th>
                                             <th>股权比例</th>
+                                            <th>审核状态</th>
+                                            <th>分配人</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -96,6 +98,8 @@
                                             <td th:text="${transfer.currentValuation}"></td>
                                             <td th:text="${transfer.transferAmount}"></td>
                                             <td th:text="${transfer.equityRatio}"></td>
+                                            <td th:text="${transfer.auditStatus.value}"></td>
+                                            <td th:text="${transfer.getAdmin()==null?'':transfer.getAdmin().getRealityName()}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/admin/item/stocktransfer/detail.html(stockTransferId=${transfer.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

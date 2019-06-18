@@ -106,6 +106,7 @@ public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock
     }
 
     @Override
+    @Transactional
     public Message<t_item_stock_transfer> addItemByUser(t_item_stock_transfer stockTransfer, long userId) {
         Message<t_item_stock_transfer> message1 = super.addItemByUser(stockTransfer, userId);
         if (message1.fail()){
@@ -133,6 +134,7 @@ public class StockTransferServiceImpl extends ItemCommonServiceImpl<t_item_stock
     }
 
     @Override
+    @Transactional
     public Message<t_item_stock_transfer> updateItemByUser(t_item_stock_transfer stockTransfer, long itemId, long userId) {
         //参数校验
         Message message = stockTransferValid(stockTransfer);

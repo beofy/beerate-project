@@ -30,7 +30,7 @@ public class BlockTradeDetail {
     private Double expectedReturn;
 
     public Object getExpectedReturn(){
-        if (confidenceIsPublic){
+        if (!confidenceIsPublic){
             return "********";
         }
         return expectedReturn;
@@ -39,7 +39,7 @@ public class BlockTradeDetail {
     private Date confidencePeriod;
 
     public Object getConfidencePeriod(){
-        if (confidenceIsPublic){
+        if (!confidenceIsPublic){
             return "********";
         }
         return confidencePeriod;
@@ -48,7 +48,7 @@ public class BlockTradeDetail {
     private String creditIdentification;
 
     public Object getCreditIdentification(){
-        if (confidenceIsPublic){
+        if (!confidenceIsPublic){
             return "********";
         }
         return creditIdentification;
@@ -57,7 +57,7 @@ public class BlockTradeDetail {
     private Integer confidenceShare;
 
     public Object getConfidenceShare(){
-        if (confidenceIsPublic){
+        if (!confidenceIsPublic){
             return "********";
         }
         return confidenceShare;

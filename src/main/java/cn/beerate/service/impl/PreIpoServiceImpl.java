@@ -173,6 +173,7 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
     }
 
     @Override
+    @Transactional
     public Message<t_item_pre_ipo> addItemByUser(t_item_pre_ipo preIpo, long userId) {
         Message<t_item_pre_ipo> message1 = super.addItemByUser(preIpo,userId);
         if (message1.fail()){
@@ -200,6 +201,7 @@ public class PreIpoServiceImpl extends ItemCommonServiceImpl<t_item_pre_ipo> imp
     }
 
     @Override
+    @Transactional
     public Message<t_item_pre_ipo> updateItemByUser(t_item_pre_ipo preIpo, long itemId, long userId) {
         //参数校验
         Message message = preIpoValid(preIpo);

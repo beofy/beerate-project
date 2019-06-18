@@ -109,6 +109,7 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
     }
 
     @Override
+    @Transactional
     public Message<t_item_block_trade> addItemByUser(t_item_block_trade blockTrade, long userId) {
         Message<t_item_block_trade> message1 = super.addItemByUser(blockTrade, userId);
         if (message1.fail()) {
@@ -136,6 +137,7 @@ public class BlockTradeServiceImpl extends ItemCommonServiceImpl<t_item_block_tr
     }
 
     @Override
+    @Transactional
     public Message<t_item_block_trade> updateItemByUser(t_item_block_trade blockTrade, long itemId, long userId) {
         //参数校验
         Message message = blockTradeValid(blockTrade);

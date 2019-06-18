@@ -81,6 +81,7 @@
                                             <th>减持股数</th>
                                             <th>减持总金额</th>
                                             <th>减持方身份</th>
+                                            <th>审核状态</th>
                                             <th>分配人</th>
                                             <th>操作</th>
                                         </tr>
@@ -100,7 +101,8 @@
                                             <td th:text="${blocktrade.underweightShares}"></td>
                                             <td th:text="${blocktrade.underweightAmount}"></td>
                                             <td th:text="${blocktrade.getUnderWeightIdentification().value}"></td>
-                                            <td th:text="${blocktrade.getAdmin().getRealityName()}"></td>
+                                            <td th:text="${blocktrade.auditStatus.value}"></td>
+                                            <td th:text="${blocktrade.getAdmin()==null?'':blocktrade.getAdmin().getRealityName()}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/admin/item/blocktrade/detail.html(blockTradeId=${blocktrade.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

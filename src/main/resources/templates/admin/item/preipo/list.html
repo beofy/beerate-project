@@ -72,6 +72,8 @@
                                             <th>标的所处行业领域</th>
                                             <th>拟IPO基准日</th>
                                             <th>对赌条件</th>
+                                            <th>审核状态</th>
+                                            <th>分配人</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -89,6 +91,8 @@
                                             <td th:text="${preipo.industryRealm.getValue()}"></td>
                                             <td th:text="${#dates.format(preipo.iPOBaseDate,'yyyy-MM-dd') }"></td>
                                             <td th:text="${preipo.ratchetTerms.getValue()}"></td>
+                                            <td th:text="${preipo.auditStatus.value}"></td>
+                                            <td th:text="${preipo.getAdmin()==null?'':preipo.getAdmin().getRealityName()}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{/admin/item/preipo/detail.html(preIpoId=${preipo.id})}" title="审核" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>

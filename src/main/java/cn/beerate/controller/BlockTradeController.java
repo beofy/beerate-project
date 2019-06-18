@@ -28,7 +28,7 @@ public class BlockTradeController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Message<Page<MyBlockTrade>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(blockTradeService.pageMyBlockTradeUser(page,size,column,order,getUserId()));
     }

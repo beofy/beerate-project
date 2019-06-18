@@ -17,7 +17,7 @@ public interface BlockTradeRepository {
     /**
      * 查询项目详情
      */
-    BlockTradeDetail blockTradeDetailByUser(long loanId, long userId);
+    BlockTradeDetail blockTradeDetailByUser(long blockTradeId, long userId);
 
     /**
      * 项目集列表
