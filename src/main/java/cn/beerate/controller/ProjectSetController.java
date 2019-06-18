@@ -97,7 +97,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 项目详细信息
+     * 项目方详细信息
      */
     @PostMapping("/detail")
     public Message<ProjectorDetail> detail(long contactUserId) {
@@ -130,6 +130,16 @@ public class ProjectSetController extends UserBaseController {
         }
 
         return Message.success(true);
+    }
+
+    @PostMapping("/delAttention")
+    public Message<String> delAttention(long attentionUserId) {
+        Message<t_user_attention> message = userAttentionService.delAttention(getUserId(), attentionUserId);
+        if (message.fail()) {
+            return Message.success(message.getMsg());
+        }
+
+        return Message.success("取消关注成功");
     }
 
     /**

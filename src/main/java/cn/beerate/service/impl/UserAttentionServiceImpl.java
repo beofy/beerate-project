@@ -39,6 +39,17 @@ public class UserAttentionServiceImpl extends BaseServiceImpl<t_user_attention> 
     }
 
     @Override
+    public Message<t_user_attention> delAttention(long userId, long attentionUserId) {
+        t_user_attention userAttention = isAttention(userId,attentionUserId);
+        if (userAttention==null) {
+            return Message.error("项目未收藏");
+        }
+
+        userAttentionDao.delete(userAttention);
+        return Message.success(userAttention);
+    }
+
+    @Override
     public t_user_attention isAttention(long userId, long attentionUserId) {
         return userAttentionDao.findByUserIdAndAttentionUserId(userId, attentionUserId);
     }

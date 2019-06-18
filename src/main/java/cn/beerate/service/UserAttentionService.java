@@ -18,12 +18,17 @@ public interface UserAttentionService extends IBaseService<t_user_attention> {
     t_user_attention isAttention(long userId, long attentionUserId);
 
     /**
-     * 项目方关注
+     * 取消关注
+     */
+    Message<t_user_attention> delAttention(long userId,long attentionUserId);
+
+    /**
+     * 项目方的关注
      */
     Page<Projector> attention(int page, int size, String column, String order, long userId);
 
     /**
-     * 项目方关注项目
+     * 被关注的项目方
      */
     Page<Projector> beAttention(int page, int size, String column, String order, long attentionUserId);
 
