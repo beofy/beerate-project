@@ -20,9 +20,9 @@ public class UserBusinessRepositoryImpl implements UserBusinessRepository {
     private GenericRepository genericRepository;
 
     public UserBusiness findUserBusinessDetailByUser(long userId) {
-        String sql = "SELECT id, createTime, updateTime, user_id, aboutText , address, auditStatus, businessCardUri, company, department , email, investPrefer, NAME AS `name`, title, telWork , telCell, verifyTime, workText FROM t_user_business WHERE user_id = :user_id";
+        String sql = "SELECT id, createTime, updateTime,aboutText , address, auditStatus, businessCardUri, company, department , email, investPrefer, NAME AS `name`, title, telWork , telCell, verifyTime, workText FROM t_user_business WHERE userId = :userId";
         Map<String,Object> map = new HashMap<>();
-        map.put("user_id",userId);
+        map.put("userId",userId);
 
         return genericRepository.getObject(sql,map,UserBusiness.class);
     }
