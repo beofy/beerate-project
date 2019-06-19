@@ -31,6 +31,10 @@ public class PreIpoDetail {
     /*  ====================未挂牌==================== */
     private String bidName;
 
+    public Object getBidName(){
+        return companyNameIsPublic?this.companyName:"*******";
+    }
+
     private Boolean companyNameIsPublic;
 
     private String companyName;

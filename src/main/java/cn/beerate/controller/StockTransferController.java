@@ -30,7 +30,7 @@ public class StockTransferController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Message<Page<MyStockTransfer>> list(int page, int size, String column, String order) {
         return Message.success(stockTransferService.pageMyStockTransfer(page,size,column,order,getUserId()));
     }

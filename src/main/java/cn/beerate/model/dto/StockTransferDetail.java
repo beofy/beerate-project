@@ -21,6 +21,10 @@ public class StockTransferDetail {
 
     private String companyName;
 
+    public Object getCompanyName(){
+        return this.companyNameIsPublic?this.companyName:"******";
+    }
+
     private String industryRealm;
 
     private String currency;
@@ -34,6 +38,10 @@ public class StockTransferDetail {
     private Boolean isPrivacyEquityRatio;
 
     private Double equityRatio;
+
+    public Object getEquityRatio(){
+        return this.isPrivacyEquityRatio?equityRatio:"******";
+    }
 
     private String investLightSpot;
 
@@ -52,5 +60,11 @@ public class StockTransferDetail {
     private Boolean isFirstHandle;
 
     private String auditStatus;
+
+    private String description;
+
+    private Long adminId;
+
+    private Long userId;
 
 }

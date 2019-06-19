@@ -30,7 +30,7 @@ public class StockPledgeController extends UserBaseController {
         return Message.ok("添加成功");
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Message<Page<MyStockPledge>> list(int page, int size, String column, String order) {
         return Message.success(stockPledgeService.pageMyStockPledge(page,size,column,order,getUserId()));
     }
