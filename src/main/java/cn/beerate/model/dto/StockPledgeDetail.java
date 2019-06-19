@@ -57,4 +57,10 @@ public class StockPledgeDetail {
 
     private String auditStatus;
 
+    private String description;
+
+    private Long adminId;
+
+    private Long userId;
+
 }

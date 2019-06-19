@@ -6,10 +6,7 @@ import cn.beerate.model.dto.StockTransferDetail;
 import cn.beerate.model.entity.t_item_stock_transfer;
 import cn.beerate.service.StockTransferService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user/item/stocktransfer/")
@@ -31,7 +28,7 @@ public class StockTransferController extends UserBaseController {
     }
 
     @PostMapping("/list")
-    public Message<Page<MyStockTransfer>> list(int page, int size, String column, String order) {
+    public Message<Page<MyStockTransfer>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(stockTransferService.pageMyStockTransfer(page,size,column,order,getUserId()));
     }
 

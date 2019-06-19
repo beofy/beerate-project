@@ -10,10 +10,7 @@ import cn.beerate.utils.PathUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -49,7 +46,7 @@ public class PreIpoController extends UserBaseController {
     }
 
     @PostMapping("/list")
-    public Message<Page<MyPreIpo>> list(int page, int size, String column, String order) {
+    public Message<Page<MyPreIpo>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(preIpoService.pageMyPreIpoUser(page, size, column, order, getUserId()));
     }
 
