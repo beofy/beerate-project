@@ -17,11 +17,11 @@ public class UserItemAcceptRepositoryImpl implements UserItemAcceptRepository {
     private GenericRepository genericRepository;
 
     public Page<UserItemAccept> userItemAccept(Pageable pageable,long userId){
-        String querySql="";
-        String countSql="";
+        String querySql="SELECT delivery.`id`, delivery.`userId`, delivery.`itemId`, delivery.`name`, delivery.`itemType` FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.userId = :userId";
+        String countSql="SELECT count(1) FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.userId = :userId";
 
         Map<String,Object> args= new HashMap<>();
-        args.put("user_id",userId);
+        args.put("userId",userId);
 
         return genericRepository.getPage(querySql,countSql,args,pageable,UserItemAccept.class);
     }

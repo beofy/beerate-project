@@ -21,9 +21,9 @@ public class UserItemAcceptServiceImpl extends BaseServiceImpl<t_user_item_accep
     }
 
     @Override
-    public Message<t_user_item_accept> acceptItem(long AcceptUserId,long deliveryId) {
+    public Message<t_user_item_accept> acceptItem(long userAcceptId,long deliveryId) {
         t_user_item_accept itemAccept = new t_user_item_accept();
-        itemAccept.setUserId(AcceptUserId);
+        itemAccept.setUserId(userAcceptId);
         itemAccept.setUserItemDeliveryId(deliveryId);
 
         if (userItemAcceptDao.save(itemAccept)==null){

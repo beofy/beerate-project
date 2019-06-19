@@ -89,12 +89,18 @@ public class GenericRepositoryImpl implements GenericRepository {
     }
 
     private void setParameter(Query query ,Map<String,Object> args){
-        if ( (args != null) && (args.keySet().size() > 0) ) {
-            Set<Map.Entry<String, Object>> entries = args.entrySet();
-            for (Map.Entry<String, Object> entry : entries) {
-                query.setParameter(entry.getKey(), entry.getValue());
-            }
-        }
+        query.getParameters().forEach(parameter -> {
+             String arg = parameter.getName();
+             query.setParameter(arg,args.get(arg));
+        });
+
+//        if ( (args != null) && (args.keySet().size() > 0) ) {
+//            Set<Map.Entry<String, Object>> entries = args.entrySet();
+//            for (Map.Entry<String, Object> entry : entries) {
+//
+//                query.setParameter(entry.getKey(), entry.getValue());
+//            }
+//        }
     }
 
 }
