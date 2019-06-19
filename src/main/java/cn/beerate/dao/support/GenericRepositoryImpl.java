@@ -66,9 +66,6 @@ public class GenericRepositoryImpl implements GenericRepository {
     @Override
     @SuppressWarnings("unchecked")
     public <B> Page<B> getPage(String querySql, String countSql, Map<String, Object> args, Pageable pageable, Class<B> bClass) {
-        Query nativeQuery = entityManager.createNativeQuery(querySql, bClass);
-        setParameter(nativeQuery,args);
-
         //排序条件
         Sort sort =pageable.getSort();
         if (sort.isSorted()){
@@ -79,13 +76,16 @@ public class GenericRepositoryImpl implements GenericRepository {
             }
         }
 
+        Query nativeQuery = entityManager.createNativeQuery(querySql, bClass);
+        setParameter(nativeQuery,args);
+
         //分页参数
         if (pageable.isPaged()) {
             nativeQuery.setFirstResult((int) pageable.getOffset());
             nativeQuery.setMaxResults(pageable.getPageSize());
         }
 
-        return pageable.isUnpaged()?new PageImpl<>(getList(querySql,args,bClass)): PageableExecutionUtils.getPage((List<B>)nativeQuery.getResultList(),pageable,() -> getCount(countSql,args));
+        return pageable.isUnpaged()?new PageImpl<>((List<B>)nativeQuery.getResultList()): PageableExecutionUtils.getPage((List<B>)nativeQuery.getResultList(),pageable,() -> getCount(countSql,args));
     }
 
     private void setParameter(Query query ,Map<String,Object> args){
