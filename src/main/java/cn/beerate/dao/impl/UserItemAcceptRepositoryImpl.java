@@ -17,8 +17,8 @@ public class UserItemAcceptRepositoryImpl implements UserItemAcceptRepository {
     private GenericRepository genericRepository;
 
     public Page<UserItemAccept> userItemAccept(Pageable pageable,long userId){
-        String querySql="SELECT delivery.`id`, delivery.`userId`, delivery.`itemId`, delivery.`name`, delivery.`itemType` FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.userId = :userId";
-        String countSql="SELECT count(1) FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.userId = :userId";
+        String querySql="SELECT delivery.`id`, delivery.`userId` AS `userId`, delivery.`itemId`, delivery.`name`, delivery.`itemType` FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.acceptUserId = :userId";
+        String countSql="SELECT count(1) FROM t_user_item_accept accept LEFT JOIN t_user_item_delivery delivery ON accept.userItemDeliveryId = delivery.id WHERE accept.acceptUserId = :userId";
 
         Map<String,Object> args= new HashMap<>();
         args.put("userId",userId);

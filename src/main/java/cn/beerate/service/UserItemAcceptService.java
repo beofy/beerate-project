@@ -10,7 +10,7 @@ public interface UserItemAcceptService extends IBaseService<t_user_item_accept> 
     /**
      * 接收项目
      */
-    Message<t_user_item_accept> acceptItem(long userAcceptId,long deliveryId);
+    Message<t_user_item_accept> acceptItem(long acceptUserId,long deliveryId,long userId);
 
 
     /**

@@ -39,7 +39,7 @@ public class UserItemDeliveryServiceImpl extends BaseServiceImpl<t_user_item_del
     }
 
     @Override
-    public Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long userAcceptId) {
-        return userItemDeliveryDao.userItemDelivery(getPageable(page,size,column,order),userId,userAcceptId);
+    public Page<UserItemDelivery> userItemDelivery(int page, int size, String column, String order, long userId, long acceptUserId) {
+        return userItemDeliveryDao.userItemDelivery(getPageable(page,size,column,order),userId,acceptUserId);
     }
 }

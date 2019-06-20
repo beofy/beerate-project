@@ -141,7 +141,7 @@ public class ProjectSetController extends UserBaseController {
     public Message<String> delAttention(long attentionUserId) {
         Message<t_user_attention> message = userAttentionService.delAttention(getUserId(), attentionUserId);
         if (message.fail()) {
-            return Message.success(message.getMsg());
+            return Message.error(message.getMsg());
         }
 
         return Message.success("取消关注成功");
@@ -152,7 +152,7 @@ public class ProjectSetController extends UserBaseController {
      */
     @PostMapping("/attention")
     public Page<Projector> attention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
-        return userAttentionService.attention(page, size, column, order, userId);
+        return userAttentionService.attention(page, size, "business.userId", "desc", userId);
     }
 
     /**
@@ -160,7 +160,7 @@ public class ProjectSetController extends UserBaseController {
      */
     @PostMapping("/beAttention")
     public Page<Projector> beAttention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long attentionUserId) {
-        return userAttentionService.beAttention(page, size, column, order, attentionUserId);
+        return userAttentionService.beAttention(page, size, "business.userId", "desc", attentionUserId);
     }
 
     /**
@@ -168,7 +168,7 @@ public class ProjectSetController extends UserBaseController {
      */
     @PostMapping("/contact")
     public Page<Projector> contact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
-        return userConcatService.contact(page, size, column, order, userId);
+        return userConcatService.contact(page, size, "business.userId", "desc", userId);
     }
 
     /**
@@ -176,8 +176,7 @@ public class ProjectSetController extends UserBaseController {
      */
     @PostMapping("/beContact")
     public Page<Projector> beContact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long contactUserId) {
-
-        return userConcatService.beContact(page, size, column, order, contactUserId);
+        return userConcatService.beContact(page, size, "business.userId", "desc", contactUserId);
     }
 
     /**

@@ -28,22 +28,22 @@ public class UserItemDeliveryController extends UserBaseController {
      * 我的投递列表
      */
     @PostMapping("/list")
-    public Message<Page<UserItemDelivery>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userAcceptId) {
-        if (userAcceptId==getUserId()){
-            return Message.error("不能给自己投递项目");
-        }
-
-        return Message.success(userItemDeliveryService.userItemDelivery(page, size, column, order, getUserId(), userAcceptId));
+    public Message<Page<UserItemDelivery>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long acceptUserId) {
+        return Message.success(userItemDeliveryService.userItemDelivery(page, size, column, order, getUserId(), acceptUserId));
     }
 
     /**
      * 项目投递(认证的用户)
      */
     @PostMapping("/delivery")
-    public Message<String> delivery(long userAcceptId, long deliveryId) {
-        Message<t_user_item_accept> message = userItemAcceptService.acceptItem(userAcceptId, deliveryId);
+    public Message<String> delivery(long acceptUserId, long deliveryId) {
+        if (acceptUserId==getUserId()){
+            return Message.error("不能给自己投递项目");
+        }
+
+        Message<t_user_item_accept> message = userItemAcceptService.acceptItem(acceptUserId, deliveryId,getUserId());
         if (message.fail()) {
-            return Message.success(message.getMsg());
+            return Message.error(message.getMsg());
         }
 
         return Message.ok("投递成功");

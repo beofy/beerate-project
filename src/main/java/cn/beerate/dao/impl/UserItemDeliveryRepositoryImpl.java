@@ -17,7 +17,7 @@ public class UserItemDeliveryRepositoryImpl implements UserItemDeliveryRepositor
     private GenericRepository genericRepository;
 
     public Page<UserItemDelivery> userItemDelivery(Pageable pageable, long userId, long acceptUserId) {
-        String querySql = "SELECT delivery.`id`, delivery.`userId`, delivery.`itemId`, delivery.`name`, delivery.`itemType`, ( SELECT count(1) FROM t_user_item_accept accept WHERE accept.id = delivery.id AND accept.userId = :acceptUserId ) AS `isDelivery` FROM t_user_item_delivery delivery WHERE userId = :userId";
+        String querySql = "SELECT delivery.`id`, delivery.`userId`, delivery.`itemId`, delivery.`name`, delivery.`itemType`, ( SELECT count(1) FROM t_user_item_accept accept WHERE accept.id = delivery.id AND accept.acceptUserId = :acceptUserId ) AS `isDelivery` FROM t_user_item_delivery delivery WHERE userId = :userId";
         String countSql = "SELECT COUNT(1) FROM t_user_item_delivery delivery WHERE userId = :userId";
 
         Map<String, Object> args = new HashMap<>();

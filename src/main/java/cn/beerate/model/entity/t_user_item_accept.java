@@ -15,8 +15,8 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Table(appliesTo = "t_user_item_accept", comment = "用户项目接收表")
 public class t_user_item_accept extends Model {
 
-    @Column( columnDefinition = "bigint(20) not null  comment '用户id'")
-    private Long userId;
+    @Column( columnDefinition = "bigint(20) not null  comment '接收用户id'")
+    private Long acceptUserId;
 
     @Column( columnDefinition = "bigint(20) not null  comment '项目投递表id'")
     private Long userItemDeliveryId;

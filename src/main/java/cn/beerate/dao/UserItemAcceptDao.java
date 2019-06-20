@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserItemAcceptDao extends IBaseDao<t_user_item_accept>, UserItemAcceptRepository {
+
+    t_user_item_accept findByAcceptUserIdAndUserItemDeliveryId(long acceptUserId , long userItemDeliveryId);
 }
