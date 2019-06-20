@@ -3,6 +3,7 @@ package cn.beerate.dao.impl;
 
 import cn.beerate.model.dto.Projector;
 import cn.beerate.model.dto.ProjectorDetail;
+import cn.beerate.model.dto.ProjectorIntro;
 import cn.beerate.model.dto.UserBusiness;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,11 +22,11 @@ public interface UserBusinessRepository {
     /**
      * 项目简介
      */
-    Projector projectorIntro();
+    ProjectorIntro projectorIntro(long userId);
 
     /**
      * 项目详情
      */
-    ProjectorDetail projectorDetail();
+    ProjectorDetail projectorDetail(long userId);
 
 }

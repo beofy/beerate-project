@@ -18,7 +18,12 @@ public class UserVisitorServiceImpl extends BaseServiceImpl<t_user_visitor>  imp
     }
 
     @Override
+    @Transactional
     public Message<t_user_visitor> addUserVisitor(long userId, long userVisitorId,String ipAddr) {
+        if (userId==userVisitorId){
+            return Message.error();
+        }
+
         t_user_visitor userVisitor = new t_user_visitor();
         userVisitor.setUserId(userId);
         userVisitor.setVisitorUserId(userVisitorId);

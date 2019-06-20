@@ -90,20 +90,22 @@ public class ProjectSetController extends UserBaseController {
      * 项目方简介
      */
     @PostMapping("/intro")
-    public Message<ProjectorIntro> intro(long userVisitorId) {
+    public Message<ProjectorIntro> intro(long userId) {
         //添加访客
-        userVisitorService.addUserVisitor(getUserId(), userVisitorId, getIp());
-        return userBusinessService.projectorIntro();
+        userVisitorService.addUserVisitor(getUser()==null?0L:getUserId(), userId, getIp());
+
+        return userBusinessService.projectorIntro(userId);
     }
 
     /**
      * 项目方详细信息
      */
     @PostMapping("/detail")
-    public Message<ProjectorDetail> detail(long contactUserId) {
+    public Message<ProjectorDetail> detail(long userId) {
         //添加联系方
-        userConcatService.addUserContact(getUserId(), contactUserId);
-        return userBusinessService.projectorDetail();
+        userConcatService.addUserContact(getUser()==null?0L:getUserId(), userId);
+
+        return userBusinessService.projectorDetail(userId);
     }
 
     /**
@@ -132,6 +134,9 @@ public class ProjectSetController extends UserBaseController {
         return Message.success(true);
     }
 
+    /**
+     * 取消关注
+     */
     @PostMapping("/delAttention")
     public Message<String> delAttention(long attentionUserId) {
         Message<t_user_attention> message = userAttentionService.delAttention(getUserId(), attentionUserId);

@@ -44,13 +44,13 @@ public interface UserBusinessService extends IBaseService<t_user_business>{
     Page<Projector> pageOfProjector(int page, int size, String column, String order);
 
     /**
-     * 项目简介
+     * 项目方简介
      */
-    Message<ProjectorIntro> projectorIntro();
+    Message<ProjectorIntro> projectorIntro(long userId);
 
     /**
-     * 项目详情
+     * 项目方详情
      */
-    Message<ProjectorDetail> projectorDetail();
+    Message<ProjectorDetail> projectorDetail(long userId);
 
 }

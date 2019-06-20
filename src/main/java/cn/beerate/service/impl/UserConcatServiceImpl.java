@@ -20,7 +20,12 @@ public class UserConcatServiceImpl extends BaseServiceImpl<t_user_contact> imple
     }
 
     @Override
+    @Transactional
     public Message<t_user_contact> addUserContact(long userId, long contactUserId) {
+        if (userId==contactUserId){
+            return Message.error();
+        }
+
         t_user_contact userContact = new t_user_contact();
         userContact.setUserId(userId);
         userContact.setContactUserId(contactUserId);

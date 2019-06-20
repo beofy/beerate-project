@@ -173,13 +173,13 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     }
 
     @Override
-    public Message<ProjectorIntro> projectorIntro() {
-        return null;
+    public Message<ProjectorIntro> projectorIntro(long userId) {
+        return Message.success(userBusinessDao.projectorIntro(userId));
     }
 
     @Override
-    public Message<ProjectorDetail> projectorDetail() {
-        return null;
+    public Message<ProjectorDetail> projectorDetail(long userId) {
+        return Message.success(userBusinessDao.projectorDetail(userId));
     }
 
 }

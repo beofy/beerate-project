@@ -33,6 +33,7 @@ public class UserConfig implements WebMvcConfigurer {
         list.add("/user/projectSet/stockPledge");
         list.add("/user/projectSet/stockTransfer");
         list.add("/user/projectSet/list");
+        list.add("/user/projectSet/intro");
         String[] excludePathPatterns = new String[list.size()];
 
         //添加登录拦截
