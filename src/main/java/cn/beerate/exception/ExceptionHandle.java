@@ -4,6 +4,7 @@ import cn.beerate.common.Message;
 import cn.beerate.common.StatusCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,7 +46,7 @@ public class ExceptionHandle {
             modelAndView.setViewName("500");
             return modelAndView;
         }else {
-            return Message.error(ex.getMessage());
+            return new HttpEntity<>(Message.error(ex.getMessage()));
         }
     }
 

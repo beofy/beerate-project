@@ -40,6 +40,9 @@ public class StockTransferRepositoryImpl implements StockTransferRepository {
 
     @Override
     public Page<StockTransfer> pageStockTransfer(Pageable pageable) {
-        return null;
+        String querySql="SELECT id, bidName, companyNameIsPublic, companyName, contact, isQuoted, currentValuation, transferAmount, isPrivacyEquityRatio, equityRatio FROM t_item_stock_transfer WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql="SELECT count(1) FROM t_item_stock_transfer WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql,countSql,null,pageable,StockTransfer.class);
     }
 }

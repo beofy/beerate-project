@@ -18,6 +18,10 @@ public class StockTransfer {
 
     private String companyName;
 
+    public Object getCompanyName() {
+        return companyNameIsPublic?companyName:"******";
+    }
+
     private String contact;
 
     private Boolean isQuoted;
@@ -27,6 +31,10 @@ public class StockTransfer {
     private Double transferAmount;
 
     private Boolean isPrivacyEquityRatio;
+
+    public Object getEquityRatio(){
+        return isPrivacyEquityRatio?"******":equityRatio;
+    }
 
     private Double equityRatio;
 

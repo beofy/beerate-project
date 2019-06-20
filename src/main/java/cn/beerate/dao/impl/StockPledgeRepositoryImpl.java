@@ -40,6 +40,9 @@ public class StockPledgeRepositoryImpl implements StockPledgeRepository {
 
     @Override
     public Page<StockPledge> pageStockPledge(Pageable pageable) {
-        return null;
+        String querySql="SELECT id, financingBody, stockCode, stockNature, stockBlock, loanAmount, pledgeRates, loanPeriod FROM t_item_stock_pledge WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql="SELECT count(1) FROM t_item_stock_pledge WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql,countSql,null,pageable,StockPledge.class);
     }
 }

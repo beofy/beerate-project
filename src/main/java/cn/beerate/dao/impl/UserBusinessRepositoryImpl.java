@@ -2,6 +2,7 @@ package cn.beerate.dao.impl;
 
 
 import cn.beerate.dao.support.GenericRepository;
+import cn.beerate.model.dto.MyStockPledge;
 import cn.beerate.model.dto.Projector;
 import cn.beerate.model.dto.ProjectorDetail;
 import cn.beerate.model.dto.UserBusiness;
@@ -29,7 +30,10 @@ public class UserBusinessRepositoryImpl implements UserBusinessRepository {
 
     @Override
     public Page<Projector> pageOfProjector(Pageable pageable) {
-        return null;
+        String querySql="SELECT `userId`, `name`, `company`, `title`, (SELECT count(1) FROM t_user_visitor visitor WHERE visitor.visitorUserId=userId) as `visitorTotals`, (SELECT count(1) FROM t_user_item_accept accept WHERE accept.userId=userId) as `receiveItemTotals` FROM t_user_business WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql="SELECT COUNT(1) FROM t_user_business WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql,countSql,null,pageable, Projector.class);
     }
 
     @Override

@@ -79,9 +79,9 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 项目方列表
+     * 项目方列表(已认证)
      */
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Message<Page<Projector>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(userBusinessService.pageOfProjector(page, size, column, order));
     }
@@ -92,7 +92,7 @@ public class ProjectSetController extends UserBaseController {
     @PostMapping("/intro")
     public Message<ProjectorIntro> intro(long userVisitorId) {
         //添加访客
-        userVisitorService.addUserVisitor(getUserId(),userVisitorId,getIp());
+        userVisitorService.addUserVisitor(getUserId(), userVisitorId, getIp());
         return userBusinessService.projectorIntro();
     }
 
@@ -146,40 +146,40 @@ public class ProjectSetController extends UserBaseController {
      * 项目方关注
      */
     @PostMapping("/attention")
-    public Page<Projector> attention( int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order,long userId){
-        return userAttentionService.attention(page,size,column,order,userId);
+    public Page<Projector> attention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
+        return userAttentionService.attention(page, size, column, order, userId);
     }
 
     /**
      * 关注项目方
      */
     @PostMapping("/beAttention")
-    public Page<Projector> beAttention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order,long attentionUserId){
-        return userAttentionService.beAttention(page,size,column,order,attentionUserId);
+    public Page<Projector> beAttention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long attentionUserId) {
+        return userAttentionService.beAttention(page, size, column, order, attentionUserId);
     }
 
     /**
      * 项目方联系
      */
     @PostMapping("/contact")
-    public Page<Projector> contact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order,long userId){
-        return userConcatService.contact(page,size,column,order,userId);
+    public Page<Projector> contact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
+        return userConcatService.contact(page, size, column, order, userId);
     }
 
     /**
      * 联系项目方
      */
     @PostMapping("/beContact")
-    public Page<Projector> beContact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order,long contactUserId){
+    public Page<Projector> beContact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long contactUserId) {
 
-        return userConcatService.beContact(page,size,column,order,contactUserId);
+        return userConcatService.beContact(page, size, column, order, contactUserId);
     }
 
     /**
      * 项目方收到的项目
      */
     @PostMapping("/acceptItem")
-    public Page<UserItemAccept> acceptItem(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId){
-        return userItemAcceptService.userItemAccept(page,size,column,order,userId);
+    public Page<UserItemAccept> acceptItem(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
+        return userItemAcceptService.userItemAccept(page, size, column, order, userId);
     }
 }

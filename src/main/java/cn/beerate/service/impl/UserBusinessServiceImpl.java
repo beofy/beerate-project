@@ -169,7 +169,7 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
 
     @Override
     public Page<Projector> pageOfProjector(int page, int size, String column, String order) {
-        return null;
+        return userBusinessDao.pageOfProjector(getPageable(page, size, column, order));
     }
 
     @Override
@@ -181,4 +181,5 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
     public Message<ProjectorDetail> projectorDetail() {
         return null;
     }
+
 }

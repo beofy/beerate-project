@@ -40,6 +40,9 @@ public class PreIpoRepositoryImpl implements PreIpoRepository {
 
     @Override
     public Page<PreIpo> pagePreIpo(Pageable pageable) {
-        return null;
+        String querySql="SELECT id, preIpoName, isNewThirdBoardListing, industryRealm, iPOBaseDate, ratchetTerms FROM t_item_pre_ipo WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql="SELECT count(1) FROM t_item_pre_ipo WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql,countSql,null,pageable,PreIpo.class);
     }
 }

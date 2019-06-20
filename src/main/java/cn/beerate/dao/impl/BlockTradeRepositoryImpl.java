@@ -40,6 +40,9 @@ public class BlockTradeRepositoryImpl implements BlockTradeRepository {
 
     @Override
     public Page<BlockTrade> pageBlockTrade(Pageable pageable) {
-        return null;
+        String querySql = "SELECT id, blockTradeName, stockCode, exchangeRate, underweightShares, underweightAmount, isConfidence, underweightIdentification FROM t_item_block_trade WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql = "SELECT count(1) FROM t_item_block_trade WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql, countSql, null, pageable, BlockTrade.class);
     }
 }

@@ -13,32 +13,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class LoanRepositoryImpl implements LoanRepository{
+public class LoanRepositoryImpl implements LoanRepository {
     @Autowired
     private GenericRepository genericRepository;
 
-    public Page<MyLoan> pageMyLoanByUser(Pageable pageable,long userId){
-        String querySql="SELECT id,itemName,industryRealm,amount,period,auditStatus FROM t_item_loan WHERE userId = :userId";
-        String countSql="SELECT count(1) FROM t_item_loan WHERE userId = :userId";
+    public Page<MyLoan> pageMyLoanByUser(Pageable pageable, long userId) {
+        String querySql = "SELECT id,itemName,industryRealm,amount,period,auditStatus FROM t_item_loan WHERE userId = :userId";
+        String countSql = "SELECT count(1) FROM t_item_loan WHERE userId = :userId";
 
-        Map<String,Object> args= new HashMap<>();
-        args.put("userId",userId);
+        Map<String, Object> args = new HashMap<>();
+        args.put("userId", userId);
 
-        return genericRepository.getPage(querySql,countSql,args,pageable,MyLoan.class);
+        return genericRepository.getPage(querySql, countSql, args, pageable, MyLoan.class);
     }
 
     @Override
     public LoanDetail LoanDetailByUser(long loanId, long userId) {
-        String querySql="SELECT id, itemName, companyName, logoUri, industryRealm, companyWebsite, companyIosUrl, companyAndroidUrl, isQuoted, stockCode, amount, amountUnit, purpose, period, periodUnit, repayment, businessProposalUri, businessLicenseUri, financialReportUri, auditReportUri, indebtednessUri, capitalFlowUri, endTime, isUrgent, isPlatformAuthentication, isFirstHandle, auditStatus, description, adminId, userId FROM t_item_loan WHERE  id = :id and userId = :userId ";
-        Map<String,Object> args= new HashMap<>();
-        args.put("id",loanId);
-        args.put("userId",userId);
+        String querySql = "SELECT id, itemName, companyName, logoUri, industryRealm, companyWebsite, companyIosUrl, companyAndroidUrl, isQuoted, stockCode, amount, amountUnit, purpose, period, periodUnit, repayment, businessProposalUri, businessLicenseUri, financialReportUri, auditReportUri, indebtednessUri, capitalFlowUri, endTime, isUrgent, isPlatformAuthentication, isFirstHandle, auditStatus, description, adminId, userId FROM t_item_loan WHERE  id = :id and userId = :userId ";
+        Map<String, Object> args = new HashMap<>();
+        args.put("id", loanId);
+        args.put("userId", userId);
 
-        return genericRepository.getObject(querySql,args,LoanDetail.class);
+        return genericRepository.getObject(querySql, args, LoanDetail.class);
     }
 
     @Override
     public Page<Loan> pageLoan(Pageable pageable) {
-        return null;
+        String querySql = "SELECT id, itemName, companyName, isQuoted, stockCode, amount, period, periodUnit, IF (businessProposalUri <>'', 1,0) AS `isBp` FROM t_item_loan WHERE auditStatus = 'PASS_AUDIT'";
+        String countSql = "SELECT COUNT(1) FROM t_item_loan WHERE auditStatus = 'PASS_AUDIT'";
+
+        return genericRepository.getPage(querySql, countSql, null, pageable, Loan.class);
     }
 }
