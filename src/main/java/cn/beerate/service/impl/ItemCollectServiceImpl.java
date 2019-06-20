@@ -44,8 +44,9 @@ public class ItemCollectServiceImpl extends BaseServiceImpl<t_item_collect> impl
         return itemCollectDao.userItemCollect(getPageable(page, size, column, order),userId);
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     public Message<t_item_collect> delCollect(long userId, long itemId, ItemType itemType) {
         t_item_collect item_collect = isCollect(userId, itemId,itemType);
         if (item_collect==null) {

@@ -16,6 +16,8 @@ public class UserItemCollect {
 
     private String name;
 
+    private String itemId;
+
     private String  itemType;
 
     public ItemType getItemType() {

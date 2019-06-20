@@ -45,7 +45,7 @@ public class ItemCollectController extends UserBaseController {
             return Message.error(message.getMsg());
         }
 
-        return Message.ok("删除成功");
+        return Message.ok("取消收藏成功");
     }
 
     @PostMapping("/isCollect")
