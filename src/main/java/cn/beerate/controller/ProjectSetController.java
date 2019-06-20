@@ -148,7 +148,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 项目方关注
+     * 项目方ta的关注
      */
     @PostMapping("/attention")
     public Page<Projector> attention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
@@ -156,7 +156,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 关注项目方
+     * 关注ta的项目方
      */
     @PostMapping("/beAttention")
     public Page<Projector> beAttention(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long attentionUserId) {
@@ -164,7 +164,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 项目方联系
+     * 项目方ta的联系
      */
     @PostMapping("/contact")
     public Page<Projector> contact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {
@@ -172,7 +172,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 联系项目方
+     * 联系ta的项目方
      */
     @PostMapping("/beContact")
     public Page<Projector> beContact(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long contactUserId) {
@@ -181,7 +181,7 @@ public class ProjectSetController extends UserBaseController {
     }
 
     /**
-     * 项目方收到的项目
+     * 项目方ta收到的项目
      */
     @PostMapping("/acceptItem")
     public Page<UserItemAccept> acceptItem(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, long userId) {

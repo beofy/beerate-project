@@ -21,7 +21,12 @@ public class UserAttentionServiceImpl extends BaseServiceImpl<t_user_attention> 
     }
 
     @Override
+    @Transactional
     public Message<t_user_attention> addUserAttention(long userId, long attentionUserId) {
+        if (userId==attentionUserId){
+            return Message.error("不能关注自己");
+        }
+
         t_user_attention isUserAttention = isAttention(userId, attentionUserId);
         if (isUserAttention != null) {
             return Message.error("已关注过了");
@@ -39,10 +44,11 @@ public class UserAttentionServiceImpl extends BaseServiceImpl<t_user_attention> 
     }
 
     @Override
+    @Transactional
     public Message<t_user_attention> delAttention(long userId, long attentionUserId) {
         t_user_attention userAttention = isAttention(userId,attentionUserId);
         if (userAttention==null) {
-            return Message.error("项目未收藏");
+            return Message.error("项目方未关注");
         }
 
         userAttentionDao.delete(userAttention);
