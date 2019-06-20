@@ -2,9 +2,11 @@ package cn.beerate.controller;
 
 import cn.beerate.common.Message;
 import cn.beerate.model.ItemType;
+import cn.beerate.model.dto.UserItemCollect;
 import cn.beerate.model.entity.t_item_collect;
 import cn.beerate.service.ItemCollectService;
 import org.apache.commons.lang3.EnumUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -61,13 +63,8 @@ public class ItemCollectController extends UserBaseController {
         return Message.success(true);
     }
 
-    @GetMapping("/list")
-    public Message list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order, String itemType) {
-        ItemType itemTypeEum = EnumUtils.getEnumIgnoreCase(ItemType.class, itemType);
-        if (itemTypeEum == null) {
-            return Message.error("项目类型错误");
-        }
-
+    @PostMapping("/list")
+    public Message<Page<UserItemCollect>> list(int page, int size, @RequestParam(required = false) String column, @RequestParam(required = false) String order) {
         return Message.success(itemCollectService.pageOfCollect(page, size, column, order, getUserId()));
     }
 }
