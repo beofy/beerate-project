@@ -6,7 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +20,7 @@ public class ExceptionHandle {
     private static final Log logger = LogFactory.getLog(ExceptionHandle.class);
 
     private HttpServletRequest request;
+
     public ExceptionHandle(HttpServletRequest request) {
         this.request = request;
     }
@@ -31,21 +31,14 @@ public class ExceptionHandle {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     public Object handleException(Exception ex) {
-        logger.error(String.format("系统异常：[%s],原因：[%s]",ex.getMessage(),ex.getCause()),ex);
-        /* AntPathMatcher
-         * 匹配大小写敏感，可用通配符为:?,*,**
-         * ?表示单个字符
-         * *表示一层路径内的任意字符串，不可跨层级
-         * **表示任意层路径
-         */
-
+        logger.error(String.format("系统异常：[%s],原因：[%s]", ex.getMessage(), ex.getCause()), ex);
         //匹配后台请求
-        if(new AntPathMatcher().match("/admin/**",request.getRequestURI())){
+        if (request.getRequestURI().contains(".html")) {
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("ex",ex);
+            modelAndView.addObject("ex", ex);
             modelAndView.setViewName("500");
             return modelAndView;
-        }else {
+        } else {
             return new HttpEntity<>(Message.error(ex.getMessage()));
         }
     }
@@ -54,7 +47,7 @@ public class ExceptionHandle {
      * 后台未登录异常(跳转登录页面)
      */
     @ExceptionHandler(AdminLoginException.class)
-    public ModelAndView adminNoLogin(){
+    public ModelAndView adminNoLogin() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin/login.html");
         return modelAndView;
@@ -65,8 +58,8 @@ public class ExceptionHandle {
      */
     @ExceptionHandler(UserLoginException.class)
     @ResponseBody
-    public Message<String> userNoLogin(UserLoginException e){
-        return new Message<>(StatusCode.NOT_LOGIN,e.getMessage());
+    public Message<String> userNoLogin(UserLoginException e) {
+        return new Message<>(StatusCode.NOT_LOGIN, e.getMessage());
     }
 
     /**
@@ -74,14 +67,17 @@ public class ExceptionHandle {
      */
     @ExceptionHandler(NoApproveException.class)
     @ResponseBody
-    public Message<String> userNoApprove(NoApproveException e){
-        return new Message<>(StatusCode.NOT_APPROVE,e.getMessage());
+    public Message<String> userNoApprove(NoApproveException e) {
+        return new Message<>(StatusCode.NOT_APPROVE, e.getMessage());
     }
 
     @ExceptionHandler(TokenException.class)
     @ResponseBody
-    public Message<String> tokenException(TokenException e){
-        return new Message<>(StatusCode.TOKEN_EXCEPTION,e.getMessage());
+    public Message<String> tokenException(TokenException e) {
+        return new Message<>(StatusCode.TOKEN_EXCEPTION, e.getMessage());
     }
+
+
+
 
 }
