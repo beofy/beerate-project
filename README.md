@@ -51,10 +51,14 @@
 重点解决：接口数据返回时序列化所产生的一系列问题。
 ```
 
+#### 目前存在的问题
+
+1. 用户访问id未进行加密，id访问永久有效
+2. 表单提交未做防重复提交
+
 #### 前台接口文档
 
 http://gitlab.beerate.cn/minxiang/beerate-project/wikis/%E5%B7%B4%E9%9B%B7%E7%89%B9%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3
-
 
 
 
