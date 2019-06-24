@@ -160,7 +160,7 @@ public class UserController extends UserBaseController{
             return Message.error("上传失败");
         }
 
-        return Message.success("更新成功");
+        return Message.ok("更新成功");
     }
 
     /**
@@ -173,7 +173,7 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
-        return Message.success("密码更新成功");
+        return Message.ok("密码更新成功");
     }
 
     /**
@@ -194,7 +194,7 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
-        return Message.success("手机更新成功");
+        return Message.ok("手机更新成功");
     }
 
     /**
@@ -215,7 +215,7 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
-        return Message.success("邮箱更新成功");
+        return Message.ok("邮箱更新成功");
     }
 
     /**
@@ -236,7 +236,7 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
-        return Message.success("密码重置成功");
+        return Message.ok("密码重置成功");
     }
 
     /**

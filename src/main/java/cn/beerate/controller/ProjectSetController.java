@@ -144,7 +144,7 @@ public class ProjectSetController extends UserBaseController {
             return Message.error(message.getMsg());
         }
 
-        return Message.success("取消关注成功");
+        return Message.ok("取消关注成功");
     }
 
     /**
