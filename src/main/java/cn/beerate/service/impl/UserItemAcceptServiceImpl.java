@@ -33,7 +33,7 @@ public class UserItemAcceptServiceImpl extends BaseServiceImpl<t_user_item_accep
         }
 
         if (userItemAcceptDao.findByAcceptUserIdAndUserItemDeliveryId(acceptUserId,deliveryId)!=null){
-            return Message.error("项目投递");
+            return Message.error("项目已投递");
         }
 
         t_user_item_accept itemAccept = new t_user_item_accept();
