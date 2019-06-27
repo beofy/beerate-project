@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('平台设置')"></head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('平台设置')"></header>
+
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>短信接口</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="updateSmsSetting">
+                                    <div class="form-group">
+                                        <label for="provider">短信通道商</label>
+                                        <select class="form-control" disabled="disabled" id="provider">
+                                            <option>创蓝</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smsAccount">账号</label>
+                                        <input type="text" class="form-control" name="smsAccount" id="smsAccount" th:value="${smsAccount.getSetValue()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smsPassword">密码</label>
+                                        <input type="password" class="form-control" name="smsPassword" id="smsPassword" th:value="${smsPassword.getSetValue()}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">修改</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4>邮箱设置</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="updateEmailSetting">
+                                    <div class="form-group">
+                                        <label for="mailAccount">邮箱账号</label>
+                                        <input type="text" class="form-control" name="mailAccount"  id="mailAccount" th:value="${mailAccount.getSetValue()}" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mailPassword">邮箱密码</label>
+                                        <input type="password" class="form-control"  name="mailPassword" id="mailPassword" th:value="${mailPassword.getSetValue()}" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smtpServer">SmtpServer地址</label>
+                                        <input type="text" class="form-control" name="smtpServer" id="smtpServer" th:value="${smtpServer.getSetValue()}" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smtpPort">SmtpPort端口</label>
+                                        <input type="text" class="form-control" name="smtpPort" id="smtpPort" th:value="${smtpPort.getSetValue()}" >
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">修改</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+</div>
+</body>
+<!-- ajax表单提交 -->
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script th:src="@{/js/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script>
+
+    //更新短信配置
+    $("#updateSmsSetting").validate({
+        rules:{
+            //todo 添加校验
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/platform/updateSmsSetting" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/platform/setting.html?success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+
+    //更新邮箱配置
+    $("#updateEmailSetting").validate({
+        rules:{
+            //todo 添加校验
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            lightyear.loading('show');
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: "/platform/updateEmailSetting" ,
+                success: function(data){
+                    if (data.code>0){
+                        location.href="/platform/setting.html?success="+data.msg
+                    } else {
+                        setTimeout(function() {
+                            lightyear.loading('hide');
+                            lightyear.notify(data.msg, 'danger');
+                        }, 1e3);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</html>

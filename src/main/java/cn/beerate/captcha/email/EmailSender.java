@@ -9,13 +9,13 @@ public class EmailSender implements IEmail{
 
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    private String emailWebsite;
+    private String hostName;
     private String mailAccount;
     private String mailPassword;
     private String smtpPort;
 
-	public EmailSender(String emailWebsite, String mailAccount, String mailPassword, String smtpPort) {
-		this.emailWebsite = emailWebsite;
+	public EmailSender(String hostName, String mailAccount, String mailPassword, String smtpPort) {
+		this.hostName = hostName;
 		this.mailAccount = mailAccount;
 		this.mailPassword = mailPassword;
 		this.smtpPort = smtpPort;
@@ -24,7 +24,7 @@ public class EmailSender implements IEmail{
 	/**
 	 * 发送HMTL格式的邮件
 	 *
-	 * @param emailWebsite 邮件服务器地址
+	 * @param hostName 邮件服务器地址
 	 * @param mailAccount 发送邮件的账号
 	 * @param mailPassword 发送邮件的密码 
 	 * @param toEmail 接收邮件的地址
@@ -32,10 +32,10 @@ public class EmailSender implements IEmail{
 	 * @param content 邮件的内容
 	 *
 	 */
-	private void sendHtmlEmail(String emailWebsite, String mailAccount, String mailPassword, String toEmail, String title, String content){
+	private void sendHtmlEmail(String hostName, String mailAccount, String mailPassword, String toEmail, String title, String content){
 		try {
 			HtmlEmail sendEmail = new HtmlEmail();
-			sendEmail.setHostName(emailWebsite);
+			sendEmail.setHostName(hostName);
 			sendEmail.setAuthentication(mailAccount, mailPassword);
             logger.info("from email "+mailAccount);
 			sendEmail.setFrom(mailAccount);
@@ -54,7 +54,7 @@ public class EmailSender implements IEmail{
 
     @Override
     public void sendEmail(String toEmail, String title, String content) {
-        sendHtmlEmail(emailWebsite,mailAccount, mailPassword, toEmail, title, content);
+        sendHtmlEmail(hostName,mailAccount, mailPassword, toEmail, title, content);
     }
 
 }

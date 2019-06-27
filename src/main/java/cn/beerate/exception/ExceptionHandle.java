@@ -48,10 +48,15 @@ public class ExceptionHandle {
      * 后台未登录异常(跳转登录页面)
      */
     @ExceptionHandler(AdminLoginException.class)
-    public ModelAndView adminNoLogin() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin/login.html");
-        return modelAndView;
+    public Object adminNoLogin() {
+        String xRequestedWith = request.getHeader("x-requested-with");
+        if ("XMLHttpRequest".equals(xRequestedWith)) {
+            return new HttpEntity<>(Message.error("登录超时,请重新登录"));
+        } else {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/admin/login.html");
+            return modelAndView;
+        }
     }
 
     /**

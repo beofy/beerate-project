@@ -7,13 +7,17 @@ import cn.beerate.captcha.email.EmailSender;
 import cn.beerate.captcha.email.IEmail;
 import cn.beerate.captcha.mobile.ISms;
 import cn.beerate.captcha.mobile.chuanglan.ChuangLanSms;
+import cn.beerate.constant.PlatformSettingKey;
+import cn.beerate.model.entity.t_platform_setting;
 import cn.beerate.request.RequestProxy;
+import cn.beerate.service.PlatformSettingService;
 import cn.beerate.utils.PathUtil;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,10 +34,12 @@ import java.util.List;
 public class SecurityConfig implements WebMvcConfigurer {
 
     private final Log logger = LogFactory.getLog(this.getClass());
-
     private Properties properties;
 
-    public SecurityConfig(Properties properties) {
+    @Autowired
+    private PlatformSettingService platformSettingService;
+
+    public SecurityConfig(Properties properties){
         this.properties = properties;
     }
 
@@ -44,12 +50,20 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public IEmail emailSender(){
-        return new EmailSender("smtp.mxhichina.com","","","");
+        t_platform_setting hostName= platformSettingService.findBySetKey(PlatformSettingKey.SMTP_SERVER);
+        t_platform_setting  mailAccount= platformSettingService.findBySetKey(PlatformSettingKey.MAIL_ACCOUNT);
+        t_platform_setting  mailPassword= platformSettingService.findBySetKey(PlatformSettingKey.MAIL_PASSWORD);
+        t_platform_setting  smtpPort= platformSettingService.findBySetKey(PlatformSettingKey.SMTP_PORT);
+
+        return new EmailSender(hostName.getSetValue(),mailAccount.getSetValue(),mailPassword.getSetValue(),smtpPort.getSetValue());
     }
 
     @Bean
     public ISms chuangLanSms(){
-        return new ChuangLanSms( "", "");
+        t_platform_setting  smsAccountSetting= platformSettingService.findBySetKey(PlatformSettingKey.SMS_ACCOUNT);
+        t_platform_setting  smsPasswordSetting= platformSettingService.findBySetKey(PlatformSettingKey.SMS_PASSWORD);
+
+        return new ChuangLanSms( smsAccountSetting.getSetValue(), smsPasswordSetting.getSetValue());
     }
 
     @Bean
