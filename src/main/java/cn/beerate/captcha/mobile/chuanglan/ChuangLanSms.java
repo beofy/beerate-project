@@ -144,6 +144,21 @@ public class ChuangLanSms implements ISms {
         } finally {
             method.releaseConnection();
         }
+    }
 
+    public String getSmsAccount() {
+        return smsAccount;
+    }
+
+    public void setSmsAccount(String smsAccount) {
+        this.smsAccount = smsAccount;
+    }
+
+    public String getSmsPassword() {
+        return smsPassword;
+    }
+
+    public void setSmsPassword(String smsPassword) {
+        this.smsPassword = smsPassword;
     }
 }

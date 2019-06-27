@@ -26,11 +26,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="smsAccount">账号</label>
-                                        <input type="text" class="form-control" name="smsAccount" id="smsAccount" th:value="${smsAccount.getSetValue()}">
+                                        <input type="text" class="form-control" name="smsAccount" id="smsAccount" th:value="${smsAccount}">
                                     </div>
                                     <div class="form-group">
                                         <label for="smsPassword">密码</label>
-                                        <input type="password" class="form-control" name="smsPassword" id="smsPassword" th:value="${smsPassword.getSetValue()}">
+                                        <input type="password" class="form-control" name="smsPassword" id="smsPassword" th:value="${smsPassword}">
                                     </div>
                                     <button type="submit" class="btn btn-primary">修改</button>
                                 </form>
@@ -47,19 +47,19 @@
                                 <form id="updateEmailSetting">
                                     <div class="form-group">
                                         <label for="mailAccount">邮箱账号</label>
-                                        <input type="text" class="form-control" name="mailAccount"  id="mailAccount" th:value="${mailAccount.getSetValue()}" >
+                                        <input type="text" class="form-control" name="mailAccount"  id="mailAccount" th:value="${mailAccount}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="mailPassword">邮箱密码</label>
-                                        <input type="password" class="form-control"  name="mailPassword" id="mailPassword" th:value="${mailPassword.getSetValue()}" >
+                                        <input type="password" class="form-control"  name="mailPassword" id="mailPassword" th:value="${mailPassword}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="smtpServer">SmtpServer地址</label>
-                                        <input type="text" class="form-control" name="smtpServer" id="smtpServer" th:value="${smtpServer.getSetValue()}" >
+                                        <input type="text" class="form-control" name="smtpServer" id="smtpServer" th:value="${smtpServer}" >
                                     </div>
                                     <div class="form-group">
                                         <label for="smtpPort">SmtpPort端口</label>
-                                        <input type="text" class="form-control" name="smtpPort" id="smtpPort" th:value="${smtpPort.getSetValue()}" >
+                                        <input type="text" class="form-control" name="smtpPort" id="smtpPort" th:value="${smtpPort}" >
                                     </div>
                                     <button type="submit" class="btn btn-primary">修改</button>
                                 </form>

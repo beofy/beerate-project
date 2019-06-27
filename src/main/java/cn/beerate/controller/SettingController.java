@@ -1,5 +1,9 @@
 package cn.beerate.controller;
 
+import cn.beerate.captcha.email.EmailSender;
+import cn.beerate.captcha.email.IEmail;
+import cn.beerate.captcha.mobile.ISms;
+import cn.beerate.captcha.mobile.chuanglan.ChuangLanSms;
 import cn.beerate.common.Message;
 import cn.beerate.constant.PlatformSettingKey;
 import cn.beerate.service.PlatformSettingService;
@@ -16,21 +20,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/platform/")
 public class SettingController extends AdminBaseController {
 
+    private ISms sms;
+    private IEmail email;
     private PlatformSettingService platformSettingService;
 
     @Autowired
-    public SettingController(PlatformSettingService platformSettingService) {
+    public SettingController(ISms sms, IEmail email, PlatformSettingService platformSettingService) {
+        this.sms = sms;
+        this.email = email;
         this.platformSettingService = platformSettingService;
     }
 
     @GetMapping("/setting.html")
     public String platformSetting(Model model) {
-        model.addAttribute(PlatformSettingKey.SMS_ACCOUNT,platformSettingService.findBySetKey(PlatformSettingKey.SMS_ACCOUNT));
-        model.addAttribute(PlatformSettingKey.SMS_PASSWORD,platformSettingService.findBySetKey(PlatformSettingKey.SMS_PASSWORD));
-        model.addAttribute(PlatformSettingKey.MAIL_ACCOUNT,platformSettingService.findBySetKey(PlatformSettingKey.MAIL_ACCOUNT));
-        model.addAttribute(PlatformSettingKey.MAIL_PASSWORD,platformSettingService.findBySetKey(PlatformSettingKey.MAIL_PASSWORD));
-        model.addAttribute(PlatformSettingKey.SMTP_SERVER,platformSettingService.findBySetKey(PlatformSettingKey.SMTP_SERVER));
-        model.addAttribute(PlatformSettingKey.SMTP_PORT,platformSettingService.findBySetKey(PlatformSettingKey.SMTP_PORT));
+        ChuangLanSms chuangLanSms = (ChuangLanSms)sms;
+        EmailSender emailSender = (EmailSender)email;
+        model.addAttribute(PlatformSettingKey.SMS_ACCOUNT,chuangLanSms.getSmsAccount());
+        model.addAttribute(PlatformSettingKey.SMS_PASSWORD,chuangLanSms.getSmsPassword());
+        model.addAttribute(PlatformSettingKey.MAIL_ACCOUNT,emailSender.getMailAccount());
+        model.addAttribute(PlatformSettingKey.MAIL_PASSWORD,emailSender.getMailPassword());
+        model.addAttribute(PlatformSettingKey.SMTP_SERVER,emailSender.getHostName());
+        model.addAttribute(PlatformSettingKey.SMTP_PORT,emailSender.getSmtpPort());
 
         return "platform/setting";
     }
@@ -44,10 +54,14 @@ public class SettingController extends AdminBaseController {
         if (StringUtils.isBlank(smsPassword)){
             return Message.ok("请输入短信账号密码");
         }
+
+        ChuangLanSms chuangLanSms = (ChuangLanSms)sms;
+        chuangLanSms.setSmsAccount(smsAccount);
+        chuangLanSms.setSmsPassword(smsPassword);
+
         platformSettingService.updateSetValueByKey(PlatformSettingKey.SMS_ACCOUNT, smsAccount);
         platformSettingService.updateSetValueByKey(PlatformSettingKey.SMS_PASSWORD, smsPassword);
 
-        //销毁并注入bean
         return Message.ok();
     }
 
@@ -58,15 +72,24 @@ public class SettingController extends AdminBaseController {
         if (StringUtils.isBlank(mailAccount)){
             return Message.ok("请输入邮箱账号");
         }
+
         if (StringUtils.isBlank(mailPassword)){
             return Message.ok("请输入邮箱账号密码");
         }
+
         if (StringUtils.isBlank(smtpServer)){
             return Message.ok("请输入邮箱smtp服务地址");
         }
+
         if (StringUtils.isBlank(smtpPort)){
             return Message.ok("请输入邮箱smtp端口地址");
         }
+
+        EmailSender emailSender = (EmailSender)email;
+        emailSender.setHostName(smtpServer);
+        emailSender.setMailAccount(mailAccount);
+        emailSender.setMailPassword(mailPassword);
+        emailSender.setSmtpPort(smtpPort);
 
         platformSettingService.updateSetValueByKey(PlatformSettingKey.MAIL_ACCOUNT, mailAccount);
         platformSettingService.updateSetValueByKey(PlatformSettingKey.MAIL_PASSWORD, mailPassword);
@@ -75,4 +98,6 @@ public class SettingController extends AdminBaseController {
 
         return Message.ok();
     }
+
+
 }
