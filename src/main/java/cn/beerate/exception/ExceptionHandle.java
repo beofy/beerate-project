@@ -32,14 +32,15 @@ public class ExceptionHandle {
     @ResponseStatus(HttpStatus.OK)
     public Object handleException(Exception ex) {
         logger.error(String.format("系统异常：[%s],原因：[%s]", ex.getMessage(), ex.getCause()), ex);
-        //匹配后台请求
-        if (request.getRequestURI().contains(".html")) {
+
+        String xRequestedWith = request.getHeader("x-requested-with");
+        if ("XMLHttpRequest".equals(xRequestedWith)) {
+            return new HttpEntity<>(Message.error(ex.getMessage()));
+        } else {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("ex", ex);
             modelAndView.setViewName("500");
             return modelAndView;
-        } else {
-            return new HttpEntity<>(Message.error(ex.getMessage()));
         }
     }
 
@@ -51,6 +52,21 @@ public class ExceptionHandle {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin/login.html");
         return modelAndView;
+    }
+
+    /**
+     * 管理员权限拦截
+     */
+    @ExceptionHandler(AdminRightException.class)
+    public Object adminNoRight() {
+        String xRequestedWith = request.getHeader("x-requested-with");
+        if ("XMLHttpRequest".equals(xRequestedWith)) {
+            return new HttpEntity<>(Message.error("无操作权限"));
+        } else {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("noRight");
+            return modelAndView;
+        }
     }
 
     /**
@@ -76,8 +92,6 @@ public class ExceptionHandle {
     public Message<String> tokenException(TokenException e) {
         return new Message<>(StatusCode.TOKEN_EXCEPTION, e.getMessage());
     }
-
-
 
 
 }

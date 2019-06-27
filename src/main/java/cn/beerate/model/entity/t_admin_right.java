@@ -18,10 +18,10 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Table(appliesTo = "t_admin_right",comment="后台权限表")
 public class t_admin_right extends Model {
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '权限地址'")
-    private String control;
+    @Column( columnDefinition = "bigint(20) not null  comment '管理员id'")
+    private Long adminId;
 
-    @Column(columnDefinition = "varchar(255) not null default '' comment '权限描述'")
-    private String description;
+    @Column( columnDefinition = "bigint(20) not null  comment '权限id'")
+    private Long rightId;
 
 }

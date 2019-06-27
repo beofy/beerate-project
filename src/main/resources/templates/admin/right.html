@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::head('设置权限')"></head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <aside th:replace="common::aside"></aside>
+        <header th:replace="common::top('设置权限')"></header>
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h4>设置权限</h4></div>
+                            <div class="card-body">
+                                <form action="" method="post" id="editRights">
+                                    <input type="hidden" name="adminId" th:value="${adminId}">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <th:block th:each="rightColumn:${rightColumns}">
+                                                    <tr >
+                                                        <td class="p-l-20">
+                                                            <label><span th:text="${rightColumn.getValue()}"></span></label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="p-l-40">
+                                                            <label class="lyear-checkbox checkbox-primary checkbox-inline" style="margin-left: 0;margin-right: 10px;margin-bottom: 15px" th:each="right:${rights}" th:if="${right.getValue().getRightColumn()==rightColumn}">
+                                                                <input type="checkbox" name="rightId" th:value="${right.getValue().id}" class="checkbox-child" th:checked="${adminRights.get(right.getValue().id)!=null}">
+                                                                <span th:text="${right.getValue().getDescription()}"></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
+                                                <tr style="background-color: white">
+                                                    <td>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="button" class="btn btn-primary" onclick="editRight()">确 定</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+</body>
+
+<script th:inline="javascript">
+    //提交
+    function editRight(){
+        $.ajax({
+            url : "/admin/editAdminRight",
+            type : "POST",
+            data: JSON.stringify(params()),
+            contentType: "application/json; charset=utf-8", //必须
+            success : function(data) {
+                if (data.code>0){
+                    location.href=location.href+"&success="+data.msg
+                } else {
+                    setTimeout(function() {
+                        lightyear.loading('hide');
+                        lightyear.notify(data.msg, 'danger');
+                    }, 1e3);
+                }
+            }
+        });
+    }
+
+    function params(){
+        var checked_rights = $("input[name='rightId']:checked");
+        var adminRight={};
+        var rightIds=[];
+        for (var i=0;i<checked_rights.length;i++) {
+            rightIds[i]=$(checked_rights[i]).val();
+        }
+
+        return {"adminId":[[${adminId}]],"rightIds":rightIds};
+    }
+
+
+</script>
+</html>

@@ -106,6 +106,7 @@
                                                         <a class="btn btn-xs btn-default" th:href="'javascript:updateLock('+${admin.id}+')'" th:title="${admin.lockStatus==true?'解锁':'锁定'}" data-toggle="tooltip">
                                                             <i th:class="${admin.lockStatus==true?'mdi mdi-lock-open':'mdi mdi-lock'}  "></i>
                                                         </a>
+                                                        <a class="btn btn-xs btn-default" th:href="@{/admin/right.html(adminId=${admin.id})}" title="权限设置" data-toggle="tooltip"><i class="mdi mdi-playlist-plus"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
