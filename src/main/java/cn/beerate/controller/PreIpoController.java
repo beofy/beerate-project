@@ -7,6 +7,7 @@ import cn.beerate.model.dto.MyPreIpo;
 import cn.beerate.model.entity.t_item_pre_ipo;
 import cn.beerate.service.PreIpoService;
 import cn.beerate.utils.PathUtil;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,7 @@ public class PreIpoController extends UserBaseController {
 
     @PostMapping("/add")
     public Message add(t_item_pre_ipo preIpo, MultipartFile businessProposal) {
-
-        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
+        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessProposal.getOriginalFilename()));
 
         Message<t_item_pre_ipo> message = preIpoService.addItemByUser(preIpo, getUserId());
         if (message.fail()) {
@@ -56,8 +56,8 @@ public class PreIpoController extends UserBaseController {
     }
 
     @PostMapping("/update")
-    public Message<String> update(t_item_pre_ipo preIpo,MultipartFile businessProposal, long itemId) {
-        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH+businessProposal.getOriginalFilename());
+    public Message<String> update(t_item_pre_ipo preIpo, MultipartFile businessProposal, long itemId) {
+        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessProposal.getOriginalFilename()));
 
         Message<t_item_pre_ipo> message = preIpoService.updateItemByUser(preIpo, itemId, getUserId());
         if (message.fail()) {
@@ -65,9 +65,9 @@ public class PreIpoController extends UserBaseController {
         }
 
         try {
-            businessProposal.transferTo(new File(PathUtil.getRoot()+preIpo.getBusinessProposalUri()));
-        }catch (IOException ioe){
-            logger.error(String.format("文件保存失败,原因：[%s]",ioe.getCause()),ioe);
+            businessProposal.transferTo(new File(PathUtil.getRoot() + preIpo.getBusinessProposalUri()));
+        } catch (IOException ioe) {
+            logger.error(String.format("文件保存失败,原因：[%s]", ioe.getCause()), ioe);
         }
 
         return Message.ok("修改成功");

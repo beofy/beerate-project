@@ -6,6 +6,7 @@ import cn.beerate.model.ItemType;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
 import cn.beerate.utils.PathUtil;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +44,7 @@ public class UserBusinessController extends UserBaseController {
         t_user_business userBusiness;
         try (InputStream inputStream = file.getInputStream()) {
             userBusiness = userBusinessService.parse(inputStream);
-            userBusiness.setBusinessCardUri(PropertiesHolder.ATTACHMENT_PATH + file.getOriginalFilename());
+            userBusiness.setBusinessCardUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(file.getOriginalFilename()));
             Message<t_user_business> message = userBusinessService.addUserBusiness(userBusiness, getUserId());
             if (message.fail()){
                 return Message.error(message.getMsg());

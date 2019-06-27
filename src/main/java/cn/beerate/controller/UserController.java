@@ -11,6 +11,7 @@ import cn.beerate.constant.SessionKey;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.service.UserService;
 import cn.beerate.utils.PathUtil;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -148,7 +149,7 @@ public class UserController extends UserBaseController{
      */
     @PostMapping("/updateUserPhoto")
     public Message<String> updateUserPhoto(MultipartFile file){
-        Message<t_user> message = userService.updateUserPhoto(PropertiesHolder.ATTACHMENT_PATH+file.getOriginalFilename(),getUserId());
+        Message<t_user> message = userService.updateUserPhoto(PropertiesHolder.ATTACHMENT_PATH+ StringUtil.generateFileName(file.getOriginalFilename()),getUserId());
         if (message.fail()){
             return Message.error(message.getMsg());
         }

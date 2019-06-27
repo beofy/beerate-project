@@ -9,6 +9,7 @@ import cn.beerate.model.dto.MyLoan;
 import cn.beerate.model.entity.t_item_loan;
 import cn.beerate.service.LoanService;
 import cn.beerate.utils.PathUtil;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.domain.Page;
@@ -32,13 +33,13 @@ public class LoanController extends UserBaseController {
 
     @PostMapping("/add")
     public Message add(t_item_loan loan, MultipartFile logo, MultipartFile businessProposal, MultipartFile businessLicense, MultipartFile financialReport, MultipartFile auditReport, MultipartFile indebtedness, MultipartFile capitalFlow) {
-        loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + logo.getOriginalFilename());
-        loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
-        loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + businessLicense.getOriginalFilename());
-        loan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH + financialReport.getOriginalFilename());
-        loan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + auditReport.getOriginalFilename());
-        loan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH + indebtedness.getOriginalFilename());
-        loan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + capitalFlow.getOriginalFilename());
+        loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(logo.getOriginalFilename()));
+        loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessProposal.getOriginalFilename()));
+        loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessLicense.getOriginalFilename()));
+        loan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(financialReport.getOriginalFilename()));
+        loan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(auditReport.getOriginalFilename()));
+        loan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(indebtedness.getOriginalFilename()));
+        loan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(capitalFlow.getOriginalFilename()));
 
         loan.setAmountUnit(AmountUnit.WY);//设置金额单位
         loan.setPeriodUnit(PeriodUnit.MONTH);//设置期限单位
@@ -77,14 +78,13 @@ public class LoanController extends UserBaseController {
     @PostMapping("/update")
     public Message<String> update(t_item_loan loan, MultipartFile logo, MultipartFile businessProposal, MultipartFile businessLicense, MultipartFile financialReport, MultipartFile auditReport, MultipartFile indebtedness, MultipartFile capitalFlow ,long loanId) {
 
-        // TODO: 2019/6/16 警告：相同的文件会覆盖掉之前 ,待未解决
-        loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + logo.getOriginalFilename());
-        loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + businessProposal.getOriginalFilename());
-        loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + businessLicense.getOriginalFilename());
-        loan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH + financialReport.getOriginalFilename());
-        loan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + auditReport.getOriginalFilename());
-        loan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH + indebtedness.getOriginalFilename());
-        loan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + capitalFlow.getOriginalFilename());
+        loan.setLogoUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(logo.getOriginalFilename()));
+        loan.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessProposal.getOriginalFilename()));
+        loan.setBusinessLicenseUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessLicense.getOriginalFilename()));
+        loan.setFinancialReportUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(financialReport.getOriginalFilename()));
+        loan.setAuditReportUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(auditReport.getOriginalFilename()));
+        loan.setIndebtednessUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(indebtedness.getOriginalFilename()));
+        loan.setCapitalFlowUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(capitalFlow.getOriginalFilename()));
 
         loan.setAmountUnit(AmountUnit.WY);//设置金额单位
         loan.setPeriodUnit(PeriodUnit.MONTH);//设置期限单位

@@ -7,6 +7,7 @@ import cn.beerate.model.IndustryRealm;
 import cn.beerate.model.entity.t_item_pre_ipo;
 import cn.beerate.service.PreIpoService;
 import cn.beerate.utils.PathUtil;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/admin/item/preipo")
-public class PreIpoMngController  extends AdminBaseController  {
+public class PreIpoMngController extends AdminBaseController {
 
     private final Log logger = LogFactory.getLog(this.getClass());
     private PreIpoService preIpoService;
@@ -43,9 +44,9 @@ public class PreIpoMngController  extends AdminBaseController  {
                            @RequestParam(required = false) String value,
                            @RequestParam(required = false) Date beginDate,
                            @RequestParam(required = false) Date endDate,
-                           Model model){
+                           Model model) {
 
-        model.addAttribute("page",preIpoService.page(page, size, column, order,field,value,beginDate,endDate));
+        model.addAttribute("page", preIpoService.page(page, size, column, order, field, value, beginDate, endDate));
 
         return "admin/item/preipo/list";
     }
@@ -54,7 +55,7 @@ public class PreIpoMngController  extends AdminBaseController  {
      * 添加页面
      */
     @GetMapping("/add.html")
-    public String addPage(Model model){
+    public String addPage(Model model) {
         model.addAttribute("industryRealms", IndustryRealm.values());
 
         return "admin/item/preipo/add";
@@ -65,19 +66,19 @@ public class PreIpoMngController  extends AdminBaseController  {
      */
     @PostMapping("/add")
     @ResponseBody
-    public Message<String> add(t_item_pre_ipo preIpo, MultipartFile businessProposal){
+    public Message<String> add(t_item_pre_ipo preIpo, MultipartFile businessProposal) {
 
-        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH+businessProposal.getOriginalFilename());
+        preIpo.setBusinessProposalUri(PropertiesHolder.ATTACHMENT_PATH + StringUtil.generateFileName(businessProposal.getOriginalFilename()));
 
-        Message<t_item_pre_ipo> message  = preIpoService.addItemByAdmin(preIpo,getAdminId());
-        if (message.fail()){
+        Message<t_item_pre_ipo> message = preIpoService.addItemByAdmin(preIpo, getAdminId());
+        if (message.fail()) {
             return Message.error(message.getMsg());
         }
 
         try {
-            businessProposal.transferTo(new File(PathUtil.getRoot()+preIpo.getBusinessProposalUri()));
-        }catch (IOException ioe){
-            logger.error(String.format("文件保存失败,原因：[%s]",ioe.getCause()),ioe);
+            businessProposal.transferTo(new File(PathUtil.getRoot() + preIpo.getBusinessProposalUri()));
+        } catch (IOException ioe) {
+            logger.error(String.format("文件保存失败,原因：[%s]", ioe.getCause()), ioe);
         }
 
         return Message.ok("添加成功");
@@ -87,8 +88,8 @@ public class PreIpoMngController  extends AdminBaseController  {
      * 项目详情
      */
     @GetMapping("/detail.html")
-    public String detail(long preIpoId,Model model){
-        model.addAttribute("preIpo",preIpoService.getOne(preIpoId));
+    public String detail(long preIpoId, Model model) {
+        model.addAttribute("preIpo", preIpoService.getOne(preIpoId));
         model.addAttribute("auditStatus", AuditStatus.values());
 
         return "admin/item/preipo/detail";
