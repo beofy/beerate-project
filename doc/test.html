@@ -24,7 +24,8 @@
     //全局设置
     $.ajaxSetup({
         headers: {
-            accept: "application/json; charset=utf-8"
+            accept: "application/json; charset=utf-8",
+            "X-Requested-With":"XMLHttpRequest"
         },
         xhrFields: {withCredentials: true},
         beforeSend: function(){
@@ -48,8 +49,8 @@
                 imageCaptchaCode: imageCaptchaCode
             },
             success : function(data) {
+                $("#result").text(JSON.stringify(data));
                 $("#token").text(data.data.access_token);
-                $("#result").text(JSON.stringify(data))
 
             }
         });
