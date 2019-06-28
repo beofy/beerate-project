@@ -74,7 +74,7 @@ public class UserController extends UserBaseController{
         }
 
         //执行登录
-        Message<t_user> message = userService.login(mobile,password,getIp(),getChannel().name());
+        Message<t_user> message = userService.login(mobile,password,getIp(),getChannel().name(),getSession().getId());
         if(message.fail()){
             //增加错误登录次数
             if(failCount==null){
@@ -124,7 +124,7 @@ public class UserController extends UserBaseController{
         smsCaptchaProcessor.remove(getSession(),Captcha.SMS, CaptchaScene.USER_REGIST);
 
         //注册
-        Message<t_user> message = userService.registe(mobile,password,getIp(),getChannel().name());
+        Message<t_user> message = userService.registe(mobile,password,getIp(),getChannel().name(),getSession().getId());
         if(message.fail()){
             return Message.error(message.getMsg());
         }

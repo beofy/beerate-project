@@ -1,10 +1,12 @@
 package cn.beerate.service.impl;
 
 import cn.beerate.common.Message;
+import cn.beerate.constant.SessionKey;
 import cn.beerate.dao.UserBusinessDao;
 import cn.beerate.model.AuditStatus;
 import cn.beerate.model.ItemType;
 import cn.beerate.model.bean.Business;
+import cn.beerate.model.bean.User;
 import cn.beerate.model.dto.Projector;
 import cn.beerate.model.dto.ProjectorDetail;
 import cn.beerate.model.dto.ProjectorIntro;
@@ -12,6 +14,7 @@ import cn.beerate.model.dto.UserBusiness;
 import cn.beerate.model.entity.t_user;
 import cn.beerate.model.entity.t_user_business;
 import cn.beerate.service.UserBusinessService;
+import cn.beerate.session.CacheSession;
 import cn.beerate.utils.BcrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -158,6 +161,20 @@ public class UserBusinessServiceImpl extends BaseServiceImpl<t_user_business> im
 
         if (userBusiness.getAuditStatus()==AuditStatus.PASS_AUDIT){
             userBusiness.setVerifyTime(new Date());
+        }
+
+        //更新在线用户的认证状态
+        String sessionId = userBusiness.getUser().getSessionId();
+        if (StringUtils.isNotBlank(sessionId)){
+            CacheSession cacheSession  = new CacheSession(null,"",sessionId);
+            //判断用户是否登录
+            User user =(User)cacheSession.getAttribute(SessionKey.USER_SESSION_KEY);
+            if (user!=null){
+                user.setApprove(false);
+                if (userBusiness.getAuditStatus()==AuditStatus.PASS_AUDIT) {
+                    user.setApprove(true);
+                }
+            }
         }
 
         if (userBusinessDao.save(userBusiness)==null){

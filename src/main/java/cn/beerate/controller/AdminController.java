@@ -192,7 +192,7 @@ public class AdminController extends AdminBaseController {
         }
 
         //检查账号密码
-        Message<t_admin> message = adminService.login(username, password, getRequest().getRemoteHost());
+        Message<t_admin> message = adminService.login(username, password, getRequest().getRemoteHost(),getSession().getId());
         if (message.fail()) {
             return Message.error(message.getMsg());
         }

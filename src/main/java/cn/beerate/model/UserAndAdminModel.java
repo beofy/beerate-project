@@ -25,4 +25,6 @@ public class UserAndAdminModel extends Model{
     @Column(columnDefinition = "varchar(128) not null default '' comment '密码'")
     private String password;
 
+    @Column(columnDefinition = "varchar(128) not null default '' comment '会话id'")
+    private String sessionId;
 }

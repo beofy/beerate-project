@@ -31,7 +31,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
      * @param regChannel 注册渠道
      */
     @Transactional
-    public Message<t_user> registe(String mobile ,String password,String regIp ,String regChannel){
+    public Message<t_user> registe(String mobile ,String password,String regIp ,String regChannel,String sessionId){
         //判断手机号是否存在
         if(userDao.findByMobile(mobile)!=null){
             return Message.error("手机号已经存在");
@@ -53,6 +53,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
         ChannelType channelType = EnumUtils.getEnumIgnoreCase(ChannelType.class,regChannel);
         user.setReg_channel(channelType!=null?channelType:ChannelType.UNKNOWN);
         user.setReg_ip(regIp);
+        user.setSessionId(sessionId);
 
         t_user user1 = userDao.save(user);
         if(user1==null){
@@ -70,7 +71,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
      * @param loginChannel 登录渠道
      */
     @Transactional
-    public Message<t_user> login(String mobile,String password,String loginIp,String loginChannel){
+    public Message<t_user> login(String mobile,String password,String loginIp,String loginChannel,String sessionId){
         t_user user = userDao.findByMobile(mobile);
         if(user==null){
             return Message.error("用户名或者密码错误");
@@ -104,6 +105,7 @@ public class UserServiceImpl extends BaseServiceImpl<t_user>  implements UserSer
         user.setLogin_count(user.getLogin_count()+1);//登录次数
         user.setLast_login_client(loginChannel);//登录渠道
         user.setLast_login_ip(loginIp);//登录ip
+        user.setSessionId(sessionId);
 
         if (userDao.save(user)==null){
             return Message.error("登录失败");
