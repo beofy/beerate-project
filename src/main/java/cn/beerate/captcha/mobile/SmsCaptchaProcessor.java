@@ -1,5 +1,7 @@
 package cn.beerate.captcha.mobile;
 
+import cn.beerate.Properties;
+import cn.beerate.PropertiesHolder;
 import cn.beerate.utils.StringUtil;
 import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
@@ -46,6 +48,11 @@ public class SmsCaptchaProcessor extends AbstractCaptchaProcessor implements Cap
         SmsCaptchaCode smsCaptchaCode = (SmsCaptchaCode)captchaGenerator;
         chuangLanSms.sendSMS(smsCaptchaCode.getMobile(),"验证码：["+captchaGenerator.getCaptchaCode()+"]");
         logger.info(String.format("手机号：%s,验证码：[%s]",smsCaptchaCode.getMobile(),captchaGenerator.getCaptchaCode()));
+
+        //测试返回
+        if (PropertiesHolder.properties.getSecurityProperties().isIs_send_test_sms()){
+            return Message.ok(String.format("发送成功,手机号：%s,验证码：[%s]",smsCaptchaCode.getMobile(),captchaGenerator.getCaptchaCode()));
+        }
 
         return Message.ok("发送成功");
     }

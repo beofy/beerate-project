@@ -24,6 +24,19 @@ public class SecurityProperties {
      */
     private String session_time_out;
 
+    /**
+     * 是否发送测试短信
+     */
+    private boolean is_send_test_sms;
+
+    public boolean isIs_send_test_sms() {
+        return is_send_test_sms;
+    }
+
+    public void setIs_send_test_sms(boolean is_send_test_sms) {
+        this.is_send_test_sms = is_send_test_sms;
+    }
+
     public String getDes_encrypt_key() {
         return des_encrypt_key;
     }
