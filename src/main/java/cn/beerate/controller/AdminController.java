@@ -6,6 +6,7 @@ import cn.beerate.captcha.CaptchaScene;
 import cn.beerate.common.Message;
 import cn.beerate.common.StatusCode;
 import cn.beerate.constant.SessionKey;
+import cn.beerate.dao.support.GenericRepository;
 import cn.beerate.model.RightColumn;
 import cn.beerate.model.dto.AdminRight;
 import cn.beerate.model.entity.t_admin;
@@ -13,11 +14,13 @@ import cn.beerate.model.entity.t_right;
 import cn.beerate.service.AdminRightService;
 import cn.beerate.service.AdminService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +34,9 @@ public class AdminController extends AdminBaseController {
     private AdminService adminService;
     private AdminRightService adminRightService;
     private CaptchaProcessor imageCaptchaProcessor;
+
+    @Autowired
+    private GenericRepository genericRepository;
 
     public AdminController(AdminService adminService, AdminRightService adminRightService, CaptchaProcessor imageCaptchaProcessor) {
         this.adminService = adminService;
@@ -50,7 +56,21 @@ public class AdminController extends AdminBaseController {
      * 主页
      */
     @GetMapping("/main.html")
-    public String main() {
+    public String main(Model model) {
+        //用户和项目数据
+        Map<String,Object> userAndItemData = genericRepository.getMap("SELECT ( SELECT count(1) FROM t_user WHERE YEARWEEK( date_format(createTime, '%Y-%m-%d') ) = YEARWEEK(now()) ) AS `registUserOfToday`, count(1) AS `userTotals`, ( SELECT COUNT(1) FROM t_user_item_delivery WHERE YEARWEEK( date_format(createTime, '%Y-%m-%d') ) = YEARWEEK(now()) ) AS `additemOfToday`, ( SELECT COUNT(1) FROM t_user_item_delivery ) AS `itemTotals` FROM t_user",null);
+        //用户注册数据
+        Map<String,Object> userRegisterData= genericRepository.getMap("SELECT COUNT(1) AS 'monday', (SELECT COUNT(1) FROM t_user u2 WHERE DATE_FORMAT(u2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-2)) AS 'tuesday', (SELECT COUNT(1) FROM t_user u3 WHERE DATE_FORMAT(u3.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-3)) AS 'wednesday', (SELECT COUNT(1) FROM t_user u4 WHERE DATE_FORMAT(u4.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-4)) AS 'thursday', (SELECT COUNT(1) FROM t_user u5 WHERE DATE_FORMAT(u5.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-5)) AS 'friday', (SELECT COUNT(1) FROM t_user u6 WHERE DATE_FORMAT(u6.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-6)) AS 'saturday', (SELECT COUNT(1) FROM t_user u7 WHERE DATE_FORMAT(u7.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-7)) as 'sunday' FROM t_user u WHERE DATE_FORMAT(u.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-1)",null);
+        //新增项目数据
+        Map<String,Object> newItemData= genericRepository.getMap("SELECT COUNT(1) AS 'monday' , (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-2)) AS 'tuesday', (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-3)) AS 'wednesday', (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-4)) AS 'thursday', (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-5)) AS 'friday', (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-6)) AS 'saturday', (SELECT COUNT(1) FROM t_user_item_delivery uid2 WHERE DATE_FORMAT(uid2.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-7)) as 'sunday' FROM t_user_item_delivery uid WHERE DATE_FORMAT(uid.createTime,'%Y-%m-%d') = subdate(CURDATE(),date_format(curdate(),'%w')-1)",null);
+        //最新的项目列表
+        List<Map<String,Object>> newItemList= genericRepository.getListMap("SELECT uid.createTime AS `createTime`,uid.itemId AS `itemId`,uid.itemType AS `itemType`,uid.`name` AS `name` FROM t_user_item_delivery uid ORDER BY createTime DESC LIMIT 10",null);
+
+        model.addAttribute("userAndItemData",userAndItemData);
+        model.addAttribute("userRegisterData",userRegisterData);
+        model.addAttribute("newItemData",newItemData);
+        model.addAttribute("newItemList",newItemList);
+
         return "admin/main";
     }
 
@@ -251,7 +271,6 @@ public class AdminController extends AdminBaseController {
 
     @GetMapping("/right.html")
     public String right(long adminId, Model model) {
-        @SuppressWarnings("unchecked")
         Map<Long, t_right> adminRights = adminRightService.getAdminRights(adminId);
         Map<Long, t_right> rights = adminRightService.getRights();
 

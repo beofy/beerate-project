@@ -73,7 +73,7 @@
                         <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-5">
-                        <img th:src="@{/captcha/image/admin_login}" class="pull-right" id="captcha" style="cursor: pointer;height: 40px" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" alt="captcha">
+                        <img th:src="@{/captcha/image/admin_login}" class="pull-right" id="captcha" style="cursor: pointer;height: 40px" onclick="this.src='/captcha/image/admin_login?d='+Math.random();" title="点击刷新" alt="captcha">
                     </div>
                 </div>
                 <div class="form-group">

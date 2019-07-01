@@ -31,4 +31,13 @@ public interface GenericRepository {
      */
     <B> Page<B> getPage(String querySql, String countSql, Map<String, Object> args, Pageable pageable, Class<B> bClass);
 
+    /**
+     * 获取map结果集
+     */
+    Map<String, Object> getMap(String sql,Map<String, Object> args);
+
+    /**
+     * 获取map结果集
+     */
+    List<Map<String, Object>> getListMap(String sql,Map<String, Object> args);
 }
