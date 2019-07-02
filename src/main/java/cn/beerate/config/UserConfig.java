@@ -68,6 +68,7 @@ public class UserConfig implements WebMvcConfigurer {
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
         source.registerCorsConfiguration("/user/**", corsConfiguration);
+        source.registerCorsConfiguration("/captcha/**", corsConfiguration);
         return new CorsFilter(source);
     }
 }
