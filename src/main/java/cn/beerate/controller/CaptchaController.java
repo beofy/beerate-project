@@ -45,22 +45,22 @@ public class CaptchaController extends BaseController{
         return captchaProcessor.create(super.getRequest(), response,sceneEum ,captchaEum);
     }
 
-    @PostMapping("/{captcha}/{scene}")
-    public Message check(@PathVariable String captcha, @PathVariable String scene, @Param("captchaCode") String captchaCode){
-
-        Captcha captchaEum = EnumUtils.getEnumIgnoreCase(Captcha.class,captcha);
-        Assert.notNull(captchaEum, "验证码类型错误");
-
-        CaptchaScene captchaScene = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
-        Assert.notNull(captchaScene, "验证码场景类型错误");
-
-        Assert.notNull(captchaCode, "验证码错误");
-
-        //获取验证码处理
-        CaptchaProcessor captchaProcessor = captchaProcessorHolder.getCaptchaProcessor(captchaEum);
-        Assert.notNull(captchaProcessor, "验证码处理器未找到！");
-
-        return captchaProcessor.check(super.getRequest(),captchaEum,captchaScene,captchaCode);
-    }
+//    @PostMapping("/{captcha}/{scene}")
+//    public Message check(@PathVariable String captcha, @PathVariable String scene, @Param("captchaCode") String captchaCode){
+//
+//        Captcha captchaEum = EnumUtils.getEnumIgnoreCase(Captcha.class,captcha);
+//        Assert.notNull(captchaEum, "验证码类型错误");
+//
+//        CaptchaScene captchaScene = EnumUtils.getEnumIgnoreCase(CaptchaScene.class,scene);
+//        Assert.notNull(captchaScene, "验证码场景类型错误");
+//
+//        Assert.notNull(captchaCode, "验证码错误");
+//
+//        //获取验证码处理
+//        CaptchaProcessor captchaProcessor = captchaProcessorHolder.getCaptchaProcessor(captchaEum);
+//        Assert.notNull(captchaProcessor, "验证码处理器未找到！");
+//
+//        return captchaProcessor.check(super.getRequest(),captchaEum,captchaScene,captchaCode);
+//    }
 
 }

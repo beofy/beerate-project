@@ -10,16 +10,11 @@
 
 	<groupId>cn.beerate</groupId>
 	<artifactId>beerate-project</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
     <modelVersion>4.0.0</modelVersion>
 
     <name>beerate-project</name>
 	<description>beerate-project</description>
-
-	<properties>
-        <beerate.varsion>1.0.0</beerate.varsion>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<dependencies>
 
@@ -214,6 +209,15 @@
             <!--</plugin>-->
         </plugins>
     </build>
+
+    <!-- 仓库配置 -->
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>alibaba</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
 
 </project>

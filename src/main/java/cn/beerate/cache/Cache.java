@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class Cache{
 
 
-    private static final Log logger = LogFactory.getLog(EhCacheImpl.class);
+    private static final Log logger = LogFactory.getLog(Cache.class);
 
     /**
      * The underlying cache implementation
