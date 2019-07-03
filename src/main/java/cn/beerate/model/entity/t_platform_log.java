@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Table(appliesTo = "t_platform_log",comment="平台操作日志")
 public class t_platform_log extends Model {
 
-    @Column(columnDefinition = "text not null default '' comment '操作者'")
+    @Column(columnDefinition = "text not null  comment '操作者'")
     private String operator;
 
     @Column(columnDefinition = "varchar(5000) not null default '' comment '请求地址'")
@@ -24,7 +24,7 @@ public class t_platform_log extends Model {
     @Column(columnDefinition = "varchar(5000) not null default '' comment '请求参数'")
     private String params;
 
-    @Column(columnDefinition = "text not null default '' comment '处理结果'")
+    @Column(columnDefinition = "text not null  comment '处理结果'")
     private String result;
 
     @Column(columnDefinition = "varchar(20) not null default '' comment '执行时间'")
