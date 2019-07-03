@@ -35,7 +35,7 @@ public class PlatformSettingServiceImpl extends BaseServiceImpl<t_platform_setti
             t_platform_setting defaultSetting = new t_platform_setting();
             defaultSetting.setSetKey(key);
             defaultSetting.setSetValue(value);
-
+            defaultSetting.setDescription("");
             return platformSettingDao.save(defaultSetting);
         }
 
