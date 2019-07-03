@@ -1,6 +1,15 @@
-FROM java:8
+FROM openjdk:8u92-jdk-alpine
 
 MAINTAINER  minxiang  <294315568@qq.com>
+
+#拷贝字体文件
+COPY fonts/* /usr/share/fonts/
+
+#设置字符集
+ENV LANG en_US.UTF-8
+
+#安装字体软件，完成字体配置
+RUN apk add --update ttf-dejavu fontconfig && rm -rf /var/cache/apk/*
 
 # 项目名
 ARG Name=beerate-project
