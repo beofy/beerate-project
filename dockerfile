@@ -1,4 +1,4 @@
-FROM openjdk:8u92-jdk-alpine
+FROM java:8
 
 MAINTAINER  minxiang  <294315568@qq.com>
 
