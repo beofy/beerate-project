@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource: #数据源配置
-    url: jdbc:mysql://localhost:3306/beerate_web?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
+    url: jdbc:mysql://db.beerate.cn:3306/beerate_web?useUnicode=true&characterEncoding=utf8&serverTimezone=CTT
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
