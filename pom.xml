@@ -10,7 +10,7 @@
 
 	<groupId>cn.beerate</groupId>
 	<artifactId>beerate-project</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
     <modelVersion>4.0.0</modelVersion>
 
     <name>beerate-project</name>
