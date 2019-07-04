@@ -1,7 +1,6 @@
 package cn.beerate.dao;
 
 import cn.beerate.dao.impl.ItemCollectRepository;
-import cn.beerate.model.ItemType;
 import cn.beerate.model.entity.t_item_collect;
 import org.springframework.stereotype.Repository;
 

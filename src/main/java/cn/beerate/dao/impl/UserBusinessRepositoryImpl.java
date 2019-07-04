@@ -2,7 +2,10 @@ package cn.beerate.dao.impl;
 
 
 import cn.beerate.dao.support.GenericRepository;
-import cn.beerate.model.dto.*;
+import cn.beerate.model.dto.Projector;
+import cn.beerate.model.dto.ProjectorDetail;
+import cn.beerate.model.dto.ProjectorIntro;
+import cn.beerate.model.dto.UserBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

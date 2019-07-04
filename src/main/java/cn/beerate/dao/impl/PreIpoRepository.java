@@ -1,6 +1,8 @@
 package cn.beerate.dao.impl;
 
-import cn.beerate.model.dto.*;
+import cn.beerate.model.dto.MyPreIpo;
+import cn.beerate.model.dto.PreIpo;
+import cn.beerate.model.dto.PreIpoDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,9 +1,9 @@
 package cn.beerate.service;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.*;
-import cn.beerate.model.entity.t_item_block_trade;
-import cn.beerate.model.entity.t_item_loan;
+import cn.beerate.model.dto.MyPreIpo;
+import cn.beerate.model.dto.PreIpo;
+import cn.beerate.model.dto.PreIpoDetail;
 import cn.beerate.model.entity.t_item_pre_ipo;
 import org.springframework.data.domain.Page;
 

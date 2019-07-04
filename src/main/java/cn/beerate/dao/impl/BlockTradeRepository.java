@@ -2,7 +2,6 @@ package cn.beerate.dao.impl;
 
 import cn.beerate.model.dto.BlockTrade;
 import cn.beerate.model.dto.BlockTradeDetail;
-import cn.beerate.model.dto.Loan;
 import cn.beerate.model.dto.MyBlockTrade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

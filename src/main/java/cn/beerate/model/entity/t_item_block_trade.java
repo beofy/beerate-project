@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor

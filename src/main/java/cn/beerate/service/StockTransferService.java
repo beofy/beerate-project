@@ -1,8 +1,9 @@
 package cn.beerate.service;
 
 import cn.beerate.common.Message;
-import cn.beerate.model.dto.*;
-import cn.beerate.model.entity.t_item_stock_pledge;
+import cn.beerate.model.dto.MyStockTransfer;
+import cn.beerate.model.dto.StockTransfer;
+import cn.beerate.model.dto.StockTransferDetail;
 import cn.beerate.model.entity.t_item_stock_transfer;
 import org.springframework.data.domain.Page;
 

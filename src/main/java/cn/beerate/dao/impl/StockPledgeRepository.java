@@ -1,6 +1,8 @@
 package cn.beerate.dao.impl;
 
-import cn.beerate.model.dto.*;
+import cn.beerate.model.dto.MyStockPledge;
+import cn.beerate.model.dto.StockPledge;
+import cn.beerate.model.dto.StockPledgeDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

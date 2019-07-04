@@ -4,10 +4,8 @@ import cn.beerate.common.Message;
 import cn.beerate.model.dto.Loan;
 import cn.beerate.model.dto.LoanDetail;
 import cn.beerate.model.dto.MyLoan;
-import cn.beerate.model.dto.StockTransfer;
 import cn.beerate.model.entity.t_item_loan;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface LoanService extends ItemCommonService<t_item_loan>{
 

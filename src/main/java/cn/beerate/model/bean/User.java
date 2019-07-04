@@ -1,7 +1,6 @@
 package cn.beerate.model.bean;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

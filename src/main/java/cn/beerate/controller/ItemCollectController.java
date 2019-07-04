@@ -7,7 +7,10 @@ import cn.beerate.model.entity.t_item_collect;
 import cn.beerate.service.ItemCollectService;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user/item/collect")

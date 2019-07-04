@@ -1,15 +1,14 @@
 package cn.beerate.model.entity;
 
 import cn.beerate.model.*;
-import cn.beerate.model.IndustryRealm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.Date;
-import java.util.List;
 
 
 @Entity

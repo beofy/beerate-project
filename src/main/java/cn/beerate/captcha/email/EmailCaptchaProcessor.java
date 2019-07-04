@@ -1,9 +1,9 @@
 package cn.beerate.captcha.email;
 
-import cn.beerate.utils.StringUtil;
 import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
 import cn.beerate.exception.ExceptionHandle;
+import cn.beerate.utils.StringUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -9,8 +9,6 @@ import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 @NoArgsConstructor

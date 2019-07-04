@@ -5,7 +5,10 @@ import cn.beerate.model.dto.*;
 import cn.beerate.model.entity.t_user_attention;
 import cn.beerate.service.*;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 项目集
