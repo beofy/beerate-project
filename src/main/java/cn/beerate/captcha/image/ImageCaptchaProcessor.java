@@ -3,6 +3,7 @@ package cn.beerate.captcha.image;
 
 import cn.beerate.captcha.*;
 import cn.beerate.common.Message;
+import cn.beerate.common.StatusCode;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -60,7 +61,7 @@ public class ImageCaptchaProcessor extends AbstractCaptchaProcessor implements C
 
         CaptchaGenerator captchaGenerator = (CaptchaGenerator)request.getSession().getAttribute(getSessionKey(captcha,captchaScene));
         if(captchaGenerator==null||!captchaGenerator.getCaptchaCode().equalsIgnoreCase(captchaCode)){
-            return Message.error("验证码错误或已超时");
+            return new Message<>(StatusCode.LOGIN_CAPTCHA_ERROR,"验证码错误或已超时");
         }
 
         return Message.ok("验证码校验成功");

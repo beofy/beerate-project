@@ -22,6 +22,12 @@ public class StatusCode {
     /** token校验异常 */
     public static final int  TOKEN_EXCEPTION = -103;
 
+    /** 错误：请输入登录验证码 */
+    public static final int  NEED_LOGIN_CAPTCHA = -104;
+
+    /** 错误：登录验证码错误 */
+    public static final int  LOGIN_CAPTCHA_ERROR = -105;
+
     /** 用户未认证 */
     public static final int NOT_APPROVE=-201;
 }

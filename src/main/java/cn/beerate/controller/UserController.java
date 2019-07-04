@@ -63,7 +63,7 @@ public class UserController extends UserBaseController{
         Map<String,Integer> failCount = (Map<String,Integer>)getSession().getAttribute(SessionKey.USER_LOGIN_FAIL_COUNT);
         if(failCount!=null&&failCount.get(mobile)!=null&&failCount.get(mobile)>3){
             if(StringUtils.isBlank(imageCaptchaCode)){
-                return Message.error("请输入验证码");
+                return  new Message<>(StatusCode.NEED_LOGIN_CAPTCHA,"请输入验证码");
             }
 
             Message<String> messageCaptcha = imageCaptchaProcessor.check(getRequest(),Captcha.IMAGE,CaptchaScene.USER_LOGIN,imageCaptchaCode);
