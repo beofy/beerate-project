@@ -154,6 +154,9 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
+        //更新用户头像
+        getUser().setPhoto(message.getData().getPhoto());
+
         try {
             file.transferTo(new File(PathUtil.getRoot()+message.getData().getPhoto()));
         } catch (IOException e) {
@@ -195,6 +198,9 @@ public class UserController extends UserBaseController{
             return Message.error(message.getMsg());
         }
 
+        //更新用户手机
+        getUser().setMobile(message.getData().getMobile());
+
         return Message.ok("手机更新成功");
     }
 
@@ -215,6 +221,9 @@ public class UserController extends UserBaseController{
         if (message.fail()){
             return Message.error(message.getMsg());
         }
+
+        //更新用户邮箱
+        getUser().setEmail(message.getData().getEmail());
 
         return Message.ok("邮箱更新成功");
     }
