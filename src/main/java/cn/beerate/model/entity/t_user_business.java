@@ -42,7 +42,7 @@ public class t_user_business extends Model {
     @Column(columnDefinition = "varchar(50) default '' comment '联系邮箱'")
     private String email;
 
-    @Column(columnDefinition = "varchar(50) default '' comment '名片保存地址'")
+    @Column(columnDefinition = "varchar(255) default '' comment '名片保存地址'")
     private String businessCardUri;
 
     @Column(columnDefinition = "varchar(30) default 0 comment '投资偏好'")
