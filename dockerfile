@@ -12,13 +12,13 @@ ENV LANG en_US.UTF-8
 RUN apk add --update ttf-dejavu fontconfig && rm -rf /var/cache/apk/*
 
 # 项目名
-ARG Name=beerate-crm
+ARG Name=beerate-project
 
 # 版本号
 ARG Version=1.0.0
 
 # 工作目录
-ENV WORKDIR /usr/local/beerate-crm
+ENV WORKDIR /usr/local/beerate-project
 
 # 定义工作目录
 WORKDIR ${WORKDIR}
